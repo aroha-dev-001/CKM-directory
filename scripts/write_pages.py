@@ -55,7 +55,11 @@ TEMPLATE = """<!DOCTYPE html>
         </nav>
         <div class="header-tools">
           <button class="lang-toggle" type="button" data-lang-toggle>ಕನ್ನಡ</button>
-          <a class="header-trip" href="plan.html">Trip <span data-trip-count>0</span></a>
+          <a class="header-trip" href="plan.html">Trip
+            <span class="t-badge" data-open="true">
+              <span class="t-badge-dot t-digit-group" data-trip-count>0</span>
+            </span>
+          </a>
         </div>
       </div>
     </header>
@@ -64,7 +68,7 @@ TEMPLATE = """<!DOCTYPE html>
 
     <div class="modal" id="place-modal" hidden>
       <div class="modal-backdrop" data-close-modal></div>
-      <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+      <div class="modal-panel t-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
         <button class="icon-close" type="button" data-close-modal aria-label="Close">×</button>
         <div class="modal-media">
           <img id="modal-image" alt="" width="1800" height="1200" />
@@ -72,7 +76,7 @@ TEMPLATE = """<!DOCTYPE html>
         <div class="modal-body" id="modal-body"></div>
       </div>
     </div>
-    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+    <div class="toast t-toast" id="toast" role="status" aria-live="polite"></div>
     <noscript>
       <p class="wrap noscript">This companion needs JavaScript for the map, itinerary and search.</p>
     </noscript>

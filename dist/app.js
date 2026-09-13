@@ -53,12 +53,14 @@
   function toast(message) {
     const el = document.getElementById("toast");
     if (!el) return;
-    el.hidden = false;
     el.textContent = message;
+    el.classList.remove("is-open");
+    void el.offsetWidth;
+    el.classList.add("is-open");
     clearTimeout(toast.timer);
     toast.timer = setTimeout(() => {
-      el.hidden = true;
-    }, 2200);
+      el.classList.remove("is-open");
+    }, 2400);
   }
 
   function t(key) {
@@ -150,11 +152,31 @@
     if (mapLink) mapLink.setAttribute("href", `map.html?taluk=${encodeURIComponent(taluk.id)}`);
   }
 
+  function setDigits(group, str) {
+    if (!group.classList.contains("t-digit-group")) {
+      group.textContent = str;
+      return;
+    }
+    group.classList.remove("is-animating");
+    group.replaceChildren();
+    const chars = String(str).split("");
+    chars.forEach((ch, i) => {
+      const span = document.createElement("span");
+      span.className = "t-digit";
+      span.textContent = ch;
+      if (i === chars.length - 2) span.dataset.stagger = "1";
+      else if (i === chars.length - 1) span.dataset.stagger = "2";
+      group.appendChild(span);
+    });
+    void group.offsetHeight;
+    if (!prefersReduced()) group.classList.add("is-animating");
+  }
+
   function syncTripCount() {
     const n = state.trip.days.reduce((sum, day) => sum + day.length, 0);
-    document.querySelectorAll("[data-trip-count]").forEach((el) => {
-      el.textContent = String(n);
-    });
+    const badge = document.querySelector(".header-trip .t-badge");
+    if (badge) badge.setAttribute("data-open", "true");
+    document.querySelectorAll("[data-trip-count]").forEach((el) => setDigits(el, String(n)));
   }
 
   function renderDays() {
@@ -281,16 +303,28 @@
       <div class="source-list">${sources}</div>
     `;
     modal.hidden = false;
+    modal.classList.add("is-open");
+    const panel = modal.querySelector(".modal-panel");
+    panel?.classList.remove("is-closing");
+    requestAnimationFrame(() => panel?.classList.add("is-open"));
     document.body.style.overflow = "hidden";
-    modal.querySelector(".modal-panel").focus();
+    panel?.focus();
   }
 
   function closeModal() {
     const modal = document.getElementById("place-modal");
-    if (!modal) return;
-    modal.hidden = true;
-    document.body.style.overflow = "";
-    if (state.lastFocus && typeof state.lastFocus.focus === "function") state.lastFocus.focus();
+    if (!modal || modal.hidden) return;
+    const panel = modal.querySelector(".modal-panel");
+    panel?.classList.remove("is-open");
+    panel?.classList.add("is-closing");
+    modal.classList.remove("is-open");
+    const closeMs = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--modal-close-dur")) || 150;
+    window.setTimeout(() => {
+      panel?.classList.remove("is-closing");
+      modal.hidden = true;
+      document.body.style.overflow = "";
+      if (state.lastFocus && typeof state.lastFocus.focus === "function") state.lastFocus.focus();
+    }, prefersReduced() ? 0 : closeMs);
   }
 
   function talukLabel(taluk) {
@@ -387,9 +421,77 @@
     return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }
 
+  function movePill(bar, tab, animate) {
+    const pill = bar?.querySelector(".t-tabs-pill");
+    if (!pill || !tab) return;
+    const apply = () => {
+      pill.style.transform = `translateX(${tab.offsetLeft}px)`;
+      pill.style.width = `${tab.offsetWidth}px`;
+    };
+    if (!animate || prefersReduced()) {
+      const prev = pill.style.transition;
+      pill.style.transition = "none";
+      apply();
+      void pill.offsetWidth;
+      pill.style.transition = prev;
+    } else {
+      apply();
+    }
+  }
+
+  function selectTab(tab) {
+    const bar = tab?.closest("[data-tabs]");
+    if (!bar || !tab) return;
+    bar.querySelectorAll(".t-tab").forEach((item) => {
+      item.setAttribute("aria-selected", item === tab ? "true" : "false");
+    });
+    movePill(bar, tab, true);
+  }
+
+  function initTabs() {
+    document.querySelectorAll("[data-tabs]").forEach((bar) => {
+      const tabs = [...bar.querySelectorAll(".t-tab")];
+      const active = tabs.find((tab) => tab.getAttribute("aria-selected") === "true") || tabs[0];
+      requestAnimationFrame(() => movePill(bar, active, false));
+    });
+    if (!initTabs.bound) {
+      initTabs.bound = true;
+      window.addEventListener("resize", () => initTabs());
+    }
+  }
+
+  function initMagnetic() {
+    if (prefersReduced() || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    document.querySelectorAll("[data-magnetic]").forEach((btn) => {
+      btn.addEventListener("pointermove", (event) => {
+        const box = btn.getBoundingClientRect();
+        const x = event.clientX - box.left - box.width / 2;
+        const y = event.clientY - box.top - box.height / 2;
+        btn.style.transform = `translate(${x * 0.22}px, ${y * 0.22}px)`;
+      });
+      btn.addEventListener("pointerleave", () => {
+        btn.style.transform = "";
+      });
+    });
+  }
+
+  function initSpotlight() {
+    if (prefersReduced() || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    document.querySelectorAll("[data-spotlight]").forEach((card) => {
+      card.addEventListener("pointermove", (event) => {
+        const box = card.getBoundingClientRect();
+        card.style.setProperty("--spot-x", `${((event.clientX - box.left) / box.width) * 100}%`);
+        card.style.setProperty("--spot-y", `${((event.clientY - box.top) / box.height) * 100}%`);
+      });
+    });
+  }
+
   function initMotion() {
     const reduce = prefersReduced();
     initInterestRail();
+    initTabs();
+    initMagnetic();
+    initSpotlight();
     document.querySelectorAll(".reveal-on-scroll").forEach((el) => {
       if (reduce) {
         el.classList.add("is-in");
@@ -480,14 +582,26 @@
         .join("");
     }
 
+    function shown() {
+      const n = Number.parseFloat(getComputedStyle(track).getPropertyValue("--interest-shown"));
+      return Number.isFinite(n) && n > 0 ? n : 3;
+    }
+
+    function step() {
+      const gap = Number.parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 0;
+      return cards[0].getBoundingClientRect().width + gap;
+    }
+
     function mark() {
       cards.forEach((card, i) => {
-        card.classList.toggle("is-active", i === index);
+        const on = i === index;
+        card.classList.toggle("is-active", on);
+        card.setAttribute("aria-current", on ? "true" : "false");
         const bar = card.querySelector(".interest-progress");
         if (bar) {
           bar.classList.remove("is-running");
           void bar.offsetWidth;
-          if (i === index && !paused && !reduce) bar.classList.add("is-running");
+          if (on && !paused && !reduce) bar.classList.add("is-running");
         }
       });
       dotsRoot?.querySelectorAll("[data-interest-dot]").forEach((dot, i) => {
@@ -498,12 +612,13 @@
     }
 
     function go(n, instant) {
-      index = (n + cards.length) % cards.length;
-      const card = cards[index];
-      const railBox = rail.getBoundingClientRect();
-      const cardBox = card.getBoundingClientRect();
-      const left = Math.max(0, rail.scrollLeft + (cardBox.left - railBox.left) - 4);
-      rail.scrollTo({ left, behavior: reduce || instant ? "auto" : "smooth" });
+      const max = Math.max(0, cards.length - shown());
+      if (n > max) index = 0;
+      else if (n < 0) index = max;
+      else index = n;
+      const x = index * step();
+      track.style.transition = instant || reduce ? "none" : "";
+      track.style.transform = `translate3d(-${x}px, 0, 0)`;
       mark();
     }
 
@@ -585,6 +700,8 @@
 
     go(0, true);
     play();
+    const onResize = () => go(index, true);
+    window.addEventListener("resize", onResize);
 
     interestCleanup = () => {
       stop();
@@ -596,6 +713,7 @@
       rail.removeEventListener("mouseleave", resume);
       rail.removeEventListener("focusin", pause);
       document.removeEventListener("visibilitychange", onVis);
+      window.removeEventListener("resize", onResize);
     };
   }
 
@@ -607,23 +725,33 @@
     main.addEventListener("click", (event) => {
       const popToggle = event.target.closest("[data-pop-toggle]");
       if (popToggle) {
-        const id = popToggle.getAttribute("data-pop-toggle");
-        const card = popToggle.closest(".pop-card");
-        const panel = card && card.querySelector(".pop-panel");
-        const willOpen = card && !card.classList.contains("is-open");
-        document.querySelectorAll(".pop-card.is-open").forEach((openCard) => {
+        const card = popToggle.closest(".t-acc, .pop-card");
+        const willOpen = card && card.getAttribute("data-open") !== "true";
+        document.querySelectorAll(".pop-card.t-acc").forEach((openCard) => {
+          if (openCard === card) return;
+          openCard.setAttribute("data-open", "false");
           openCard.classList.remove("is-open");
           openCard.querySelector("[data-pop-toggle]")?.setAttribute("aria-expanded", "false");
-          const p = openCard.querySelector(".pop-panel");
-          if (p) p.hidden = true;
         });
-        if (willOpen && card && panel) {
-          card.classList.add("is-open");
-          popToggle.setAttribute("aria-expanded", "true");
-          panel.hidden = false;
+        if (card) {
+          card.setAttribute("data-open", willOpen ? "true" : "false");
+          card.classList.toggle("is-open", Boolean(willOpen));
+          popToggle.setAttribute("aria-expanded", willOpen ? "true" : "false");
         }
         return;
       }
+      const accHead = event.target.closest(".t-acc-head");
+      if (accHead) {
+        const acc = accHead.closest(".t-acc");
+        if (acc) {
+          const willOpen = acc.getAttribute("data-open") !== "true";
+          acc.setAttribute("data-open", String(willOpen));
+          accHead.setAttribute("aria-expanded", String(willOpen));
+        }
+        return;
+      }
+      const tab = event.target.closest(".t-tab");
+      if (tab && tab.closest("[data-tabs]")) selectTab(tab);
       const open = event.target.closest("[data-open-place]");
       if (open) {
         openModal(open.getAttribute("data-open-place"));
@@ -659,6 +787,7 @@
       const seasonBtn = event.target.closest("[data-season-index]");
       if (seasonBtn) {
         CKMSections.renderSeason(Number(seasonBtn.getAttribute("data-season-index")), state.lang);
+        initTabs();
         return;
       }
       const removeChip = event.target.closest("[data-remove-chip]");
@@ -712,6 +841,7 @@
       }
       if (event.target.id === "season-slider") {
         CKMSections.renderSeason(Number(event.target.value), state.lang);
+        initTabs();
       }
     });
 
@@ -846,7 +976,9 @@
     const search = document.getElementById("place-search");
     if (search) search.value = state.query;
     document.querySelectorAll("[data-taluk]").forEach((btn) => {
-      btn.setAttribute("aria-pressed", btn.getAttribute("data-taluk") === state.taluk ? "true" : "false");
+      const on = btn.getAttribute("data-taluk") === state.taluk;
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+      btn.setAttribute("aria-selected", on ? "true" : "false");
     });
     renderPlaces();
     renderDays();

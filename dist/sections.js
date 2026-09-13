@@ -23,6 +23,18 @@
       .replace(/"/g, "&quot;");
   }
 
+  function learnChevron() {
+    return `<span class="t-learn-chevron" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6"><path class="t-learn-arm t-learn-arm-top" d="M6 4L10 8"/><path class="t-learn-arm t-learn-arm-bot" d="M10 8L6 12"/></svg></span>`;
+  }
+
+  function learn(label) {
+    return `${esc(label)}${learnChevron()}`;
+  }
+
+  function accChevron() {
+    return `<span class="t-acc-chevron" aria-hidden="true"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6.5L8 10.5L12 6.5" vector-effect="non-scaling-stroke"/></svg></span>`;
+  }
+
   function catLabel(id, lang) {
     const found = global.CKM.categories.find((c) => c.id === id);
     if (!found) return id;
@@ -31,12 +43,12 @@
 
   function seasonImage(id) {
     const map = {
-      winter: "assets/mullayanagiri.jpg",
-      summer: "assets/kemmanagundi.jpg",
-      monsoon: "assets/hebbe-falls.jpg",
-      "post-monsoon": "assets/coffee-hills.jpg",
+      winter: "assets/hero.jpg",
+      summer: "assets/mullayanagiri.jpg",
+      monsoon: "assets/jhari-falls.jpg",
+      "post-monsoon": "assets/kudremukh.jpg",
     };
-    return map[id] || "assets/mullayanagiri.jpg";
+    return map[id] || "assets/hero.jpg";
   }
 
   function placeCard(place, lang) {
@@ -74,7 +86,7 @@
             <span class="interest-lead">${esc(lang === "kn" ? c.leadKn || c.lead : c.lead)}</span>
             <span class="interest-meta">
               <span>${c.count || 0} places</span>
-              <span class="text-link">Open</span>
+              <span class="text-link t-learn">${learn("Open")}</span>
             </span>
           </span>
           <span class="interest-progress" aria-hidden="true"></span>
@@ -101,7 +113,7 @@
     const talukBtns = (d.taluks || [])
       .map(
         (t) =>
-          `<button class="filter-btn" type="button" data-taluk="${esc(t.id)}" aria-pressed="false">${esc(t.name)} · ${t.count}</button>`
+          `<button class="t-tab" type="button" role="tab" data-taluk="${esc(t.id)}" aria-selected="false">${esc(t.name)} · ${t.count}</button>`
       )
       .join("");
     const circuits = (d.circuits || [])
@@ -121,12 +133,20 @@
               <h3>${esc(c.title)}</h3>
               <p>${esc(c.text)}</p>
               <p class="section-lead">${esc(names)}</p>
-              <a class="btn btn-dark" href="plan.html?circuit=${esc(c.id)}">Use this sketch</a>
+              <a class="btn btn-dark shine t-learn" href="plan.html?circuit=${esc(c.id)}" data-magnetic>${learn("Use this sketch")}</a>
             </div>
           </article>`;
       })
       .join("");
-    const faqs = (d.faqs || []).map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("");
+    const faqs = (d.faqs || [])
+      .map(
+        (f) => `
+        <div class="t-acc faq-item" data-open="false">
+          <button class="t-acc-head" type="button" aria-expanded="false">${esc(f.q)}${accChevron()}</button>
+          <div class="t-acc-panel"><div class="t-acc-panel-inner"><p>${esc(f.a)}</p></div></div>
+        </div>`
+      )
+      .join("");
     const packing = (d.packing || []).map((item) => `<li>${esc(item)}</li>`).join("");
     const dos = (d.conduct?.do || []).map((item) => `<li>${esc(item)}</li>`).join("");
     const donts = (d.conduct?.dont || []).map((item) => `<li>${esc(item)}</li>`).join("");
@@ -139,14 +159,23 @@
       .join("");
     const places = d.destinations.map((p) => placeCard(p, lang)).join("");
     const season = d.seasons[0];
-    const seasonMonths = d.seasons
-      .map((s, i) => `<button type="button" class="season-month" data-season-index="${i}">${esc(s.months.split("–")[0].trim())}</button>`)
-      .join("");
+    const seasonMonths = `
+      <div class="t-tabs season-tabs" role="tablist" aria-label="Seasons" data-tabs>
+        <span class="t-tabs-pill" aria-hidden="true"></span>
+        ${d.seasons
+          .map(
+            (s, i) =>
+              `<button type="button" class="t-tab season-month" role="tab" data-season-index="${i}" aria-selected="${i === 0 ? "true" : "false"}">${esc(
+                s.months.split("–")[0].trim()
+              )}</button>`
+          )
+          .join("")}
+      </div>`;
     const foodCards = (d.malnadFoods || [])
       .map((item) => {
         const teaser = String(item.story || "").split(/(?<=\.)\s/)[0] || "";
         return `
-          <a class="pop-card food-card food-card-link" href="food.html?id=${esc(item.id)}">
+          <a class="pop-card food-card food-card-link shine-card" href="food.html?id=${esc(item.id)}">
             <span class="pop-face">
               <span class="media">
                 <img src="${esc(item.image)}" alt="${esc(item.name)}" width="1800" height="1200" loading="lazy" />
@@ -155,7 +184,7 @@
                 <span class="kicker">${esc(item.kicker)}</span>
                 <strong>${esc(item.name)}<span class="kn">${esc(item.kannada)}</span></strong>
                 <span class="pop-why-line">${esc(teaser)}</span>
-                <span class="text-link">Read the story</span>
+                <span class="text-link t-learn">${learn("Read the story")}</span>
               </span>
             </span>
           </a>`;
@@ -177,12 +206,16 @@
       if (s.id === "food") storyIndexItems.push({ href: "#malnad-foods", label: "Malnad kitchen" });
     });
     storyIndexItems.push({ href: "#gallery", label: "Photographs" });
-    const storyIndex = storyIndexItems
-      .map((item, i) => {
-        const num = String(i + 1).padStart(2, "0");
-        return `<a class="story-index-link" href="${esc(item.href)}"><span>${esc(num)}</span>${esc(item.label)}</a>`;
-      })
-      .join("");
+    const storyIndex = `
+      <nav class="t-tabs story-tabs" aria-label="Chapters on this page" data-tabs>
+        <span class="t-tabs-pill" aria-hidden="true"></span>
+        ${storyIndexItems
+          .map((item, i) => {
+            const num = String(i + 1).padStart(2, "0");
+            return `<a class="t-tab" href="${esc(item.href)}" aria-selected="${i === 0 ? "true" : "false"}"><span>${esc(num)}</span>${esc(item.label)}</a>`;
+          })
+          .join("")}
+      </nav>`;
     let chapter = 2;
     const stories = d.stories
       .map((s, i) => {
@@ -231,7 +264,7 @@
               <p class="kicker">${esc(s.kicker)}</p>
               <h2 id="story-title-${esc(s.id)}">${esc(s.title)}</h2>
               <div class="story-beats">${beats}</div>
-              ${isCoffee ? `<p style="margin-top:1.1rem"><a class="text-link" href="coffee.html">Open the full coffee story</a></p>` : ""}
+              ${isCoffee ? `<p style="margin-top:1.1rem"><a class="text-link t-learn" href="coffee.html">${learn("Open the full coffee story")}</a></p>` : ""}
               ${sources}
             </div>
           </div>
@@ -267,7 +300,7 @@
     const seasonCards = d.seasons
       .map(
         (s) => `
-        <a class="season-card tilt-card" href="stories.html#seasons" data-tilt>
+        <a class="season-card" href="stories.html#seasons">
           <div class="media">
             <img src="${esc(seasonImage(s.id))}" alt="${esc(s.title)}" width="1800" height="1200" loading="lazy" />
           </div>
@@ -286,7 +319,7 @@
           const href = s.id === "coffee" ? "coffee.html" : `stories.html#story-${esc(s.id)}`;
           const img = s.id === "coffee" && d.coffeeOrigin?.saint?.image ? d.coffeeOrigin.saint.image : s.image;
           return `
-        <a class="why-card tilt-card" href="${href}" data-tilt>
+        <a class="why-card tilt-card shine-card" href="${href}" data-tilt data-spotlight>
           <div class="media">
             <img src="${esc(img)}" alt="${esc(s.title)}" width="1800" height="1200" loading="lazy" />
           </div>
@@ -294,7 +327,7 @@
             <span class="kicker">${esc(s.kicker)}</span>
             <h3>${esc(s.title)}</h3>
             <p>${esc(s.paragraphs[0])}</p>
-            <span class="text-link">Read on</span>
+            <span class="text-link t-learn">${learn("Read on")}</span>
           </span>
         </a>`;
         }
@@ -309,7 +342,7 @@
           .slice(0, 4)
           .join(" · ");
         return `
-          <a class="home-circuit tilt-card" href="plan.html?circuit=${esc(c.id)}" data-tilt>
+          <a class="home-circuit tilt-card shine-card" href="plan.html?circuit=${esc(c.id)}" data-tilt>
             <div class="media">
               <img src="${esc(c.image)}" alt="${esc(c.title)}" width="1800" height="1200" loading="lazy" />
             </div>
@@ -318,7 +351,7 @@
               <h3>${esc(c.title)}</h3>
               <p>${esc(c.text)}</p>
               <p class="home-circuit-stops">${esc(names)}</p>
-              <span class="text-link">Use this sketch</span>
+              <span class="text-link t-learn">${learn("Use this sketch")}</span>
             </span>
           </a>`;
       })
@@ -343,27 +376,35 @@
         if (!place) return "";
         const panelId = `pop-panel-${esc(item.id)}`;
         return `
-          <article class="pop-card" data-pop-card="${esc(item.id)}">
-            <button class="pop-face" type="button" data-pop-toggle="${esc(item.id)}" aria-expanded="false" aria-controls="${panelId}">
+          <article class="pop-card t-acc shine-card" data-pop-card="${esc(item.id)}" data-open="false">
+            <button class="pop-face t-acc-head" type="button" data-pop-toggle="${esc(item.id)}" aria-expanded="false" aria-controls="${panelId}">
+              <span>
               <div class="media">
                 <img src="${esc(place.image)}" alt="${esc(place.name)}" width="1800" height="1200" loading="lazy" />
               </div>
               <span class="pop-face-copy">
                 <span class="kicker">${esc(item.kicker)}</span>
                 <strong>${esc(place.name)}</strong>
-                <span class="pop-hours">${esc(item.hours)}</span>
+                <span class="t-tt-wrap">
+                  <span class="pop-hours t-tt-trigger">${esc(item.hours)}</span>
+                  <span class="t-tt" role="tooltip">Typical hours — confirm on the linked official page</span>
+                </span>
                 <span class="pop-why-line">${esc(item.why)}</span>
               </span>
+              </span>
+              ${accChevron()}
             </button>
-            <div class="pop-panel" id="${panelId}" hidden>
+            <div class="t-acc-panel">
+              <div class="t-acc-panel-inner pop-panel" id="${panelId}">
               <p class="kicker">Typical hours</p>
               <p>${esc(item.hoursDetail)}</p>
               <p class="kicker" style="margin-top:0.9rem">Why people come</p>
               <p>${esc(item.why)}</p>
               <p class="pop-source">Hours and access change. Confirm on <a href="${esc(item.hoursSource.url)}" rel="noopener noreferrer">${esc(item.hoursSource.label)}</a> — this companion does not list fees.</p>
               <div class="pop-actions">
-                <button class="btn btn-dark" type="button" data-open-place="${esc(place.id)}">Open this place</button>
-                <a class="btn btn-line" href="places.html?id=${esc(place.id)}">Go to places</a>
+                <button class="btn btn-dark shine" type="button" data-open-place="${esc(place.id)}" data-magnetic>Open this place</button>
+                <a class="btn btn-line t-learn" href="places.html?id=${esc(place.id)}">${learn("Go to places")}</a>
+              </div>
               </div>
             </div>
           </article>`;
@@ -497,7 +538,7 @@
             <p class="hero-kn" lang="kn">ಮೇಘರೇಖೆಯ ಮೇಲೆ</p>
             <p class="lede">Good coffee, quieter journeys. A district companion for peaks, temples, forests and the working shade of Malnad — not a booking desk.</p>
             <div class="hero-actions">
-              <a class="btn btn-light" href="places.html">Explore all places</a>
+              <a class="btn btn-light shine t-learn" href="places.html" data-magnetic>${learn("Explore all places")}</a>
               <a class="btn btn-ghost" href="map.html">Open the district map</a>
               <a class="btn btn-ghost" href="#popular-places">Popular places</a>
               <a class="btn btn-ghost" href="#malnad-foods">Malnad kitchen</a>
@@ -546,7 +587,7 @@
       </section>
       <section class="coffee-origin reveal-on-scroll" id="coffee-origin" aria-labelledby="origin-title">
         <div class="wrap">
-          <a class="story-entry-card tilt-card" href="coffee.html" data-tilt>
+          <a class="story-entry-card tilt-card shine-card" href="coffee.html" data-tilt>
             <span class="media">
               <img src="${esc(f.origin.saint?.image || f.origin.image)}" alt="${esc(f.origin.saint?.caption || f.origin.title)}" width="1800" height="1200" />
             </span>
@@ -554,7 +595,7 @@
               <span class="kicker">${esc(f.origin.kicker)}</span>
               <h2 id="origin-title">${esc(f.origin.title)}</h2>
               <p>${esc(f.origin.lede)}</p>
-              <span class="text-link">Read the full story</span>
+              <span class="text-link t-learn">${learn("Read the full story")}</span>
             </span>
           </a>
         </div>
@@ -567,7 +608,7 @@
               <h2 id="home-foods-title">Rice, leaf, and a cup from the hill.</h2>
               <p class="section-lead">Popular dishes the ghats still cook — akki rotti, pathrode, kotte kadubu, neer dosa, jackfruit chips, and filter coffee. Open a card for the full origin story. Photographs are companion stills, not a restaurant list, and this page does not sell a meal.</p>
             </div>
-            <a class="text-link" href="food.html">Kitchen stories</a>
+            <a class="text-link t-learn" href="food.html">${learn("Kitchen stories")}</a>
           </div>
           <div class="pop-grid food-grid reveal-stagger">${f.foodCards}</div>
         </div>
@@ -580,7 +621,7 @@
               <h2>Coffee, stone, and a living forest.</h2>
               <p class="section-lead">Three ways of reading Chikkamagaluru before you pick a road: the working shade of arabica, Hoysala and Malnad pilgrimage, and a Western Ghats hotspot that is not a backdrop.</p>
             </div>
-            <a class="text-link" href="stories.html">All stories</a>
+            <a class="text-link t-learn" href="stories.html">${learn("All stories")}</a>
           </div>
           <div class="why-grid reveal-stagger">${f.whyCards}</div>
         </div>
@@ -593,7 +634,7 @@
               <h2>Four weathers, four districts.</h2>
               <p class="section-lead">Clear ridges in winter, thinner falls by summer, a monsoon that turns the ghats to water, and an October still dripping green. Come for the season you can actually walk.</p>
             </div>
-            <a class="text-link" href="stories.html#seasons">Season notes</a>
+            <a class="text-link t-learn" href="stories.html#seasons">${learn("Season notes")}</a>
           </div>
           <div class="season-card-grid reveal-stagger">${f.seasonCards}</div>
         </div>
@@ -611,11 +652,9 @@
               <button class="interest-nav" type="button" data-interest-next aria-label="Next kind of place">›</button>
             </div>
           </div>
-        </div>
-        <div class="interest-rail" data-interest-rail tabindex="0" aria-label="Kinds of place">
-          <div class="interest-track">${f.interests}</div>
-        </div>
-        <div class="wrap">
+          <div class="interest-rail" data-interest-rail tabindex="0" aria-label="Kinds of place">
+            <div class="interest-track">${f.interests}</div>
+          </div>
           <div class="interest-dots" data-interest-dots role="tablist" aria-label="Interest cards"></div>
         </div>
       </section>
@@ -627,7 +666,7 @@
               <h2>Three ways through the hills.</h2>
               <p class="section-lead">Coffee ridges, temple terraces, and permit country. Load a sketch into a private notebook in this browser — no account, no payment.</p>
             </div>
-            <a class="text-link" href="plan.html">Open the planner</a>
+            <a class="text-link t-learn" href="plan.html">${learn("Open the planner")}</a>
           </div>
           <div class="home-circuit-grid reveal-stagger">${f.homeCircuits}</div>
         </div>
@@ -639,7 +678,7 @@
               <p class="kicker">Explore the district</p>
               <h2>Nine taluks, endless experiences.</h2>
               <p class="section-lead">From Mullayanagiri’s cloud line to the temples of Sringeri and the tiger forests of Bhadra — Chikkamagaluru is a district of contrasts. Click a taluk to open it.</p>
-              <a class="btn btn-dark" data-map-cta href="map.html">View district map <span aria-hidden="true">→</span></a>
+              <a class="btn btn-dark shine t-learn" data-map-cta href="map.html" data-magnetic>${learn("View district map")}</a>
             </div>
             <div class="district-map-stage">
               <div class="choropleth" id="district-svg" data-map-root data-map-mode="home"></div>
@@ -665,7 +704,7 @@
               <h2>A quieter look.</h2>
               <p class="section-lead">Ridges, shade coffee, falling water and the Tunga terrace — stills from people who walked here, credited on the visit page.</p>
             </div>
-            <a class="text-link" href="stories.html#gallery">Full gallery</a>
+            <a class="text-link t-learn" href="stories.html#gallery">${learn("Full gallery")}</a>
           </div>
           <div class="home-gallery reveal-stagger">${f.homeGallery}</div>
         </div>
@@ -679,7 +718,7 @@
           </div>
           <div class="guide-grid">${f.fieldNotes}</div>
           <div class="close-actions">
-            <a class="btn btn-dark" href="plan.html">Sketch a private trip</a>
+            <a class="btn btn-dark shine t-learn" href="plan.html" data-magnetic>${learn("Sketch a private trip")}</a>
             <a class="btn btn-line" href="visit.html">Visitor information</a>
             <a class="btn btn-line" href="${esc(f.official.district_en)}" rel="noopener noreferrer">District tourism</a>
           </div>
@@ -709,8 +748,9 @@
               <input id="place-search" type="search" placeholder="${esc(f.tx("search_ph"))}" autocomplete="off" />
             </label>
             <nav class="place-jump" aria-label="Jump to a kind of place">${f.placeJump}</nav>
-            <div class="taluk-row" role="group" aria-label="Taluks">
-              <button class="filter-btn" type="button" data-taluk="all" aria-pressed="true">All taluks</button>
+            <div class="t-tabs taluk-tabs" role="tablist" aria-label="Taluks" data-tabs>
+              <span class="t-tabs-pill" aria-hidden="true"></span>
+              <button class="t-tab" type="button" role="tab" data-taluk="all" aria-selected="true">All taluks</button>
               ${f.talukBtns}
             </div>
           </div>
@@ -732,7 +772,7 @@
               <p class="kicker">The district</p>
               <h1>Nine taluks, endless experiences.</h1>
               <p class="section-lead">Click a taluk on the map or in the list to open its places — waterfalls, temples, dams and the rest, already grouped. Boundaries are OpenStreetMap reference, not a survey.</p>
-              <a class="btn btn-dark" id="taluk-places-cta" href="places.html">Browse places in this taluk <span aria-hidden="true">→</span></a>
+              <a class="btn btn-dark shine t-learn" id="taluk-places-cta" href="places.html" data-magnetic>${learn("Browse places in this taluk")}</a>
             </div>
             <div class="district-map-stage">
               <div class="choropleth choropleth-lg" id="district-svg" data-map-root data-map-mode="page" role="application" aria-label="Interactive Chikkamagaluru taluk map"></div>
@@ -772,7 +812,7 @@
           <p class="kicker">Stories</p>
           <h1>Coffee, culture, kitchen, care</h1>
           <p class="section-lead">Separate readings of the district — seasons, coffee, stone, a Malnad kitchen, and the forest that is not a backdrop. Each chapter stands on its own.</p>
-          <nav class="story-index" aria-label="Chapters on this page">${f.storyIndex}</nav>
+          ${f.storyIndex}
         </div>
       </section>
       <section class="story-chapter story-chapter--seasons" id="seasons" aria-labelledby="seasons-title">
@@ -827,7 +867,7 @@
             <div>
               <div class="day-board" id="day-board"></div>
               <div class="plan-actions">
-                <button class="btn btn-dark" type="button" id="add-day">${esc(f.tx("add_day"))}</button>
+                <button class="btn btn-dark shine" type="button" id="add-day" data-magnetic>${esc(f.tx("add_day"))}</button>
                 <button class="btn btn-line" type="button" id="download-pack">${esc(f.tx("download"))}</button>
                 <button class="btn btn-line" type="button" id="clear-trip">${esc(f.tx("clear_trip"))}</button>
               </div>
@@ -917,7 +957,7 @@
           <p class="kicker">${esc(origin.kicker || "Coffee country")}</p>
           <h1>${esc(origin.title || "Seven seeds from Mocha")}</h1>
           <p class="section-lead">${esc(origin.lede || "")}</p>
-          <p><a class="text-link" href="index.html#coffee-origin">Back to the homepage card</a></p>
+          <p><a class="text-link t-learn" href="index.html#coffee-origin">${learn("Back to the homepage card")}</a></p>
         </div>
       </section>
       <section class="story-longread">
@@ -938,7 +978,7 @@
             <ul>${f.originSources}</ul>
           </div>
           <p class="section-lead" style="margin-top:2rem">The ridge that holds his shrine is still walked as Baba Budangiri / Datta Peetha. Hours and crowd rules belong to the shrine, not to this page.</p>
-          <p><a class="btn btn-dark" href="places.html?id=baba-budangiri">Open Baba Budangiri</a>
+          <p><a class="btn btn-dark shine t-learn" href="places.html?id=baba-budangiri" data-magnetic>${learn("Open Baba Budangiri")}</a>
              <a class="btn btn-line" href="stories.html#story-coffee">Coffee chapter on Stories</a></p>
         </div>
       </section>
@@ -958,7 +998,7 @@
             <p class="kicker">Malnad kitchen</p>
             <h1>No dish listed yet</h1>
             <p class="section-lead">This companion does not yet hold that plate.</p>
-            <p><a class="text-link" href="index.html#malnad-foods">Back to the kitchen</a></p>
+            <p><a class="text-link t-learn" href="index.html#malnad-foods">${learn("Back to the kitchen")}</a></p>
           </div>
         </section>
         ${footer(f)}`;
@@ -967,7 +1007,7 @@
       .filter((item) => item.id !== dish.id)
       .map(
         (item) => `
-          <a class="pop-card food-card food-card-link" href="food.html?id=${esc(item.id)}">
+          <a class="pop-card food-card food-card-link shine-card" href="food.html?id=${esc(item.id)}">
             <span class="pop-face">
               <span class="media">
                 <img src="${esc(item.image)}" alt="${esc(item.name)}" width="1800" height="1200" loading="lazy" />
@@ -986,7 +1026,7 @@
           <p class="kicker">${esc(dish.kicker)}</p>
           <h1>${esc(dish.name)}</h1>
           <p class="hero-kn" lang="kn">${esc(dish.kannada)}</p>
-          <p><a class="text-link" href="index.html#malnad-foods">All Malnad dishes</a></p>
+          <p><a class="text-link t-learn" href="index.html#malnad-foods">${learn("All Malnad dishes")}</a></p>
         </div>
       </section>
       <section class="story-longread">
@@ -1038,9 +1078,18 @@
       img.alt = season.title;
     }
     if (!root) return;
-    const months = global.CKM.seasons
-      .map((s, i) => `<button type="button" class="season-month" data-season-index="${i}" ${i === index ? 'style="color:var(--ink);font-weight:600"' : ""}>${esc(s.months.split("–")[0].trim())}</button>`)
-      .join("");
+    const months = `
+      <div class="t-tabs season-tabs" role="tablist" aria-label="Seasons" data-tabs>
+        <span class="t-tabs-pill" aria-hidden="true"></span>
+        ${global.CKM.seasons
+          .map(
+            (s, i) =>
+              `<button type="button" class="t-tab season-month" role="tab" data-season-index="${i}" aria-selected="${
+                i === index ? "true" : "false"
+              }">${esc(s.months.split("–")[0].trim())}</button>`
+          )
+          .join("")}
+      </div>`;
     root.innerHTML = `
       <p class="kicker">${esc(season.months)}</p>
       <h3>${esc(season.title)}</h3>

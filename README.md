@@ -36,6 +36,7 @@ Then open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 - Kannada labels and official `.nic.in` / forest / KSRTC links
 - Reduced-motion and keyboard support
 - WebMCP tools (`search_destinations`, `add_place_to_trip`) when the browser exposes `document.modelContext` or `navigator.modelContext`
+- Motion from the Cyatra Stash (Transitions.dev, Kinetics, UIverse, Sylva): sliding tabs, toasts, modals, accordion cards, magnetic buttons, number pop on the trip badge
 
 Photographs are Wikimedia Commons stills, cover-cropped to **1800×1200** (hero **2400×1350**), plus original companion illustrations for the coffee origin, Baba Budan, and Malnad kitchen plates. Credits name the file, artist and licence.
 
@@ -52,6 +53,8 @@ Photographs are Wikimedia Commons stills, cover-cropped to **1800×1200** (hero 
 | `dist/assets/` | Photographs and `taluks.geojson` |
 
 `scripts/write_pages.py` regenerates the HTML shells. `scripts/fetch_images.py` re-downloads selected Commons originals. `scripts/build-data.py` can rebuild `data.js` from Python records — the live site reads `dist/data.js` directly.
+
+Motion and polish are copied from tools in the Cyatra Stash (`https://stash-cyatra.vercel.app/`): **Transitions.dev** (tabs, toast, modal, accordion, badge, number pop, tooltips, learn-more chevrons), **Kinetics** (spring overshoot, magnetic buttons, shine sweep), **UIverse** (copy-paste CSS controls), and **Sylva** (forest-and-gold editorial direction). React-only libraries from the stash were skipped so the site stays static HTML.
 
 Destination notes are reference text: live fees, permits, event dates and closures must be checked on official pages. Map boundaries are OSM (ODbL), for orientation only.
 
