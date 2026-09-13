@@ -172,7 +172,6 @@
         return `<li>
           <a class="taluk-index-row" href="places.html?taluk=${esc(t.id)}" data-select-taluk="${esc(t.id)}" aria-current="false">
             <span class="taluk-index-name">${esc(label)}</span>
-            <span class="taluk-index-dots" aria-hidden="true"></span>
             <span class="taluk-index-count">${t.count}</span>
             <span class="taluk-index-go" aria-hidden="true">→</span>
           </a>

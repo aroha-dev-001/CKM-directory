@@ -17,15 +17,15 @@
     ajjampura: "#dce6d4",
   };
   const LABEL_AT = {
-    chikkamagaluru: [75.78, 13.36],
-    tarikere: [75.78, 13.705],
-    kadur: [76.14, 13.53],
-    mudigere: [75.59, 13.06],
-    koppa: [75.29, 13.47],
-    nrpura: [75.5, 13.69],
-    sringeri: [75.175, 13.385],
-    kalasa: [75.275, 13.185],
-    ajjampura: [76.1, 13.81],
+    chikkamagaluru: [75.77, 13.36],
+    tarikere: [75.79, 13.70],
+    kadur: [76.13, 13.53],
+    mudigere: [75.58, 13.07],
+    koppa: [75.34, 13.455],
+    nrpura: [75.52, 13.68],
+    sringeri: [75.20, 13.37],
+    kalasa: [75.30, 13.20],
+    ajjampura: [76.07, 13.80],
   };
   const MAP_LABEL = {
     chikkamagaluru: "Chikmagalur",
@@ -33,10 +33,21 @@
     kadur: "Kadur",
     mudigere: "Mudigere",
     koppa: "Koppa",
-    nrpura: "N.R. Pura",
+    nrpura: "NR Pura",
     sringeri: "Sringeri",
     kalasa: "Kalasa",
     ajjampura: "Ajjampura",
+  };
+  const LABEL_SIZE = {
+    chikkamagaluru: 13,
+    tarikere: 11,
+    kadur: 11,
+    mudigere: 11,
+    koppa: 9,
+    nrpura: 9,
+    sringeri: 9,
+    kalasa: 9,
+    ajjampura: 10,
   };
 
   let geoCache = null;
@@ -162,6 +173,7 @@
   }
 
   function splitLabel(text) {
+    if (text === "NR Pura") return ["NR Pura"];
     if (text.length <= 10 || !text.includes(" ")) return [text];
     const parts = text.split(" ");
     if (parts.length === 2) return parts;
@@ -192,28 +204,28 @@
             const d = featurePath(feature, b);
             const fill = FILLS[id] || "#dce6d4";
             const [lx, ly] = project((LABEL_AT[id] || [0, 0])[0], (LABEL_AT[id] || [0, 0])[1], b);
+            const size = LABEL_SIZE[id] || 11;
             const lines = splitLabel(name);
+            const lineH = Math.round(size * 1.15);
             const tspans = lines
-              .map((line, i) => `<tspan x="${lx.toFixed(1)}" dy="${i === 0 ? 0 : 13}">${escapeXml(line)}</tspan>`)
+              .map((line, i) => `<tspan x="${lx.toFixed(1)}" dy="${i === 0 ? 0 : lineH}">${escapeXml(line)}</tspan>`)
               .join("");
             return `
               <g class="taluk-g" data-taluk-shape="${escapeXml(id)}">
                 <path d="${d}" fill="${fill}" data-fill="${fill}" tabindex="0" role="button" aria-pressed="false" aria-label="${escapeXml(name)}" />
-                <text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle">${tspans}</text>
+                <text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${size}">${tspans}</text>
               </g>`;
           })
           .join("");
 
         root.innerHTML = `
-          <svg class="choropleth-svg" viewBox="0 0 ${VB.w} ${VB.h}" role="img" aria-label="Chikkamagaluru district taluks">
-            <title>Chikkamagaluru taluks</title>
+          <svg class="choropleth-svg" viewBox="0 0 ${VB.w} ${VB.h}" aria-label="Chikkamagaluru district taluks">
             ${paths}
           </svg>`;
 
         root.querySelectorAll("[data-taluk-shape]").forEach((g) => {
           const path = g.querySelector("path");
           const id = g.getAttribute("data-taluk-shape");
-          const select = () => choose(id, false);
           const activate = () => choose(id, true);
           path.addEventListener("click", activate);
           path.addEventListener("mouseenter", () => hover(id, true));
