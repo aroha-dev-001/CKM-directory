@@ -238,6 +238,50 @@
       .slice(0, 3)
       .map((c) => `<article class="guide-card"><h3>${esc(c.title)}</h3><p>${esc(c.text)}</p></article>`)
       .join("");
+    const popularCards = (d.popularPlaces || [])
+      .map((item) => {
+        const place = d.destinations.find((p) => p.id === item.id);
+        if (!place) return "";
+        const panelId = `pop-panel-${esc(item.id)}`;
+        return `
+          <article class="pop-card" data-pop-card="${esc(item.id)}">
+            <button class="pop-face" type="button" data-pop-toggle="${esc(item.id)}" aria-expanded="false" aria-controls="${panelId}">
+              <div class="media">
+                <img src="${esc(place.image)}" alt="${esc(place.name)}" width="1800" height="1200" loading="lazy" />
+              </div>
+              <span class="pop-face-copy">
+                <span class="kicker">${esc(item.kicker)}</span>
+                <strong>${esc(place.name)}</strong>
+                <span class="pop-hours">${esc(item.hours)}</span>
+                <span class="pop-why-line">${esc(item.why)}</span>
+              </span>
+            </button>
+            <div class="pop-panel" id="${panelId}" hidden>
+              <p class="kicker">Typical hours</p>
+              <p>${esc(item.hoursDetail)}</p>
+              <p class="kicker" style="margin-top:0.9rem">Why people come</p>
+              <p>${esc(item.why)}</p>
+              <p class="pop-source">Hours and access change. Confirm on <a href="${esc(item.hoursSource.url)}" rel="noopener noreferrer">${esc(item.hoursSource.label)}</a> — this companion does not list fees.</p>
+              <div class="pop-actions">
+                <button class="btn btn-dark" type="button" data-open-place="${esc(place.id)}">Open this place</button>
+                <a class="btn btn-line" href="places.html?id=${esc(place.id)}">Go to places</a>
+              </div>
+            </div>
+          </article>`;
+      })
+      .join("");
+    const origin = d.coffeeOrigin || {};
+    const originChapters = (origin.chapters || [])
+      .map(
+        (ch) => `<article class="origin-chapter">
+          <h3>${esc(ch.title)}</h3>
+          <p>${esc(ch.text)}</p>
+        </article>`
+      )
+      .join("");
+    const originSources = (origin.sources || [])
+      .map((s) => `<li><a href="${esc(s.url)}" rel="noopener noreferrer">${esc(s.label)}</a></li>`)
+      .join("");
     const credits = d.credits
       .map(
         (c) =>
@@ -268,7 +312,7 @@
       d, tx, interests, featured, talukBtns, circuits, faqs, packing, dos, donts, about,
       filters, places, season, seasonMonths, stories, essentials, guide, gallery, credits,
       talukIndex, placeJump, official: d.official, tickerItems, seasonCards, whyCards,
-      homeCircuits, homeGallery, fieldNotes,
+      homeCircuits, homeGallery, fieldNotes, popularCards, origin, originChapters, originSources,
     };
   }
 
@@ -351,7 +395,7 @@
             <div class="hero-actions">
               <a class="btn btn-light" href="places.html">Explore all places</a>
               <a class="btn btn-ghost" href="map.html">Open the district map</a>
-              <a class="btn btn-ghost" href="stories.html">Read the stories</a>
+              <a class="btn btn-ghost" href="#popular-places">Popular places</a>
             </div>
             <dl class="hero-stats">
               <div>
@@ -369,14 +413,6 @@
             </dl>
             <a class="hero-scroll" href="#district-pulse">Scroll into the district</a>
           </div>
-          <a class="field-note tilt-card" href="stories.html#seasons" data-tilt>
-            <div class="media">
-              <img src="assets/gallery-mist.jpg" alt="" width="1800" height="1200" />
-            </div>
-            <span class="kicker">Field note</span>
-            <strong>After the rain</strong>
-            <span>Hills hold colour. Trails stay slick. October is generous if you watch the weather rather than a calendar.</span>
-          </a>
         </div>
       </section>
       <section class="ribbon" id="district-pulse" aria-label="At a glance">
@@ -393,12 +429,32 @@
           <div class="name-ticker-set">${f.tickerItems}</div>
         </div>
       </div>
-      <section class="quote-band reveal-on-scroll" aria-labelledby="quote-title">
-        <div class="wrap quote-band-inner">
-          <p class="kicker">Coffee country</p>
-          <blockquote id="quote-title">Seven beans from Mocha. A forest that learned to drink.</blockquote>
-          <p>Local tradition holds that Baba Budan carried arabica into these hills from Yemen. What you see from a ridge is not wilderness alone — it is shade, skilled labour, and a polyculture older than the cafés that made the name famous.</p>
-          <a class="text-link text-link-light" href="stories.html#story-coffee">The coffee story</a>
+      <section class="section pop-section reveal-on-scroll" id="popular-places">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="kicker">Popular places</p>
+            <h2>Open a card. See why it draws a crowd.</h2>
+            <p class="section-lead">Typical hours from temple sites and the district desk — not a live board. Tap a card for the longer note, then confirm on the linked page before you travel. No fees are listed here.</p>
+          </div>
+          <div class="pop-grid reveal-stagger">${f.popularCards}</div>
+        </div>
+      </section>
+      <section class="coffee-origin reveal-on-scroll" id="coffee-origin" aria-labelledby="origin-title">
+        <div class="wrap coffee-origin-head">
+          <figure class="origin-figure">
+            <img src="${esc(f.origin.image)}" alt="${esc(f.origin.caption || f.origin.title)}" width="1800" height="1200" />
+            <figcaption>${esc(f.origin.caption || "")}</figcaption>
+          </figure>
+          <div>
+            <p class="kicker">${esc(f.origin.kicker)}</p>
+            <h2 id="origin-title">${esc(f.origin.title)}</h2>
+            <p class="section-lead">${esc(f.origin.lede)}</p>
+          </div>
+        </div>
+        <div class="wrap origin-chapters">${f.originChapters}</div>
+        <div class="wrap origin-sources">
+          <p class="kicker">Sources</p>
+          <ul>${f.originSources}</ul>
         </div>
       </section>
       <section class="section why-section reveal-on-scroll">
@@ -435,16 +491,6 @@
             <p class="section-lead">Peaks, water, stone and forest — the same kinds of country a tourism desk would point you toward, without a stay to sell.</p>
           </div>
           <div class="interest-grid">${f.interests}</div>
-        </div>
-      </section>
-      <section class="section reveal-on-scroll" style="padding-top:0">
-        <div class="wrap">
-          <div class="section-head">
-            <p class="kicker">Not to be missed</p>
-            <h2>The landmarks</h2>
-            <p class="section-lead">Three ridges that still organise a first visit: the state’s highest peak, the Baba Budan range, and Kemmanagundi’s garden-and-grassland shelf.</p>
-          </div>
-          <div class="feature-grid reveal-stagger">${f.featured}</div>
         </div>
       </section>
       <section class="section circuits-home reveal-on-scroll">

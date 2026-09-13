@@ -949,9 +949,11 @@ window.CKM = {
       "title": "Seven beans from Mocha, a forest that learned to drink",
       "image": "assets/coffee-shade.jpg",
       "paragraphs": [
-        "Local tradition holds that the Sufi saint Baba Budan carried seven raw coffee seeds from Mocha, in present-day Yemen, and planted them in these hills. Whether every detail of the legend can be proved, the agricultural fact is stubborn: this district became the heart of Indian arabica, grown in the shade of silver oak and native canopy rather than in open sun.",
-        "What you see from a ridge is not wilderness alone. It is a polyculture — coffee, pepper, sometimes cardamom — stitched into shola and grassland. The work is seasonal, the labour skilled, and the landscape older than the cafés that made the name famous.",
-        "This companion treats coffee as culture and ecology, not as a room to book. If an estate opens a walk, that is their hospitality. Walk where you are invited."
+        "The Coffee Board of India tells the opening of the Indian crop as the planting of seven Mocha seeds, around 1600 CE, in the courtyard of Baba Budan’s hermitage on these hills. Wikipedia’s page on the saint places a related Hajj story in the seventeenth century — often dated 1670 — with the raw beans said to have been carried from the Yemeni port of Mocha. Both are tradition, not a dated shipping ledger. What the sources agree on is the geography: Chandra Drona / Baba Budan Giri, above present-day Chikkamagaluru.",
+        "Yemen then guarded coffee as a trade. Unprocessed beans were not meant to leave Mocha, so that drinkers elsewhere stayed customers. Lore says Baba Budan brought seven live seeds because seven is sacred in Islam, and that he hid them — in a beard, in some later retellings. NDTV and other features repeat that image. Treat it as a story the hills still tell, not as courtroom fact.",
+        "The Board’s own history is more agricultural than cinematic: the plants remained a garden curiosity and backyard crop for a long time. Commercial plantations, it says, take off in the eighteenth century as British enterprise pushed into the forested south. Wikipedia notes substantial British estates from the 1820s beside Baba Budan Giri, then spread into Wayanad, the Shevaroys and the Nilgiris.",
+        "What you still see from a ridge is shade, not open sun. Karnataka grows most of India’s coffee; Indian arabica and robusta are typically two-tier canopy crops, often interplanted with pepper and other spices. Organised research began in 1925 at the Mysore Coffee Experiment Station near Balehonnur, in this same district — later the Central Coffee Research Institute.",
+        "This companion treats coffee as culture and ecology, not as a room to book. Walk an estate only where you are invited."
       ]
     },
     {
@@ -986,6 +988,121 @@ window.CKM = {
       ]
     }
   ],
+  "popularPlaces": [
+    {
+      "id": "mullayanagiri",
+      "kicker": "Highest in Karnataka",
+      "hours": "Daylight",
+      "hoursDetail": "No municipal opening hours are published. The district notes a narrow hill road and a final walk to the summit temple. After dark the hairpins are unlit and often in cloud — come and leave in daylight.",
+      "why": "At 1,930 m this is Karnataka’s highest peak, a grass-and-shola ridge in the Baba Budan range. Clear winter mornings are why people queue the hairpins: a sea of cloud, sometimes a rumour of the Arabian Sea.",
+      "hoursSource": {
+        "label": "District tourism",
+        "url": "https://chikkamagaluru.nic.in/en/tourism/"
+      }
+    },
+    {
+      "id": "baba-budangiri",
+      "kicker": "Where the coffee story starts",
+      "hours": "Daylight on the ridge",
+      "hoursDetail": "The cave shrine’s crowd rules and inner hours change with festivals. Use the ridge in daylight. Do not treat a blog’s ‘sunrise trek’ as a published gate time.",
+      "why": "Chandra Drona Parvatha — the hill the Coffee Board names as the hermitage where seven Mocha seeds were planted. A shared shrine to Baba Budan and Datta Peetha sits on the crescent ridge that still organises coffee country.",
+      "hoursSource": {
+        "label": "District tourism",
+        "url": "https://chikkamagaluru.nic.in/en/tourism/"
+      }
+    },
+    {
+      "id": "kemmanagundi",
+      "kicker": "Hill station",
+      "hours": "Gardens often 09:00–18:00",
+      "hoursDetail": "Krishnaraja Wodeyar IV’s summer camp. Flower gardens are commonly visited through the day; Z Point and grassland walks belong to daylight. Confirm at the horticulture counter — this page does not run the gate.",
+      "why": "A garden shelf at 1,434 m on the same range, with ornamental beds, shola views and the road-head for Hebbe. People come for cooler air when the maidan is hot, and for a gentler day than Mullayanagiri’s last steps.",
+      "hoursSource": {
+        "label": "District tourism",
+        "url": "https://chikkamagaluru.nic.in/en/tourism/"
+      }
+    },
+    {
+      "id": "hebbe-falls",
+      "kicker": "Two-stage cascade",
+      "hours": "Jeep window often 09:00–15:00",
+      "hoursDetail": "Cars stop before the forest stretch. Authorised jeeps from the Kemmanagundi side are the usual last miles; recent visitor notes put departures roughly 9:00 to 15:00, not the older ‘6 to 6’ copied across blogs. Confirm at the counter. No fee is quoted here.",
+      "why": "Dodda Hebbe and Chikka Hebbe drop through coffee and reserved forest. The ride is part of the memory — and the reason monsoon days close without warning.",
+      "hoursSource": {
+        "label": "Karnataka Forest Department",
+        "url": "https://aranya.gov.in/"
+      }
+    },
+    {
+      "id": "sringeri",
+      "kicker": "Matha on the Tunga",
+      "hours": "06:00–14:00 & 16:00–21:00",
+      "hoursDetail": "Sharadamba Temple on normal days: 6:00 AM–2:00 PM and 4:00 PM–9:00 PM. Maha-Mangalarati at 10:00 AM, 12:00 PM and 7:30 PM. Other shrines on campus differ. The matha notes that camp days change the clock — sringeri.net is the authority.",
+      "why": "Traditionally Ādi Śaṅkara’s southern seat of Advaita learning. Living pilgrimage, not a viewpoint bolted onto a trek. Dress codes are theirs to set.",
+      "hoursSource": {
+        "label": "Sringeri Sharada Peetham — temple timings",
+        "url": "https://www.sringeri.net/pilgrim-info/temple-timings"
+      }
+    },
+    {
+      "id": "horanadu",
+      "kicker": "Annapoorneshwari",
+      "hours": "06:00–21:00",
+      "hoursDetail": "The temple’s own site lists darshan 6:00 AM to 9:00 PM, with a traditional dress code. Annadana (temple meals) follows the kitchen, not a tourism brochure. Festival days move.",
+      "why": "A forest-wrapped shrine to the goddess of food, in a fold of the ghats toward Kalasa. People come for darshan and a meal as offering — a Malnad pilgrimage, not a picnic stop.",
+      "hoursSource": {
+        "label": "Sri Kshetra Horanadu",
+        "url": "https://srikshetrahoranadu.com/"
+      }
+    }
+  ],
+  "coffeeOrigin": {
+    "kicker": "How coffee reached these hills",
+    "title": "Seven seeds from Mocha",
+    "lede": "A Sufi hermitage, a Yemeni port, and a district that still grows arabica in shade. The dates disagree. The slope does not.",
+    "image": "assets/coffee-origin.jpg",
+    "caption": "Companion illustration — Mocha harbour, seven cherries, Chandra Drona. Not a historical portrait.",
+    "chapters": [
+      {
+        "title": "A drink Arabia meant to keep",
+        "text": "Coffee’s cultivated story runs from the Ethiopian highlands into Arabia. By the fifteenth century the Yemeni port of Mocha was synonymous with the trade. Wikipedia’s history of Indian coffee notes that unprocessed beans were not meant to leave, so that germinating seed — and future competition — stayed at home. Roasted coffee could travel; a live seed was another matter."
+      },
+      {
+        "title": "Seven seeds, two calendars",
+        "text": "The Coffee Board of India, a Government of India body, opens its own history like this: seven seeds of Mocha planted around 1600 AD by Baba Budan in the courtyard of his hermitage on Baba Budan Giri. Wikipedia’s page on the saint, and its coffee-production article, retell a seventeenth-century Hajj: a Sufi from these hills smuggles seven raw beans from Mocha, often dated 1670, sometimes said to have been hidden in a beard because seven is sacred in Islam. NDTV and other features repeat that image. None of these pages is a primary shipping record. Read them as the story the district and the Board still stand by."
+      },
+      {
+        "title": "Chandra Drona, then a slow garden",
+        "text": "The beans were raised on the Chandra Drona / Baba Budan range above Chikkamagaluru — the ridge that still holds his shrine. The Board is plain about the next chapter: for a long time the plants were a garden curiosity and spread only as backyard plantings. Commercial plantations, it says, wait until the eighteenth century, when British enterprise pushed through the forested south. Wikipedia dates substantial British estates from the 1820s beside Baba Budan Giri (Cannon, and J.H. Jolly of Parry & Co. near Chandragiri), then Wayanad, the Shevaroys and the Nilgiris."
+      },
+      {
+        "title": "Shade, rust, and a research station in this district",
+        "text": "Indian coffee is still mostly a Western Ghats shade crop. Karnataka grows the largest share. Two-tier canopy, often with pepper and other spices, is the working landscape you see from a bus window — not wilderness alone. Leaf rust and white stem borer later forced robusta and rust-tolerant arabica into the mix. Organised research began in 1925 when the Mysore government opened the Coffee Experiment Station near Balehonnur, in Chikkamagaluru district; it became the Central Coffee Research Institute under the Board created by the Coffee Act of 1942."
+      },
+      {
+        "title": "What this companion will not do",
+        "text": "Estate walks, homestays and cuppings are hospitality, not a listing here. If a planter invites you under the silver oak, that is their door. The hills remain a biodiversity hotspot. Stay on paths. The story of seven seeds is culture. The canopy is work."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Coffee Board of India — About",
+        "url": "https://coffeeboard.gov.in/aboutus.aspx"
+      },
+      {
+        "label": "Wikipedia — Baba Budan",
+        "url": "https://en.wikipedia.org/wiki/Baba_Budan"
+      },
+      {
+        "label": "Wikipedia — Coffee production in India",
+        "url": "https://en.wikipedia.org/wiki/Coffee_production_in_India"
+      },
+      {
+        "label": "NDTV — seven beans from Yemen (lore feature)",
+        "url": "https://www.ndtv.com/lifestyle/how-a-sufi-saint-smuggled-7-beans-to-karnataka-and-gave-india-its-own-coffee-11402455"
+      }
+    ]
+  },
   "essentials": {
     "access": {
       "title": "How to arrive",
@@ -1266,6 +1383,14 @@ window.CKM = {
       "artist": "రవిచంద్ర",
       "license": "CC BY-SA 4.0",
       "url": "https://commons.wikimedia.org/wiki/File:Mullayanagiri_Peak1.jpg"
+    },
+    {
+      "local": "coffee-origin.jpg",
+      "place": "Coffee origin illustration",
+      "file": "coffee-origin.jpg",
+      "artist": "Companion illustration",
+      "license": "Original artwork for this site",
+      "url": "https://coffeeboard.gov.in/aboutus.aspx"
     },
     {
       "local": "baba-budangiri.jpg",

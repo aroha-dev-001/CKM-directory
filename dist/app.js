@@ -254,12 +254,20 @@
     const dayBtns = state.trip.days
       .map((_, i) => `<button class="btn btn-line" type="button" data-add-day="${i}" data-place="${place.id}">Day ${i + 1}</button>`)
       .join("");
+    const extra = (CKM.popularPlaces || []).find((p) => p.id === place.id);
+    const hoursBlock = extra
+      ? `<h3 class="kicker" style="margin-top:1.1rem">Typical hours</h3>
+         <p><strong>${CKMSections.esc(extra.hours)}</strong> — ${CKMSections.esc(extra.hoursDetail)}</p>
+         <h3 class="kicker" style="margin-top:1.1rem">Why it is popular</h3>
+         <p>${CKMSections.esc(extra.why)}</p>`
+      : "";
     const stamped = state.passport.includes(place.id);
     body.innerHTML = `
       <p class="kicker">${CKMSections.esc(CKMSections.catLabel(place.category, state.lang))} · ${CKMSections.esc(place.taluk)}${place.elevation ? " · " + CKMSections.esc(place.elevation) : ""}</p>
       <h2 id="modal-title">${CKMSections.esc(place.name)}</h2>
       <p class="kn">${CKMSections.esc(place.kannada)}</p>
       <p>${CKMSections.esc(place.summary)}</p>
+      ${hoursBlock}
       <h3 class="kicker" style="margin-top:1.1rem">${t("visit_notes")}</h3>
       <p>${CKMSections.esc(place.visit)}</p>
       <div class="modal-actions">
@@ -446,6 +454,25 @@
     const main = document.getElementById("main");
 
     main.addEventListener("click", (event) => {
+      const popToggle = event.target.closest("[data-pop-toggle]");
+      if (popToggle) {
+        const id = popToggle.getAttribute("data-pop-toggle");
+        const card = popToggle.closest(".pop-card");
+        const panel = card && card.querySelector(".pop-panel");
+        const willOpen = card && !card.classList.contains("is-open");
+        document.querySelectorAll(".pop-card.is-open").forEach((openCard) => {
+          openCard.classList.remove("is-open");
+          openCard.querySelector("[data-pop-toggle]")?.setAttribute("aria-expanded", "false");
+          const p = openCard.querySelector(".pop-panel");
+          if (p) p.hidden = true;
+        });
+        if (willOpen && card && panel) {
+          card.classList.add("is-open");
+          popToggle.setAttribute("aria-expanded", "true");
+          panel.hidden = false;
+        }
+        return;
+      }
       const open = event.target.closest("[data-open-place]");
       if (open) {
         openModal(open.getAttribute("data-open-place"));
