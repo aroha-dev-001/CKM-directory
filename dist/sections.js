@@ -137,25 +137,21 @@
       .join("");
     const foodCards = (d.malnadFoods || [])
       .map((item) => {
-        const panelId = `food-panel-${esc(item.id)}`;
+        const teaser = String(item.story || "").split(/(?<=\.)\s/)[0] || "";
         return `
-          <article class="pop-card food-card" data-pop-card="${esc(item.id)}">
-            <button class="pop-face" type="button" data-pop-toggle="${esc(item.id)}" aria-expanded="false" aria-controls="${panelId}">
-              <div class="media">
+          <a class="pop-card food-card food-card-link" href="food.html?id=${esc(item.id)}">
+            <span class="pop-face">
+              <span class="media">
                 <img src="${esc(item.image)}" alt="${esc(item.name)}" width="1800" height="1200" loading="lazy" />
-              </div>
+              </span>
               <span class="pop-face-copy">
                 <span class="kicker">${esc(item.kicker)}</span>
                 <strong>${esc(item.name)}<span class="kn">${esc(item.kannada)}</span></strong>
-                <span class="pop-why-line">${esc(item.story)}</span>
+                <span class="pop-why-line">${esc(teaser)}</span>
+                <span class="text-link">Read the story</span>
               </span>
-            </button>
-            <div class="pop-panel" id="${panelId}" hidden>
-              <p class="kicker">The story</p>
-              <p>${esc(item.story)}</p>
-              <p class="pop-source">Regional kitchen tradition — not a restaurant list. Read more: <a href="${esc(item.source.url)}" rel="noopener noreferrer">${esc(item.source.label)}</a></p>
-            </div>
-          </article>`;
+            </span>
+          </a>`;
       })
       .join("");
     const foodsChapter = (num) => `
@@ -164,7 +160,7 @@
             <p class="story-num">${num}</p>
             <p class="kicker">Malnad kitchen</p>
             <h2 id="foods-title">Rice, leaf, and a cup from the hill</h2>
-            <p class="section-lead">Six dishes the ghats still cook. Open a card for a short origin note. Photographs are Wikimedia stills — a hotel name in a file credit is not a recommendation, and this page does not sell a meal.</p>
+            <p class="section-lead">Six dishes the ghats still cook. Open a card for the full origin note on its own page. Photographs are companion stills — this page does not sell a meal.</p>
             <div class="pop-grid food-grid">${foodCards}</div>
           </div>
         </section>`;
@@ -213,7 +209,9 @@
                 .join("")}</ul>
             </div>`
           : "";
-        const caption = isCoffee ? `<figcaption>${esc(d.coffeeOrigin.caption || "")}</figcaption>` : "";
+        const caption = isCoffee
+          ? `<figcaption>${esc((d.coffeeOrigin.saint && d.coffeeOrigin.saint.caption) || d.coffeeOrigin.caption || "")}</figcaption>`
+          : "";
         const section = `
         <section class="story-chapter${i % 2 ? " is-flip" : " is-band"}" id="story-${esc(s.id)}" aria-labelledby="story-title-${esc(s.id)}">
           <div class="wrap story-chapter-inner">
@@ -226,6 +224,7 @@
               <p class="kicker">${esc(s.kicker)}</p>
               <h2 id="story-title-${esc(s.id)}">${esc(s.title)}</h2>
               <div class="story-beats">${beats}</div>
+              ${isCoffee ? `<p style="margin-top:1.1rem"><a class="text-link" href="coffee.html">Open the full coffee story</a></p>` : ""}
               ${sources}
             </div>
           </div>
@@ -276,10 +275,13 @@
     const whyCards = d.stories
       .filter((s) => ["coffee", "culture", "responsible"].includes(s.id))
       .map(
-        (s) => `
-        <a class="why-card tilt-card" href="stories.html#story-${esc(s.id)}" data-tilt>
+        (s) => {
+          const href = s.id === "coffee" ? "coffee.html" : `stories.html#story-${esc(s.id)}`;
+          const img = s.id === "coffee" && d.coffeeOrigin?.saint?.image ? d.coffeeOrigin.saint.image : s.image;
+          return `
+        <a class="why-card tilt-card" href="${href}" data-tilt>
           <div class="media">
-            <img src="${esc(s.image)}" alt="${esc(s.title)}" width="1800" height="1200" loading="lazy" />
+            <img src="${esc(img)}" alt="${esc(s.title)}" width="1800" height="1200" loading="lazy" />
           </div>
           <span class="why-card-copy">
             <span class="kicker">${esc(s.kicker)}</span>
@@ -287,7 +289,8 @@
             <p>${esc(s.paragraphs[0])}</p>
             <span class="text-link">Read on</span>
           </span>
-        </a>`
+        </a>`;
+        }
       )
       .join("");
     const homeCircuits = (d.circuits || [])
@@ -373,10 +376,13 @@
       .map((s) => `<li><a href="${esc(s.url)}" rel="noopener noreferrer">${esc(s.label)}</a></li>`)
       .join("");
     const credits = d.credits
-      .map(
-        (c) =>
-          `<p>${esc(c.place)} — ${esc(c.artist)} — ${esc(c.license)}, via <a href="${esc(c.url)}" rel="noopener noreferrer">Wikimedia Commons</a></p>`
-      )
+      .map((c) => {
+        const commons = String(c.url || "").includes("commons.wikimedia.org");
+        const via = commons
+          ? `${esc(c.license)}, via <a href="${esc(c.url)}" rel="noopener noreferrer">Wikimedia Commons</a>`
+          : esc(c.license);
+        return `<p>${esc(c.place)} — ${esc(c.artist)} — ${via}</p>`;
+      })
       .join("");
     const talukOrder = ["chikkamagaluru", "tarikere", "kadur", "mudigere", "koppa", "nrpura", "sringeri", "kalasa", "ajjampura"];
     const talukById = Object.fromEntries((d.taluks || []).map((t) => [t.id, t]));
@@ -532,21 +538,18 @@
         </div>
       </section>
       <section class="coffee-origin reveal-on-scroll" id="coffee-origin" aria-labelledby="origin-title">
-        <div class="wrap coffee-origin-head">
-          <figure class="origin-figure">
-            <img src="${esc(f.origin.image)}" alt="${esc(f.origin.caption || f.origin.title)}" width="1800" height="1200" />
-            <figcaption>${esc(f.origin.caption || "")}</figcaption>
-          </figure>
-          <div>
-            <p class="kicker">${esc(f.origin.kicker)}</p>
-            <h2 id="origin-title">${esc(f.origin.title)}</h2>
-            <p class="section-lead">${esc(f.origin.lede)}</p>
-          </div>
-        </div>
-        <div class="wrap origin-chapters">${f.originChapters}</div>
-        <div class="wrap origin-sources">
-          <p class="kicker">Sources</p>
-          <ul>${f.originSources}</ul>
+        <div class="wrap">
+          <a class="story-entry-card tilt-card" href="coffee.html" data-tilt>
+            <span class="media">
+              <img src="${esc(f.origin.saint?.image || f.origin.image)}" alt="${esc(f.origin.saint?.caption || f.origin.title)}" width="1800" height="1200" />
+            </span>
+            <span class="story-entry-copy">
+              <span class="kicker">${esc(f.origin.kicker)}</span>
+              <h2 id="origin-title">${esc(f.origin.title)}</h2>
+              <p>${esc(f.origin.lede)}</p>
+              <span class="text-link">Read the full story</span>
+            </span>
+          </a>
         </div>
       </section>
       <section class="section food-section reveal-on-scroll" id="malnad-foods" aria-labelledby="home-foods-title">
@@ -555,9 +558,9 @@
             <div class="section-head">
               <p class="kicker">Malnad kitchen</p>
               <h2 id="home-foods-title">Rice, leaf, and a cup from the hill.</h2>
-              <p class="section-lead">Popular dishes the ghats still cook — akki rotti, pathrode, kotte kadubu, neer dosa, jackfruit chips, and filter coffee. Open a card for a two-line origin story. Photographs are Wikimedia stills, not a restaurant list, and this page does not sell a meal.</p>
+              <p class="section-lead">Popular dishes the ghats still cook — akki rotti, pathrode, kotte kadubu, neer dosa, jackfruit chips, and filter coffee. Open a card for the full origin story. Photographs are companion stills, not a restaurant list, and this page does not sell a meal.</p>
             </div>
-            <a class="text-link" href="stories.html#malnad-foods">Kitchen chapter</a>
+            <a class="text-link" href="food.html">Kitchen stories</a>
           </div>
           <div class="pop-grid food-grid reveal-stagger">${f.foodCards}</div>
         </div>
@@ -878,9 +881,116 @@
           <div class="guide-grid">${f.guide}</div>
           <div class="section-head" style="margin-top:2.6rem">
             <p class="kicker">${esc(f.tx("credits"))}</p>
-            <h2>Wikimedia Commons, named</h2>
+            <h2>Photographs &amp; licences</h2>
           </div>
           <div class="credit-list">${f.credits}</div>
+        </div>
+      </section>
+      ${footer(f)}`;
+  }
+
+  function renderCoffeePage(lang) {
+    const f = fragments(lang);
+    const origin = f.origin || {};
+    const saint = origin.saint || {};
+    return `
+      <section class="page-hero">
+        <div class="wrap">
+          <p class="kicker">${esc(origin.kicker || "Coffee country")}</p>
+          <h1>${esc(origin.title || "Seven seeds from Mocha")}</h1>
+          <p class="section-lead">${esc(origin.lede || "")}</p>
+          <p><a class="text-link" href="index.html#coffee-origin">Back to the homepage card</a></p>
+        </div>
+      </section>
+      <section class="story-longread">
+        <div class="wrap">
+          <div class="story-longread-media">
+            <figure>
+              <img src="${esc(saint.image || origin.image)}" alt="${esc(saint.caption || origin.title)}" width="1800" height="1200" />
+              <figcaption>${esc(saint.caption || "")}</figcaption>
+            </figure>
+            <figure>
+              <img src="${esc(origin.image)}" alt="${esc(origin.caption || origin.title)}" width="1800" height="1200" />
+              <figcaption>${esc(origin.caption || "")}</figcaption>
+            </figure>
+          </div>
+          <div class="origin-chapters">${f.originChapters}</div>
+          <div class="origin-sources">
+            <p class="kicker">Sources</p>
+            <ul>${f.originSources}</ul>
+          </div>
+          <p class="section-lead" style="margin-top:2rem">The ridge that holds his shrine is still walked as Baba Budangiri / Datta Peetha. Hours and crowd rules belong to the shrine, not to this page.</p>
+          <p><a class="btn btn-dark" href="places.html?id=baba-budangiri">Open Baba Budangiri</a>
+             <a class="btn btn-line" href="stories.html#story-coffee">Coffee chapter on Stories</a></p>
+        </div>
+      </section>
+      ${footer(f)}`;
+  }
+
+  function renderFoodPage(lang) {
+    const f = fragments(lang);
+    const foods = f.d.malnadFoods || [];
+    const id = new URLSearchParams(location.search).get("id");
+    const found = foods.find((item) => item.id === id);
+    const dish = found || (!id && foods[0]);
+    if (!dish) {
+      return `
+        <section class="page-hero">
+          <div class="wrap">
+            <p class="kicker">Malnad kitchen</p>
+            <h1>No dish listed yet</h1>
+            <p class="section-lead">This companion does not yet hold that plate.</p>
+            <p><a class="text-link" href="index.html#malnad-foods">Back to the kitchen</a></p>
+          </div>
+        </section>
+        ${footer(f)}`;
+    }
+    const others = foods
+      .filter((item) => item.id !== dish.id)
+      .map(
+        (item) => `
+          <a class="pop-card food-card food-card-link" href="food.html?id=${esc(item.id)}">
+            <span class="pop-face">
+              <span class="media">
+                <img src="${esc(item.image)}" alt="${esc(item.name)}" width="1800" height="1200" loading="lazy" />
+              </span>
+              <span class="pop-face-copy">
+                <span class="kicker">${esc(item.kicker)}</span>
+                <strong>${esc(item.name)}<span class="kn">${esc(item.kannada)}</span></strong>
+              </span>
+            </span>
+          </a>`
+      )
+      .join("");
+    return `
+      <section class="page-hero">
+        <div class="wrap">
+          <p class="kicker">${esc(dish.kicker)}</p>
+          <h1>${esc(dish.name)}</h1>
+          <p class="hero-kn" lang="kn">${esc(dish.kannada)}</p>
+          <p><a class="text-link" href="index.html#malnad-foods">All Malnad dishes</a></p>
+        </div>
+      </section>
+      <section class="story-longread">
+        <div class="wrap food-story">
+          <figure class="food-story-media">
+            <img src="${esc(dish.image)}" alt="${esc(dish.name)}" width="1800" height="1200" />
+            <figcaption>Companion photograph — ${esc(dish.name)}. Not a restaurant listing.</figcaption>
+          </figure>
+          <div class="food-story-copy">
+            <p class="kicker">The story</p>
+            <p class="food-story-text">${esc(dish.story)}</p>
+            <p class="pop-source">Regional kitchen tradition. Read more: <a href="${esc(dish.source.url)}" rel="noopener noreferrer">${esc(dish.source.label)}</a></p>
+          </div>
+        </div>
+      </section>
+      <section class="section" style="padding-top:0">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="kicker">Also from these hills</p>
+            <h2>More Malnad plates.</h2>
+          </div>
+          <div class="pop-grid food-grid">${others}</div>
         </div>
       </section>
       ${footer(f)}`;
@@ -892,6 +1002,8 @@
       places: renderPlacesPage,
       map: renderMapPage,
       stories: renderStoriesPage,
+      coffee: renderCoffeePage,
+      food: renderFoodPage,
       plan: renderPlanPage,
       visit: renderVisitPage,
     };

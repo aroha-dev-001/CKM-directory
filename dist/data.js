@@ -947,7 +947,7 @@ window.CKM = {
       "id": "coffee",
       "kicker": "Coffee country",
       "title": "Seven beans from Mocha, a forest that learned to drink",
-      "image": "assets/coffee-origin.jpg",
+      "image": "assets/baba-budan-saint.jpg",
       "paragraphs": [
         "The Coffee Board of India tells the opening of the Indian crop as the planting of seven Mocha seeds, around 1600 CE, in the courtyard of Baba Budan’s hermitage on these hills. Wikipedia’s page on the saint places a related Hajj story in the seventeenth century — often dated 1670 — with the raw beans said to have been carried from the Yemeni port of Mocha. Both are tradition, not a dated shipping ledger. What the sources agree on is the geography: Chandra Drona / Baba Budan Giri, above present-day Chikkamagaluru.",
         "Yemen then guarded coffee as a trade. Unprocessed beans were not meant to leave Mocha, so that drinkers elsewhere stayed customers. Lore says Baba Budan brought seven live seeds because seven is sacred in Islam, and that he hid them — in a beard, in some later retellings. NDTV and other features repeat that image. Treat it as a story the hills still tell, not as courtroom fact.",
@@ -1062,6 +1062,10 @@ window.CKM = {
     "lede": "A Sufi hermitage, a Yemeni port, and a district that still grows arabica in shade. The dates disagree. The slope does not.",
     "image": "assets/coffee-origin.jpg",
     "caption": "Companion illustration — Mocha harbour, seven cherries, Chandra Drona. Not a historical portrait.",
+    "saint": {
+      "image": "assets/baba-budan-saint.jpg",
+      "caption": "Companion illustration of Baba Budan, the Sufi remembered for bringing seven Mocha seeds to these hills. No period portrait is known — this is not a historical likeness."
+    },
     "chapters": [
       {
         "title": "A drink Arabia meant to keep",
@@ -1146,7 +1150,7 @@ window.CKM = {
       "kannada": "ಕೊಟ್ಟೆ ಕಡುಬು",
       "kicker": "Leaf-cup steam",
       "image": "assets/food-kadubu.jpg",
-      "story": "Kadubu are steamed rice cakes. Wikipedia’s idli page notes kotte kadubu — batter steamed in jackfruit leaves — in Karnataka, the leaf cup perfuming the rice. Malnad and Tulu Nadu share the method: savoury at breakfast, or sweet with coconut and jaggery. The photograph is from Hebri; the leaf-cup is the story, not a hotel listing.",
+      "story": "Kadubu are steamed rice cakes. Wikipedia’s idli page notes kotte kadubu — batter steamed in jackfruit leaves — in Karnataka, the leaf cup perfuming the rice. Malnad and Tulu Nadu share the method: savoury at breakfast, or sweet with coconut and jaggery. The leaf-cup is the story, not a restaurant listing.",
       "source": {
         "label": "Wikipedia — Idli (kotte kadubu)",
         "url": "https://en.wikipedia.org/wiki/Idli"
@@ -1464,55 +1468,63 @@ window.CKM = {
       "file": "coffee-origin.jpg",
       "artist": "Companion illustration",
       "license": "Original artwork for this site",
-      "url": "https://coffeeboard.gov.in/aboutus.aspx"
+      "url": ""
+    },
+    {
+      "local": "baba-budan-saint.jpg",
+      "place": "Baba Budan (companion illustration)",
+      "file": "baba-budan-saint.jpg",
+      "artist": "Companion illustration",
+      "license": "Original artwork for this site",
+      "url": ""
     },
     {
       "local": "food-akki-rotti.jpg",
       "place": "Akki rotti",
-      "file": "Akki roti.jpg",
-      "artist": "Ram1751",
-      "license": "CC BY-SA 4.0",
-      "url": "https://commons.wikimedia.org/wiki/File:Akki_roti.jpg"
+      "file": "food-akki-rotti.jpg",
+      "artist": "Companion photograph",
+      "license": "Original artwork for this site",
+      "url": ""
     },
     {
       "local": "food-filter-coffee.jpg",
-      "place": "Filter coffee (photographed in Bengaluru)",
-      "file": "Filter Coffee - CTR Shri Sagar, Bangalore - Karnataka - PXL0254.jpg",
-      "artist": "Harikrishnan N",
-      "license": "CC BY-SA 4.0",
-      "url": "https://commons.wikimedia.org/wiki/File:Filter_Coffee_-_CTR_Shri_Sagar,_Bangalore_-_Karnataka_-_PXL0254.jpg"
+      "place": "Filter coffee",
+      "file": "food-filter-coffee.jpg",
+      "artist": "Companion photograph",
+      "license": "Original artwork for this site",
+      "url": ""
     },
     {
       "local": "food-pathrode.jpg",
-      "place": "Pathrode (kesuvina yele)",
-      "file": "Kesuvina Yele Kavali Suttida Pathrode.jpg",
-      "artist": "Kart127",
-      "license": "CC BY-SA 4.0",
-      "url": "https://commons.wikimedia.org/wiki/File:Kesuvina_Yele_Kavali_Suttida_Pathrode.jpg"
+      "place": "Pathrode",
+      "file": "food-pathrode.jpg",
+      "artist": "Companion photograph",
+      "license": "Original artwork for this site",
+      "url": ""
     },
     {
       "local": "food-kadubu.jpg",
-      "place": "Kotte kadubu (photographed in Hebri)",
-      "file": "Kotte Kadubu - Bhatru Hotel, Hebri - Karnataka - PXL6088.jpg",
-      "artist": "Harikrishnan N",
-      "license": "CC BY-SA 4.0",
-      "url": "https://commons.wikimedia.org/wiki/File:Kotte_Kadubu_-_Bhatru_Hotel,_Hebri_-_Karnataka_-_PXL6088.jpg"
+      "place": "Kotte kadubu",
+      "file": "food-kadubu.jpg",
+      "artist": "Companion photograph",
+      "license": "Original artwork for this site",
+      "url": ""
     },
     {
       "local": "food-neer-dosa.jpg",
       "place": "Neer dosa",
-      "file": "Neer Dosa (ನೀರು ದೋಸೆ).jpg",
-      "artist": "Yakshitha",
-      "license": "CC BY-SA 4.0",
-      "url": "https://commons.wikimedia.org/wiki/File:Neer_Dosa_(%E0%B2%A8%E0%B3%80%E0%B2%B0%E0%B3%81_%E0%B2%A6%E0%B3%8B%E0%B2%B8%E0%B3%86).jpg"
+      "file": "food-neer-dosa.jpg",
+      "artist": "Companion photograph",
+      "license": "Original artwork for this site",
+      "url": ""
     },
     {
       "local": "food-jackfruit-chips.jpg",
       "place": "Jackfruit chips",
-      "file": "V chips jackfruit.JPG",
-      "artist": "Vidyu44",
-      "license": "CC BY-SA 4.0",
-      "url": "https://commons.wikimedia.org/wiki/File:V_chips_jackfruit.JPG"
+      "file": "food-jackfruit-chips.jpg",
+      "artist": "Companion photograph",
+      "license": "Original artwork for this site",
+      "url": ""
     },
     {
       "local": "baba-budangiri.jpg",

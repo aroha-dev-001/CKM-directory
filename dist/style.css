@@ -701,6 +701,107 @@ p {
   padding: clamp(3.2rem, 7vw, 5.5rem) 0;
 }
 
+.story-entry-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: clamp(1.2rem, 3vw, 2.2rem);
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  background: var(--cream);
+  border-radius: 1.5rem;
+  padding: 0.7rem;
+  box-shadow: 0 18px 40px rgba(12, 31, 19, 0.08);
+}
+
+.story-entry-card .media {
+  border-radius: 1rem;
+  overflow: hidden;
+  margin: 0;
+  aspect-ratio: 3 / 2;
+}
+
+.story-entry-card .media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.story-entry-copy {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.55rem 1rem 1rem 0.35rem;
+}
+
+.story-entry-copy h2 {
+  font-size: clamp(2rem, 4.2vw, 3.15rem);
+  margin: 0.1rem 0 0.2rem;
+}
+
+.story-entry-copy p {
+  color: var(--muted);
+}
+
+a.food-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+a.food-card-link .pop-face {
+  pointer-events: none;
+}
+
+.story-longread {
+  padding: 0 0 clamp(3.2rem, 7vw, 5.5rem);
+}
+
+.story-longread-media {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem;
+  margin-bottom: 2.2rem;
+}
+
+.story-longread figure,
+.food-story-media {
+  margin: 0;
+}
+
+.story-longread img,
+.food-story-media img {
+  border-radius: 1rem;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  display: block;
+}
+
+.story-longread figcaption,
+.food-story-media figcaption {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 0.45rem;
+}
+
+.food-story {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(1.4rem, 4vw, 2.6rem);
+  align-items: start;
+}
+
+.food-story-text {
+  font-size: 1.12rem;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+.story-longread .btn {
+  margin-right: 0.5rem;
+  margin-top: 0.4rem;
+}
+
 .coffee-origin-head {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
@@ -2506,7 +2607,10 @@ p {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .coffee-origin-head {
+  .coffee-origin-head,
+  .story-entry-card,
+  .story-longread-media,
+  .food-story {
     grid-template-columns: 1fr;
   }
 

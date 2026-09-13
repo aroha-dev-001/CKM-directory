@@ -22,6 +22,8 @@ Then open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 | `places.html` | Destinations grouped under waterfalls, temples, dams, lakes, hill stations, peaks, wildlife, and coffee country |
 | `map.html` | Interactive choropleth of the nine taluks |
 | `stories.html` | Separate chapters: seasons, coffee, culture, food, Malnad kitchen dishes, responsible travel, photographs |
+| `coffee.html` | Full coffee-origin story with Baba Budan illustration |
+| `food.html` | One Malnad dish per page (`?id=`) |
 | `plan.html` | Private itinerary and explorer passport (`localStorage`) |
 | `visit.html` | Access, packing, conduct, official links, credits |
 
@@ -35,7 +37,7 @@ Then open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 - Reduced-motion and keyboard support
 - WebMCP tools (`search_destinations`, `add_place_to_trip`) when the browser exposes `document.modelContext` or `navigator.modelContext`
 
-Photographs are Wikimedia Commons stills, cover-cropped to **1800×1200** (hero **2400×1350**). Credits name the file, artist and licence. The coffee-origin plate is an original companion illustration.
+Photographs are Wikimedia Commons stills, cover-cropped to **1800×1200** (hero **2400×1350**), plus original companion illustrations for the coffee origin, Baba Budan, and Malnad kitchen plates. Credits name the file, artist and licence.
 
 ## Architecture
 

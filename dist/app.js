@@ -76,7 +76,9 @@
 
   function markNav() {
     document.querySelectorAll("[data-nav]").forEach((link) => {
-      const on = link.getAttribute("data-nav") === PAGE;
+      const nav = link.getAttribute("data-nav");
+      const pageKey = PAGE === "coffee" || PAGE === "food" ? "stories" : PAGE;
+      const on = nav === pageKey;
       link.classList.toggle("is-active", on);
       if (on) link.setAttribute("aria-current", "page");
       else link.removeAttribute("aria-current");
