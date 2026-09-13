@@ -947,7 +947,7 @@ window.CKM = {
       "id": "coffee",
       "kicker": "Coffee country",
       "title": "Seven beans from Mocha, a forest that learned to drink",
-      "image": "assets/coffee-shade.jpg",
+      "image": "assets/coffee-origin.jpg",
       "paragraphs": [
         "The Coffee Board of India tells the opening of the Indian crop as the planting of seven Mocha seeds, around 1600 CE, in the courtyard of Baba Budan’s hermitage on these hills. Wikipedia’s page on the saint places a related Hajj story in the seventeenth century — often dated 1670 — with the raw beans said to have been carried from the Yemeni port of Mocha. Both are tradition, not a dated shipping ledger. What the sources agree on is the geography: Chandra Drona / Baba Budan Giri, above present-day Chikkamagaluru.",
         "Yemen then guarded coffee as a trade. Unprocessed beans were not meant to leave Mocha, so that drinkers elsewhere stayed customers. Lore says Baba Budan brought seven live seeds because seven is sacred in Islam, and that he hid them — in a beard, in some later retellings. NDTV and other features repeat that image. Treat it as a story the hills still tell, not as courtroom fact.",

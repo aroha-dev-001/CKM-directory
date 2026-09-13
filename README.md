@@ -35,7 +35,7 @@ Then open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 - Reduced-motion and keyboard support
 - WebMCP tools (`search_destinations`, `add_place_to_trip`) when the browser exposes `document.modelContext` or `navigator.modelContext`
 
-Photographs are Wikimedia Commons stills, cover-cropped to **1800×1200** (hero **2400×1350**). Credits name the file, artist and licence.
+Photographs are Wikimedia Commons stills, cover-cropped to **1800×1200** (hero **2400×1350**). Credits name the file, artist and licence. The coffee-origin plate is an original companion illustration.
 
 ## Architecture
 
