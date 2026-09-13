@@ -379,7 +379,7 @@ p {
   to { opacity: 1; transform: none; }
 }
 
-.interest-tile:hover img,
+.interest-card:hover img,
 .feature-card:hover img,
 .season-card:hover img,
 .why-card:hover img,
@@ -387,7 +387,7 @@ p {
   transform: scale(1.05);
 }
 
-.interest-tile img,
+.interest-card img,
 .feature-card img,
 .season-card img,
 .why-card img,
@@ -1374,7 +1374,6 @@ a.food-card-link .pop-face {
 .gallery-item,
 .modal-media,
 .season-media,
-.interest-tile .media,
 .feature-card .media,
 .circuit-media,
 .about-media,
@@ -1396,7 +1395,7 @@ a.food-card-link .pop-face {
 .modal-media img,
 .season-media img,
 .passport-stamp img,
-.interest-tile img,
+.interest-card img,
 .feature-card img,
 .circuit-media img,
 .about-media img,
@@ -2169,69 +2168,210 @@ a.food-card-link .pop-face {
   margin-top: 0.4rem;
 }
 
-.interest-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.75rem;
+.interest-section {
+  padding-bottom: clamp(2.4rem, 5vw, 3.6rem);
 }
 
-.interest-tile {
+.interest-section .section-head-row {
+  margin-bottom: 1.4rem;
+}
+
+.interest-controls {
+  display: flex;
+  gap: 0.45rem;
+  align-items: center;
+}
+
+.interest-nav {
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(12, 31, 19, 0.16);
+  background: var(--cream);
+  color: var(--forest);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(12, 31, 19, 0.06);
+}
+
+.interest-nav:hover {
+  border-color: var(--gold);
+  color: var(--ink);
+}
+
+.interest-rail {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding: 0.2rem 0 1.2rem;
+  outline: none;
+}
+
+.interest-rail::-webkit-scrollbar {
+  display: none;
+}
+
+.interest-track {
+  display: flex;
+  gap: 1.1rem;
+  width: max-content;
+  padding: 0.35rem var(--pad) 0.55rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 1180px) {
+  .interest-track {
+    padding-left: calc((100vw - var(--wrap)) / 2);
+    padding-right: calc((100vw - var(--wrap)) / 2);
+  }
+}
+
+.interest-card {
   position: relative;
+  flex: 0 0 min(82vw, 22.8rem);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  text-decoration: none;
+  color: inherit;
+  background: #f2f3ef;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 18px 40px rgba(12, 31, 19, 0.08);
+  min-width: 0;
+  transition: box-shadow 0.45s var(--ease), transform 0.45s var(--ease);
+}
+
+@media (min-width: 960px) {
+  .interest-card {
+    flex-basis: min(28rem, calc((var(--wrap) - 2.2rem) / 3));
+  }
+}
+
+.interest-card.is-active {
+  box-shadow: 0 26px 56px rgba(12, 31, 19, 0.16);
+  transform: translateY(-4px);
+}
+
+.interest-card-media {
   display: block;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: #1c2b22;
+}
+
+.interest-card-media img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.interest-card-copy {
+  display: grid;
+  gap: 0.28rem;
+  padding: 1rem 1.15rem 1.25rem;
+  align-content: start;
+}
+
+.interest-card-copy strong {
+  font-family: var(--serif);
+  font-size: 1.55rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.interest-card-copy .kn {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.interest-lead {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.6em;
+  margin-top: 0.15rem;
+}
+
+.interest-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.55rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--forest);
+}
+
+.interest-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: rgba(12, 31, 19, 0.08);
+}
+
+.interest-progress::after {
+  content: "";
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--gold);
+}
+
+.interest-progress.is-running::after {
+  animation: interest-fill 3s linear forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .interest-progress.is-running::after {
+    animation: none;
+    width: 100%;
+  }
+
+  .interest-card.is-active {
+    transform: none;
+  }
+}
+
+@keyframes interest-fill {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.interest-dots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.2rem;
+}
+
+.interest-dot {
+  width: 0.48rem;
+  height: 0.48rem;
   padding: 0;
   border: 0;
-  background: transparent;
-  color: var(--white);
+  border-radius: 999px;
+  background: rgba(12, 31, 19, 0.18);
   cursor: pointer;
-  text-align: left;
 }
 
-.interest-tile:first-child {
-  grid-column: span 2;
-  grid-row: span 2;
-}
-
-.interest-tile .media {
-  width: 100%;
-}
-
-.interest-tile:first-child .media {
-  aspect-ratio: 1 / 1;
-  height: 100%;
-}
-
-.interest-copy {
-  position: absolute;
-  left: 0.9rem;
-  bottom: 0.85rem;
-  right: 0.9rem;
-  z-index: 1;
-}
-
-.interest-tile::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 35%, rgba(12, 31, 19, 0.72));
-  border-radius: var(--radius);
-  pointer-events: none;
-}
-
-.interest-copy strong {
-  display: block;
-  font-family: var(--serif);
-  font-size: 1.35rem;
-  font-weight: 500;
-}
-
-.interest-copy span {
-  font-size: 0.8rem;
-  opacity: 0.85;
-}
-
-.interest-tile:first-child .interest-copy strong {
-  font-size: 2rem;
+.interest-dot.is-active {
+  width: 1.35rem;
+  background: var(--gold);
 }
 
 .feature-grid {
@@ -2598,7 +2738,6 @@ a.food-card-link .pop-face {
   .guide-grid,
   .feature-grid,
   .circuit-grid,
-  .interest-grid,
   .why-grid,
   .season-card-grid,
   .home-circuit-grid,
@@ -2617,15 +2756,6 @@ a.food-card-link .pop-face {
   .section-head-row {
     flex-direction: column;
     align-items: flex-start;
-  }
-
-  .interest-tile:first-child {
-    grid-column: span 2;
-    grid-row: auto;
-  }
-
-  .interest-tile:first-child .media {
-    aspect-ratio: 3 / 2;
   }
 
   .about-layout,
@@ -2726,17 +2856,12 @@ a.food-card-link .pop-face {
   .ribbon-grid,
   .feature-grid,
   .circuit-grid,
-  .interest-grid,
   .why-grid,
   .season-card-grid,
   .home-circuit-grid,
   .home-gallery,
   .pop-grid {
     grid-template-columns: 1fr;
-  }
-
-  .interest-tile:first-child {
-    grid-column: auto;
   }
 
   .header-trip {
@@ -2765,7 +2890,7 @@ a.food-card-link .pop-face {
   .page-enter,
   .place-card img,
   .gallery-item img,
-  .interest-tile img,
+  .interest-card img,
   .feature-card img,
   .season-card img,
   .why-card img,
@@ -2803,7 +2928,7 @@ a.food-card-link .pop-face {
 
   .place-card:hover img,
   .gallery-item:hover img,
-  .interest-tile:hover img,
+  .interest-card:hover img,
   .feature-card:hover img,
   .season-card:hover img,
   .why-card:hover img,

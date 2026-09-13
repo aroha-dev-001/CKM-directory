@@ -63,14 +63,21 @@
       .filter((c) => c.id !== "all" && c.image)
       .map(
         (c) => `
-        <a class="interest-tile" href="places.html?category=${esc(c.id)}">
-          <div class="media">
-            <img src="${esc(c.image)}" alt="${esc(lang === "kn" ? c.kn : c.label)}" width="1800" height="1200" loading="lazy" />
-          </div>
-          <span class="interest-copy">
-            <strong>${esc(lang === "kn" ? c.kn : c.label)}</strong>
-            <span>${c.count || 0} places</span>
+        <a class="interest-card" href="places.html?category=${esc(c.id)}" data-interest-card>
+          <span class="interest-card-media">
+            <img src="${esc(c.image)}" alt="${esc(lang === "kn" ? c.kn : c.label)}" width="1800" height="1200" />
           </span>
+          <span class="interest-card-copy">
+            <span class="kicker">${esc(lang === "kn" ? c.label : "Kind of country")}</span>
+            <strong>${esc(lang === "kn" ? c.kn : c.label)}</strong>
+            <span class="kn">${esc(lang === "kn" ? c.label : c.kn)}</span>
+            <span class="interest-lead">${esc(lang === "kn" ? c.leadKn || c.lead : c.lead)}</span>
+            <span class="interest-meta">
+              <span>${c.count || 0} places</span>
+              <span class="text-link">Open</span>
+            </span>
+          </span>
+          <span class="interest-progress" aria-hidden="true"></span>
         </a>`
       )
       .join("");
@@ -591,14 +598,25 @@
           <div class="season-card-grid reveal-stagger">${f.seasonCards}</div>
         </div>
       </section>
-      <section class="section reveal-on-scroll" id="explore" style="padding-top:0">
+      <section class="section interest-section reveal-on-scroll" id="explore">
         <div class="wrap">
-          <div class="section-head">
-            <p class="kicker">Browse by interest</p>
-            <h2>What do you love?</h2>
-            <p class="section-lead">Peaks, water, stone and forest — the same kinds of country a tourism desk would point you toward, without a stay to sell.</p>
+          <div class="section-head-row">
+            <div class="section-head">
+              <p class="kicker">Browse by interest</p>
+              <h2>What do you love?</h2>
+              <p class="section-lead">Peaks, water, stone and forest — the same kinds of country a tourism desk would point you toward, without a stay to sell. Cards rest three seconds, then the rail moves on.</p>
+            </div>
+            <div class="interest-controls">
+              <button class="interest-nav" type="button" data-interest-prev aria-label="Previous kind of place">‹</button>
+              <button class="interest-nav" type="button" data-interest-next aria-label="Next kind of place">›</button>
+            </div>
           </div>
-          <div class="interest-grid">${f.interests}</div>
+        </div>
+        <div class="interest-rail" data-interest-rail tabindex="0" aria-label="Kinds of place">
+          <div class="interest-track">${f.interests}</div>
+        </div>
+        <div class="wrap">
+          <div class="interest-dots" data-interest-dots role="tablist" aria-label="Interest cards"></div>
         </div>
       </section>
       <section class="section circuits-home reveal-on-scroll">

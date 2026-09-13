@@ -389,6 +389,7 @@
 
   function initMotion() {
     const reduce = prefersReduced();
+    initInterestRail();
     document.querySelectorAll(".reveal-on-scroll").forEach((el) => {
       if (reduce) {
         el.classList.add("is-in");
@@ -448,6 +449,154 @@
         glare.style.opacity = "0";
       });
     });
+  }
+
+  let interestCleanup = null;
+
+  function initInterestRail() {
+    if (interestCleanup) {
+      interestCleanup();
+      interestCleanup = null;
+    }
+    const rail = document.querySelector("[data-interest-rail]");
+    if (!rail) return;
+    const track = rail.querySelector(".interest-track");
+    const dotsRoot = document.querySelector("[data-interest-dots]");
+    const cards = track ? [...track.querySelectorAll("[data-interest-card]")] : [];
+    if (!cards.length) return;
+
+    let index = 0;
+    let timer = 0;
+    let paused = false;
+    const dwell = 3000;
+    const reduce = prefersReduced();
+
+    if (dotsRoot) {
+      dotsRoot.innerHTML = cards
+        .map(
+          (card, i) =>
+            `<button type="button" class="interest-dot" data-interest-dot="${i}" aria-label="${card.querySelector("strong")?.textContent || `Card ${i + 1}`}"></button>`
+        )
+        .join("");
+    }
+
+    function mark() {
+      cards.forEach((card, i) => {
+        card.classList.toggle("is-active", i === index);
+        const bar = card.querySelector(".interest-progress");
+        if (bar) {
+          bar.classList.remove("is-running");
+          void bar.offsetWidth;
+          if (i === index && !paused && !reduce) bar.classList.add("is-running");
+        }
+      });
+      dotsRoot?.querySelectorAll("[data-interest-dot]").forEach((dot, i) => {
+        const on = i === index;
+        dot.classList.toggle("is-active", on);
+        dot.setAttribute("aria-current", on ? "true" : "false");
+      });
+    }
+
+    function go(n, instant) {
+      index = (n + cards.length) % cards.length;
+      const card = cards[index];
+      const railBox = rail.getBoundingClientRect();
+      const cardBox = card.getBoundingClientRect();
+      const left = Math.max(0, rail.scrollLeft + (cardBox.left - railBox.left) - 4);
+      rail.scrollTo({ left, behavior: reduce || instant ? "auto" : "smooth" });
+      mark();
+    }
+
+    function stop() {
+      window.clearTimeout(timer);
+      timer = 0;
+      cards.forEach((card) => card.querySelector(".interest-progress")?.classList.remove("is-running"));
+    }
+
+    function play() {
+      stop();
+      if (reduce || paused || document.hidden) {
+        mark();
+        return;
+      }
+      mark();
+      timer = window.setTimeout(() => {
+        go(index + 1);
+        play();
+      }, dwell);
+    }
+
+    function pause() {
+      paused = true;
+      stop();
+      mark();
+    }
+
+    function resume() {
+      paused = false;
+      play();
+    }
+
+    const onPrev = (event) => {
+      if (!event.target.closest("[data-interest-prev]")) return;
+      event.preventDefault();
+      go(index - 1);
+      play();
+    };
+    const onNext = (event) => {
+      if (!event.target.closest("[data-interest-next]")) return;
+      event.preventDefault();
+      go(index + 1);
+      play();
+    };
+    const onDot = (event) => {
+      const dot = event.target.closest("[data-interest-dot]");
+      if (!dot) return;
+      event.preventDefault();
+      go(Number(dot.getAttribute("data-interest-dot")) || 0);
+      play();
+    };
+    const onKey = (event) => {
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        go(index + 1);
+        play();
+      }
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        go(index - 1);
+        play();
+      }
+    };
+
+    const section = rail.closest(".interest-section") || document.getElementById("main");
+    section.addEventListener("click", onPrev);
+    section.addEventListener("click", onNext);
+    dotsRoot?.addEventListener("click", onDot);
+    rail.addEventListener("keydown", onKey);
+    rail.addEventListener("mouseenter", pause);
+    rail.addEventListener("mouseleave", resume);
+    rail.addEventListener("focusin", pause);
+    rail.addEventListener("focusout", (event) => {
+      if (!rail.contains(event.relatedTarget)) resume();
+    });
+    const onVis = () => (document.hidden ? pause() : resume());
+    document.addEventListener("visibilitychange", onVis);
+
+    go(0, true);
+    play();
+
+    interestCleanup = () => {
+      stop();
+      section.removeEventListener("click", onPrev);
+      section.removeEventListener("click", onNext);
+      dotsRoot?.removeEventListener("click", onDot);
+      rail.removeEventListener("keydown", onKey);
+      rail.removeEventListener("mouseenter", pause);
+      rail.removeEventListener("mouseleave", resume);
+      rail.removeEventListener("focusin", pause);
+      document.removeEventListener("visibilitychange", onVis);
+    };
   }
 
   function bindUi() {
