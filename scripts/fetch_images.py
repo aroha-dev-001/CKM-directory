@@ -64,6 +64,36 @@ JOBS = [
         "https://upload.wikimedia.org/wikipedia/commons/8/85/Kemmanagundi_Hill_Station_-_panoramio.jpg",
         "center",
     ),
+    (
+        "food-akki-rotti.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/c/c3/Akki_roti.jpg",
+        "center",
+    ),
+    (
+        "food-filter-coffee.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/0/07/Filter_Coffee_-_CTR_Shri_Sagar%2C_Bangalore_-_Karnataka_-_PXL0254.jpg",
+        "center",
+    ),
+    (
+        "food-pathrode.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/d/d3/Kesuvina_Yele_Kavali_Suttida_Pathrode.jpg",
+        "center",
+    ),
+    (
+        "food-kadubu.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/0/06/Kotte_Kadubu_-_Bhatru_Hotel%2C_Hebri_-_Karnataka_-_PXL6088.jpg",
+        "center",
+    ),
+    (
+        "food-neer-dosa.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/f/f7/Neer_Dosa_%28%E0%B2%A8%E0%B3%80%E0%B2%B0%E0%B3%81_%E0%B2%A6%E0%B3%8B%E0%B2%B8%E0%B3%86%29.jpg",
+        "center",
+    ),
+    (
+        "food-jackfruit-chips.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/1/18/V_chips_jackfruit.JPG",
+        "center",
+    ),
 ]
 
 

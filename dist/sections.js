@@ -135,21 +135,110 @@
     const seasonMonths = d.seasons
       .map((s, i) => `<button type="button" class="season-month" data-season-index="${i}">${esc(s.months.split("–")[0].trim())}</button>`)
       .join("");
-    const stories = d.stories
-      .map(
-        (s) => `
-        <article class="story-block" id="story-${esc(s.id)}">
-          <div class="story-media">
-            <img src="${esc(s.image)}" alt="${esc(s.title)}" width="1800" height="1200" loading="lazy" />
-          </div>
-          <div>
-            <p class="kicker">${esc(s.kicker)}</p>
-            <h3>${esc(s.title)}</h3>
-            ${s.paragraphs.map((p) => `<p>${esc(p)}</p>`).join("")}
-          </div>
-        </article>`
-      )
+    const foodCards = (d.malnadFoods || [])
+      .map((item) => {
+        const panelId = `food-panel-${esc(item.id)}`;
+        return `
+          <article class="pop-card food-card" data-pop-card="${esc(item.id)}">
+            <button class="pop-face" type="button" data-pop-toggle="${esc(item.id)}" aria-expanded="false" aria-controls="${panelId}">
+              <div class="media">
+                <img src="${esc(item.image)}" alt="${esc(item.name)}" width="1800" height="1200" loading="lazy" />
+              </div>
+              <span class="pop-face-copy">
+                <span class="kicker">${esc(item.kicker)}</span>
+                <strong>${esc(item.name)}<span class="kn">${esc(item.kannada)}</span></strong>
+                <span class="pop-why-line">${esc(item.story)}</span>
+              </span>
+            </button>
+            <div class="pop-panel" id="${panelId}" hidden>
+              <p class="kicker">The story</p>
+              <p>${esc(item.story)}</p>
+              <p class="pop-source">Regional kitchen tradition — not a restaurant list. Read more: <a href="${esc(item.source.url)}" rel="noopener noreferrer">${esc(item.source.label)}</a></p>
+            </div>
+          </article>`;
+      })
       .join("");
+    const foodsChapter = (num) => `
+        <section class="story-chapter story-chapter--foods" id="malnad-foods" aria-labelledby="foods-title">
+          <div class="wrap">
+            <p class="story-num">${num}</p>
+            <p class="kicker">Malnad kitchen</p>
+            <h2 id="foods-title">Rice, leaf, and a cup from the hill</h2>
+            <p class="section-lead">Six dishes the ghats still cook. Open a card for a short origin note. Photographs are Wikimedia stills — a hotel name in a file credit is not a recommendation, and this page does not sell a meal.</p>
+            <div class="pop-grid food-grid">${foodCards}</div>
+          </div>
+        </section>`;
+    const storyIndexItems = [{ href: "#seasons", label: "Seasons" }];
+    d.stories.forEach((s) => {
+      storyIndexItems.push({ href: `#story-${s.id}`, label: s.kicker });
+      if (s.id === "food") storyIndexItems.push({ href: "#malnad-foods", label: "Malnad kitchen" });
+    });
+    storyIndexItems.push({ href: "#gallery", label: "Photographs" });
+    const storyIndex = storyIndexItems
+      .map((item, i) => {
+        const num = String(i + 1).padStart(2, "0");
+        return `<a class="story-index-link" href="${esc(item.href)}"><span>${esc(num)}</span>${esc(item.label)}</a>`;
+      })
+      .join("");
+    let chapter = 2;
+    const stories = d.stories
+      .map((s, i) => {
+        const num = String(chapter).padStart(2, "0");
+        chapter += 1;
+        const isCoffee = s.id === "coffee" && d.coffeeOrigin;
+        const beats = isCoffee
+          ? d.coffeeOrigin.chapters
+              .map(
+                (ch, j) => `
+            <article class="story-beat">
+              <p class="story-beat-num">${String(j + 1).padStart(2, "0")}</p>
+              <h3>${esc(ch.title)}</h3>
+              <p>${esc(ch.text)}</p>
+            </article>`
+              )
+              .join("")
+          : s.paragraphs
+              .map(
+                (p) => `
+            <article class="story-beat">
+              <p>${esc(p)}</p>
+            </article>`
+              )
+              .join("");
+        const sources = isCoffee
+          ? `<div class="origin-sources">
+              <p class="kicker">Sources</p>
+              <ul>${(d.coffeeOrigin.sources || [])
+                .map((src) => `<li><a href="${esc(src.url)}" rel="noopener noreferrer">${esc(src.label)}</a></li>`)
+                .join("")}</ul>
+            </div>`
+          : "";
+        const caption = isCoffee ? `<figcaption>${esc(d.coffeeOrigin.caption || "")}</figcaption>` : "";
+        const section = `
+        <section class="story-chapter${i % 2 ? " is-flip" : " is-band"}" id="story-${esc(s.id)}" aria-labelledby="story-title-${esc(s.id)}">
+          <div class="wrap story-chapter-inner">
+            <figure class="story-media">
+              <img src="${esc(s.image)}" alt="${esc(s.title)}" width="1800" height="1200" loading="lazy" />
+              ${caption}
+            </figure>
+            <div class="story-chapter-copy">
+              <p class="story-num">${num}</p>
+              <p class="kicker">${esc(s.kicker)}</p>
+              <h2 id="story-title-${esc(s.id)}">${esc(s.title)}</h2>
+              <div class="story-beats">${beats}</div>
+              ${sources}
+            </div>
+          </div>
+        </section>`;
+        if (s.id === "food") {
+          const foodNum = String(chapter).padStart(2, "0");
+          chapter += 1;
+          return section + foodsChapter(foodNum);
+        }
+        return section;
+      })
+      .join("");
+    const galleryNum = String(chapter).padStart(2, "0");
     const essentials = Object.values(d.essentials)
       .map((block) => {
         const items = block.items.map((item) => `<h4>${esc(item.title)}</h4><p>${esc(item.text)}</p>`).join("");
@@ -273,7 +362,8 @@
     const origin = d.coffeeOrigin || {};
     const originChapters = (origin.chapters || [])
       .map(
-        (ch) => `<article class="origin-chapter">
+        (ch, i) => `<article class="origin-chapter">
+          <p class="story-beat-num">${String(i + 1).padStart(2, "0")}</p>
           <h3>${esc(ch.title)}</h3>
           <p>${esc(ch.text)}</p>
         </article>`
@@ -310,9 +400,10 @@
       .join("");
     return {
       d, tx, interests, featured, talukBtns, circuits, faqs, packing, dos, donts, about,
-      filters, places, season, seasonMonths, stories, essentials, guide, gallery, credits,
+      filters, places, season, seasonMonths, stories, storyIndex, essentials, guide, gallery, credits,
       talukIndex, placeJump, official: d.official, tickerItems, seasonCards, whyCards,
       homeCircuits, homeGallery, fieldNotes, popularCards, origin, originChapters, originSources,
+      foodCards, galleryNum,
     };
   }
 
@@ -396,6 +487,7 @@
               <a class="btn btn-light" href="places.html">Explore all places</a>
               <a class="btn btn-ghost" href="map.html">Open the district map</a>
               <a class="btn btn-ghost" href="#popular-places">Popular places</a>
+              <a class="btn btn-ghost" href="#malnad-foods">Malnad kitchen</a>
             </div>
             <dl class="hero-stats">
               <div>
@@ -455,6 +547,19 @@
         <div class="wrap origin-sources">
           <p class="kicker">Sources</p>
           <ul>${f.originSources}</ul>
+        </div>
+      </section>
+      <section class="section food-section reveal-on-scroll" id="malnad-foods" aria-labelledby="home-foods-title">
+        <div class="wrap">
+          <div class="section-head-row">
+            <div class="section-head">
+              <p class="kicker">Malnad kitchen</p>
+              <h2 id="home-foods-title">Rice, leaf, and a cup from the hill.</h2>
+              <p class="section-lead">Popular dishes the ghats still cook — akki rotti, pathrode, kotte kadubu, neer dosa, jackfruit chips, and filter coffee. Open a card for a two-line origin story. Photographs are Wikimedia stills, not a restaurant list, and this page does not sell a meal.</p>
+            </div>
+            <a class="text-link" href="stories.html#malnad-foods">Kitchen chapter</a>
+          </div>
+          <div class="pop-grid food-grid reveal-stagger">${f.foodCards}</div>
         </div>
       </section>
       <section class="section why-section reveal-on-scroll">
@@ -644,13 +749,18 @@
       <section class="page-hero">
         <div class="wrap">
           <p class="kicker">Stories</p>
-          <h1>Coffee, culture, care</h1>
-          <p class="section-lead">A slower reading of the district — seasons, shade-grown hills, Hoysala stone and how to walk lightly.</p>
+          <h1>Coffee, culture, kitchen, care</h1>
+          <p class="section-lead">Separate readings of the district — seasons, coffee, stone, a Malnad kitchen, and the forest that is not a backdrop. Each chapter stands on its own.</p>
+          <nav class="story-index" aria-label="Chapters on this page">${f.storyIndex}</nav>
         </div>
       </section>
-      <section class="section" style="padding-top:0">
+      <section class="story-chapter story-chapter--seasons" id="seasons" aria-labelledby="seasons-title">
         <div class="wrap">
-          <div class="season-layout" id="seasons">
+          <p class="story-num">01</p>
+          <p class="kicker">${esc(f.tx("nav_seasons"))}</p>
+          <h2 id="seasons-title">Four weathers, four districts</h2>
+          <p class="section-lead">Clear ridges in winter, thinner falls by summer, a monsoon that turns the ghats to water, and an October still dripping green.</p>
+          <div class="season-layout">
             <div class="season-media">
               <img id="season-image" src="assets/mullayanagiri.jpg" alt="Seasonal landscape" width="1800" height="1200" />
             </div>
@@ -664,11 +774,15 @@
               <div class="season-months">${f.seasonMonths}</div>
             </div>
           </div>
-          ${f.stories}
-          <div class="section-head" id="gallery" style="margin-top:2.5rem">
-            <p class="kicker">Field photographs</p>
-            <h2>A quieter look</h2>
-          </div>
+        </div>
+      </section>
+      ${f.stories}
+      <section class="story-chapter" id="gallery" aria-labelledby="gallery-title">
+        <div class="wrap">
+          <p class="story-num">${esc(f.galleryNum)}</p>
+          <p class="kicker">Field photographs</p>
+          <h2 id="gallery-title">A quieter look</h2>
+          <p class="section-lead">Stills from people who walked here, credited on the visit page.</p>
           <div class="gallery-grid">${f.gallery}</div>
         </div>
       </section>

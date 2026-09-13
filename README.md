@@ -18,10 +18,10 @@ Then open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 
 | Page | What it is |
 | --- | --- |
-| `index.html` | Editorial home with Sylva-style field notes, seasons, stories, trip sketches, gallery and illustrated taluk map |
+| `index.html` | Editorial home with popular places, coffee origin, Malnad kitchen, seasons, stories, trip sketches, gallery and illustrated taluk map |
 | `places.html` | Destinations grouped under waterfalls, temples, dams, lakes, hill stations, peaks, wildlife, and coffee country |
 | `map.html` | Interactive choropleth of the nine taluks |
-| `stories.html` | Seasons, coffee, culture, photographs |
+| `stories.html` | Separate chapters: seasons, coffee, culture, food, Malnad kitchen dishes, responsible travel, photographs |
 | `plan.html` | Private itinerary and explorer passport (`localStorage`) |
 | `visit.html` | Access, packing, conduct, official links, credits |
 

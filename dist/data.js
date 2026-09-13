@@ -969,11 +969,11 @@ window.CKM = {
     {
       "id": "food",
       "kicker": "Food",
-      "title": "Akki, koli, and a cup that still tastes of the hill",
-      "image": "assets/coffee-estate.jpg",
+      "title": "Akki, leaf, and a cup that still tastes of the hill",
+      "image": "assets/food-akki-rotti.jpg",
       "paragraphs": [
-        "Malnad cooking is rice-first: akki rotti, kadubu, forest greens, pork or koli (chicken) in village kitchens, fish where the Bhadra and Tunga allow. Temple towns such as Horanadu are known for annadana — a meal as offering — with timings set by the temple, not by a tourism brochure.",
-        "Filter coffee here is not a brand story. It is boiled milk, a dark decoction, and beans that grew under trees you can still see from the bus window. Ask where the beans were picked. That is the only authenticity test that matters."
+        "Malnad cooking is rice-first: akki rotti on a hot tava, kadubu steamed in a jackfruit leaf, pathrode rolled from colocasia, a thin neer dosa, jackfruit when the trees fruit, and filter coffee from beans that grew under silver oak. Village kitchens also cook koli saaru and forest greens; those plates belong to homes, not to a tourism menu.",
+        "Temple towns such as Horanadu are known for annadana — a meal as offering — with timings set by the temple, not by a brochure. The dishes in the kitchen chapter are regional tradition. A hotel name in a photograph credit is not a recommendation, and this companion does not sell a table."
       ]
     },
     {
@@ -1103,6 +1103,80 @@ window.CKM = {
       }
     ]
   },
+  "malnadFoods": [
+    {
+      "id": "akki-rotti",
+      "name": "Akki rotti",
+      "kannada": "ಅಕ್ಕಿ ರೊಟ್ಟಿ",
+      "kicker": "Rice bread",
+      "image": "assets/food-akki-rotti.jpg",
+      "story": "Akki means rice. The dough is rice flour worked with chopped onion, green chilli, cumin and often coconut, then patted onto a hot tava until the edges crisp. Wikipedia places it in Karnataka — especially the wet-hill kitchens of Malnad and Kodagu — everyday breakfast from the grain that grows in these valleys, cooked without wheat.",
+      "source": {
+        "label": "Wikipedia — Akki roti",
+        "url": "https://en.wikipedia.org/wiki/Akki_roti"
+      }
+    },
+    {
+      "id": "filter-coffee",
+      "name": "Filter coffee",
+      "kannada": "ಫಿಲ್ಟರ್ ಕಾಫಿ",
+      "kicker": "Kaapi",
+      "image": "assets/food-filter-coffee.jpg",
+      "story": "South Indian filter coffee is decoction from a metal percolator, mixed with boiled milk and often a little sugar — hot, strong, and poured until it froths. Chikkamagaluru is where the Indian crop’s origin story is planted; the cup in town is that shade-grown bean made drinkable. The davara-tumbler ritual is cafe craft from the south, not a brand.",
+      "source": {
+        "label": "Wikipedia — Indian filter coffee",
+        "url": "https://en.wikipedia.org/wiki/Indian_filter_coffee"
+      }
+    },
+    {
+      "id": "pathrode",
+      "name": "Pathrode",
+      "kannada": "ಪತ್ರೋಡೆ",
+      "kicker": "Colocasia roll",
+      "image": "assets/food-pathrode.jpg",
+      "story": "Colocasia leaves — kesuve in Kannada, chevu in Tulu — are smeared with a rice-coconut-tamarind spice paste, rolled, and steamed. Wikipedia lists the dish across India (patrode, patra, alu vadi) and names Karnataka’s patrodé. In Malnad it is a monsoon leaf plate. The leaves must be cooked; raw taro stings.",
+      "source": {
+        "label": "Wikipedia — Patrode",
+        "url": "https://en.wikipedia.org/wiki/Patrode"
+      }
+    },
+    {
+      "id": "kadubu",
+      "name": "Kotte kadubu",
+      "kannada": "ಕೊಟ್ಟೆ ಕಡುಬು",
+      "kicker": "Leaf-cup steam",
+      "image": "assets/food-kadubu.jpg",
+      "story": "Kadubu are steamed rice cakes. Wikipedia’s idli page notes kotte kadubu — batter steamed in jackfruit leaves — in Karnataka, the leaf cup perfuming the rice. Malnad and Tulu Nadu share the method: savoury at breakfast, or sweet with coconut and jaggery. The photograph is from Hebri; the leaf-cup is the story, not a hotel listing.",
+      "source": {
+        "label": "Wikipedia — Idli (kotte kadubu)",
+        "url": "https://en.wikipedia.org/wiki/Idli"
+      }
+    },
+    {
+      "id": "neer-dosa",
+      "name": "Neer dosa",
+      "kannada": "ನೀರು ದೋಸೆ",
+      "kicker": "Water crepe",
+      "image": "assets/food-neer-dosa.jpg",
+      "story": "Neer means water. The batter is rice ground thin, not fermented like a regular dosa, then spread pale on a tava until it laces. Wikipedia calls it a Tulu Nadu delicacy; Karnataka cuisine notes it as common in Mangalore and Malenadu. In these hills it arrives with coconut chutney, or with a chicken curry from a home kitchen.",
+      "source": {
+        "label": "Wikipedia — Neer dosa",
+        "url": "https://en.wikipedia.org/wiki/Neer_dosa"
+      }
+    },
+    {
+      "id": "jackfruit-chips",
+      "name": "Jackfruit chips",
+      "kannada": "ಹಲಸಿನ ಚಿಪ್ಸ್",
+      "kicker": "Halasina season",
+      "image": "assets/food-jackfruit-chips.jpg",
+      "story": "Jackfruit is native to the Indian Western Ghats and fruits hard in Malnad. Unripe bulbs are sliced and fried into chips — a tin in the pantry when the trees are heavy. Kitchens here also steam and curry the fruit; the chips are what travel. This is orchard food, not a packaged souvenir story.",
+      "source": {
+        "label": "Wikipedia — Jackfruit",
+        "url": "https://en.wikipedia.org/wiki/Jackfruit"
+      }
+    }
+  ],
   "essentials": {
     "access": {
       "title": "How to arrive",
@@ -1391,6 +1465,54 @@ window.CKM = {
       "artist": "Companion illustration",
       "license": "Original artwork for this site",
       "url": "https://coffeeboard.gov.in/aboutus.aspx"
+    },
+    {
+      "local": "food-akki-rotti.jpg",
+      "place": "Akki rotti",
+      "file": "Akki roti.jpg",
+      "artist": "Ram1751",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Akki_roti.jpg"
+    },
+    {
+      "local": "food-filter-coffee.jpg",
+      "place": "Filter coffee (photographed in Bengaluru)",
+      "file": "Filter Coffee - CTR Shri Sagar, Bangalore - Karnataka - PXL0254.jpg",
+      "artist": "Harikrishnan N",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Filter_Coffee_-_CTR_Shri_Sagar,_Bangalore_-_Karnataka_-_PXL0254.jpg"
+    },
+    {
+      "local": "food-pathrode.jpg",
+      "place": "Pathrode (kesuvina yele)",
+      "file": "Kesuvina Yele Kavali Suttida Pathrode.jpg",
+      "artist": "Kart127",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Kesuvina_Yele_Kavali_Suttida_Pathrode.jpg"
+    },
+    {
+      "local": "food-kadubu.jpg",
+      "place": "Kotte kadubu (photographed in Hebri)",
+      "file": "Kotte Kadubu - Bhatru Hotel, Hebri - Karnataka - PXL6088.jpg",
+      "artist": "Harikrishnan N",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Kotte_Kadubu_-_Bhatru_Hotel,_Hebri_-_Karnataka_-_PXL6088.jpg"
+    },
+    {
+      "local": "food-neer-dosa.jpg",
+      "place": "Neer dosa",
+      "file": "Neer Dosa (ನೀರು ದೋಸೆ).jpg",
+      "artist": "Yakshitha",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Neer_Dosa_(%E0%B2%A8%E0%B3%80%E0%B2%B0%E0%B3%81_%E0%B2%A6%E0%B3%8B%E0%B2%B8%E0%B3%86).jpg"
+    },
+    {
+      "local": "food-jackfruit-chips.jpg",
+      "place": "Jackfruit chips",
+      "file": "V chips jackfruit.JPG",
+      "artist": "Vidyu44",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:V_chips_jackfruit.JPG"
     },
     {
       "local": "baba-budangiri.jpg",

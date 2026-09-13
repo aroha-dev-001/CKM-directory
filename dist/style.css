@@ -151,6 +151,39 @@ p {
   margin: 0.35rem 0 0.8rem;
 }
 
+.story-index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 1.6rem;
+}
+
+.story-index-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.5rem;
+  padding: 0.25rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  text-decoration: none;
+  font-size: 0.88rem;
+  background: var(--cream);
+}
+
+.story-index-link span {
+  font-family: var(--serif);
+  color: var(--gold-dim);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+}
+
+.story-index-link:hover,
+.story-index-link:focus-visible {
+  border-color: var(--forest);
+  background: #fff;
+}
+
 .site-nav a.is-active {
   opacity: 1;
   border-bottom-color: var(--gold);
@@ -630,6 +663,39 @@ p {
   box-shadow: 0 24px 50px rgba(12, 31, 19, 0.14);
 }
 
+.pop-face-copy .kn {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-weight: 400;
+  margin-top: 0.12rem;
+}
+
+.food-section {
+  background: var(--ivory);
+  padding: clamp(3.2rem, 7vw, 5.5rem) 0;
+}
+
+.food-section .section-head h2 {
+  max-width: 16ch;
+}
+
+.story-chapter--foods h2 {
+  max-width: 18ch;
+  font-size: clamp(1.8rem, 3.4vw, 2.65rem);
+  margin: 0.25rem 0 0.85rem;
+}
+
+.story-chapter--foods .section-lead {
+  max-width: 46rem;
+  margin-bottom: 1.8rem;
+}
+
+.food-grid {
+  margin-top: 0.4rem;
+}
+
 .coffee-origin {
   background: var(--paper);
   padding: clamp(3.2rem, 7vw, 5.5rem) 0;
@@ -674,13 +740,14 @@ p {
 
 .origin-chapter {
   background: var(--cream);
-  border-radius: 1rem;
+  border-radius: 0 1rem 1rem 0;
   padding: 1.1rem 1.15rem 1.2rem;
+  border-left: 2px solid var(--gold);
 }
 
 .origin-chapter h3 {
   font-size: 1.35rem;
-  margin-bottom: 0.45rem;
+  margin: 0.2rem 0 0.45rem;
 }
 
 .origin-chapter p {
@@ -1652,6 +1719,104 @@ p {
 }
 
 /* Stories */
+.story-chapter {
+  padding: clamp(3.2rem, 7vw, 5.6rem) 0;
+  background: var(--ivory);
+}
+
+.story-chapter.is-band,
+.story-chapter--seasons {
+  background: var(--paper);
+}
+
+.story-num {
+  font-family: var(--serif);
+  font-size: 0.82rem;
+  letter-spacing: 0.22em;
+  color: var(--gold-dim);
+  margin: 0 0 0.4rem;
+}
+
+.story-chapter-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(1.4rem, 4vw, 2.6rem);
+  align-items: start;
+}
+
+.story-chapter.is-flip .story-chapter-inner {
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+}
+
+.story-chapter.is-flip .story-media {
+  order: 2;
+}
+
+.story-chapter-copy h2 {
+  font-size: clamp(1.8rem, 3.4vw, 2.65rem);
+  max-width: 18ch;
+  margin: 0.25rem 0 1.15rem;
+}
+
+.story-chapter--seasons h2 {
+  max-width: 16ch;
+}
+
+.story-chapter--seasons .season-layout {
+  margin-top: 1.8rem;
+}
+
+.story-chapter .story-media {
+  aspect-ratio: auto;
+  overflow: visible;
+  background: transparent;
+}
+
+.story-chapter .story-media img {
+  border-radius: 1rem;
+  aspect-ratio: 3 / 2;
+}
+
+.story-chapter .story-media figcaption {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 0.4rem;
+}
+
+.story-beats {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.story-beat {
+  padding: 0.95rem 1rem 1rem 1.05rem;
+  border-left: 2px solid var(--gold);
+  border-radius: 0 0.75rem 0.75rem 0;
+  background: rgba(255, 253, 248, 0.7);
+}
+
+.story-beat-num {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  color: var(--gold-dim);
+  font-weight: 600;
+  margin-bottom: 0.15rem;
+}
+
+.story-beat h3 {
+  font-size: 1.2rem;
+  margin: 0.1rem 0 0.4rem;
+}
+
+.story-beat p {
+  color: var(--muted);
+}
+
+.story-chapter-copy .origin-sources {
+  margin-top: 1.4rem;
+}
+
+/* Legacy stacked blocks (unused on stories page) */
 .story-block {
   display: grid;
   grid-template-columns: 0.92fr 1.08fr;
@@ -2366,6 +2531,8 @@ p {
     columns: 1;
   }
 
+  .story-chapter-inner,
+  .story-chapter.is-flip .story-chapter-inner,
   .season-layout,
   .story-block,
   .story-block:nth-of-type(even),
@@ -2395,6 +2562,7 @@ p {
     opacity: 1;
   }
 
+  .story-chapter.is-flip .story-media,
   .story-block:nth-of-type(even) .story-media {
     order: 0;
   }
