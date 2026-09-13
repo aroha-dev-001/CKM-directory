@@ -22,7 +22,7 @@ Then open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 | `places.html` | Destinations grouped under waterfalls, temples, dams, lakes, hill stations, peaks, wildlife, and coffee country |
 | `map.html` | Interactive choropleth of the nine taluks |
 | `stories.html` | Separate chapters: seasons, coffee, culture, food, Malnad kitchen dishes, responsible travel, photographs |
-| `coffee.html` | Full coffee-origin story with Baba Budan illustration |
+| `coffee.html` | Full coffee-origin story: eight illustrated scenes from Mocha to shade canopy |
 | `food.html` | One Malnad dish per page (`?id=`) |
 | `plan.html` | Private itinerary and explorer passport (`localStorage`) |
 | `visit.html` | Access, packing, conduct, official links, credits |

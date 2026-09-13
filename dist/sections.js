@@ -224,14 +224,22 @@
         const isCoffee = s.id === "coffee" && d.coffeeOrigin;
         const beats = isCoffee
           ? d.coffeeOrigin.chapters
-              .map(
-                (ch, j) => `
-            <article class="story-beat">
-              <p class="story-beat-num">${String(j + 1).padStart(2, "0")}</p>
-              <h3>${esc(ch.title)}</h3>
-              <p>${esc(ch.text)}</p>
-            </article>`
-              )
+              .map((ch, j) => {
+                const n = String(j + 1).padStart(2, "0");
+                const firstStop = String(ch.text || "").indexOf(". ");
+                const teaser = firstStop > 40 ? ch.text.slice(0, firstStop + 1) : ch.text;
+                return `
+            <article class="story-beat story-beat-scene">
+              <a class="story-beat-thumb" href="coffee.html#origin-${n}">
+                <img src="${esc(ch.image)}" alt="${esc(ch.caption || ch.title)}" width="900" height="600" loading="lazy" />
+              </a>
+              <div>
+                <p class="story-beat-num">${n}</p>
+                <h3>${esc(ch.title)}</h3>
+                <p>${esc(teaser)}</p>
+              </div>
+            </article>`;
+              })
               .join("")
           : s.paragraphs
               .map(
@@ -249,16 +257,24 @@
                 .join("")}</ul>
             </div>`
           : "";
-        const caption = isCoffee
-          ? `<figcaption>${esc((d.coffeeOrigin.saint && d.coffeeOrigin.saint.caption) || d.coffeeOrigin.caption || "")}</figcaption>`
-          : "";
+        const coffeeMedia = isCoffee
+          ? `<figure class="story-media story-media-mosaic">
+              ${(d.coffeeOrigin.chapters || [])
+                .slice(0, 4)
+                .map(
+                  (ch, j) =>
+                    `<a href="coffee.html#origin-${String(j + 1).padStart(2, "0")}"><img src="${esc(ch.image)}" alt="${esc(ch.caption || ch.title)}" width="900" height="600" loading="lazy" /></a>`
+                )
+                .join("")}
+              <figcaption>${esc(d.coffeeOrigin.caption || "")}</figcaption>
+            </figure>`
+          : `<figure class="story-media">
+              <img src="${esc(s.image)}" alt="${esc(s.title)}" width="1800" height="1200" loading="lazy" />
+            </figure>`;
         const section = `
         <section class="story-chapter${i % 2 ? " is-flip" : " is-band"}" id="story-${esc(s.id)}" aria-labelledby="story-title-${esc(s.id)}">
           <div class="wrap story-chapter-inner">
-            <figure class="story-media">
-              <img src="${esc(s.image)}" alt="${esc(s.title)}" width="1800" height="1200" loading="lazy" />
-              ${caption}
-            </figure>
+            ${coffeeMedia}
             <div class="story-chapter-copy">
               <p class="story-num">${num}</p>
               <p class="kicker">${esc(s.kicker)}</p>
@@ -412,14 +428,42 @@
       .join("");
     const origin = d.coffeeOrigin || {};
     const originChapters = (origin.chapters || [])
-      .map(
-        (ch, i) => `<article class="origin-chapter">
-          <p class="story-beat-num">${String(i + 1).padStart(2, "0")}</p>
-          <h3>${esc(ch.title)}</h3>
-          <p>${esc(ch.text)}</p>
-        </article>`
-      )
+      .map((ch, i) => {
+        const n = String(i + 1).padStart(2, "0");
+        const flip = i % 2 === 1 ? " is-flip" : "";
+        const kicker = ch.kicker ? `<p class="kicker origin-kicker">${esc(ch.kicker)}</p>` : "";
+        const media = ch.image
+          ? `<figure class="origin-scene-media">
+              <img src="${esc(ch.image)}" alt="${esc(ch.caption || ch.title)}" width="1800" height="1200" ${i < 2 ? "" : 'loading="lazy"'} />
+              <figcaption>${esc(ch.caption || "")}</figcaption>
+            </figure>`
+          : "";
+        return `<article class="origin-scene${flip}" id="origin-${n}">
+          ${media}
+          <div class="origin-chapter">
+            <p class="story-beat-num">${n}</p>
+            ${kicker}
+            <h3>${esc(ch.title)}</h3>
+            <p>${esc(ch.text)}</p>
+          </div>
+        </article>`;
+      })
       .join("");
+    const originIndex = (origin.chapters || [])
+      .map((ch, i) => {
+        const n = String(i + 1).padStart(2, "0");
+        return `<a class="origin-index-item" href="#origin-${n}">
+          <img src="${esc(ch.image)}" alt="" width="600" height="400" />
+          <span><b>${n}</b> ${esc(ch.kicker || ch.title)}</span>
+        </a>`;
+      })
+      .join("");
+    const originHero = origin.image
+      ? `<figure class="origin-hero">
+          <img src="${esc(origin.image)}" alt="${esc(origin.caption || origin.title)}" width="1800" height="1200" />
+          <figcaption>${esc(origin.caption || "")}</figcaption>
+        </figure>`
+      : "";
     const originSources = (origin.sources || [])
       .map((s) => `<li><a href="${esc(s.url)}" rel="noopener noreferrer">${esc(s.label)}</a></li>`)
       .join("");
@@ -457,6 +501,7 @@
       filters, places, season, seasonMonths, stories, storyIndex, essentials, guide, gallery, credits,
       talukIndex, placeJump, official: d.official, tickerItems, seasonCards, whyCards,
       homeCircuits, homeGallery, fieldNotes, popularCards, origin, originChapters, originSources,
+      originIndex, originHero,
       foodCards, galleryNum,
     };
   }
@@ -950,7 +995,6 @@
   function renderCoffeePage(lang) {
     const f = fragments(lang);
     const origin = f.origin || {};
-    const saint = origin.saint || {};
     return `
       <section class="page-hero">
         <div class="wrap">
@@ -962,17 +1006,9 @@
       </section>
       <section class="story-longread">
         <div class="wrap">
-          <div class="story-longread-media">
-            <figure>
-              <img src="${esc(saint.image || origin.image)}" alt="${esc(saint.caption || origin.title)}" width="1800" height="1200" />
-              <figcaption>${esc(saint.caption || "")}</figcaption>
-            </figure>
-            <figure>
-              <img src="${esc(origin.image)}" alt="${esc(origin.caption || origin.title)}" width="1800" height="1200" />
-              <figcaption>${esc(origin.caption || "")}</figcaption>
-            </figure>
-          </div>
-          <div class="origin-chapters">${f.originChapters}</div>
+          ${f.originHero || ""}
+          <nav class="origin-index" aria-label="Scenes in this story">${f.originIndex}</nav>
+          <div class="origin-scenes">${f.originChapters}</div>
           <div class="origin-sources">
             <p class="kicker">Sources</p>
             <ul>${f.originSources}</ul>
