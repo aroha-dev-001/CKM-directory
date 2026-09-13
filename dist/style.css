@@ -108,7 +108,7 @@ p {
 }
 
 .wrap-wide {
-  width: min(1280px, calc(100% - var(--pad) * 2));
+  width: min(1440px, calc(100% - var(--pad) * 2));
 }
 
 .page-enter {
@@ -692,13 +692,17 @@ p {
 
 .district-explorer {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.2fr) minmax(0, 0.85fr);
-  gap: 2.4rem 1.6rem;
-  align-items: start;
+  grid-template-columns: minmax(0, 16rem) minmax(0, 1fr) minmax(0, 17rem);
+  gap: 2rem 1.4rem;
+  align-items: center;
 }
 
 .district-explorer > * {
   min-width: 0;
+}
+
+.district-explorer-page .district-explorer {
+  grid-template-columns: minmax(0, 15.5rem) minmax(22rem, 1fr) minmax(0, 16.5rem);
 }
 
 .district-copy h1,
@@ -721,11 +725,23 @@ p {
 
 .district-map-stage {
   position: relative;
-  min-height: 22rem;
+  min-height: 24rem;
 }
 
 .choropleth {
   width: 100%;
+}
+
+.choropleth-lg {
+  min-height: 34rem;
+}
+
+.choropleth-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+  max-height: min(78vh, 46rem);
 }
 
 .choropleth-svg {

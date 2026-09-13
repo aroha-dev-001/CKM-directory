@@ -1,6 +1,6 @@
 (function (global) {
   const GEOJSON = "assets/taluks.geojson";
-  const VB = { w: 640, h: 720, pad: 28 };
+  const VB = { w: 720, h: 780, pad: 18 };
   const SELECTED = "#2f5c3c";
   const HOVER = "#8eaa86";
   const LABEL_IDLE = "#3d5344";
@@ -39,15 +39,15 @@
     ajjampura: "Ajjampura",
   };
   const LABEL_SIZE = {
-    chikkamagaluru: 13,
-    tarikere: 11,
-    kadur: 11,
-    mudigere: 11,
-    koppa: 9,
-    nrpura: 9,
-    sringeri: 9,
-    kalasa: 9,
-    ajjampura: 10,
+    chikkamagaluru: 16,
+    tarikere: 14,
+    kadur: 14,
+    mudigere: 14,
+    koppa: 12,
+    nrpura: 12,
+    sringeri: 12,
+    kalasa: 12,
+    ajjampura: 13,
   };
 
   let geoCache = null;
