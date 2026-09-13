@@ -37,7 +37,7 @@ JOBS = [
     (
         "kallathigiri.jpg",
         "https://upload.wikimedia.org/wikipedia/commons/0/03/Near_Kallathigiri_falls_%2827622708343%29.jpg",
-        "center",
+        "right",
     ),
     (
         "z-point.jpg",
@@ -73,8 +73,12 @@ def cover_crop(im: Image.Image, tw: int, th: int, focus: str = "center") -> Imag
     nw, nh = max(tw, round(im.width * scale)), max(th, round(im.height * scale))
     im = im.resize((nw, nh), Image.Resampling.LANCZOS)
     left = max(0, (nw - tw) // 2)
+    leftover_x = nw - tw
     leftover_y = nh - th
-    if focus == "top":
+    if focus == "right":
+        left = int(leftover_x * 0.82)
+        top = int(leftover_y * 0.55)
+    elif focus == "top":
         top = 0
     elif focus == "upper":
         top = int(leftover_y * 0.22)
@@ -82,6 +86,9 @@ def cover_crop(im: Image.Image, tw: int, th: int, focus: str = "center") -> Imag
         top = int(leftover_y * 0.72)
     else:
         top = leftover_y // 2
+        left = leftover_x // 2
+    left = max(0, min(left, leftover_x))
+    top = max(0, min(top, leftover_y))
     return im.crop((left, top, left + tw, top + th))
 
 
