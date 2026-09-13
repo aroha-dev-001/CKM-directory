@@ -29,6 +29,16 @@
     return lang === "kn" ? found.kn : found.label;
   }
 
+  function seasonImage(id) {
+    const map = {
+      winter: "assets/mullayanagiri.jpg",
+      summer: "assets/kemmanagundi.jpg",
+      monsoon: "assets/hebbe-falls.jpg",
+      "post-monsoon": "assets/coffee-hills.jpg",
+    };
+    return map[id] || "assets/mullayanagiri.jpg";
+  }
+
   function placeCard(place, lang) {
     return `
       <article class="place-card-wrap">
@@ -69,7 +79,7 @@
       .filter(Boolean)
       .map(
         (p) => `
-        <a class="feature-card" href="places.html?id=${esc(p.id)}">
+        <a class="feature-card tilt-card" href="places.html?id=${esc(p.id)}" data-tilt>
           <div class="media">
             <img src="${esc(p.image)}" alt="${esc(p.name)}" width="1800" height="1200" loading="lazy" />
           </div>
@@ -156,6 +166,78 @@
         </figure>`
       )
       .join("");
+    const tickerItems = d.destinations
+      .map((p) => `<span>${esc(p.name)} <i>${esc(p.kannada)}</i></span>`)
+      .join("");
+    const seasonCards = d.seasons
+      .map(
+        (s) => `
+        <a class="season-card tilt-card" href="stories.html#seasons" data-tilt>
+          <div class="media">
+            <img src="${esc(seasonImage(s.id))}" alt="${esc(s.title)}" width="1800" height="1200" loading="lazy" />
+          </div>
+          <span class="season-card-copy">
+            <span class="kicker">${esc(lang === "kn" ? s.kn : s.months)}</span>
+            <strong>${esc(s.title)}</strong>
+            <span>${esc(s.experiences[0] || "")}</span>
+          </span>
+        </a>`
+      )
+      .join("");
+    const whyCards = d.stories
+      .filter((s) => ["coffee", "culture", "responsible"].includes(s.id))
+      .map(
+        (s) => `
+        <a class="why-card tilt-card" href="stories.html#story-${esc(s.id)}" data-tilt>
+          <div class="media">
+            <img src="${esc(s.image)}" alt="${esc(s.title)}" width="1800" height="1200" loading="lazy" />
+          </div>
+          <span class="why-card-copy">
+            <span class="kicker">${esc(s.kicker)}</span>
+            <h3>${esc(s.title)}</h3>
+            <p>${esc(s.paragraphs[0])}</p>
+            <span class="text-link">Read on</span>
+          </span>
+        </a>`
+      )
+      .join("");
+    const homeCircuits = (d.circuits || [])
+      .map((c) => {
+        const names = c.places
+          .map((id) => d.destinations.find((p) => p.id === id))
+          .filter(Boolean)
+          .map((p) => p.name)
+          .slice(0, 4)
+          .join(" · ");
+        return `
+          <a class="home-circuit tilt-card" href="plan.html?circuit=${esc(c.id)}" data-tilt>
+            <div class="media">
+              <img src="${esc(c.image)}" alt="${esc(c.title)}" width="1800" height="1200" loading="lazy" />
+            </div>
+            <span class="home-circuit-copy">
+              <span class="kicker">${esc(c.kicker)}</span>
+              <h3>${esc(c.title)}</h3>
+              <p>${esc(c.text)}</p>
+              <p class="home-circuit-stops">${esc(names)}</p>
+              <span class="text-link">Use this sketch</span>
+            </span>
+          </a>`;
+      })
+      .join("");
+    const homeGallery = (d.gallery || [])
+      .slice(0, 6)
+      .map(
+        (g) => `
+        <figure class="gallery-item">
+          <img src="${esc(g.image)}" alt="${esc(g.caption)}" width="1800" height="1200" loading="lazy" />
+          <figcaption>${esc(g.caption)}</figcaption>
+        </figure>`
+      )
+      .join("");
+    const fieldNotes = (d.guide?.cards || [])
+      .slice(0, 3)
+      .map((c) => `<article class="guide-card"><h3>${esc(c.title)}</h3><p>${esc(c.text)}</p></article>`)
+      .join("");
     const credits = d.credits
       .map(
         (c) =>
@@ -185,7 +267,8 @@
     return {
       d, tx, interests, featured, talukBtns, circuits, faqs, packing, dos, donts, about,
       filters, places, season, seasonMonths, stories, essentials, guide, gallery, credits,
-      talukIndex, placeJump, official: d.official,
+      talukIndex, placeJump, official: d.official, tickerItems, seasonCards, whyCards,
+      homeCircuits, homeGallery, fieldNotes,
     };
   }
 
@@ -255,25 +338,96 @@
           <img src="assets/hero.jpg" alt="" width="2400" height="1350" fetchpriority="high" />
         </div>
         <div class="hero-scrim"></div>
-        <div class="hero-copy">
-          <p class="eyebrow">Chikkamagaluru · Karnataka</p>
-          <h1 id="hero-title">Above the cloud line.</h1>
-          <p class="lede">Good coffee, quieter journeys. A district companion for peaks, temples, forests and the working shade of Malnad — not a booking desk.</p>
-          <div class="hero-actions">
-            <a class="btn btn-light" href="places.html">Explore all places</a>
-            <a class="btn btn-ghost" href="map.html">Open the district map</a>
+        <p class="hero-ghost" aria-hidden="true">CHIKKAMAGALURU</p>
+        <div class="hero-bottom">
+          <div class="hero-copy">
+            <p class="eyebrow shimmer">Chikkamagaluru · Karnataka</p>
+            <h1 id="hero-title" class="reveal-lines">
+              <span><i>Above the</i></span>
+              <span><i>cloud line.</i></span>
+            </h1>
+            <p class="hero-kn" lang="kn">ಮೇಘರೇಖೆಯ ಮೇಲೆ</p>
+            <p class="lede">Good coffee, quieter journeys. A district companion for peaks, temples, forests and the working shade of Malnad — not a booking desk.</p>
+            <div class="hero-actions">
+              <a class="btn btn-light" href="places.html">Explore all places</a>
+              <a class="btn btn-ghost" href="map.html">Open the district map</a>
+              <a class="btn btn-ghost" href="stories.html">Read the stories</a>
+            </div>
+            <dl class="hero-stats">
+              <div>
+                <dt>Places mapped</dt>
+                <dd><span data-count="${f.d.destinations.length}">${f.d.destinations.length}</span></dd>
+              </div>
+              <div>
+                <dt>Taluks</dt>
+                <dd><span data-count="9">9</span></dd>
+              </div>
+              <div>
+                <dt>Highest peak</dt>
+                <dd>1,930 m</dd>
+              </div>
+            </dl>
+            <a class="hero-scroll" href="#district-pulse">Scroll into the district</a>
           </div>
+          <a class="field-note tilt-card" href="stories.html#seasons" data-tilt>
+            <div class="media">
+              <img src="assets/gallery-mist.jpg" alt="" width="1800" height="1200" />
+            </div>
+            <span class="kicker">Field note</span>
+            <strong>After the rain</strong>
+            <span>Hills hold colour. Trails stay slick. October is generous if you watch the weather rather than a calendar.</span>
+          </a>
         </div>
       </section>
-      <section class="ribbon" aria-label="At a glance">
+      <section class="ribbon" id="district-pulse" aria-label="At a glance">
         <div class="wrap ribbon-grid">
-          <p><strong>${f.d.destinations.length}</strong> places to read</p>
-          <p><strong>9</strong> taluks on the map</p>
-          <p><strong>3</strong> trip sketches</p>
+          <p><strong data-count="${f.d.destinations.length}">${f.d.destinations.length}</strong> places to read</p>
+          <p><strong data-count="9">9</strong> taluks on the map</p>
+          <p><strong data-count="3">3</strong> trip sketches</p>
           <p><a href="https://chikkamagaluru.nic.in/en/tourism/" rel="noopener noreferrer">Official district tourism</a></p>
         </div>
       </section>
-      <section class="section" id="explore">
+      <div class="name-ticker" aria-hidden="true">
+        <div class="name-ticker-track">
+          <div class="name-ticker-set">${f.tickerItems}</div>
+          <div class="name-ticker-set">${f.tickerItems}</div>
+        </div>
+      </div>
+      <section class="quote-band reveal-on-scroll" aria-labelledby="quote-title">
+        <div class="wrap quote-band-inner">
+          <p class="kicker">Coffee country</p>
+          <blockquote id="quote-title">Seven beans from Mocha. A forest that learned to drink.</blockquote>
+          <p>Local tradition holds that Baba Budan carried arabica into these hills from Yemen. What you see from a ridge is not wilderness alone — it is shade, skilled labour, and a polyculture older than the cafés that made the name famous.</p>
+          <a class="text-link text-link-light" href="stories.html#story-coffee">The coffee story</a>
+        </div>
+      </section>
+      <section class="section why-section reveal-on-scroll">
+        <div class="wrap">
+          <div class="section-head-row">
+            <div class="section-head">
+              <p class="kicker">Why this district</p>
+              <h2>Coffee, stone, and a living forest.</h2>
+              <p class="section-lead">Three ways of reading Chikkamagaluru before you pick a road: the working shade of arabica, Hoysala and Malnad pilgrimage, and a Western Ghats hotspot that is not a backdrop.</p>
+            </div>
+            <a class="text-link" href="stories.html">All stories</a>
+          </div>
+          <div class="why-grid reveal-stagger">${f.whyCards}</div>
+        </div>
+      </section>
+      <section class="section reveal-on-scroll" style="padding-top:0" id="seasons-home">
+        <div class="wrap">
+          <div class="section-head-row">
+            <div class="section-head">
+              <p class="kicker">${esc(f.tx("nav_seasons"))}</p>
+              <h2>Four weathers, four districts.</h2>
+              <p class="section-lead">Clear ridges in winter, thinner falls by summer, a monsoon that turns the ghats to water, and an October still dripping green. Come for the season you can actually walk.</p>
+            </div>
+            <a class="text-link" href="stories.html#seasons">Season notes</a>
+          </div>
+          <div class="season-card-grid reveal-stagger">${f.seasonCards}</div>
+        </div>
+      </section>
+      <section class="section reveal-on-scroll" id="explore" style="padding-top:0">
         <div class="wrap">
           <div class="section-head">
             <p class="kicker">Browse by interest</p>
@@ -283,13 +437,27 @@
           <div class="interest-grid">${f.interests}</div>
         </div>
       </section>
-      <section class="section" style="padding-top:0">
+      <section class="section reveal-on-scroll" style="padding-top:0">
         <div class="wrap">
           <div class="section-head">
             <p class="kicker">Not to be missed</p>
             <h2>The landmarks</h2>
+            <p class="section-lead">Three ridges that still organise a first visit: the state’s highest peak, the Baba Budan range, and Kemmanagundi’s garden-and-grassland shelf.</p>
           </div>
-          <div class="feature-grid">${f.featured}</div>
+          <div class="feature-grid reveal-stagger">${f.featured}</div>
+        </div>
+      </section>
+      <section class="section circuits-home reveal-on-scroll">
+        <div class="wrap">
+          <div class="section-head-row">
+            <div class="section-head">
+              <p class="kicker">Trip sketches</p>
+              <h2>Three ways through the hills.</h2>
+              <p class="section-lead">Coffee ridges, temple terraces, and permit country. Load a sketch into a private notebook in this browser — no account, no payment.</p>
+            </div>
+            <a class="text-link" href="plan.html">Open the planner</a>
+          </div>
+          <div class="home-circuit-grid reveal-stagger">${f.homeCircuits}</div>
         </div>
       </section>
       <section class="district-explorer-section" id="explore-district">
@@ -314,6 +482,34 @@
               <p class="taluk-summary" id="taluk-summary"></p>
               <p class="taluk-footnote">Kalasa and Ajjampura were carved out of Mudigere and Tarikere after older maps were drawn. Each is shown here with its current OSM boundary.</p>
             </aside>
+          </div>
+        </div>
+      </section>
+      <section class="section reveal-on-scroll" id="home-gallery">
+        <div class="wrap">
+          <div class="section-head-row">
+            <div class="section-head">
+              <p class="kicker">Field photographs</p>
+              <h2>A quieter look.</h2>
+              <p class="section-lead">Ridges, shade coffee, falling water and the Tunga terrace — stills from people who walked here, credited on the visit page.</p>
+            </div>
+            <a class="text-link" href="stories.html#gallery">Full gallery</a>
+          </div>
+          <div class="home-gallery reveal-stagger">${f.homeGallery}</div>
+        </div>
+      </section>
+      <section class="section close-band reveal-on-scroll">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="kicker">Before you leave town</p>
+            <h2>Give the peaks a morning.</h2>
+            <p class="section-lead">${esc(f.d.guide.intro)}</p>
+          </div>
+          <div class="guide-grid">${f.fieldNotes}</div>
+          <div class="close-actions">
+            <a class="btn btn-dark" href="plan.html">Sketch a private trip</a>
+            <a class="btn btn-line" href="visit.html">Visitor information</a>
+            <a class="btn btn-line" href="${esc(f.official.district_en)}" rel="noopener noreferrer">District tourism</a>
           </div>
         </div>
       </section>
@@ -408,7 +604,7 @@
       </section>
       <section class="section" style="padding-top:0">
         <div class="wrap">
-          <div class="season-layout">
+          <div class="season-layout" id="seasons">
             <div class="season-media">
               <img id="season-image" src="assets/mullayanagiri.jpg" alt="Seasonal landscape" width="1800" height="1200" />
             </div>
@@ -423,7 +619,7 @@
             </div>
           </div>
           ${f.stories}
-          <div class="section-head" style="margin-top:2.5rem">
+          <div class="section-head" id="gallery" style="margin-top:2.5rem">
             <p class="kicker">Field photographs</p>
             <h2>A quieter look</h2>
           </div>
@@ -540,16 +736,6 @@
       visit: renderVisitPage,
     };
     return (pages[page] || renderHome)(lang);
-  }
-
-  function seasonImage(id) {
-    const map = {
-      winter: "assets/mullayanagiri.jpg",
-      summer: "assets/kemmanagundi.jpg",
-      monsoon: "assets/hebbe-falls.jpg",
-      "post-monsoon": "assets/coffee-hills.jpg",
-    };
-    return map[id] || "assets/mullayanagiri.jpg";
   }
 
   function renderSeason(index, lang) {

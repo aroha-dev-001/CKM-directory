@@ -377,6 +377,69 @@
     return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }
 
+  function initMotion() {
+    const reduce = prefersReduced();
+    document.querySelectorAll(".reveal-on-scroll").forEach((el) => {
+      if (reduce) {
+        el.classList.add("is-in");
+        return;
+      }
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("is-in");
+            io.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
+      );
+      io.observe(el);
+    });
+
+    document.querySelectorAll("[data-count]").forEach((el) => {
+      const target = Number(el.getAttribute("data-count"));
+      if (!Number.isFinite(target)) return;
+      if (reduce) {
+        el.textContent = String(target);
+        return;
+      }
+      const start = performance.now();
+      const dur = 880;
+      const tick = (now) => {
+        const t = Math.min(1, (now - start) / dur);
+        const eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = String(Math.round(target * eased));
+        if (t < 1) requestAnimationFrame(tick);
+      };
+      el.textContent = "0";
+      requestAnimationFrame(tick);
+    });
+
+    if (reduce || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    document.querySelectorAll("[data-tilt]").forEach((card) => {
+      let glare = card.querySelector(".tilt-glare");
+      if (!glare) {
+        glare = document.createElement("span");
+        glare.className = "tilt-glare";
+        glare.setAttribute("aria-hidden", "true");
+        card.appendChild(glare);
+      }
+      card.addEventListener("pointermove", (event) => {
+        const box = card.getBoundingClientRect();
+        const x = (event.clientX - box.left) / box.width;
+        const y = (event.clientY - box.top) / box.height;
+        card.style.transform = `perspective(920px) rotateX(${(0.5 - y) * 7}deg) rotateY(${(x - 0.5) * 9}deg) translateY(-5px)`;
+        glare.style.opacity = "1";
+        glare.style.background = `radial-gradient(420px circle at ${x * 100}% ${y * 100}%, rgba(255,255,255,0.32), transparent 56%)`;
+      });
+      card.addEventListener("pointerleave", () => {
+        card.style.transform = "";
+        glare.style.opacity = "0";
+      });
+    });
+  }
+
   function bindUi() {
     if (bindUi.done) return;
     bindUi.done = true;
@@ -613,6 +676,7 @@
     initDistrictMap();
     syncTripCount();
     bindUi();
+    initMotion();
     if (PAGE === "places" && state.jumpTo) {
       window.setTimeout(() => {
         document.getElementById(`section-${state.jumpTo}`)?.scrollIntoView({ behavior: prefersReduced() ? "auto" : "smooth", block: "start" });

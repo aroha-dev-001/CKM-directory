@@ -18,7 +18,7 @@ Then open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 
 | Page | What it is |
 | --- | --- |
-| `index.html` | Editorial home, interest mosaic, illustrated taluk map |
+| `index.html` | Editorial home with Sylva-style field notes, seasons, stories, trip sketches, gallery and illustrated taluk map |
 | `places.html` | Destinations grouped under waterfalls, temples, dams, lakes, hill stations, peaks, wildlife, and coffee country |
 | `map.html` | Interactive choropleth of the nine taluks |
 | `stories.html` | Seasons, coffee, culture, photographs |
