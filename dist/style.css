@@ -3179,7 +3179,7 @@ a.food-card-link .pop-face {
 }
 
 .t-digit-group.is-animating .t-digit {
-  animation: t-digit-pop-in var(--digit-dur) var(--digit-ease) both;
+  animation: t-digit-pop-in var(--digit-dur) var(--digit-ease) forwards;
 }
 
 .t-digit-group.is-animating .t-digit[data-stagger="1"] {

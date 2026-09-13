@@ -153,6 +153,7 @@
   }
 
   function setDigits(group, str) {
+    const prev = group.getAttribute("data-value");
     if (!group.classList.contains("t-digit-group")) {
       group.textContent = str;
       return;
@@ -168,8 +169,9 @@
       else if (i === chars.length - 1) span.dataset.stagger = "2";
       group.appendChild(span);
     });
+    group.setAttribute("data-value", str);
     void group.offsetHeight;
-    if (!prefersReduced()) group.classList.add("is-animating");
+    if (prev != null && prev !== str && !prefersReduced()) group.classList.add("is-animating");
   }
 
   function syncTripCount() {
