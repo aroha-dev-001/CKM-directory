@@ -727,9 +727,20 @@ p {
 
 .choropleth-svg path {
   stroke: #f4f1e8;
-  stroke-width: 2.2;
+  stroke-width: 2.4;
   cursor: pointer;
   transition: fill 0.28s var(--ease);
+  outline: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.choropleth-svg path:focus {
+  outline: none;
+}
+
+.choropleth-svg path:focus-visible {
+  stroke: #c8ae6e;
+  stroke-width: 3;
 }
 
 .choropleth-svg text {
@@ -796,16 +807,13 @@ p {
 }
 
 .taluk-index li {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: 0.35rem;
+  display: block;
   border-bottom: 1px solid transparent;
 }
 
 .taluk-index-row {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr auto auto;
   align-items: baseline;
   gap: 0.55rem;
   width: 100%;
@@ -814,6 +822,7 @@ p {
   background: transparent;
   cursor: pointer;
   text-align: left;
+  text-decoration: none;
   color: var(--ink);
   font-size: 1.02rem;
 }
@@ -839,19 +848,18 @@ p {
 .taluk-index-go {
   text-decoration: none;
   color: var(--muted);
-  width: 1.6rem;
-  height: 1.6rem;
+  width: 1.4rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  transition: opacity 0.2s var(--ease);
+  opacity: 0.55;
 }
 
 .taluk-index li:hover .taluk-index-go,
 .taluk-index li.is-active .taluk-index-go,
-.taluk-index-go:focus-visible {
+.taluk-index-row:focus-visible .taluk-index-go {
   opacity: 1;
+  color: var(--forest);
 }
 
 .taluk-index li.is-active .taluk-index-row {
@@ -873,6 +881,18 @@ p {
   color: #8a9588;
   font-size: 0.82rem;
   line-height: 1.45;
+}
+
+.taluk-context {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.2rem;
+  margin-top: 1.1rem;
+  font-size: 0.92rem;
+}
+
+.taluk-context a {
+  color: var(--coffee);
 }
 
 .map-loading,

@@ -125,10 +125,27 @@
     root.innerHTML = CKMSections.renderPlaceSections(state.lang, list);
     if (count) count.textContent = String(list.length);
     if (empty) empty.hidden = list.length > 0;
-    document.querySelectorAll("[data-jump-category]").forEach((link) => {
-      const id = link.getAttribute("data-jump-category");
-      link.classList.toggle("is-active", state.filter === id || (state.filter === "all" && false));
-    });
+    renderTalukContext();
+  }
+
+  function renderTalukContext() {
+    const title = document.getElementById("places-title");
+    const kicker = document.getElementById("places-kicker");
+    const lead = document.getElementById("places-lead");
+    const bar = document.getElementById("places-taluk-bar");
+    const mapLink = document.getElementById("places-map-link");
+    if (!title) return;
+    const taluk = (CKM.taluks || []).find((t) => t.id === state.taluk);
+    if (!taluk || state.taluk === "all") {
+      if (bar) bar.hidden = true;
+      return;
+    }
+    const name = state.lang === "kn" ? taluk.kannada : taluk.listName || taluk.name;
+    if (kicker) kicker.textContent = name;
+    title.textContent = `Places in ${name}`;
+    if (lead) lead.textContent = taluk.blurb || "";
+    if (bar) bar.hidden = false;
+    if (mapLink) mapLink.setAttribute("href", `map.html?taluk=${encodeURIComponent(taluk.id)}`);
   }
 
   function syncTripCount() {
@@ -286,8 +303,9 @@
           : `${label} — ${places.length} place${places.length === 1 ? "" : "s"} in the guide.`;
     }
     document.querySelectorAll("[data-select-taluk]").forEach((btn) => {
-      btn.setAttribute("aria-pressed", btn.getAttribute("data-select-taluk") === id ? "true" : "false");
-      btn.closest("li")?.classList.toggle("is-active", btn.getAttribute("data-select-taluk") === id);
+      const on = btn.getAttribute("data-select-taluk") === id;
+      btn.setAttribute("aria-current", on ? "true" : "false");
+      btn.closest("li")?.classList.toggle("is-active", on);
     });
     const cta = document.querySelector("[data-map-cta]");
     if (cta) cta.setAttribute("href", `map.html?taluk=${encodeURIComponent(id)}`);
@@ -303,16 +321,6 @@
       grid.innerHTML = places.map((p) => CKMSections.placeCard(p, state.lang)).join("");
     }
     if (empty) empty.hidden = places.length > 0;
-    if (PAGE === "map") {
-      document.querySelectorAll(".taluk-index-go").forEach((a) => {
-        const row = a.parentElement?.querySelector("[data-select-taluk]");
-        const tid = row && row.getAttribute("data-select-taluk");
-        if (tid) {
-          a.setAttribute("href", `places.html?taluk=${encodeURIComponent(tid)}`);
-          a.setAttribute("aria-label", `Browse places in ${row.textContent.trim()}`);
-        }
-      });
-    }
   }
 
   function initDistrictMap() {
@@ -321,6 +329,9 @@
     state.mapApi = CKMMap.mount(root, {
       selected: state.selectedTaluk,
       onSelect: (id) => updateTalukUi(id),
+      onActivate: (id) => {
+        window.location.href = `places.html?taluk=${encodeURIComponent(id)}`;
+      },
     });
     updateTalukUi(state.selectedTaluk);
   }

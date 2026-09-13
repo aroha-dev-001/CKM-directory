@@ -17,15 +17,15 @@
     ajjampura: "#dce6d4",
   };
   const LABEL_AT = {
-    chikkamagaluru: [75.76, 13.355],
-    tarikere: [75.78, 13.69],
-    kadur: [76.12, 13.52],
-    mudigere: [75.58, 13.07],
-    koppa: [75.33, 13.46],
-    nrpura: [75.56, 13.62],
-    sringeri: [75.18, 13.39],
-    kalasa: [75.3, 13.205],
-    ajjampura: [76.06, 13.79],
+    chikkamagaluru: [75.78, 13.36],
+    tarikere: [75.78, 13.705],
+    kadur: [76.14, 13.53],
+    mudigere: [75.59, 13.06],
+    koppa: [75.29, 13.47],
+    nrpura: [75.5, 13.69],
+    sringeri: [75.175, 13.385],
+    kalasa: [75.275, 13.185],
+    ajjampura: [76.1, 13.81],
   };
   const MAP_LABEL = {
     chikkamagaluru: "Chikmagalur",
@@ -103,8 +103,46 @@
     return [(lon - b.minLon) * xRatio * scale + ox, (b.maxLat - lat) * scale + oy];
   }
 
+  function perpDist(p, a, b) {
+    const dx = b[0] - a[0];
+    const dy = b[1] - a[1];
+    const len2 = dx * dx + dy * dy;
+    if (!len2) return Math.hypot(p[0] - a[0], p[1] - a[1]);
+    const t = Math.max(0, Math.min(1, ((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / len2));
+    return Math.hypot(p[0] - (a[0] + t * dx), p[1] - (a[1] + t * dy));
+  }
+
+  function simplifyRing(points, epsilon) {
+    if (points.length < 8) return points;
+    const closed = points[0][0] === points[points.length - 1][0] && points[0][1] === points[points.length - 1][1];
+    const line = closed ? points.slice(0, -1) : points.slice();
+    function rdp(pts) {
+      if (pts.length < 3) return pts;
+      const first = pts[0];
+      const last = pts[pts.length - 1];
+      let maxD = 0;
+      let idx = 0;
+      for (let i = 1; i < pts.length - 1; i += 1) {
+        const d = perpDist(pts[i], first, last);
+        if (d > maxD) {
+          maxD = d;
+          idx = i;
+        }
+      }
+      if (maxD > epsilon) {
+        const left = rdp(pts.slice(0, idx + 1));
+        const right = rdp(pts.slice(idx));
+        return left.slice(0, -1).concat(right);
+      }
+      return [first, last];
+    }
+    const simple = rdp(line);
+    if (closed) simple.push(simple[0]);
+    return simple;
+  }
+
   function ringPath(ring, b) {
-    return ring
+    return simplifyRing(ring, 0.0035)
       .map((pt, i) => {
         const [x, y] = project(pt[0], pt[1], b);
         return `${i === 0 ? "M" : "L"}${x.toFixed(1)} ${y.toFixed(1)}`;
@@ -115,6 +153,12 @@
   function featurePath(feature, b) {
     const rings = feature.geometry.type === "Polygon" ? feature.geometry.coordinates : feature.geometry.coordinates.flat();
     return rings.map((ring) => ringPath(ring, b)).join(" ");
+  }
+
+  function featureArea(feature) {
+    const bb = feature.bbox;
+    if (bb) return (bb[2] - bb[0]) * (bb[3] - bb[1]);
+    return 0;
   }
 
   function splitLabel(text) {
@@ -131,6 +175,7 @@
       root,
       selected: opts.selected || "chikkamagaluru",
       onSelect: opts.onSelect,
+      onActivate: opts.onActivate,
       reduced: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
     };
 
@@ -139,7 +184,8 @@
     loadGeo()
       .then((fc) => {
         const b = boundsOf(fc);
-        const paths = fc.features
+        const features = fc.features.slice().sort((a, c) => featureArea(c) - featureArea(a));
+        const paths = features
           .map((feature) => {
             const id = feature.properties.id;
             const name = MAP_LABEL[id] || feature.properties.name;
@@ -167,14 +213,15 @@
         root.querySelectorAll("[data-taluk-shape]").forEach((g) => {
           const path = g.querySelector("path");
           const id = g.getAttribute("data-taluk-shape");
-          const select = () => choose(id);
-          path.addEventListener("click", select);
+          const select = () => choose(id, false);
+          const activate = () => choose(id, true);
+          path.addEventListener("click", activate);
           path.addEventListener("mouseenter", () => hover(id, true));
           path.addEventListener("mouseleave", () => hover(id, false));
           path.addEventListener("keydown", (event) => {
             if (event.key === "Enter" || event.key === " ") {
               event.preventDefault();
-              select();
+              activate();
             }
           });
         });
@@ -198,13 +245,16 @@
         g.classList.toggle("is-selected", on);
         if (text) text.setAttribute("fill", on ? LABEL_ON : LABEL_IDLE);
       });
+      const selectedG = root.querySelector(`[data-taluk-shape="${CSS.escape(state.selected)}"]`);
+      if (selectedG && selectedG.parentNode) selectedG.parentNode.appendChild(selectedG);
     }
 
-    function choose(id) {
+    function choose(id, activate) {
       if (!id) return;
       state.selected = id;
       paint();
       if (typeof state.onSelect === "function") state.onSelect(id);
+      if (activate && typeof state.onActivate === "function") state.onActivate(id);
     }
 
     function setSelected(id) {

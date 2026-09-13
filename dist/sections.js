@@ -170,12 +170,12 @@
       .map((t) => {
         const label = lang === "kn" ? t.kannada : t.listName || t.name;
         return `<li>
-          <button class="taluk-index-row" type="button" data-select-taluk="${esc(t.id)}" aria-pressed="false">
+          <a class="taluk-index-row" href="places.html?taluk=${esc(t.id)}" data-select-taluk="${esc(t.id)}" aria-current="false">
             <span class="taluk-index-name">${esc(label)}</span>
             <span class="taluk-index-dots" aria-hidden="true"></span>
             <span class="taluk-index-count">${t.count}</span>
-          </button>
-          <a class="taluk-index-go" href="map.html?taluk=${esc(t.id)}" aria-label="Open ${esc(t.listName || t.name)} on the district map">→</a>
+            <span class="taluk-index-go" aria-hidden="true">→</span>
+          </a>
         </li>`;
       })
       .join("");
@@ -299,7 +299,7 @@
             <div class="district-copy">
               <p class="kicker">Explore the district</p>
               <h2>Nine taluks, endless experiences.</h2>
-              <p class="section-lead">From Mullayanagiri’s cloud line to the temples of Sringeri and the tiger forests of Bhadra — Chikkamagaluru is a district of contrasts. Explore by taluk to see what awaits you.</p>
+              <p class="section-lead">From Mullayanagiri’s cloud line to the temples of Sringeri and the tiger forests of Bhadra — Chikkamagaluru is a district of contrasts. Click a taluk to open it.</p>
               <a class="btn btn-dark" data-map-cta href="map.html">View district map <span aria-hidden="true">→</span></a>
             </div>
             <div class="district-map-stage">
@@ -326,9 +326,13 @@
     return `
       <section class="page-hero">
         <div class="wrap">
-          <p class="kicker">Places</p>
-          <h1>Places worth the climb</h1>
-          <p class="section-lead">Waterfalls, temples, dams, lakes, hill stations, peaks and forests — grouped the way you look for them. Nothing here is a live fee, permit or opening-hour notice.</p>
+          <p class="kicker" id="places-kicker">Places</p>
+          <h1 id="places-title">Places worth the climb</h1>
+          <p class="section-lead" id="places-lead">Waterfalls, temples, dams, lakes, hill stations, peaks and forests — grouped the way you look for them. Nothing here is a live fee, permit or opening-hour notice.</p>
+          <p class="taluk-context" id="places-taluk-bar" hidden>
+            <a href="places.html">All taluks</a>
+            <a href="map.html" id="places-map-link">Back to the district map</a>
+          </p>
         </div>
       </section>
       <section class="section" style="padding-top:0">
@@ -360,7 +364,7 @@
             <div class="district-copy">
               <p class="kicker">The district</p>
               <h1>Nine taluks, endless experiences.</h1>
-              <p class="section-lead">Click a taluk on the map or in the list. Fills follow the illustrated choropleth of coffee country — pale greens at rest, deep forest when selected. Boundaries are OpenStreetMap reference, not a survey.</p>
+              <p class="section-lead">Click a taluk on the map or in the list to open its places — waterfalls, temples, dams and the rest, already grouped. Boundaries are OpenStreetMap reference, not a survey.</p>
               <a class="btn btn-dark" id="taluk-places-cta" href="places.html">Browse places in this taluk <span aria-hidden="true">→</span></a>
             </div>
             <div class="district-map-stage">
