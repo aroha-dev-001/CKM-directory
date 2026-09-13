@@ -329,7 +329,7 @@ destinations = [
         "id": "bhadra-dam",
         "name": "Bhadra Reservoir, Lakkavalli",
         "kannada": "ಭದ್ರಾ ಜಲಾಶಯ",
-        "category": "lakes",
+        "category": "dams",
         "taluk": "Tarikere",
         "lat": 13.696,
         "lng": 75.638,
@@ -547,13 +547,14 @@ destinations = [
 
 categories = [
     {"id": "all", "label": "All places", "kn": "ಎಲ್ಲಾ ಸ್ಥಳಗಳು"},
-    {"id": "peaks", "label": "Peaks & viewpoints", "kn": "ಶಿಖರಗಳು"},
     {"id": "waterfalls", "label": "Waterfalls", "kn": "ಜಲಪಾತಗಳು"},
-    {"id": "lakes", "label": "Lakes & reservoirs", "kn": "ಕೆರೆಗಳು"},
-    {"id": "wildlife", "label": "Wildlife & forests", "kn": "ವನ್ಯಜೀವಿ"},
     {"id": "temples", "label": "Temples", "kn": "ದೇವಾಲಯಗಳು"},
-    {"id": "heritage", "label": "Heritage & landscape", "kn": "ಪರಂಪರೆ"},
-    {"id": "hill-station", "label": "Hill station", "kn": "ಗಿರಿಧಾಮ"},
+    {"id": "dams", "label": "Dams & reservoirs", "kn": "ಅಣೆಕಟ್ಟುಗಳು"},
+    {"id": "lakes", "label": "Lakes", "kn": "ಕೆರೆಗಳು"},
+    {"id": "hill-station", "label": "Hill stations", "kn": "ಗಿರಿಧಾಮಗಳು"},
+    {"id": "peaks", "label": "Peaks & viewpoints", "kn": "ಶಿಖರಗಳು"},
+    {"id": "wildlife", "label": "Wildlife & forests", "kn": "ವನ್ಯಜೀವಿ"},
+    {"id": "heritage", "label": "Coffee country & ghats", "kn": "ಕಾಫಿ ನಾಡು"},
 ]
 
 seasons = [

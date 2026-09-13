@@ -28,53 +28,76 @@ window.CKM = {
       "kn": "ಎಲ್ಲಾ ಸ್ಥಳಗಳು"
     },
     {
-      "id": "peaks",
-      "label": "Peaks & viewpoints",
-      "kn": "ಶಿಖರಗಳು",
-      "image": "assets/mullayanagiri.jpg",
-      "count": 6
-    },
-    {
       "id": "waterfalls",
       "label": "Waterfalls",
       "kn": "ಜಲಪಾತಗಳು",
+      "count": 6,
       "image": "assets/hebbe-falls.jpg",
-      "count": 6
-    },
-    {
-      "id": "lakes",
-      "label": "Lakes & reservoirs",
-      "kn": "ಕೆರೆಗಳು",
-      "image": "assets/hirekolale.jpg",
-      "count": 4
-    },
-    {
-      "id": "wildlife",
-      "label": "Wildlife & forests",
-      "kn": "ವನ್ಯಜೀವಿ",
-      "image": "assets/kudremukh-np.jpg",
-      "count": 2
+      "lead": "Seasonal cascades — fullest after the monsoon, quieter in summer.",
+      "leadKn": "ಮಳೆಗಾಲದ ನಂತರ ತುಂಬುವ ಜಲಪಾತಗಳು."
     },
     {
       "id": "temples",
       "label": "Temples",
       "kn": "ದೇವಾಲಯಗಳು",
+      "count": 6,
       "image": "assets/sringeri.jpg",
-      "count": 4
+      "lead": "Living shrines from the Tunga terrace to Hoysala stone in the east.",
+      "leadKn": "ತುಂಗಾ ತಟದಿಂದ ಹೊಯ್ಸಳ ಶಿಲ್ಪದವರೆಗೆ ದೇವಾಲಯಗಳು."
     },
     {
-      "id": "heritage",
-      "label": "Heritage & landscape",
-      "kn": "ಪರಂಪರೆ",
-      "image": "assets/amruthapura.jpg",
-      "count": 4
+      "id": "dams",
+      "label": "Dams & reservoirs",
+      "kn": "ಅಣೆಕಟ್ಟುಗಳು",
+      "count": 2,
+      "image": "assets/bhadra-dam.jpg",
+      "lead": "Working reservoirs on the Bhadra and the old Kudremukh hills.",
+      "leadKn": "ಭದ್ರಾ ಮತ್ತು ಲಾಕ್ಯ ಜಲಾಶಯಗಳು."
+    },
+    {
+      "id": "lakes",
+      "label": "Lakes",
+      "kn": "ಕೆರೆಗಳು",
+      "count": 2,
+      "image": "assets/hirekolale.jpg",
+      "lead": "Irrigation tanks and evening water, with the Baba Budan range on the skyline.",
+      "leadKn": "ಸಂಜೆ ಬೆಳಕಿನ ಕೆರೆಗಳು."
     },
     {
       "id": "hill-station",
-      "label": "Hill station",
-      "kn": "ಗಿರಿಧಾಮ",
+      "label": "Hill stations",
+      "kn": "ಗಿರಿಧಾಮಗಳು",
+      "count": 1,
       "image": "assets/kemmanagundi.jpg",
-      "count": 1
+      "lead": "Garden hills and Wodeyar summer air at Kemmanagundi.",
+      "leadKn": "ಕೆಮ್ಮಣ್ಣುಗುಂಡಿ ಗಿರಿಧಾಮ."
+    },
+    {
+      "id": "peaks",
+      "label": "Peaks & viewpoints",
+      "kn": "ಶಿಖರಗಳು",
+      "count": 6,
+      "image": "assets/mullayanagiri.jpg",
+      "lead": "Grass-and-shola ridges, from Karnataka’s roof to the horse-face mountain.",
+      "leadKn": "ಶೋಲಾ-ಹುಲ್ಲುಗಾವಲು ಶಿಖರಗಳು."
+    },
+    {
+      "id": "wildlife",
+      "label": "Wildlife & forests",
+      "kn": "ವನ್ಯಜೀವಿ",
+      "count": 2,
+      "image": "assets/kudremukh-np.jpg",
+      "lead": "Tiger reserve and national park — enter only with a forest permit.",
+      "leadKn": "ಅನುಮತಿಯೊಂದಿಗೆ ಮಾತ್ರ ಅರಣ್ಯ."
+    },
+    {
+      "id": "heritage",
+      "label": "Coffee country & ghats",
+      "kn": "ಕಾಫಿ ನಾಡು",
+      "count": 2,
+      "image": "assets/coffee-hills.jpg",
+      "lead": "Working coffee canopy and the Charmadi saddle into the Western Ghats.",
+      "leadKn": "ಕಾಫಿ ನೆರಳು ಮತ್ತು ಘಟ್ಟ ರಸ್ತೆ."
     }
   ],
   "destinations": [
@@ -105,7 +128,8 @@ window.CKM = {
           "label": "District tourism note",
           "url": "https://chikkamagaluru.nic.in/en/tourism/"
         }
-      ]
+      ],
+      "talukId": "chikkamagaluru"
     },
     {
       "id": "baba-budangiri",
@@ -134,7 +158,8 @@ window.CKM = {
           "label": "District tourism note",
           "url": "https://chikkamagaluru.nic.in/en/tourism/"
         }
-      ]
+      ],
+      "talukId": "chikkamagaluru"
     },
     {
       "id": "kemmanagundi",
@@ -164,7 +189,8 @@ window.CKM = {
           "label": "District tourism note",
           "url": "https://chikkamagaluru.nic.in/en/tourism/"
         }
-      ]
+      ],
+      "talukId": "tarikere"
     },
     {
       "id": "z-point",
@@ -191,14 +217,15 @@ window.CKM = {
           "label": "District tourism note",
           "url": "https://chikkamagaluru.nic.in/en/tourism/"
         }
-      ]
+      ],
+      "talukId": "tarikere"
     },
     {
       "id": "kudremukh-peak",
       "name": "Kudremukh Peak",
       "kannada": "ಕುದುರೆಮುಖ",
       "category": "peaks",
-      "taluk": "Mudigere",
+      "taluk": "Kalasa",
       "lat": 13.1254,
       "lng": 75.2686,
       "elevation": "1,894 m",
@@ -224,7 +251,8 @@ window.CKM = {
           "label": "Karnataka Forest Department",
           "url": "https://aranya.gov.in/"
         }
-      ]
+      ],
+      "talukId": "kalasa"
     },
     {
       "id": "ettina-bhuja",
@@ -251,7 +279,8 @@ window.CKM = {
           "label": "District tourism",
           "url": "https://chikkamagaluru.nic.in/en/tourism/"
         }
-      ]
+      ],
+      "talukId": "mudigere"
     },
     {
       "id": "deviramma",
@@ -278,7 +307,8 @@ window.CKM = {
           "label": "District tourism note",
           "url": "https://chikkamagaluru.nic.in/en/tourism/"
         }
-      ]
+      ],
+      "talukId": "chikkamagaluru"
     },
     {
       "id": "hebbe-falls",
@@ -305,7 +335,8 @@ window.CKM = {
           "label": "District tourism",
           "url": "https://chikkamagaluru.nic.in/en/tourism/"
         }
-      ]
+      ],
+      "talukId": "tarikere"
     },
     {
       "id": "jhari-falls",
@@ -332,7 +363,8 @@ window.CKM = {
           "label": "District tourism",
           "url": "https://chikkamagaluru.nic.in/en/tourism/"
         }
-      ]
+      ],
+      "talukId": "chikkamagaluru"
     },
     {
       "id": "manikyadhara",
@@ -359,7 +391,8 @@ window.CKM = {
           "label": "District tourism",
           "url": "https://chikkamagaluru.nic.in/en/tourism/"
         }
-      ]
+      ],
+      "talukId": "chikkamagaluru"
     },
     {
       "id": "kallathigiri",
@@ -387,14 +420,15 @@ window.CKM = {
           "label": "District tourism",
           "url": "https://chikkamagaluru.nic.in/en/tourism/"
         }
-      ]
+      ],
+      "talukId": "tarikere"
     },
     {
       "id": "hanuman-gundi",
       "name": "Hanuman Gundi Falls",
       "kannada": "ಹನುಮಾನ ಗುಂಡಿ",
       "category": "waterfalls",
-      "taluk": "Kudremukh",
+      "taluk": "Kalasa",
       "lat": 13.17,
       "lng": 75.18,
       "image": "assets/hanuman-gundi.jpg",
@@ -415,7 +449,8 @@ window.CKM = {
           "label": "Karnataka Forest Department",
           "url": "https://aranya.gov.in/"
         }
-      ]
+      ],
+      "talukId": "kalasa"
     },
     {
       "id": "sirimane-falls",
@@ -441,7 +476,8 @@ window.CKM = {
           "label": "District tourism",
           "url": "https://chikkamagaluru.nic.in/en/tourism/"
         }
-      ]
+      ],
+      "talukId": "sringeri"
     },
     {
       "id": "hirekolale",
@@ -470,7 +506,8 @@ window.CKM = {
           "label": "District / local geography",
           "url": "https://chikkamagaluru.nic.in/en/tourism/"
         }
-      ]
+      ],
+      "talukId": "chikkamagaluru"
     },
     {
       "id": "ayyanakere",
@@ -497,13 +534,14 @@ window.CKM = {
           "label": "District profile",
           "url": "https://chikkamagaluru.nic.in/en/tourism/"
         }
-      ]
+      ],
+      "talukId": "kadur"
     },
     {
       "id": "bhadra-dam",
       "name": "Bhadra Reservoir, Lakkavalli",
       "kannada": "ಭದ್ರಾ ಜಲಾಶಯ",
-      "category": "lakes",
+      "category": "dams",
       "taluk": "Tarikere",
       "lat": 13.696,
       "lng": 75.638,
@@ -524,14 +562,15 @@ window.CKM = {
           "label": "District tourism",
           "url": "https://chikkamagaluru.nic.in/en/tourism/"
         }
-      ]
+      ],
+      "talukId": "tarikere"
     },
     {
       "id": "lakya-dam",
       "name": "Lakya Dam",
       "kannada": "ಲಾಕ್ಯ ಅಣೆಕಟ್ಟು",
-      "category": "lakes",
-      "taluk": "Mudigere",
+      "category": "dams",
+      "taluk": "Kalasa",
       "lat": 13.22,
       "lng": 75.25,
       "image": "assets/lakya-dam.jpg",
@@ -551,14 +590,15 @@ window.CKM = {
           "label": "Karnataka Forest Department",
           "url": "https://aranya.gov.in/"
         }
-      ]
+      ],
+      "talukId": "kalasa"
     },
     {
       "id": "kudremukh-np",
       "name": "Kudremukh National Park",
       "kannada": "ಕುದುರೆಮುಖ ರಾಷ್ಟ್ರೀಯ ಉದ್ಯಾನವನ",
       "category": "wildlife",
-      "taluk": "Mudigere",
+      "taluk": "Kalasa",
       "lat": 13.21,
       "lng": 75.25,
       "image": "assets/kudremukh-np.jpg",
@@ -583,7 +623,8 @@ window.CKM = {
           "label": "Karnataka Forest Department",
           "url": "https://aranya.gov.in/"
         }
-      ]
+      ],
+      "talukId": "kalasa"
     },
     {
       "id": "bhadra-wls",
@@ -611,7 +652,8 @@ window.CKM = {
           "label": "Karnataka Forest Department",
           "url": "https://aranya.gov.in/"
         }
-      ]
+      ],
+      "talukId": "tarikere"
     },
     {
       "id": "sringeri",
@@ -644,7 +686,8 @@ window.CKM = {
           "label": "Sringeri Sharada Peetham",
           "url": "https://www.sringeri.net/"
         }
-      ]
+      ],
+      "talukId": "sringeri"
     },
     {
       "id": "vidyashankara",
@@ -671,14 +714,15 @@ window.CKM = {
           "label": "Sringeri Sharada Peetham",
           "url": "https://www.sringeri.net/"
         }
-      ]
+      ],
+      "talukId": "sringeri"
     },
     {
       "id": "horanadu",
       "name": "Horanadu Annapoorneshwari Temple",
       "kannada": "ಹೊರನಾಡು ಅನ್ನಪೂರ್ಣೇಶ್ವರಿ",
       "category": "temples",
-      "taluk": "Mudigere",
+      "taluk": "Kalasa",
       "lat": 13.2705,
       "lng": 75.3414,
       "image": "assets/horanadu.jpg",
@@ -698,14 +742,15 @@ window.CKM = {
           "label": "District tourism",
           "url": "https://chikkamagaluru.nic.in/en/tourism/"
         }
-      ]
+      ],
+      "talukId": "kalasa"
     },
     {
       "id": "kalasa",
       "name": "Kalasa & Kalaseshwara Temple",
       "kannada": "ಕಲಸಾ ಕಲಸೇಶ್ವರ",
       "category": "temples",
-      "taluk": "Mudigere",
+      "taluk": "Kalasa",
       "lat": 13.234,
       "lng": 75.355,
       "image": "assets/kalasa.jpg",
@@ -725,13 +770,14 @@ window.CKM = {
           "label": "District tourism",
           "url": "https://chikkamagaluru.nic.in/en/tourism/"
         }
-      ]
+      ],
+      "talukId": "kalasa"
     },
     {
       "id": "amruthapura",
       "name": "Amrutesvara Temple, Amruthapura",
       "kannada": "ಅಮೃತೇಶ್ವರ ದೇವಾಲಯ",
-      "category": "heritage",
+      "category": "temples",
       "taluk": "Tarikere",
       "lat": 13.741,
       "lng": 75.854,
@@ -753,13 +799,14 @@ window.CKM = {
           "label": "District / heritage record",
           "url": "https://chikkamagaluru.nic.in/en/tourism/"
         }
-      ]
+      ],
+      "talukId": "tarikere"
     },
     {
       "id": "belavadi",
       "name": "Veeranarayana Temple, Belavadi",
       "kannada": "ಬೆಳವಾಡಿ ವೀರನಾರಾಯಣ",
-      "category": "heritage",
+      "category": "temples",
       "taluk": "Chikkamagaluru",
       "lat": 13.284134,
       "lng": 75.997893,
@@ -781,7 +828,8 @@ window.CKM = {
           "label": "District tourism",
           "url": "https://chikkamagaluru.nic.in/en/tourism/"
         }
-      ]
+      ],
+      "talukId": "chikkamagaluru"
     },
     {
       "id": "charmadi",
@@ -808,7 +856,8 @@ window.CKM = {
           "label": "District / road notes",
           "url": "https://chikkamagaluru.nic.in/en/tourism/"
         }
-      ]
+      ],
+      "talukId": "mudigere"
     },
     {
       "id": "coffee-hills",
@@ -835,7 +884,8 @@ window.CKM = {
           "label": "District profile",
           "url": "https://chikkamagaluru.nic.in/en/tourism/"
         }
-      ]
+      ],
+      "talukId": "chikkamagaluru"
     }
   ],
   "seasons": [
@@ -1078,7 +1128,9 @@ window.CKM = {
       "reduced": "Animations are eased because you prefer reduced motion.",
       "nojs": "This companion needs JavaScript for the map, itinerary and search.",
       "nav_about": "District",
-      "nav_interest": "Explore"
+      "nav_interest": "Explore",
+      "nav_home": "Home",
+      "nav_visit": "Visit"
     },
     "kn": {
       "skip": "ಮುಖ್ಯ ವಿಷಯಕ್ಕೆ ಹೋಗಿ",
@@ -1121,7 +1173,9 @@ window.CKM = {
       "reduced": "ಕಡಿಮೆ ಚಲನೆ ಆದ್ಯತೆಯಿಂದ ಅನಿಮೇಷನ್ ಕಡಿಮೆ.",
       "nojs": "ನಕ್ಷೆ, ಯೋಜನೆ ಮತ್ತು ಹುಡುಕಾಟಕ್ಕೆ ಜಾವಾಸ್ಕ್ರಿಪ್ಟ್ ಬೇಕು.",
       "nav_about": "ಜಿಲ್ಲೆ",
-      "nav_interest": "ಅನ್ವೇಷಿಸಿ"
+      "nav_interest": "ಅನ್ವೇಷಿಸಿ",
+      "nav_home": "ಮುಖಪುಟ",
+      "nav_visit": "ಭೇಟಿ"
     }
   },
   "highlights": [
@@ -1165,7 +1219,7 @@ window.CKM = {
     {
       "image": "assets/hebbe-falls.jpg",
       "caption": "Hebbe Falls",
-      "credit": "Man On Mission"
+      "credit": "Ashwin Kumar"
     },
     {
       "image": "assets/sringeri.jpg",
@@ -1185,7 +1239,7 @@ window.CKM = {
     {
       "image": "assets/charmadi.jpg",
       "caption": "Charmadi Ghat",
-      "credit": "Simple-man-everyday"
+      "credit": "Dinesh Valke"
     }
   ],
   "credits": [
@@ -1240,10 +1294,10 @@ window.CKM = {
     {
       "local": "hebbe-falls.jpg",
       "place": "Hebbe Falls",
-      "file": "Hebbe Falls.JPG",
-      "artist": "Man On Mission",
-      "license": "Public domain",
-      "url": "https://commons.wikimedia.org/wiki/File:Hebbe_Falls.JPG"
+      "file": "Hebbe Falls (8322309846).jpg",
+      "artist": "Ashwin Kumar",
+      "license": "CC BY-SA 2.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Hebbe_Falls_(8322309846).jpg"
     },
     {
       "local": "jhari-falls.jpg",
@@ -1264,18 +1318,18 @@ window.CKM = {
     {
       "local": "sirimane-falls.jpg",
       "place": "Sirimane Falls",
-      "file": "Srimane Falls, Sringeri.jpg",
-      "artist": "Vaikoovery",
-      "license": "CC BY-SA 3.0",
-      "url": "https://commons.wikimedia.org/wiki/File:Srimane_Falls,_Sringeri.jpg"
+      "file": "Sirimane Falls.jpg",
+      "artist": "Sanath11",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Sirimane_Falls.jpg"
     },
     {
       "local": "kallathigiri.jpg",
-      "place": "Kallathigiri Falls",
-      "file": "Kallathigiri falls (28204534956).jpg",
+      "place": "Near Kallathigiri Falls",
+      "file": "Near Kallathigiri falls (27622708343).jpg",
       "artist": "Venkat Mangudi",
       "license": "CC0",
-      "url": "https://commons.wikimedia.org/wiki/File:Kallathigiri_falls_(28204534956).jpg"
+      "url": "https://commons.wikimedia.org/wiki/File:Near_Kallathigiri_falls_(27622708343).jpg"
     },
     {
       "local": "hirekolale.jpg",
@@ -1352,10 +1406,10 @@ window.CKM = {
     {
       "local": "vidyashankara.jpg",
       "place": "Vidyashankara Temple, Sringeri",
-      "file": "Sri Vidyashankara Temple, Sringeri, VRVTMRKOLLUR2015 (1).jpg",
-      "artist": "Vinayaraj",
+      "file": "Sringeri Vidyashankara Temple. An Architectural marvel.jpg",
+      "artist": "Chiranjeevi Kuruba",
       "license": "CC BY-SA 4.0",
-      "url": "https://commons.wikimedia.org/wiki/File:Sri_Vidyashankara_Temple,_Sringeri,_VRVTMRKOLLUR2015_(1).jpg"
+      "url": "https://commons.wikimedia.org/wiki/File:Sringeri_Vidyashankara_Temple._An_Architectural_marvel.jpg"
     },
     {
       "local": "kudremukh-np.jpg",
@@ -1368,10 +1422,10 @@ window.CKM = {
     {
       "local": "charmadi.jpg",
       "place": "Charmadi Ghat",
-      "file": "Charmadi Ghat.jpg",
-      "artist": "Simple-man-everyday",
-      "license": "CC BY-SA 4.0",
-      "url": "https://commons.wikimedia.org/wiki/File:Charmadi_Ghat.jpg"
+      "file": "View from Charmadi Ghat (30939304862).jpg",
+      "artist": "Dinesh Valke",
+      "license": "CC BY-SA 2.0",
+      "url": "https://commons.wikimedia.org/wiki/File:View_from_Charmadi_Ghat_(30939304862).jpg"
     },
     {
       "local": "ettina-bhuja.jpg",
@@ -1415,11 +1469,11 @@ window.CKM = {
     },
     {
       "local": "bhadra-dam.jpg",
-      "place": "Bhadra Reservoir, Lakkavalli",
-      "file": "Lakkavalli lake panorama (1).jpg",
-      "artist": "Ssriram mt",
-      "license": "CC BY 4.0",
-      "url": "https://commons.wikimedia.org/wiki/File:Lakkavalli_lake_panorama_(1).jpg"
+      "place": "Bhadra Dam, Lakkavalli",
+      "file": "Bhadra dam on a bright day (51102151840).jpg",
+      "artist": "Kandukuru Nagarjun",
+      "license": "CC BY 2.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Bhadra_dam_on_a_bright_day_(51102151840).jpg"
     },
     {
       "local": "coffee-shade.jpg",
@@ -1445,28 +1499,85 @@ window.CKM = {
   ],
   "taluks": [
     {
-      "id": "Chikkamagaluru",
-      "count": 8
+      "id": "chikkamagaluru",
+      "name": "Chikkamagaluru",
+      "kannada": "ಚಿಕ್ಕಮಗಳೂರು",
+      "count": 8,
+      "blurb": "Town, Mullayanagiri, Baba Budangiri and the coffee hills above the cloud line.",
+      "listName": "Chikmagalur",
+      "mapLabel": "Chikmagalur"
     },
     {
-      "id": "Tarikere",
-      "count": 7
+      "id": "mudigere",
+      "name": "Mudigere",
+      "kannada": "ಮೂಡಿಗೆರೆ",
+      "count": 2,
+      "blurb": "Coffee and cardamom slopes toward the Kudremukh ridge.",
+      "listName": "Mudigere",
+      "mapLabel": "Mudigere"
     },
     {
-      "id": "Mudigere",
-      "count": 7
+      "id": "sringeri",
+      "name": "Sringeri",
+      "kannada": "ಶೃಂಗೇರಿ",
+      "count": 3,
+      "blurb": "The Tunga terrace and the matha that still orients this western edge.",
+      "listName": "Sringeri",
+      "mapLabel": "Sringeri"
     },
     {
-      "id": "Kudremukh",
-      "count": 1
+      "id": "koppa",
+      "name": "Koppa",
+      "kannada": "ಕೊಪ್ಪ",
+      "count": 0,
+      "blurb": "Quiet Malnad orchards between Sringeri and the Bhadra valley.",
+      "listName": "Koppa",
+      "mapLabel": "Koppa"
     },
     {
-      "id": "Sringeri",
-      "count": 3
+      "id": "nrpura",
+      "name": "N.R. Pura",
+      "kannada": "ನರಸಿಂಹರಾಜಪುರ",
+      "count": 0,
+      "blurb": "Narasimharajapura — river country between Koppa and the Bhadra forests.",
+      "listName": "Narasimharajapura",
+      "mapLabel": "N.R. Pura"
     },
     {
-      "id": "Kadur",
-      "count": 1
+      "id": "tarikere",
+      "name": "Tarikere",
+      "kannada": "ತರೀಕೆರೆ",
+      "count": 7,
+      "blurb": "Kemmanagundi, Bhadra reservoir country and the Amruthapura temple terrace.",
+      "listName": "Tarikere",
+      "mapLabel": "Tarikere"
+    },
+    {
+      "id": "kadur",
+      "name": "Kadur",
+      "kannada": "ಕಡೂರು",
+      "count": 1,
+      "blurb": "The drier east — Ayyanakere’s open water and Deccan light.",
+      "listName": "Kadur",
+      "mapLabel": "Kadur"
+    },
+    {
+      "id": "kalasa",
+      "name": "Kalasa",
+      "kannada": "ಕಲಸಾ",
+      "count": 6,
+      "blurb": "Kalasa–Horanadu country, carved from older Mudigere; waterfalls and Kudremukh approaches.",
+      "listName": "Kalasa",
+      "mapLabel": "Kalasa"
+    },
+    {
+      "id": "ajjampura",
+      "name": "Ajjampura",
+      "kannada": "ಅಜ್ಜಂಪುರ",
+      "count": 0,
+      "blurb": "A newer taluk on Tarikere’s north-east, shown here as its own OSM polygon.",
+      "listName": "Ajjampura",
+      "mapLabel": "Ajjampura"
     }
   ],
   "circuits": [
@@ -1575,5 +1686,6 @@ window.CKM = {
       "Do not stack every waterfall into a single tired dusk drive.",
       "Do not play music at viewpoints."
     ]
-  }
+  },
+  "mapNote": "Kalasa and Ajjampura were carved from Mudigere and Tarikere. This illustrated map uses current OpenStreetMap taluk polygons, for orientation only — not a survey."
 };

@@ -2,6 +2,7 @@
   const CATEGORY_COLOR = {
     peaks: "#c4a36a",
     waterfalls: "#7aa3b8",
+    dams: "#3f6f7c",
     lakes: "#4d7c8a",
     wildlife: "#3d6b4f",
     temples: "#b08968",
@@ -45,15 +46,14 @@
       </article>`;
   }
 
-  function render(lang) {
+  function fragments(lang) {
     const d = global.CKM;
     const tx = (key) => t(lang, key);
-
     const interests = d.categories
       .filter((c) => c.id !== "all" && c.image)
       .map(
         (c) => `
-        <button class="interest-tile" type="button" data-filter="${esc(c.id)}">
+        <a class="interest-tile" href="places.html?category=${esc(c.id)}">
           <div class="media">
             <img src="${esc(c.image)}" alt="${esc(lang === "kn" ? c.kn : c.label)}" width="1800" height="1200" loading="lazy" />
           </div>
@@ -61,16 +61,15 @@
             <strong>${esc(lang === "kn" ? c.kn : c.label)}</strong>
             <span>${c.count || 0} places</span>
           </span>
-        </button>`
+        </a>`
       )
       .join("");
-
     const featured = (d.featured || [])
       .map((id) => d.destinations.find((p) => p.id === id))
       .filter(Boolean)
       .map(
         (p) => `
-        <button class="feature-card" type="button" data-open-place="${esc(p.id)}">
+        <a class="feature-card" href="places.html?id=${esc(p.id)}">
           <div class="media">
             <img src="${esc(p.image)}" alt="${esc(p.name)}" width="1800" height="1200" loading="lazy" />
           </div>
@@ -79,17 +78,15 @@
             <h3>${esc(p.name)}</h3>
             <p>${esc(p.blurb)}</p>
           </span>
-        </button>`
+        </a>`
       )
       .join("");
-
-    const taluks = (d.taluks || [])
+    const talukBtns = (d.taluks || [])
       .map(
         (t) =>
-          `<button class="filter-btn" type="button" data-taluk="${esc(t.id)}" aria-pressed="false">${esc(t.id)} · ${t.count}</button>`
+          `<button class="filter-btn" type="button" data-taluk="${esc(t.id)}" aria-pressed="false">${esc(t.name)} · ${t.count}</button>`
       )
       .join("");
-
     const circuits = (d.circuits || [])
       .map((c) => {
         const names = c.places
@@ -107,43 +104,27 @@
               <h3>${esc(c.title)}</h3>
               <p>${esc(c.text)}</p>
               <p class="section-lead">${esc(names)}</p>
-              <button class="btn btn-dark" type="button" data-load-circuit="${esc(c.id)}">Use this sketch</button>
+              <a class="btn btn-dark" href="plan.html?circuit=${esc(c.id)}">Use this sketch</a>
             </div>
           </article>`;
       })
       .join("");
-
-    const faqs = (d.faqs || [])
-      .map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`)
-      .join("");
-
+    const faqs = (d.faqs || []).map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("");
     const packing = (d.packing || []).map((item) => `<li>${esc(item)}</li>`).join("");
     const dos = (d.conduct?.do || []).map((item) => `<li>${esc(item)}</li>`).join("");
     const donts = (d.conduct?.dont || []).map((item) => `<li>${esc(item)}</li>`).join("");
     const about = d.about || { title: "", kicker: "", image: "", paragraphs: [] };
-
     const filters = d.categories
       .map(
         (c) =>
           `<button class="filter-btn" type="button" data-filter="${esc(c.id)}" aria-pressed="${c.id === "all" ? "true" : "false"}">${esc(lang === "kn" ? c.kn : c.label)}</button>`
       )
       .join("");
-
     const places = d.destinations.map((p) => placeCard(p, lang)).join("");
-
-    const legend = d.categories
-      .filter((c) => c.id !== "all")
-      .map((c) => {
-        const color = CATEGORY_COLOR[c.id] || "#c4a36a";
-        return `<span><i class="dot" style="background:${color}"></i>${esc(lang === "kn" ? c.kn : c.label)}</span>`;
-      })
-      .join("");
-
     const season = d.seasons[0];
     const seasonMonths = d.seasons
       .map((s, i) => `<button type="button" class="season-month" data-season-index="${i}">${esc(s.months.split("–")[0].trim())}</button>`)
       .join("");
-
     const stories = d.stories
       .map(
         (s) => `
@@ -159,33 +140,13 @@
         </article>`
       )
       .join("");
-
-    const highlights = d.highlights
-      .map(
-        (h) => `
-        <article class="highlight-card">
-          <div class="highlight-media">
-            <img src="${esc(h.image)}" alt="${esc(h.season)}" width="1800" height="1200" loading="lazy" />
-          </div>
-          <h3>${esc(h.season)}</h3>
-          <p>${esc(h.text)}</p>
-        </article>`
-      )
-      .join("");
-
     const essentials = Object.values(d.essentials)
       .map((block) => {
-        const items = block.items
-          .map((item) => `<h4>${esc(item.title)}</h4><p>${esc(item.text)}</p>`)
-          .join("");
+        const items = block.items.map((item) => `<h4>${esc(item.title)}</h4><p>${esc(item.text)}</p>`).join("");
         return `<article class="essential-card"><h3>${esc(block.title)}</h3>${items}</article>`;
       })
       .join("");
-
-    const guide = d.guide.cards
-      .map((c) => `<article class="guide-card"><h3>${esc(c.title)}</h3><p>${esc(c.text)}</p></article>`)
-      .join("");
-
+    const guide = d.guide.cards.map((c) => `<article class="guide-card"><h3>${esc(c.title)}</h3><p>${esc(c.text)}</p></article>`).join("");
     const gallery = d.gallery
       .map(
         (g) => `
@@ -195,260 +156,387 @@
         </figure>`
       )
       .join("");
-
     const credits = d.credits
       .map(
         (c) =>
           `<p>${esc(c.place)} — ${esc(c.artist)} — ${esc(c.license)}, via <a href="${esc(c.url)}" rel="noopener noreferrer">Wikimedia Commons</a></p>`
       )
       .join("");
+    const talukOrder = ["chikkamagaluru", "tarikere", "kadur", "mudigere", "koppa", "nrpura", "sringeri", "kalasa", "ajjampura"];
+    const talukById = Object.fromEntries((d.taluks || []).map((t) => [t.id, t]));
+    const talukIndex = talukOrder
+      .map((id) => talukById[id])
+      .filter(Boolean)
+      .map((t) => {
+        const label = lang === "kn" ? t.kannada : t.listName || t.name;
+        return `<li>
+          <button class="taluk-index-row" type="button" data-select-taluk="${esc(t.id)}" aria-pressed="false">
+            <span class="taluk-index-name">${esc(label)}</span>
+            <span class="taluk-index-dots" aria-hidden="true"></span>
+            <span class="taluk-index-count">${t.count}</span>
+          </button>
+          <a class="taluk-index-go" href="map.html?taluk=${esc(t.id)}" aria-label="Open ${esc(t.listName || t.name)} on the district map">→</a>
+        </li>`;
+      })
+      .join("");
+    const placeJump = d.categories
+      .filter((c) => c.id !== "all")
+      .map((c) => `<a class="place-jump-link" href="#section-${esc(c.id)}" data-jump-category="${esc(c.id)}">${esc(lang === "kn" ? c.kn : c.label)}</a>`)
+      .join("");
+    return {
+      d, tx, interests, featured, talukBtns, circuits, faqs, packing, dos, donts, about,
+      filters, places, season, seasonMonths, stories, essentials, guide, gallery, credits,
+      talukIndex, placeJump, official: d.official,
+    };
+  }
 
-    const official = d.official;
-
-    return `
-      <section class="section" id="explore">
-        <div class="wrap">
-          <div class="section-head">
-            <p class="kicker">Browse by interest</p>
-            <h2>What do you love?</h2>
-            <p class="section-lead">Peaks, water, stone and forest — the same kinds of country a district tourism desk would point you toward, without a stay to sell.</p>
-          </div>
-          <div class="interest-grid">${interests}</div>
-        </div>
-      </section>
-
-      <section class="section" id="landmarks" style="padding-top:0">
-        <div class="wrap">
-          <div class="section-head">
-            <p class="kicker">Not to be missed</p>
-            <h2>The landmarks</h2>
-          </div>
-          <div class="feature-grid">${featured}</div>
-        </div>
-      </section>
-
-      <section class="section" id="about">
-        <div class="wrap about-layout">
-          <div class="about-media">
-            <img src="${esc(about.image)}" alt="${esc(about.title)}" width="1800" height="1200" loading="lazy" />
-          </div>
-          <div>
-            <p class="kicker">${esc(about.kicker)}</p>
-            <h2>${esc(about.title)}</h2>
-            ${about.paragraphs.map((p) => `<p class="section-lead" style="margin-top:0.9rem">${esc(p)}</p>`).join("")}
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="places">
-        <div class="wrap">
-          <div class="section-head">
-            <p class="kicker">The district</p>
-            <h2>Places worth the climb</h2>
-            <p class="section-lead">Reference notes for peaks, water, stone and forest. Tap a photograph for the longer reading. Nothing here is a live fee, permit or opening-hour notice.</p>
-          </div>
-          <div class="toolbar">
-            <label class="search-label">${esc(tx("search"))}
-              <input id="place-search" type="search" placeholder="${esc(tx("search_ph"))}" autocomplete="off" />
-            </label>
-            <div class="filters" role="group" aria-label="${esc(tx("filters"))}">${filters}</div>
-            <div class="taluk-row" role="group" aria-label="Taluks">
-              <button class="filter-btn" type="button" data-taluk="all" aria-pressed="true">All taluks</button>
-              ${taluks}
-            </div>
-          </div>
-          <p class="results-meta"><span id="result-count">${d.destinations.length}</span> ${esc(tx("results"))}</p>
-          <div class="place-grid" id="place-grid">${places}</div>
-          <p class="empty-state" id="place-empty" hidden>${esc(tx("empty"))}</p>
-        </div>
-      </section>
-
-      <section class="section map-section" id="map">
-        <div class="wrap">
-          <div class="section-head">
-            <p class="kicker">${esc(tx("nav_map"))}</p>
-            <h2>Nine taluks, one ridge line</h2>
-            <p class="section-lead">OpenStreetMap for orientation only. Markers are approximate. Forest boundaries and jeep tracks change; confirm on the ground.</p>
-          </div>
-          <div class="map-frame"><div id="district-map" role="img" aria-label="Map of Chikkamagaluru destinations"></div></div>
-          <div class="map-legend">${legend}</div>
-        </div>
-      </section>
-
-      <section class="section" id="seasons">
-        <div class="wrap">
-          <div class="section-head">
-            <p class="kicker">${esc(tx("nav_seasons"))}</p>
-            <h2>What the year does to the ghats</h2>
-            <p class="section-lead">A seasonal reading, not a calendar of events. Festival dates belong on temple and district pages.</p>
-          </div>
-          <div class="season-layout">
-            <div class="season-media">
-              <img id="season-image" src="assets/mullayanagiri.jpg" alt="Seasonal landscape" width="1800" height="1200" />
-            </div>
-            <div class="season-copy" id="season-copy">
-              <p class="kicker">${esc(season.months)}</p>
-              <h3>${esc(season.title)}</h3>
-              <p>${esc(season.text)}</p>
-              <ul class="season-list">${season.experiences.map((e) => `<li>${esc(e)}</li>`).join("")}</ul>
-              <p class="season-watch">${esc(season.watch)}</p>
-              <input class="season-slider" id="season-slider" type="range" min="0" max="${d.seasons.length - 1}" value="0" aria-label="Season" />
-              <div class="season-months">${seasonMonths}</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="stories">
-        <div class="wrap">
-          <div class="section-head">
-            <p class="kicker">${esc(tx("nav_stories"))}</p>
-            <h2>Coffee, culture, care</h2>
-          </div>
-          ${stories}
-        </div>
-      </section>
-
-      <section class="section" id="circuits">
-        <div class="wrap">
-          <div class="section-head">
-            <p class="kicker">Suggested sketches</p>
-            <h2>Three ways through the district</h2>
-            <p class="section-lead">Planning notes, not packages and not bookings. Load a sketch into your private itinerary, then move days around.</p>
-          </div>
-          <div class="circuit-grid">${circuits}</div>
-        </div>
-      </section>
-
-      <section class="section essentials" id="essentials">
-        <div class="wrap">
-          <div class="section-head">
-            <p class="kicker">Visitor information</p>
-            <h2>Arrive, move, ask permission, stay safe</h2>
-            <p class="section-lead">The same practical desk a tourism office would keep: access, transport, forests and help. Fees and live closures live on official pages.</p>
-          </div>
-          <div class="essential-grid">${essentials}</div>
-          <div class="link-row">
-            <a href="${esc(official.district_en)}" rel="noopener noreferrer">District tourism (English)</a>
-            <a href="${esc(official.district_kn)}" rel="noopener noreferrer">ಜಿಲ್ಲಾ ಪ್ರವಾಸೋದ್ಯಮ (ಕನ್ನಡ)</a>
-            <a href="${esc(official.how_to_reach)}" rel="noopener noreferrer">How to reach</a>
-            <a href="${esc(official.helpline)}" rel="noopener noreferrer">Helpline</a>
-            <a href="${esc(official.forest)}" rel="noopener noreferrer">Forest department</a>
-            <a href="${esc(official.ksrtc)}" rel="noopener noreferrer">KSRTC</a>
-            <a href="${esc(official.karnataka_tourism)}" rel="noopener noreferrer">Karnataka Tourism</a>
-          </div>
-          <div class="section-head" style="margin-top:2.6rem">
-            <p class="kicker">What to carry</p>
-            <h2>A hill bag, not a packing list from a shop</h2>
-          </div>
-          <ul class="pack-list">${packing}</ul>
-          <div class="conduct-grid" style="margin-top:2rem">
-            <article class="conduct-card">
-              <h3>Do</h3>
-              <ul>${dos}</ul>
-            </article>
-            <article class="conduct-card">
-              <h3>Don’t</h3>
-              <ul>${donts}</ul>
-            </article>
-          </div>
-          <div class="section-head" style="margin-top:2.6rem">
-            <p class="kicker">Questions</p>
-            <h2>Before you set out</h2>
-          </div>
-          <div class="faq-list">${faqs}</div>
-        </div>
-      </section>
-
-      <section class="section" id="plan">
-        <div class="wrap">
-          <div class="section-head">
-            <p class="kicker">${esc(tx("nav_plan"))}</p>
-            <h2>${esc(tx("itinerary"))}</h2>
-            <p class="section-lead">A private, day-by-day notebook stored in this browser. Drag a stamped chip between days, or add a place from its card. No account. No payment.</p>
-          </div>
-          <div class="plan-layout">
-            <div>
-              <div class="day-board" id="day-board"></div>
-              <div class="plan-actions">
-                <button class="btn btn-dark" type="button" id="add-day">${esc(tx("add_day"))}</button>
-                <button class="btn btn-line" type="button" id="download-pack">${esc(tx("download"))}</button>
-                <button class="btn btn-line" type="button" id="clear-trip">${esc(tx("clear_trip"))}</button>
+  function renderPlaceSections(lang, list) {
+    const cats = global.CKM.categories.filter((c) => c.id !== "all");
+    return cats
+      .map((cat) => {
+        const items = list.filter((p) => p.category === cat.id);
+        if (!items.length) return "";
+        const title = lang === "kn" ? cat.kn : cat.label;
+        const lead = lang === "kn" ? cat.leadKn : cat.lead;
+        return `
+          <section class="place-section" id="section-${esc(cat.id)}" data-place-section="${esc(cat.id)}">
+            <div class="place-section-head">
+              <div>
+                <p class="kicker">${esc(title)}</p>
+                <h2>${esc(title)}</h2>
+                <p class="section-lead">${esc(lead || "")}</p>
               </div>
+              <span class="place-section-count">${items.length}</span>
             </div>
-            <aside class="passport" aria-labelledby="passport-title">
-              <h2 id="passport-title">${esc(tx("passport"))}</h2>
-              <p>${esc(tx("passport_blurb"))}</p>
-              <p><span id="stamp-count">0</span> / ${d.destinations.length}</p>
-              <div class="stamp-grid" id="stamp-grid"></div>
-              <div class="progress" aria-hidden="true"><span id="stamp-bar" style="width:0%"></span></div>
-            </aside>
-          </div>
-        </div>
-      </section>
+            <div class="place-grid">${items.map((p) => placeCard(p, lang)).join("")}</div>
+          </section>`;
+      })
+      .join("");
+  }
 
-      <section class="section" id="gallery">
-        <div class="wrap">
-          <div class="section-head">
-            <p class="kicker">Field photographs</p>
-            <h2>A quieter look</h2>
-          </div>
-          <div class="gallery-grid">${gallery}</div>
-        </div>
-      </section>
-
-      <section class="section" id="guide">
-        <div class="wrap">
-          <div class="section-head">
-            <p class="kicker">Local visitor guide</p>
-            <h2>${esc(d.guide.title)}</h2>
-            <p class="section-lead">${esc(d.guide.intro)}</p>
-          </div>
-          <div class="guide-grid">${guide}</div>
-        </div>
-      </section>
-
-      <section class="section" id="credits">
-        <div class="wrap">
-          <div class="section-head">
-            <p class="kicker">${esc(tx("credits"))}</p>
-            <h2>Wikimedia Commons, named</h2>
-            <p class="section-lead">Photographs are reused under the licences named below. File pages carry the full attribution.</p>
-          </div>
-          <div class="credit-list">${credits}</div>
-        </div>
-      </section>
-
+  function footer(f) {
+    return `
       <footer class="site-footer">
         <div class="wrap">
           <div class="footer-grid">
             <div>
               <p class="wordmark-en">Chikkamagaluru</p>
               <p class="wordmark-kn">ಚಿಕ್ಕಮಗಳೂರು</p>
-              <p style="margin-top:0.8rem;color:rgba(243,238,228,.7)">${esc(tx("disclaimer"))}</p>
+              <p style="margin-top:0.8rem;color:rgba(243,238,228,.7)">${esc(f.tx("disclaimer"))}</p>
             </div>
             <div>
-              <h2 class="kicker">${esc(tx("official"))}</h2>
+              <h2 class="kicker">${esc(f.tx("official"))}</h2>
               <ul>
-                <li><a href="${esc(official.district_en)}" rel="noopener noreferrer">chikkamagaluru.nic.in — tourism</a></li>
-                <li><a href="${esc(official.district_kn)}" rel="noopener noreferrer">ಕನ್ನಡ ಪ್ರವಾಸೋದ್ಯಮ ಪುಟ</a></li>
-                <li><a href="${esc(official.karnataka_tourism)}" rel="noopener noreferrer">Karnataka Tourism</a></li>
-                <li><a href="${esc(official.forest)}" rel="noopener noreferrer">Karnataka Forest Department</a></li>
+                <li><a href="${esc(f.official.district_en)}" rel="noopener noreferrer">chikkamagaluru.nic.in — tourism</a></li>
+                <li><a href="${esc(f.official.district_kn)}" rel="noopener noreferrer">ಕನ್ನಡ ಪ್ರವಾಸೋದ್ಯಮ ಪುಟ</a></li>
+                <li><a href="${esc(f.official.karnataka_tourism)}" rel="noopener noreferrer">Karnataka Tourism</a></li>
+                <li><a href="${esc(f.official.forest)}" rel="noopener noreferrer">Karnataka Forest Department</a></li>
               </ul>
             </div>
             <div>
-              <h2 class="kicker">On this page</h2>
+              <h2 class="kicker">Pages</h2>
               <ul>
-                <li><a href="#places">${esc(tx("nav_places"))}</a></li>
-                <li><a href="#plan">${esc(tx("nav_plan"))}</a></li>
-                <li><a href="#credits">${esc(tx("credits"))}</a></li>
+                <li><a href="places.html">Places</a></li>
+                <li><a href="map.html">District map</a></li>
+                <li><a href="plan.html">Plan</a></li>
+                <li><a href="visit.html">Visitor information</a></li>
               </ul>
             </div>
           </div>
-          <p class="fineprint">Built as a static companion. Source links remain the authority for access, fees, permits and announcements.</p>
+          <p class="fineprint">Independent static companion. Source links remain the authority for access, fees, permits and announcements. Map boundaries © OpenStreetMap contributors (ODbL).</p>
         </div>
-      </footer>
-    `;
+      </footer>`;
+  }
+
+  function renderHome(lang) {
+    const f = fragments(lang);
+    return `
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-media" aria-hidden="true">
+          <img src="assets/hero.jpg" alt="" width="2400" height="1350" fetchpriority="high" />
+        </div>
+        <div class="hero-scrim"></div>
+        <div class="hero-copy">
+          <p class="eyebrow">Chikkamagaluru · Karnataka</p>
+          <h1 id="hero-title">Above the cloud line.</h1>
+          <p class="lede">Good coffee, quieter journeys. A district companion for peaks, temples, forests and the working shade of Malnad — not a booking desk.</p>
+          <div class="hero-actions">
+            <a class="btn btn-light" href="places.html">Explore all places</a>
+            <a class="btn btn-ghost" href="map.html">Open the district map</a>
+          </div>
+        </div>
+      </section>
+      <section class="ribbon" aria-label="At a glance">
+        <div class="wrap ribbon-grid">
+          <p><strong>${f.d.destinations.length}</strong> places to read</p>
+          <p><strong>9</strong> taluks on the map</p>
+          <p><strong>3</strong> trip sketches</p>
+          <p><a href="https://chikkamagaluru.nic.in/en/tourism/" rel="noopener noreferrer">Official district tourism</a></p>
+        </div>
+      </section>
+      <section class="section" id="explore">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="kicker">Browse by interest</p>
+            <h2>What do you love?</h2>
+            <p class="section-lead">Peaks, water, stone and forest — the same kinds of country a tourism desk would point you toward, without a stay to sell.</p>
+          </div>
+          <div class="interest-grid">${f.interests}</div>
+        </div>
+      </section>
+      <section class="section" style="padding-top:0">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="kicker">Not to be missed</p>
+            <h2>The landmarks</h2>
+          </div>
+          <div class="feature-grid">${f.featured}</div>
+        </div>
+      </section>
+      <section class="district-explorer-section" id="explore-district">
+        <div class="wrap wrap-wide">
+          <div class="district-explorer">
+            <div class="district-copy">
+              <p class="kicker">Explore the district</p>
+              <h2>Nine taluks, endless experiences.</h2>
+              <p class="section-lead">From Mullayanagiri’s cloud line to the temples of Sringeri and the tiger forests of Bhadra — Chikkamagaluru is a district of contrasts. Explore by taluk to see what awaits you.</p>
+              <a class="btn btn-dark" data-map-cta href="map.html">View district map <span aria-hidden="true">→</span></a>
+            </div>
+            <div class="district-map-stage">
+              <div class="choropleth" id="district-svg" data-map-root data-map-mode="home"></div>
+              <span class="map-north" aria-hidden="true"><small>N</small><i></i></span>
+            </div>
+            <aside class="district-index">
+              <div class="district-index-head">
+                <span>The district</span>
+                <span>${f.d.destinations.length} places</span>
+              </div>
+              <ul class="taluk-index" id="taluk-index">${f.talukIndex}</ul>
+              <p class="taluk-summary" id="taluk-summary"></p>
+              <p class="taluk-footnote">Kalasa and Ajjampura were carved out of Mudigere and Tarikere after older maps were drawn. Each is shown here with its current OSM boundary.</p>
+            </aside>
+          </div>
+        </div>
+      </section>
+      ${footer(f)}`;
+  }
+
+  function renderPlacesPage(lang) {
+    const f = fragments(lang);
+    return `
+      <section class="page-hero">
+        <div class="wrap">
+          <p class="kicker">Places</p>
+          <h1>Places worth the climb</h1>
+          <p class="section-lead">Waterfalls, temples, dams, lakes, hill stations, peaks and forests — grouped the way you look for them. Nothing here is a live fee, permit or opening-hour notice.</p>
+        </div>
+      </section>
+      <section class="section" style="padding-top:0">
+        <div class="wrap">
+          <div class="toolbar">
+            <label class="search-label">${esc(f.tx("search"))}
+              <input id="place-search" type="search" placeholder="${esc(f.tx("search_ph"))}" autocomplete="off" />
+            </label>
+            <nav class="place-jump" aria-label="Jump to a kind of place">${f.placeJump}</nav>
+            <div class="taluk-row" role="group" aria-label="Taluks">
+              <button class="filter-btn" type="button" data-taluk="all" aria-pressed="true">All taluks</button>
+              ${f.talukBtns}
+            </div>
+          </div>
+          <p class="results-meta"><span id="result-count">${f.d.destinations.length}</span> ${esc(f.tx("results"))}</p>
+          <div id="place-sections">${renderPlaceSections(lang, f.d.destinations)}</div>
+          <p class="empty-state" id="place-empty" hidden>${esc(f.tx("empty"))}</p>
+        </div>
+      </section>
+      ${footer(f)}`;
+  }
+
+  function renderMapPage(lang) {
+    const f = fragments(lang);
+    return `
+      <section class="district-explorer-section district-explorer-page">
+        <div class="wrap wrap-wide">
+          <div class="district-explorer">
+            <div class="district-copy">
+              <p class="kicker">The district</p>
+              <h1>Nine taluks, endless experiences.</h1>
+              <p class="section-lead">Click a taluk on the map or in the list. Fills follow the illustrated choropleth of coffee country — pale greens at rest, deep forest when selected. Boundaries are OpenStreetMap reference, not a survey.</p>
+              <a class="btn btn-dark" id="taluk-places-cta" href="places.html">Browse places in this taluk <span aria-hidden="true">→</span></a>
+            </div>
+            <div class="district-map-stage">
+              <div class="choropleth choropleth-lg" id="district-svg" data-map-root data-map-mode="page" role="application" aria-label="Interactive Chikkamagaluru taluk map"></div>
+              <span class="map-north" aria-hidden="true"><small>N</small><i></i></span>
+            </div>
+            <aside class="district-index">
+              <div class="district-index-head">
+                <span>The district</span>
+                <span>${f.d.destinations.length} places</span>
+              </div>
+              <ul class="taluk-index" id="taluk-index">${f.talukIndex}</ul>
+              <p class="taluk-summary" id="taluk-summary"></p>
+              <p class="taluk-footnote">${esc(f.d.mapNote || "")}</p>
+            </aside>
+          </div>
+        </div>
+      </section>
+      <section class="section" style="padding-top:0">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="kicker" id="taluk-places-kicker">Places in this taluk</p>
+            <h2 id="taluk-places-heading">Choose a taluk</h2>
+            <p class="section-lead" id="taluk-places-lead">The map lists what this companion holds — not a complete gazetteer.</p>
+          </div>
+          <div id="taluk-places" class="place-grid"></div>
+          <p class="empty-state" id="taluk-places-empty" hidden>This companion does not yet list a destination in that taluk. Try a neighbour, or browse all places.</p>
+        </div>
+      </section>
+      ${footer(f)}`;
+  }
+
+  function renderStoriesPage(lang) {
+    const f = fragments(lang);
+    return `
+      <section class="page-hero">
+        <div class="wrap">
+          <p class="kicker">Stories</p>
+          <h1>Coffee, culture, care</h1>
+          <p class="section-lead">A slower reading of the district — seasons, shade-grown hills, Hoysala stone and how to walk lightly.</p>
+        </div>
+      </section>
+      <section class="section" style="padding-top:0">
+        <div class="wrap">
+          <div class="season-layout">
+            <div class="season-media">
+              <img id="season-image" src="assets/mullayanagiri.jpg" alt="Seasonal landscape" width="1800" height="1200" />
+            </div>
+            <div class="season-copy" id="season-copy">
+              <p class="kicker">${esc(f.season.months)}</p>
+              <h3>${esc(f.season.title)}</h3>
+              <p>${esc(f.season.text)}</p>
+              <ul class="season-list">${f.season.experiences.map((e) => `<li>${esc(e)}</li>`).join("")}</ul>
+              <p class="season-watch">${esc(f.season.watch)}</p>
+              <input class="season-slider" id="season-slider" type="range" min="0" max="${f.d.seasons.length - 1}" value="0" aria-label="Season" />
+              <div class="season-months">${f.seasonMonths}</div>
+            </div>
+          </div>
+          ${f.stories}
+          <div class="section-head" style="margin-top:2.5rem">
+            <p class="kicker">Field photographs</p>
+            <h2>A quieter look</h2>
+          </div>
+          <div class="gallery-grid">${f.gallery}</div>
+        </div>
+      </section>
+      ${footer(f)}`;
+  }
+
+  function renderPlanPage(lang) {
+    const f = fragments(lang);
+    return `
+      <section class="page-hero">
+        <div class="wrap">
+          <p class="kicker">${esc(f.tx("nav_plan"))}</p>
+          <h1>${esc(f.tx("itinerary"))}</h1>
+          <p class="section-lead">A private notebook stored in this browser. Load a sketch, then drag days. No account. No payment.</p>
+        </div>
+      </section>
+      <section class="section" style="padding-top:0">
+        <div class="wrap">
+          <div class="circuit-grid">${f.circuits}</div>
+          <div class="plan-layout" style="margin-top:2.4rem">
+            <div>
+              <div class="day-board" id="day-board"></div>
+              <div class="plan-actions">
+                <button class="btn btn-dark" type="button" id="add-day">${esc(f.tx("add_day"))}</button>
+                <button class="btn btn-line" type="button" id="download-pack">${esc(f.tx("download"))}</button>
+                <button class="btn btn-line" type="button" id="clear-trip">${esc(f.tx("clear_trip"))}</button>
+              </div>
+            </div>
+            <aside class="passport" aria-labelledby="passport-title">
+              <h2 id="passport-title">${esc(f.tx("passport"))}</h2>
+              <p>${esc(f.tx("passport_blurb"))}</p>
+              <p><span id="stamp-count">0</span> / ${f.d.destinations.length}</p>
+              <div class="stamp-grid" id="stamp-grid"></div>
+              <div class="progress" aria-hidden="true"><span id="stamp-bar" style="width:0%"></span></div>
+            </aside>
+          </div>
+        </div>
+      </section>
+      ${footer(f)}`;
+  }
+
+  function renderVisitPage(lang) {
+    const f = fragments(lang);
+    const about = f.about;
+    return `
+      <section class="page-hero">
+        <div class="wrap">
+          <p class="kicker">Visitor information</p>
+          <h1>Arrive, move, ask permission</h1>
+          <p class="section-lead">The practical desk: access, transport, forests, packing and questions. Fees and live closures live on official pages.</p>
+        </div>
+      </section>
+      <section class="section" style="padding-top:0">
+        <div class="wrap">
+          <div class="about-layout">
+            <div class="about-media">
+              <img src="${esc(about.image)}" alt="${esc(about.title)}" width="1800" height="1200" loading="lazy" />
+            </div>
+            <div>
+              <p class="kicker">${esc(about.kicker)}</p>
+              <h2>${esc(about.title)}</h2>
+              ${about.paragraphs.map((p) => `<p class="section-lead" style="margin-top:0.9rem">${esc(p)}</p>`).join("")}
+            </div>
+          </div>
+          <div class="essential-grid" style="margin-top:2.4rem">${f.essentials}</div>
+          <div class="link-row">
+            <a href="${esc(f.official.district_en)}" rel="noopener noreferrer">District tourism (English)</a>
+            <a href="${esc(f.official.district_kn)}" rel="noopener noreferrer">ಜಿಲ್ಲಾ ಪ್ರವಾಸೋದ್ಯಮ (ಕನ್ನಡ)</a>
+            <a href="${esc(f.official.how_to_reach)}" rel="noopener noreferrer">How to reach</a>
+            <a href="${esc(f.official.helpline)}" rel="noopener noreferrer">Helpline</a>
+            <a href="${esc(f.official.forest)}" rel="noopener noreferrer">Forest department</a>
+            <a href="${esc(f.official.ksrtc)}" rel="noopener noreferrer">KSRTC</a>
+            <a href="${esc(f.official.karnataka_tourism)}" rel="noopener noreferrer">Karnataka Tourism</a>
+          </div>
+          <div class="section-head" style="margin-top:2.6rem">
+            <p class="kicker">What to carry</p>
+            <h2>A hill bag</h2>
+          </div>
+          <ul class="pack-list">${f.packing}</ul>
+          <div class="conduct-grid" style="margin-top:2rem">
+            <article class="conduct-card"><h3>Do</h3><ul>${f.dos}</ul></article>
+            <article class="conduct-card"><h3>Don’t</h3><ul>${f.donts}</ul></article>
+          </div>
+          <div class="section-head" style="margin-top:2.6rem">
+            <p class="kicker">Questions</p>
+            <h2>Before you set out</h2>
+          </div>
+          <div class="faq-list">${f.faqs}</div>
+          <div class="section-head" style="margin-top:2.6rem">
+            <p class="kicker">Local visitor guide</p>
+            <h2>${esc(f.d.guide.title)}</h2>
+          </div>
+          <div class="guide-grid">${f.guide}</div>
+          <div class="section-head" style="margin-top:2.6rem">
+            <p class="kicker">${esc(f.tx("credits"))}</p>
+            <h2>Wikimedia Commons, named</h2>
+          </div>
+          <div class="credit-list">${f.credits}</div>
+        </div>
+      </section>
+      ${footer(f)}`;
+  }
+
+  function renderPage(page, lang) {
+    const pages = {
+      home: renderHome,
+      places: renderPlacesPage,
+      map: renderMapPage,
+      stories: renderStoriesPage,
+      plan: renderPlanPage,
+      visit: renderVisitPage,
+    };
+    return (pages[page] || renderHome)(lang);
   }
 
   function seasonImage(id) {
@@ -486,12 +574,13 @@
   }
 
   global.CKMSections = {
-    render,
+    renderPage,
     placeCard,
     t,
     esc,
     catLabel,
     renderSeason,
+    renderPlaceSections,
     CATEGORY_COLOR,
   };
 })(window);

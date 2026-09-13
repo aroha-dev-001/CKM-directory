@@ -2,17 +2,19 @@
   const STORAGE_TRIP = "ckm-itinerary";
   const STORAGE_PASS = "ckm-explorer-passport";
   const STORAGE_LANG = "ckm-lang";
+  const PAGE = document.body.getAttribute("data-page") || "home";
 
   const state = {
     lang: localStorage.getItem(STORAGE_LANG) || "en",
     filter: "all",
     taluk: "all",
     query: "",
+    selectedTaluk: "chikkamagaluru",
     trip: loadTrip(),
     passport: loadPassport(),
-    map: null,
-    markers: {},
     lastFocus: null,
+    mapApi: null,
+    queryApplied: false,
   };
 
   function loadTrip() {
@@ -72,9 +74,40 @@
     if (toggle) toggle.textContent = t("lang");
   }
 
+  function markNav() {
+    document.querySelectorAll("[data-nav]").forEach((link) => {
+      const on = link.getAttribute("data-nav") === PAGE;
+      link.classList.toggle("is-active", on);
+      if (on) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
+    });
+  }
+
+  function applyQuery() {
+    if (state.queryApplied) return;
+    state.queryApplied = true;
+    const q = new URLSearchParams(location.search);
+    if (PAGE === "places") {
+      state.jumpTo = q.get("category") || "";
+      state.taluk = q.get("taluk") || "all";
+      state.query = q.get("q") || "";
+      const id = q.get("id");
+      if (id) window.setTimeout(() => openModal(id), 80);
+    }
+    if (PAGE === "map") {
+      const place = placeById(q.get("place"));
+      state.selectedTaluk = q.get("taluk") || (place && place.talukId) || "chikkamagaluru";
+    }
+    if (PAGE === "plan") {
+      const circuitId = q.get("circuit");
+      const found = (CKM.circuits || []).find((c) => c.id === circuitId);
+      if (found) loadCircuit(found, false);
+    }
+  }
+
   function matches(place) {
     if (state.filter !== "all" && place.category !== state.filter) return false;
-    if (state.taluk !== "all" && place.taluk !== state.taluk) return false;
+    if (state.taluk !== "all" && place.talukId !== state.taluk && place.taluk !== state.taluk) return false;
     const q = state.query.trim().toLowerCase();
     if (!q) return true;
     const blob = [place.name, place.kannada, place.taluk, place.category, place.blurb, ...(place.tags || [])]
@@ -84,14 +117,18 @@
   }
 
   function renderPlaces() {
-    const grid = document.getElementById("place-grid");
+    const root = document.getElementById("place-sections");
     const empty = document.getElementById("place-empty");
     const count = document.getElementById("result-count");
-    if (!grid) return;
+    if (!root) return;
     const list = CKM.destinations.filter(matches);
-    grid.innerHTML = list.map((p) => CKMSections.placeCard(p, state.lang)).join("");
+    root.innerHTML = CKMSections.renderPlaceSections(state.lang, list);
     if (count) count.textContent = String(list.length);
     if (empty) empty.hidden = list.length > 0;
+    document.querySelectorAll("[data-jump-category]").forEach((link) => {
+      const id = link.getAttribute("data-jump-category");
+      link.classList.toggle("is-active", state.filter === id || (state.filter === "all" && false));
+    });
   }
 
   function syncTripCount() {
@@ -166,6 +203,17 @@
     return true;
   }
 
+  function loadCircuit(found, announce) {
+    state.trip.days = [[], [], []];
+    found.places.forEach((id, i) => {
+      const day = Math.min(Math.floor(i / 2), 2);
+      if (!state.trip.days[day].includes(id)) state.trip.days[day].push(id);
+    });
+    saveTrip();
+    renderDays();
+    if (announce) toast("Trip sketch loaded");
+  }
+
   function stamp(placeId) {
     if (!state.passport.includes(placeId)) {
       state.passport.push(placeId);
@@ -199,7 +247,7 @@
       <p>${CKMSections.esc(place.visit)}</p>
       <div class="modal-actions">
         <button class="btn btn-dark" type="button" data-stamp="${place.id}">${stamped ? t("stamped") : t("stamp")}</button>
-        <button class="btn btn-line" type="button" data-focus-map="${place.id}">${t("open_map")}</button>
+        <a class="btn btn-line" href="map.html?taluk=${encodeURIComponent(place.talukId || "")}&place=${encodeURIComponent(place.id)}">${t("open_map")}</a>
       </div>
       <p class="kicker">${t("add")}</p>
       <div class="day-pick">${dayBtns}</div>
@@ -208,9 +256,6 @@
     modal.hidden = false;
     document.body.style.overflow = "hidden";
     modal.querySelector(".modal-panel").focus();
-    if (state.markers[place.id] && state.map) {
-      state.markers[place.id].openPopup();
-    }
   }
 
   function closeModal() {
@@ -221,48 +266,63 @@
     if (state.lastFocus && typeof state.lastFocus.focus === "function") state.lastFocus.focus();
   }
 
-  function initMap() {
-    const el = document.getElementById("district-map");
-    if (!el || typeof L === "undefined") return;
-    if (state.map) {
-      state.map.remove();
-      state.map = null;
-      state.markers = {};
+  function talukLabel(taluk) {
+    if (!taluk) return "";
+    if (state.lang === "kn") return taluk.kannada;
+    return taluk.listName || taluk.name;
+  }
+
+  function updateTalukUi(id) {
+    const taluk = CKMMap.talukById(id);
+    if (!taluk) return;
+    state.selectedTaluk = id;
+    const places = CKMMap.placesInTaluk(id);
+    const label = talukLabel(taluk);
+    const summary = document.getElementById("taluk-summary");
+    if (summary) {
+      summary.textContent =
+        places.length === 0
+          ? `${label} — no places in this companion yet.`
+          : `${label} — ${places.length} place${places.length === 1 ? "" : "s"} in the guide.`;
     }
-    const map = L.map(el, {
-      scrollWheelZoom: false,
-      attributionControl: true,
+    document.querySelectorAll("[data-select-taluk]").forEach((btn) => {
+      btn.setAttribute("aria-pressed", btn.getAttribute("data-select-taluk") === id ? "true" : "false");
+      btn.closest("li")?.classList.toggle("is-active", btn.getAttribute("data-select-taluk") === id);
     });
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 16,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    }).addTo(map);
-    const bounds = [];
-    CKM.destinations.forEach((place) => {
-      const color = CKMSections.CATEGORY_COLOR[place.category] || "#c4a36a";
-      const icon = L.divIcon({
-        className: "pin",
-        html: `<span class="pin-dot" style="background:${color}"></span>`,
-        iconSize: [14, 14],
-        iconAnchor: [7, 7],
+    const cta = document.querySelector("[data-map-cta]");
+    if (cta) cta.setAttribute("href", `map.html?taluk=${encodeURIComponent(id)}`);
+    const browse = document.getElementById("taluk-places-cta");
+    if (browse) browse.setAttribute("href", `places.html?taluk=${encodeURIComponent(id)}`);
+    const heading = document.getElementById("taluk-places-heading");
+    const lead = document.getElementById("taluk-places-lead");
+    const grid = document.getElementById("taluk-places");
+    const empty = document.getElementById("taluk-places-empty");
+    if (heading) heading.textContent = label;
+    if (lead) lead.textContent = taluk.blurb || "";
+    if (grid) {
+      grid.innerHTML = places.map((p) => CKMSections.placeCard(p, state.lang)).join("");
+    }
+    if (empty) empty.hidden = places.length > 0;
+    if (PAGE === "map") {
+      document.querySelectorAll(".taluk-index-go").forEach((a) => {
+        const row = a.parentElement?.querySelector("[data-select-taluk]");
+        const tid = row && row.getAttribute("data-select-taluk");
+        if (tid) {
+          a.setAttribute("href", `places.html?taluk=${encodeURIComponent(tid)}`);
+          a.setAttribute("aria-label", `Browse places in ${row.textContent.trim()}`);
+        }
       });
-      const marker = L.marker([place.lat, place.lng], { icon, title: place.name }).addTo(map);
-      marker.bindPopup(
-        `<strong>${CKMSections.esc(place.name)}</strong><br>${CKMSections.esc(place.blurb)}<br><button type="button" class="btn btn-dark" data-open-place="${place.id}" style="margin-top:.6rem">${CKMSections.esc(place.name)}</button>`
-      );
-      marker.on("click", () => marker.openPopup());
-      state.markers[place.id] = marker;
-      bounds.push([place.lat, place.lng]);
+    }
+  }
+
+  function initDistrictMap() {
+    const root = document.querySelector("[data-map-root]");
+    if (!root || !window.CKMMap) return;
+    state.mapApi = CKMMap.mount(root, {
+      selected: state.selectedTaluk,
+      onSelect: (id) => updateTalukUi(id),
     });
-    if (bounds.length) map.fitBounds(bounds, { padding: [28, 28] });
-    map.on("popupopen", (e) => {
-      const btn = e.popup.getElement() && e.popup.getElement().querySelector("[data-open-place]");
-      if (btn) {
-        btn.addEventListener("click", () => openModal(btn.getAttribute("data-open-place")));
-      }
-    });
-    state.map = map;
-    setTimeout(() => map.invalidateSize(), 80);
+    updateTalukUi(state.selectedTaluk);
   }
 
   function downloadPack() {
@@ -302,59 +362,51 @@
     toast("Trip pack downloaded");
   }
 
+  function prefersReduced() {
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+
   function bindUi() {
     if (bindUi.done) return;
     bindUi.done = true;
-    const root = document.getElementById("app-root");
+    const main = document.getElementById("main");
 
-    root.addEventListener("click", (event) => {
+    main.addEventListener("click", (event) => {
       const open = event.target.closest("[data-open-place]");
       if (open) {
         openModal(open.getAttribute("data-open-place"));
         return;
       }
-      const filter = event.target.closest("[data-filter]");
-      if (filter) {
-        state.filter = filter.getAttribute("data-filter");
-        document.querySelectorAll("[data-filter]").forEach((btn) => {
-          btn.setAttribute("aria-pressed", btn.getAttribute("data-filter") === state.filter ? "true" : "false");
-        });
-        renderPlaces();
-        if (filter.classList.contains("interest-tile")) {
-          document.getElementById("places")?.scrollIntoView({ behavior: prefersReduced() ? "auto" : "smooth" });
+      const jump = event.target.closest("[data-jump-category]");
+      if (jump) {
+        const id = jump.getAttribute("data-jump-category");
+        const section = document.getElementById(`section-${id}`);
+        if (section) {
+          event.preventDefault();
+          section.scrollIntoView({ behavior: prefersReduced() ? "auto" : "smooth", block: "start" });
         }
         return;
       }
-      const taluk = event.target.closest("[data-taluk]");
-      if (taluk) {
-        state.taluk = taluk.getAttribute("data-taluk");
+      const talukFilter = event.target.closest("[data-taluk]");
+      if (talukFilter) {
+        state.taluk = talukFilter.getAttribute("data-taluk");
         document.querySelectorAll("[data-taluk]").forEach((btn) => {
-          btn.setAttribute("aria-pressed", btn === taluk ? "true" : "false");
+          btn.setAttribute("aria-pressed", btn === talukFilter ? "true" : "false");
         });
         renderPlaces();
-        document.getElementById("places")?.scrollIntoView({ behavior: prefersReduced() ? "auto" : "smooth" });
         return;
       }
-      const circuit = event.target.closest("[data-load-circuit]");
-      if (circuit) {
-        const found = (CKM.circuits || []).find((c) => c.id === circuit.getAttribute("data-load-circuit"));
-        if (found) {
-          state.trip.days = [[], [], []];
-          found.places.forEach((id, i) => {
-            const day = Math.min(Math.floor(i / 2), 2);
-            if (!state.trip.days[day].includes(id)) state.trip.days[day].push(id);
-          });
-          saveTrip();
-          renderDays();
-          document.getElementById("plan")?.scrollIntoView({ behavior: prefersReduced() ? "auto" : "smooth" });
-          toast("Trip sketch loaded");
-        }
+      const selectTaluk = event.target.closest("[data-select-taluk]");
+      if (selectTaluk) {
+        const id = selectTaluk.getAttribute("data-select-taluk");
+        state.selectedTaluk = id;
+        if (state.mapApi) state.mapApi.choose(id);
+        else updateTalukUi(id);
         return;
       }
       const seasonBtn = event.target.closest("[data-season-index]");
       if (seasonBtn) {
-        const idx = Number(seasonBtn.getAttribute("data-season-index"));
-        CKMSections.renderSeason(idx, state.lang);
+        CKMSections.renderSeason(Number(seasonBtn.getAttribute("data-season-index")), state.lang);
         return;
       }
       const removeChip = event.target.closest("[data-remove-chip]");
@@ -392,7 +444,16 @@
       if (event.target.closest("#download-pack")) downloadPack();
     });
 
-    root.addEventListener("input", (event) => {
+    main.addEventListener("mouseover", (event) => {
+      const row = event.target.closest("[data-select-taluk]");
+      if (row && state.mapApi) state.mapApi.hover(row.getAttribute("data-select-taluk"), true);
+    });
+    main.addEventListener("mouseout", (event) => {
+      const row = event.target.closest("[data-select-taluk]");
+      if (row && state.mapApi) state.mapApi.hover(row.getAttribute("data-select-taluk"), false);
+    });
+
+    main.addEventListener("input", (event) => {
       if (event.target.id === "place-search") {
         state.query = event.target.value;
         renderPlaces();
@@ -402,7 +463,7 @@
       }
     });
 
-    root.addEventListener("dragstart", (event) => {
+    main.addEventListener("dragstart", (event) => {
       const chip = event.target.closest("[data-chip-id]");
       if (!chip || !event.dataTransfer) return;
       event.dataTransfer.setData(
@@ -415,19 +476,19 @@
       event.dataTransfer.effectAllowed = "move";
     });
 
-    root.addEventListener("dragover", (event) => {
+    main.addEventListener("dragover", (event) => {
       const col = event.target.closest("[data-day-index]");
       if (!col) return;
       event.preventDefault();
       col.classList.add("dragover");
     });
 
-    root.addEventListener("dragleave", (event) => {
+    main.addEventListener("dragleave", (event) => {
       const col = event.target.closest("[data-day-index]");
       if (col) col.classList.remove("dragover");
     });
 
-    root.addEventListener("drop", (event) => {
+    main.addEventListener("drop", (event) => {
       const col = event.target.closest("[data-day-index]");
       if (!col) return;
       event.preventDefault();
@@ -456,18 +517,6 @@
       if (addDay) {
         addToDay(addDay.getAttribute("data-place"), Number(addDay.getAttribute("data-add-day")));
         toast("Added to itinerary");
-        return;
-      }
-      const mapBtn = event.target.closest("[data-focus-map]");
-      if (mapBtn) {
-        const id = mapBtn.getAttribute("data-focus-map");
-        closeModal();
-        document.getElementById("map")?.scrollIntoView({ behavior: prefersReduced() ? "auto" : "smooth" });
-        const marker = state.markers[id];
-        if (marker && state.map) {
-          state.map.setView(marker.getLatLng(), 12);
-          marker.openPopup();
-        }
       }
     });
 
@@ -476,11 +525,9 @@
     });
   }
 
-  function prefersReduced() {
-    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  }
-
   function initHeader() {
+    if (initHeader.done) return;
+    initHeader.done = true;
     const toggle = document.querySelector(".nav-toggle");
     const header = document.querySelector(".site-header");
     toggle?.addEventListener("click", () => {
@@ -539,27 +586,31 @@
   }
 
   function paint() {
-    const root = document.getElementById("app-root");
-    root.innerHTML = CKMSections.render(state.lang);
+    const main = document.getElementById("main");
+    main.innerHTML = CKMSections.renderPage(PAGE, state.lang);
     applyI18n();
+    markNav();
+    applyQuery();
     const search = document.getElementById("place-search");
     if (search) search.value = state.query;
-    document.querySelectorAll("[data-filter]").forEach((btn) => {
-      btn.setAttribute("aria-pressed", btn.getAttribute("data-filter") === state.filter ? "true" : "false");
-    });
     document.querySelectorAll("[data-taluk]").forEach((btn) => {
       btn.setAttribute("aria-pressed", btn.getAttribute("data-taluk") === state.taluk ? "true" : "false");
     });
     renderPlaces();
     renderDays();
     renderPassport();
-    initMap();
+    initDistrictMap();
+    syncTripCount();
     bindUi();
+    if (PAGE === "places" && state.jumpTo) {
+      window.setTimeout(() => {
+        document.getElementById(`section-${state.jumpTo}`)?.scrollIntoView({ behavior: prefersReduced() ? "auto" : "smooth", block: "start" });
+      }, 60);
+    }
   }
 
   function start() {
     if (!window.CKM || !window.CKMSections) return;
-    applyI18n();
     initHeader();
     paint();
     registerWebMCP();

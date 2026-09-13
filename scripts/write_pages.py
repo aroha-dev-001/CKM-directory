@@ -1,9 +1,22 @@
-<!DOCTYPE html>
+#!/usr/bin/env python3
+"""Write static HTML shells for each companion page."""
+from pathlib import Path
+
+PAGES = [
+    ("index.html", "home", "Chikkamagaluru — a Western Ghats companion"),
+    ("places.html", "places", "Places to visit — Chikkamagaluru"),
+    ("map.html", "map", "District map — Chikkamagaluru"),
+    ("stories.html", "stories", "Coffee, culture and seasons — Chikkamagaluru"),
+    ("plan.html", "plan", "Plan a trip — Chikkamagaluru"),
+    ("visit.html", "visit", "Visitor information — Chikkamagaluru"),
+]
+
+TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Chikkamagaluru — a Western Ghats companion</title>
+    <title>{title}</title>
     <meta
       name="description"
       content="An independent companion for discovering Chikkamagaluru: peaks, waterfalls, temples, forests, seasons and a private itinerary. Not a government site. Not a booking service."
@@ -18,7 +31,7 @@
     />
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body data-page="home">
+  <body data-page="{page}">
     <a class="skip" href="#main">Skip to content</a>
     <header class="site-header" id="top">
       <div class="header-inner">
@@ -67,3 +80,9 @@
     <script src="app.js"></script>
   </body>
 </html>
+"""
+
+out = Path("/workspace/dist")
+for filename, page, title in PAGES:
+    (out / filename).write_text(TEMPLATE.format(page=page, title=title), encoding="utf-8")
+    print("wrote", filename)

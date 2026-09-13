@@ -107,6 +107,34 @@ p {
   margin-inline: auto;
 }
 
+.wrap-wide {
+  width: min(1280px, calc(100% - var(--pad) * 2));
+}
+
+.page-enter {
+  animation: page-in 0.55s var(--ease);
+}
+
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+.page-hero {
+  padding: clamp(2.4rem, 6vw, 4.2rem) 0 0.4rem;
+}
+
+.page-hero h1 {
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
+  max-width: 16ch;
+  margin: 0.35rem 0 0.8rem;
+}
+
+.site-nav a.is-active {
+  opacity: 1;
+  border-bottom-color: var(--gold);
+}
+
 .section {
   padding: clamp(3.5rem, 8vw, 6.5rem) 0;
 }
@@ -594,52 +622,269 @@ p {
   color: var(--muted);
 }
 
-/* Map */
-.map-section {
-  background: var(--deep);
-  color: var(--ivory);
-}
-
-.map-section .section-lead,
-.map-section .kicker {
-  color: rgba(243, 238, 228, 0.7);
-}
-
-.map-frame {
-  margin-top: 1.5rem;
-  height: min(62vw, 32rem);
-  min-height: 18rem;
-  border-radius: 4px;
-  overflow: hidden;
-  border: 1px solid rgba(243, 238, 228, 0.1);
-}
-
-#district-map {
-  height: 100%;
-  width: 100%;
-  background: #1a2a20;
-}
-
-.leaflet-container {
-  font-family: var(--sans);
-  background: #1a2a20;
-}
-
-.map-legend {
+/* Places grouped by kind */
+.place-jump {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.7rem 1.1rem;
-  margin-top: 1rem;
-  font-size: 0.85rem;
-  color: rgba(243, 238, 228, 0.75);
+  gap: 0.4rem;
 }
 
-.dot {
-  width: 0.55rem;
-  height: 0.55rem;
-  border-radius: 50%;
-  display: inline-block;
-  margin-right: 0.35rem;
+.place-jump-link {
+  text-decoration: none;
+  border: 1px solid var(--line);
+  min-height: 2.35rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.place-jump-link:hover,
+.place-jump-link.is-active {
+  background: var(--forest);
+  color: var(--ivory);
+  border-color: var(--forest);
+}
+
+.place-section {
+  margin-top: 2.8rem;
+}
+
+.place-section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.2rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.place-section-head h2 {
+  font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+  margin-top: 0.2rem;
+}
+
+.place-section-head .section-lead {
+  max-width: 38rem;
+  margin-top: 0.35rem;
+  font-size: 0.98rem;
+}
+
+.place-section-count {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  color: var(--forest);
+  line-height: 1;
+}
+
+/* Illustrated taluk map */
+.district-explorer-section {
+  background: #f4f1e8;
+  padding: clamp(3.2rem, 7vw, 5.8rem) 0;
+}
+
+.district-explorer-page {
+  padding-top: clamp(2.2rem, 5vw, 3.6rem);
+}
+
+.district-explorer {
+  display: grid;
+  grid-template-columns: minmax(15rem, 0.92fr) minmax(17rem, 1.2fr) minmax(15rem, 0.88fr);
+  gap: 2.4rem 1.8rem;
+  align-items: center;
+}
+
+.district-copy h1,
+.district-copy h2 {
+  font-size: clamp(2.2rem, 4.4vw, 3.55rem);
+  max-width: 11ch;
+  margin: 0.45rem 0 1rem;
+  line-height: 1.05;
+}
+
+.district-copy .btn {
+  margin-top: 1.5rem;
+}
+
+.district-map-stage {
+  position: relative;
+  min-height: 22rem;
+}
+
+.choropleth {
+  width: 100%;
+}
+
+.choropleth-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.choropleth-svg path {
+  stroke: #f4f1e8;
+  stroke-width: 2.2;
+  cursor: pointer;
+  transition: fill 0.28s var(--ease);
+}
+
+.choropleth-svg text {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  pointer-events: none;
+  letter-spacing: 0.01em;
+}
+
+.choropleth-svg .taluk-g.is-selected text {
+  font-weight: 600;
+}
+
+.map-north {
+  position: absolute;
+  left: 0.2rem;
+  bottom: 8%;
+  display: grid;
+  justify-items: center;
+  gap: 0.15rem;
+  color: #5a6b5e;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+}
+
+.map-north i {
+  display: block;
+  width: 1px;
+  height: 1.35rem;
+  background: #5a6b5e;
+  position: relative;
+}
+
+.map-north i::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 7px solid #5a6b5e;
+  transform: translateX(-50%);
+}
+
+.district-index-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8a9588;
+  margin-bottom: 1.1rem;
+}
+
+.taluk-index {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.taluk-index li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.35rem;
+  border-bottom: 1px solid transparent;
+}
+
+.taluk-index-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: 0.55rem;
+  width: 100%;
+  padding: 0.55rem 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  color: var(--ink);
+  font-size: 1.02rem;
+}
+
+.taluk-index-name {
+  font-family: var(--serif);
+  font-size: 1.12rem;
+  white-space: nowrap;
+}
+
+.taluk-index-dots {
+  border-bottom: 1px dotted rgba(12, 31, 19, 0.28);
+  min-width: 2rem;
+  transform: translateY(-0.28em);
+}
+
+.taluk-index-count {
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.taluk-index-go {
+  text-decoration: none;
+  color: var(--muted);
+  width: 1.6rem;
+  height: 1.6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s var(--ease);
+}
+
+.taluk-index li:hover .taluk-index-go,
+.taluk-index li.is-active .taluk-index-go,
+.taluk-index-go:focus-visible {
+  opacity: 1;
+}
+
+.taluk-index li.is-active .taluk-index-row {
+  color: var(--forest);
+}
+
+.taluk-index li.is-active .taluk-index-name {
+  font-weight: 600;
+}
+
+.taluk-summary {
+  margin-top: 1.15rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.taluk-footnote {
+  margin-top: 0.7rem;
+  color: #8a9588;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.map-loading,
+.map-error {
+  color: var(--muted);
+  padding: 2rem 0;
+}
+
+.taluk-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
 }
 
 /* Seasons */
@@ -1389,8 +1634,19 @@ p {
   .plan-layout,
   .essential-grid,
   .footer-grid,
-  .credit-list {
+  .credit-list,
+  .district-explorer,
+  .place-section-head {
     grid-template-columns: 1fr;
+  }
+
+  .district-copy h1,
+  .district-copy h2 {
+    max-width: 14ch;
+  }
+
+  .taluk-index-go {
+    opacity: 1;
   }
 
   .story-block:nth-of-type(even) .story-media {
@@ -1473,13 +1729,15 @@ p {
     scroll-behavior: auto;
   }
 
+  .page-enter,
   .place-card img,
   .gallery-item img,
   .interest-tile img,
   .feature-card img,
   .btn,
   .hero-media img,
-  .modal-panel {
+  .modal-panel,
+  .choropleth-svg path {
     transition: none;
     animation: none;
   }
