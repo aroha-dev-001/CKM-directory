@@ -1081,6 +1081,13 @@
     });
   }
 
+  function initOriginSlider() {
+    const el = document.querySelector("[data-origin-slider]");
+    if (!el || !window.CKMOriginSlider) return;
+    if (el._ckmSlider && typeof el._ckmSlider.destroy === "function") el._ckmSlider.destroy();
+    el._ckmSlider = window.CKMOriginSlider.mount(el.closest(".sg-origin") || el);
+  }
+
   function paint() {
     const main = document.getElementById("main");
     main.innerHTML = CKMSections.renderPage(PAGE, state.lang);
@@ -1102,6 +1109,7 @@
     bindUi();
     initMotion();
     initPopularGallery();
+    initOriginSlider();
     filterPopular();
     if (PAGE === "taluk" && state.selectedTaluk) {
       const taluk = CKMMap.talukById(state.selectedTaluk);

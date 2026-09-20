@@ -453,25 +453,42 @@
       .map((ch, i) => {
         const paras = String(ch.text || "").split(/\n\n/).filter(Boolean);
         const n = String(i + 1).padStart(2, "0");
-        const flip = i % 2 === 1 ? " is-flip" : "";
-        const kicker = ch.kicker ? `<p class="kicker origin-kicker">${esc(ch.kicker)}</p>` : "";
-        const media = ch.image
-          ? `<figure class="origin-scene-media">
-              <img src="${esc(ch.image)}" alt="${esc(ch.caption || ch.title)}" width="1800" height="1200" ${i < 2 ? "" : 'loading="lazy"'} />
-              <figcaption>${esc(ch.caption || "")}</figcaption>
-            </figure>`
-          : "";
-        return `<article class="origin-scene${flip}" id="origin-${n}">
-          ${media}
-          <div class="origin-chapter">
-            <p class="story-beat-num">${n}</p>
-            ${kicker}
-            <h3>${esc(ch.title)}</h3>
-            ${paras.map((p) => `<p>${esc(p)}</p>`).join("")}
+        const last = i === (origin.chapters || []).length - 1;
+        return `<article class="sg-origin-slide" id="origin-${n}" data-origin-slide aria-roledescription="slide" aria-label="${esc(n)}. ${esc(ch.title)}">
+          <figure class="sg-origin-photo">
+            <img src="${esc(ch.image)}" alt="${esc(ch.caption || ch.title)}" width="1800" height="1200" ${i < 2 ? "" : 'loading="lazy"'} />
+            <figcaption>${esc(ch.caption || "")}</figcaption>
+          </figure>
+          <div class="sg-origin-panel">
+            <p class="sg-eyebrow">${n} · ${esc((ch.kicker || "").toUpperCase())}</p>
+            <h2>${esc(ch.title)}</h2>
+            <div class="sg-origin-copy">${paras.map((p) => `<p>${esc(p)}</p>`).join("")}</div>
+            <div class="sg-origin-actions">
+              <button class="sg-ghost" type="button" data-origin-prev>Back</button>
+              <button class="sg-pill sg-pill-lime" type="button" data-origin-next ${last ? "hidden" : ""}>Next →</button>
+              <a class="sg-pill sg-pill-forest" data-origin-end href="places.html?id=baba-budangiri" ${last ? "" : "hidden"}>Open Baba Budangiri</a>
+            </div>
           </div>
         </article>`;
       })
       .join("");
+    const originTabs = (origin.chapters || [])
+      .map((ch, i) => `<button class="sg-origin-tab" type="button" role="tab" data-origin-tab="${i}" aria-selected="${i === 0 ? "true" : "false"}">${esc(ch.kicker || ch.title)}</button>`)
+      .join("");
+    const originSlider = origin.chapters && origin.chapters.length
+      ? `<section class="sg-origin" aria-label="Eight scenes from Mocha to shade">
+          <div class="sg-origin-shell">
+            <div class="sg-origin-viewport" data-origin-slider tabindex="0">
+              <div class="sg-origin-track" data-origin-track>${originChapters}</div>
+            </div>
+            <div class="sg-origin-nav">
+              <p class="sg-origin-status" data-origin-status>01 / 08</p>
+              <p class="sg-ghost" aria-hidden="true">Swipe or use arrows</p>
+            </div>
+            <div class="sg-origin-tabs" role="tablist" aria-label="Scenes">${originTabs}</div>
+          </div>
+        </section>`
+      : "";
     const originHero = origin.image
       ? `<figure class="origin-hero">
           <img src="${esc(origin.image)}" alt="${esc(origin.caption || origin.title)}" width="1800" height="1200" />
@@ -515,9 +532,9 @@
       d, tx, interests, featured, talukBtns, circuits, faqs, packing, dos, donts, about,
       filters, places, season, seasonMonths, stories, storyIndex, essentials, guide, gallery, credits,
       talukIndex, placeJump, official: d.official, tickerItems, seasonCards, whyCards,
-      homeCircuits, homeGallery, fieldNotes, popularCards, popularCarousel, origin, originChapters, originSources,
+      origin, originChapters, originSources, originSlider,
       originHero,
-      foodCards, galleryNum,
+      foodCards, galleryNum, homeCircuits, homeGallery, fieldNotes, popularCards, popularCarousel,
     };
   }
 
@@ -1236,7 +1253,7 @@
       <section class="story-longread">
         <div class="wrap">
           ${f.originHero || ""}
-          <div class="origin-scenes">${f.originChapters}</div>
+          ${f.originSlider || ""}
           <div class="origin-sources">
             <p class="kicker">Sources</p>
             <ul>${f.originSources}</ul>
