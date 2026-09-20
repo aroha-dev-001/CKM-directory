@@ -1069,7 +1069,7 @@
     if (!items.length) return;
     el._ckmCarousel = window.CKMCarousel.mount(el, {
       items,
-      baseWidth: 320,
+      baseWidth: 380,
       autoplay: true,
       autoplayDelay: 2800,
       pauseOnHover: true,

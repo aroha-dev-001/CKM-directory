@@ -63,7 +63,7 @@
     const requestedWidth = options.baseWidth ?? 320;
     const onChange = typeof options.onChange === "function" ? options.onChange : null;
 
-    const containerPadding = 16;
+    const containerPadding = 0;
     let baseWidth = measureBaseWidth(root, requestedWidth);
     let itemWidth = baseWidth - containerPadding * 2;
     let trackItemOffset = itemWidth + GAP;
