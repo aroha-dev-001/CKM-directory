@@ -9,10 +9,10 @@ This is **not** a government website and **not** a booking service. Homestays, h
 No package manager or build step.
 
 ```bash
-python3 -m http.server 4173 --bind 0.0.0.0 --directory dist
+python3 -m http.server 43173 --bind 0.0.0.0 --directory dist
 ```
 
-Then open [http://127.0.0.1:4173](http://127.0.0.1:4173).
+Then open [http://127.0.0.1:43173](http://127.0.0.1:43173).
 
 ## Host on Vercel
 
@@ -50,7 +50,7 @@ npx vercel --yes --prod
 
 ## What is in the companion
 
-- Illustrated, colourful taluk map (SVG from OpenStreetMap polygons — not a tile map)
+- Illustrated, colourful taluk map (SVG from OpenStreetMap polygons — not a tile map). Lime pins mark popular visitor places; click a pin for published hours and official notes.
 - Destination detail modal
 - Day-by-day itinerary with drag-and-drop
 - Downloadable offline trip pack (HTML)
@@ -70,7 +70,7 @@ Photographs are Wikimedia Commons stills, cover-cropped to **1800×1200** (hero 
 | `dist/style.css` | Layout and visual system |
 | `dist/data.js` | Destinations, copy, credits, official URLs |
 | `dist/sections.js` | HTML rendering |
-| `dist/map.js` | SVG taluk choropleth |
+| `dist/map.js` | SVG taluk choropleth, drilldown, and place pins |
 | `dist/app.js` | Search, modal, itinerary, passport, WebMCP |
 | `dist/assets/` | Photographs and `taluks.geojson` |
 

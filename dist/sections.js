@@ -502,11 +502,11 @@
       .map((t) => {
         const label = lang === "kn" ? t.kannada : t.listName || t.name;
         return `<li>
-          <a class="taluk-index-row" href="places.html?taluk=${esc(t.id)}" data-select-taluk="${esc(t.id)}" aria-current="false">
+          <button type="button" class="taluk-index-row" data-select-taluk="${esc(t.id)}" aria-current="false">
             <span class="taluk-index-name">${esc(label)}</span>
             <span class="taluk-index-count">${t.count}</span>
             <span class="taluk-index-go" aria-hidden="true">→</span>
-          </a>
+          </button>
         </li>`;
       })
       .join("");
@@ -742,8 +742,8 @@
           <div class="district-explorer">
             <div class="district-copy">
               <p class="kicker">Explore the district</p>
-              <h2>Nine taluks, endless experiences.</h2>
-              <p class="section-lead">From Mullayanagiri’s cloud line to the temples of Sringeri and the tiger forests of Bhadra — Chikkamagaluru is a district of contrasts. Click a taluk to open it.</p>
+              <h2>Nine taluks. Click a lime pin.</h2>
+              <p class="section-lead">Lime diamonds mark popular visitor places. Click a pin for published hours, how to approach, and official pages — not a ticket or a fee. Click a taluk to zoom and see every place this companion holds there.</p>
               <a class="btn btn-dark shine t-learn" data-map-cta href="map.html" data-magnetic>${learn("View district map")}</a>
             </div>
             <div class="district-map-stage">
@@ -757,6 +757,7 @@
               </div>
               <ul class="taluk-index" id="taluk-index">${f.talukIndex}</ul>
               <p class="taluk-summary" id="taluk-summary"></p>
+              <div class="taluk-inspector" id="taluk-inspector"></div>
               <p class="taluk-footnote">Kalasa and Ajjampura were carved out of Mudigere and Tarikere after older maps were drawn. Each is shown here with its current OSM boundary.</p>
             </aside>
           </div>
@@ -836,8 +837,8 @@
           <div class="district-explorer">
             <div class="district-copy">
               <p class="kicker">The district</p>
-              <h1>Nine taluks, endless experiences.</h1>
-              <p class="section-lead">Click a taluk on the map or in the list to open its places — waterfalls, temples, dams and the rest, already grouped. Boundaries are OpenStreetMap reference, not a survey.</p>
+              <h1>Nine taluks. Pins you can open.</h1>
+              <p class="section-lead">Lime diamonds are popular tourist stops. Click one for visitor notes already published by temples, the district, or the forest department. Zoom a taluk for every place in this companion. Boundaries are OpenStreetMap reference, not a survey.</p>
               <a class="btn btn-dark shine t-learn" id="taluk-places-cta" href="places.html" data-magnetic>${learn("Browse places in this taluk")}</a>
             </div>
             <div class="district-map-stage">
@@ -851,6 +852,7 @@
               </div>
               <ul class="taluk-index" id="taluk-index">${f.talukIndex}</ul>
               <p class="taluk-summary" id="taluk-summary"></p>
+              <div class="taluk-inspector" id="taluk-inspector"></div>
               <p class="taluk-footnote">${esc(f.d.mapNote || "")}</p>
             </aside>
           </div>

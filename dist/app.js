@@ -282,9 +282,17 @@
       .join("");
     const extra = (CKM.popularPlaces || []).find((p) => p.id === place.id);
     const hoursBlock = extra
-      ? `<h3 class="kicker" style="margin-top:1.1rem">Typical hours</h3>
-         <p><strong>${CKMSections.esc(extra.hours)}</strong> — ${CKMSections.esc(extra.hoursDetail)}</p>
-         <h3 class="kicker" style="margin-top:1.1rem">Why it is popular</h3>
+      ? `<div class="visitor-card">
+           <h3 class="kicker">Published visitor hours</h3>
+           <p><strong>${CKMSections.esc(extra.hours)}</strong></p>
+           <p>${CKMSections.esc(extra.hoursDetail)}</p>
+           ${
+             extra.hoursSource
+               ? `<p class="visitor-source"><a href="${CKMSections.esc(extra.hoursSource.url)}" rel="noopener noreferrer">${CKMSections.esc(extra.hoursSource.label)}</a></p>`
+               : ""
+           }
+         </div>
+         <h3 class="kicker" style="margin-top:1.1rem">Why travellers stop here</h3>
          <p>${CKMSections.esc(extra.why)}</p>`
       : "";
     const stamped = state.passport.includes(place.id);
@@ -296,6 +304,7 @@
       ${hoursBlock}
       <h3 class="kicker" style="margin-top:1.1rem">${t("visit_notes")}</h3>
       <p>${CKMSections.esc(place.visit)}</p>
+      <p class="visitor-disclaimer">Public notes only — not a ticket, permit, fee table or live gate status. Confirm on the official page before you go.</p>
       <div class="modal-actions">
         <button class="btn btn-dark" type="button" data-stamp="${place.id}">${stamped ? t("stamped") : t("stamp")}</button>
         <a class="btn btn-line" href="map.html?taluk=${encodeURIComponent(place.talukId || "")}&place=${encodeURIComponent(place.id)}">${t("open_map")}</a>
@@ -367,16 +376,53 @@
       grid.innerHTML = places.map((p) => CKMSections.placeCard(p, state.lang)).join("");
     }
     if (empty) empty.hidden = places.length > 0;
+    const inspector = document.getElementById("taluk-inspector");
+    if (inspector) inspector.innerHTML = renderTalukInspector(places);
+  }
+
+  function renderTalukInspector(places) {
+    const pop = new Set((CKM.popularPlaces || []).map((p) => p.id));
+    if (!places.length) {
+      return `<p class="taluk-inspector-empty">No destination is listed here yet. Neighbour taluks still have pins you can open.</p>`;
+    }
+    const groups = new Map();
+    places.forEach((p) => {
+      const key = p.category || "other";
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(p);
+    });
+    const order = (CKM.categories || []).map((c) => c.id).filter((id) => id !== "all");
+    return order
+      .filter((id) => groups.has(id))
+      .map((id) => {
+        const items = groups
+          .get(id)
+          .map((p) => {
+            const popular = pop.has(p.id);
+            return `<button type="button" class="taluk-inspector-place${popular ? " is-popular" : ""}" data-open-place="${CKMSections.esc(p.id)}">${CKMSections.esc(state.lang === "kn" ? p.kannada : p.name)}${popular ? " · popular" : ""}</button>`;
+          })
+          .join("");
+        return `<div class="taluk-inspector-group"><p class="taluk-inspector-cat">${CKMSections.esc(CKMSections.catLabel(id, state.lang))}</p>${items}</div>`;
+      })
+      .join("");
   }
 
   function initDistrictMap() {
     const root = document.querySelector("[data-map-root]");
     if (!root || !window.CKMMap) return;
+    const q = new URLSearchParams(location.search);
+    const placeId = PAGE === "map" ? q.get("place") || "" : "";
     state.mapApi = CKMMap.mount(root, {
       selected: state.selectedTaluk,
+      drill: PAGE === "map" && !!(q.get("taluk") || placeId),
+      placeId,
       onSelect: (id) => updateTalukUi(id),
-      onActivate: (id) => {
-        window.location.href = `places.html?taluk=${encodeURIComponent(id)}`;
+      onPlace: (id) => openModal(id),
+      onReady: (api) => {
+        if (placeId) {
+          api.highlightPlace(placeId);
+          openModal(placeId);
+        }
       },
     });
     updateTalukUi(state.selectedTaluk);
@@ -780,6 +826,7 @@
       }
       const selectTaluk = event.target.closest("[data-select-taluk]");
       if (selectTaluk) {
+        event.preventDefault();
         const id = selectTaluk.getAttribute("data-select-taluk");
         state.selectedTaluk = id;
         if (state.mapApi) state.mapApi.choose(id);

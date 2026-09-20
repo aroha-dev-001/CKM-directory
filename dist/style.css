@@ -1851,9 +1851,16 @@ a.food-card-link .pop-face {
   line-height: 1;
 }
 
-/* Illustrated taluk map */
+/* Illustrated taluk map — Inversa field terminal, scoped to this band */
 .district-explorer-section {
-  background: #f4f1e8;
+  --inv-obsidian: #13140e;
+  --inv-bone: #f4f3e8;
+  --inv-lime: #ebfc72;
+  --inv-iron: #3d3f34;
+  --inv-radius: 3.6px;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+  background: var(--inv-obsidian);
+  color: var(--inv-bone);
   padding: clamp(3.2rem, 7vw, 5.8rem) 0;
 }
 
@@ -1861,11 +1868,44 @@ a.food-card-link .pop-face {
   padding-top: clamp(2.2rem, 5vw, 3.6rem);
 }
 
+.district-explorer-section .kicker {
+  color: var(--inv-lime);
+  font-family: var(--mono);
+  letter-spacing: 0.16em;
+}
+
+.district-explorer-section h1,
+.district-explorer-section h2 {
+  color: var(--inv-bone);
+}
+
+.district-explorer-section .section-lead,
+.district-explorer-section .taluk-summary,
+.district-explorer-section .taluk-footnote {
+  color: rgba(244, 243, 232, 0.68);
+}
+
+.district-explorer-section a:not(.btn) {
+  color: var(--inv-lime);
+}
+
+.district-explorer-section .btn-dark {
+  background: var(--inv-lime);
+  color: var(--inv-obsidian);
+  border-radius: var(--inv-radius);
+  box-shadow: none;
+}
+
+.district-explorer-section .btn-dark:hover {
+  background: #f4ff9a;
+  box-shadow: none;
+}
+
 .district-explorer {
   display: grid;
-  grid-template-columns: minmax(0, 16rem) minmax(0, 1fr) minmax(0, 17rem);
+  grid-template-columns: minmax(0, 16rem) minmax(0, 1fr) minmax(0, 17.5rem);
   gap: 2rem 1.4rem;
-  align-items: center;
+  align-items: start;
 }
 
 .district-explorer > * {
@@ -1873,7 +1913,7 @@ a.food-card-link .pop-face {
 }
 
 .district-explorer-page .district-explorer {
-  grid-template-columns: minmax(0, 15.5rem) minmax(0, 1.55fr) minmax(0, 16.5rem);
+  grid-template-columns: minmax(0, 15.5rem) minmax(0, 1.55fr) minmax(0, 17rem);
 }
 
 .district-copy h1,
@@ -1899,6 +1939,62 @@ a.food-card-link .pop-face {
   min-height: 24rem;
 }
 
+.map-canvas {
+  position: relative;
+  background: #10110c;
+  border: 1px solid var(--inv-iron);
+  border-radius: var(--inv-radius);
+  overflow: hidden;
+}
+
+.map-hud {
+  position: absolute;
+  z-index: 3;
+  top: 0.7rem;
+  left: 0.7rem;
+  right: 0.7rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  align-items: center;
+  pointer-events: none;
+}
+
+.map-hud-tag,
+.map-hud-back {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--inv-lime);
+  border: 1px solid rgba(235, 252, 114, 0.35);
+  border-radius: var(--inv-radius);
+  padding: 0.28rem 0.5rem;
+  background: rgba(19, 20, 14, 0.72);
+}
+
+.map-hud-back {
+  pointer-events: auto;
+  margin-left: auto;
+  cursor: pointer;
+  color: var(--inv-obsidian);
+  background: var(--inv-lime);
+  border-color: var(--inv-lime);
+}
+
+.map-scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(235, 252, 114, 0.035) 4px
+  );
+  mix-blend-mode: screen;
+}
+
 .choropleth {
   width: 100%;
 }
@@ -1911,24 +2007,27 @@ a.food-card-link .pop-face {
   width: 100%;
   height: auto;
   display: block;
-  overflow: visible;
+  overflow: hidden;
   max-height: min(78vh, 46rem);
-}
-
-.choropleth-svg {
-  width: 100%;
-  height: auto;
-  display: block;
-  overflow: visible;
+  background: #10110c;
 }
 
 .choropleth-svg path {
-  stroke: #f4f1e8;
-  stroke-width: 2.4;
+  stroke: #8a8c7a;
+  stroke-width: 1.15;
   cursor: pointer;
-  transition: fill 0.28s var(--ease);
+  transition: fill 0.28s var(--ease), opacity 0.28s var(--ease);
   outline: none;
   vector-effect: non-scaling-stroke;
+}
+
+.choropleth-svg .taluk-g.is-dim path {
+  opacity: 0.28;
+}
+
+.choropleth-svg .taluk-g.is-selected path {
+  stroke: var(--inv-obsidian);
+  stroke-width: 1.6;
 }
 
 .choropleth-svg path:focus {
@@ -1936,39 +2035,128 @@ a.food-card-link .pop-face {
 }
 
 .choropleth-svg path:focus-visible {
-  stroke: #c8ae6e;
-  stroke-width: 3;
+  stroke: var(--inv-lime);
+  stroke-width: 2.4;
 }
 
 .choropleth-svg text {
-  font-family: var(--sans);
+  font-family: var(--mono);
   font-weight: 500;
   pointer-events: none;
-  letter-spacing: 0;
+  letter-spacing: 0.04em;
 }
 
 .choropleth-svg .taluk-g.is-selected text {
   font-weight: 600;
 }
 
+.place-pin {
+  cursor: pointer;
+}
+
+.place-pin-halo {
+  fill: rgba(235, 252, 114, 0.16);
+  pointer-events: none;
+}
+
+.place-pin.is-popular .place-pin-halo {
+  fill: rgba(235, 252, 114, 0.28);
+}
+
+.place-pin.is-active .place-pin-halo {
+  fill: rgba(235, 252, 114, 0.45);
+}
+
+.place-pin-dot,
+.place-pin-mark {
+  stroke: var(--inv-obsidian);
+  stroke-width: 1.2;
+  vector-effect: non-scaling-stroke;
+}
+
+.place-pin-dot:focus {
+  outline: none;
+}
+
+.place-pin-dot:focus-visible {
+  stroke: var(--inv-bone);
+  stroke-width: 2;
+}
+
+.place-pin-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  fill: var(--inv-lime);
+  pointer-events: none;
+  paint-order: stroke fill;
+  stroke: #13140e;
+  stroke-width: 3px;
+}
+
+.map-tooltip {
+  position: absolute;
+  z-index: 4;
+  width: min(16.5rem, calc(100% - 1.2rem));
+  padding: 0.7rem 0.8rem 0.8rem;
+  background: var(--inv-obsidian);
+  color: var(--inv-bone);
+  border: 1px solid var(--inv-lime);
+  border-radius: var(--inv-radius);
+  box-shadow: none;
+  pointer-events: none;
+}
+
+.map-tip-kicker,
+.map-tip-meta {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--inv-lime);
+  margin: 0 0 0.35rem;
+}
+
+.map-tip-name {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  margin: 0;
+  line-height: 1.15;
+}
+
+.map-tip-kn {
+  margin: 0.15rem 0 0.4rem;
+  opacity: 0.7;
+  font-size: 0.88rem;
+}
+
+.map-tip-blurb {
+  margin: 0.35rem 0 0;
+  font-size: 0.84rem;
+  line-height: 1.4;
+  color: rgba(244, 243, 232, 0.78);
+}
+
 .map-north {
   position: absolute;
-  left: 0.2rem;
-  bottom: 8%;
+  left: 0.85rem;
+  bottom: 1.1rem;
+  z-index: 3;
   display: grid;
   justify-items: center;
   gap: 0.15rem;
-  color: #5a6b5e;
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
+  color: var(--inv-lime);
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
   font-weight: 600;
+  pointer-events: none;
 }
 
 .map-north i {
   display: block;
   width: 1px;
   height: 1.35rem;
-  background: #5a6b5e;
+  background: var(--inv-lime);
   position: relative;
 }
 
@@ -1981,7 +2169,7 @@ a.food-card-link .pop-face {
   height: 0;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
-  border-bottom: 7px solid #5a6b5e;
+  border-bottom: 7px solid var(--inv-lime);
   transform: translateX(-50%);
 }
 
@@ -1989,10 +2177,11 @@ a.food-card-link .pop-face {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  font-size: 0.72rem;
+  font-family: var(--mono);
+  font-size: 0.62rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #8a9588;
+  color: rgba(235, 252, 114, 0.75);
   margin-bottom: 1.1rem;
 }
 
@@ -2004,7 +2193,7 @@ a.food-card-link .pop-face {
 
 .taluk-index li {
   display: block;
-  border-bottom: 1px solid transparent;
+  border-bottom: 1px solid rgba(244, 243, 232, 0.08);
 }
 
 .taluk-index-row {
@@ -2019,8 +2208,9 @@ a.food-card-link .pop-face {
   cursor: pointer;
   text-align: left;
   text-decoration: none;
-  color: var(--ink);
+  color: var(--inv-bone);
   font-size: 1.02rem;
+  border-radius: var(--inv-radius);
 }
 
 .taluk-index-name {
@@ -2035,14 +2225,15 @@ a.food-card-link .pop-face {
 }
 
 .taluk-index-count {
+  font-family: var(--mono);
   font-variant-numeric: tabular-nums;
-  color: var(--muted);
-  font-size: 0.92rem;
+  color: rgba(244, 243, 232, 0.55);
+  font-size: 0.78rem;
 }
 
 .taluk-index-go {
   text-decoration: none;
-  color: var(--muted);
+  color: var(--inv-lime);
   width: 1.4rem;
   display: inline-flex;
   align-items: center;
@@ -2054,11 +2245,10 @@ a.food-card-link .pop-face {
 .taluk-index li.is-active .taluk-index-go,
 .taluk-index-row:focus-visible .taluk-index-go {
   opacity: 1;
-  color: var(--forest);
 }
 
 .taluk-index li.is-active .taluk-index-row {
-  color: var(--forest);
+  color: var(--inv-lime);
 }
 
 .taluk-index li.is-active .taluk-index-name {
@@ -2072,9 +2262,57 @@ a.food-card-link .pop-face {
 
 .taluk-footnote {
   margin-top: 0.7rem;
-  color: #8a9588;
   font-size: 0.82rem;
   line-height: 1.45;
+}
+
+.taluk-inspector {
+  margin-top: 1rem;
+  border-top: 1px solid rgba(244, 243, 232, 0.12);
+  padding-top: 0.9rem;
+  max-height: 22rem;
+  overflow: auto;
+}
+
+.taluk-inspector-empty {
+  margin: 0;
+  font-size: 0.88rem;
+  color: rgba(244, 243, 232, 0.62);
+}
+
+.taluk-inspector-group {
+  margin-bottom: 0.85rem;
+}
+
+.taluk-inspector-cat {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--inv-lime);
+  margin: 0 0 0.2rem;
+}
+
+.taluk-inspector-place {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  border-radius: var(--inv-radius);
+  color: var(--inv-bone);
+  padding: 0.32rem 0;
+  cursor: pointer;
+  font-size: 0.92rem;
+}
+
+.taluk-inspector-place.is-popular {
+  color: var(--inv-lime);
+}
+
+.taluk-inspector-place:hover,
+.taluk-inspector-place:focus-visible {
+  color: var(--inv-lime);
 }
 
 .taluk-context {
@@ -2997,6 +3235,29 @@ a.food-card-link .pop-face {
 
 .modal-body {
   padding: 1.2rem 1.25rem 1.6rem;
+}
+
+.visitor-card {
+  margin-top: 1.1rem;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--cream);
+}
+
+.visitor-card .kicker {
+  margin-bottom: 0.35rem;
+}
+
+.visitor-source {
+  margin: 0.45rem 0 0;
+  font-size: 0.88rem;
+}
+
+.visitor-disclaimer {
+  margin-top: 0.85rem;
+  font-size: 0.82rem;
+  color: var(--muted);
 }
 
 .modal-body h2 {
