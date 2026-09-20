@@ -605,7 +605,7 @@
       ["nature", "nature.html", "Nature", "ಪ್ರಕೃತಿ"],
       ["stay", "stay.html", "Stays", "ಗಿರಿಧಾಮ"],
       ["heritage", "heritage.html", "Heritage", "ಪರಂಪರೆ"],
-      ["figures", "index.html#chikkamagaluru-in-numbers", "Figures", "ಅಂಕಿ ಅಂಶ"],
+      ["tourism", "index.html#chikkamagaluru-in-numbers", "Tourism", "ಪ್ರವಾಸೋದ್ಯಮ"],
     ];
     const links = items
       .map(([id, href, en, kn]) => {

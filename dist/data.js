@@ -3850,11 +3850,11 @@ window.CKM = {
       "ledeKn": "ಹೊಯ್ಸಳ ಶಿಲ್ಪ, ತುಂಗಾ ತಟದ ಮಠಗಳು, ಜಿಲ್ಲೆಯ ಕಾಫಿ ಕಥೆ."
     },
     {
-      "id": "figures",
+      "id": "tourism",
       "href": "index.html#chikkamagaluru-in-numbers",
       "image": "assets/kemmanagundi.jpg",
-      "label": "Figures",
-      "labelKn": "ಅಂಕಿ ಅಂಶ",
+      "label": "Tourism",
+      "labelKn": "ಪ್ರವಾಸೋದ್ಯಮ",
       "title": "How the hills were counted",
       "titleKn": "ಬೆಟ್ಟಗಳನ್ನು ಹೇಗೆ ಎಣಿಸಿದರು",
       "lede": "Published destination visits for 2024 and 2025 — recorded entries, not unique travellers.",

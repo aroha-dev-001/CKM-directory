@@ -160,7 +160,7 @@
     return `
       <section class="num-section" id="chikkamagaluru-in-numbers" aria-labelledby="num-title">
         <div class="wrap">
-          <p class="kicker">Figures</p>
+          <p class="kicker">Tourism</p>
           <h2 id="num-title">How the hills were counted.</h2>
           <p class="section-lead">Published destination entries for 2024 and 2025, set beside the places this companion actually documents. These are historical records, not a live gate.</p>
           <p class="num-tooltip-line">
