@@ -1732,11 +1732,11 @@ window.CKM = {
     },
     {
       "local": "horanadu.jpg",
-      "place": "Horanadu Annapoorneshwari Temple",
-      "file": "Annapoorneshwari Temple, Horanadu.jpg",
-      "artist": "Prof tpms",
-      "license": "CC BY-SA 3.0",
-      "url": "https://commons.wikimedia.org/wiki/File:Annapoorneshwari_Temple,_Horanadu.jpg"
+      "place": "Horanadu Annapoorneshwari Temple entrance",
+      "file": "Horanadu Temple Entrance (32965363862).jpg",
+      "artist": "Hari K Patibanda",
+      "license": "CC BY 2.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Horanadu_Temple_Entrance_(32965363862).jpg"
     },
     {
       "local": "amruthapura.jpg",
