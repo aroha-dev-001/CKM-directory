@@ -1081,39 +1081,6 @@
     });
   }
 
-  function initOriginStack() {
-    const el = document.querySelector("[data-origin-stack]");
-    if (!el || !window.CKMStack) return;
-    if (el._ckmStack && typeof el._ckmStack.destroy === "function") {
-      el._ckmStack.destroy();
-    }
-    const chapters = (CKM.coffeeOrigin && CKM.coffeeOrigin.chapters) || [];
-    const cards = chapters.map((ch, i) => ({
-      src: ch.image,
-      alt: ch.caption || ch.title,
-      kicker: ch.kicker,
-      title: ch.title,
-      href: `#origin-${String(i + 1).padStart(2, "0")}`,
-      n: String(i + 1).padStart(2, "0"),
-    }));
-    if (!cards.length) return;
-    const meta = document.querySelector("[data-origin-stack-meta]");
-    el._ckmStack = window.CKMStack.mount(el, {
-      cards,
-      randomRotation: true,
-      sensitivity: 180,
-      sendToBackOnClick: true,
-      autoplay: true,
-      autoplayDelay: 3000,
-      pauseOnHover: true,
-      mobileClickOnly: true,
-      onChange(card) {
-        if (!meta || !card) return;
-        meta.innerHTML = `<a href="${CKMSections.esc(card.href)}"><b>${CKMSections.esc(card.n)}</b> ${CKMSections.esc(card.kicker || card.title || "")}</a>`;
-      },
-    });
-  }
-
   function paint() {
     const main = document.getElementById("main");
     main.innerHTML = CKMSections.renderPage(PAGE, state.lang);
@@ -1135,7 +1102,6 @@
     bindUi();
     initMotion();
     initPopularGallery();
-    initOriginStack();
     filterPopular();
     if (PAGE === "taluk" && state.selectedTaluk) {
       const taluk = CKMMap.talukById(state.selectedTaluk);

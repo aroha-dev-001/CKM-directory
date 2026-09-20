@@ -35,7 +35,6 @@ TEMPLATE = """<!DOCTYPE html>
     />
     <link rel="stylesheet" href="style.css?v=sage6" />
     <link rel="stylesheet" href="carousel.css?v=sage5" />
-    <link rel="stylesheet" href="stack.css?v=sage6" />
   </head>
   <body data-page="{page}">
     <a class="skip" href="#main">Skip to content</a>
@@ -90,7 +89,6 @@ TEMPLATE = """<!DOCTYPE html>
     <script src="sections.js?v=sage6"></script>
     <script src="map.js?v=sage5"></script>
     <script src="carousel.js?v=sage5"></script>
-    <script src="stack.js?v=sage6"></script>
     <script src="app.js?v=sage6"></script>
   </body>
 </html>
