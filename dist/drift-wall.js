@@ -93,6 +93,7 @@
     root.style.setProperty("--dw-dim", String(dim));
     root.style.setProperty("--dw-gray", grayscale ? "1" : "0");
     root.style.setProperty("--dw-overlay", overlayColor);
+    root.style.setProperty("--dw-overlay-opacity", overlayColor === "transparent" ? "0" : "0.42");
     root.style.setProperty("--dw-edge", `${Math.max(0, (1 - fade) * 100)}%`);
     root.setAttribute("role", "group");
     root.setAttribute("aria-label", "Drifting wall of places. Click a still to pause and read.");

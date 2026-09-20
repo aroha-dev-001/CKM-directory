@@ -64,7 +64,7 @@ npx vercel --yes --prod
 - WebMCP tools (`search_destinations`, `add_place_to_trip`) when the browser exposes `document.modelContext` or `navigator.modelContext`
 - Motion from the Cyatra Stash (Transitions.dev, Kinetics, UIverse, Sylva): sliding tabs, toasts, modals, accordion cards, magnetic buttons, number pop on the trip badge
 - Homepage popular places use a React Bits **Carousel** (ported to vanilla JS + GSAP): eight featured stops, autoplay with pause on hover, swipe and dots. Hours sit beside the card on desktop and under it on phones.
-- `places.html` opens with a React Bits **DriftWall** (vanilla port): destination stills drift in columns. Click a tile to pause the wall and flip it for a two-to-three-line note.
+- Below that, a React Bits **DriftWall** (vanilla port) drifts every destination still. Click a tile to pause the wall and flip it for a two-to-three-line note.
 - Coffee origin on `coffee.html` is eight sequential illustrated chapters (landscape 3:2), stacked as a long read on phones so each picture stays in proportion and the story sits under it.
 
 Photographs are Wikimedia Commons and Creative Commons Flickr stills, cover-cropped to **1800×1200** (hero **2400×1350**), plus original companion illustrations for the coffee origin, Baba Budan, and Malnad kitchen plates. Credits name the file, artist and licence. Instagram, Facebook, X/Twitter, Pinterest and Google Photos were searched for remaining shrines; those posts are copyrighted visitor shots and are **not** bundled. A few listings still use an honest nearby landscape (Kalasa stream, Koppa tea country, Kigga’s Narasimha Parvatha, Samse estate, Coffee Board country) where no freely licensed picture of the named building exists.

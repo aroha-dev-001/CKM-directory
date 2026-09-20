@@ -10,18 +10,13 @@
   --dw-gap: 18px;
   --dw-radius: 14px;
   --dw-lift: 64px;
-  --dw-dim: 0.55;
+  --dw-dim: 1;
   --dw-gray: 0;
-  --dw-overlay: #0c1f13;
-  --dw-edge: 40%;
-  -webkit-mask-image:
-    radial-gradient(ellipse 78% 82% at 50% 46%, #000 var(--dw-edge), transparent 100%),
-    linear-gradient(to top, #000 var(--dw-edge), transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-image:
-    radial-gradient(ellipse 78% 82% at 50% 46%, #000 var(--dw-edge), transparent 100%),
-    linear-gradient(to top, #000 var(--dw-edge), transparent 100%);
-  mask-composite: intersect;
+  --dw-overlay: transparent;
+  --dw-overlay-opacity: 0;
+  --dw-edge: 88%;
+  -webkit-mask-image: linear-gradient(#000 var(--dw-edge), transparent 100%);
+  mask-image: linear-gradient(#000 var(--dw-edge), transparent 100%);
 }
 
 .drift-wall__plane {
@@ -99,7 +94,7 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: grayscale(var(--dw-gray)) saturate(0.92);
+  filter: grayscale(var(--dw-gray)) saturate(1);
   transition: filter 0.42s cubic-bezier(0.22, 1, 0.36, 1);
   user-select: none;
   -webkit-user-drag: none;
@@ -109,7 +104,7 @@
   position: absolute;
   inset: 0;
   background: var(--dw-overlay);
-  opacity: 0.42;
+  opacity: var(--dw-overlay-opacity, 0);
   pointer-events: none;
   transition: opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1);
 }

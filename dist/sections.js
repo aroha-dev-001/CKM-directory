@@ -727,6 +727,16 @@
           </div>
         </div>
       </section>
+      <section class="places-drift-band" aria-labelledby="places-drift-title">
+        <div class="wrap places-drift-intro">
+          <p class="kicker">The wall</p>
+          <h2 id="places-drift-title">Still drifting through the district.</h2>
+          <p class="section-lead">Click a photograph to pause the wall and flip it. Two or three lines of place notes are on the back — visitor hours live in Places.</p>
+        </div>
+        <div class="places-drift-stage">
+          <div data-drift-wall></div>
+        </div>
+      </section>
       <section class="section close-band reveal-on-scroll">
         <div class="wrap">
           <div class="section-head">
@@ -759,17 +769,7 @@
           </p>
         </div>
       </section>
-      <section class="places-drift-band" aria-labelledby="places-drift-title">
-        <div class="wrap places-drift-intro">
-          <p class="kicker">The wall</p>
-          <h2 id="places-drift-title">Still drifting through the district.</h2>
-          <p class="section-lead">Click a photograph to pause the wall and flip it. Two or three lines of place notes are on the back — visitor hours stay in the catalogue below.</p>
-        </div>
-        <div class="places-drift-stage">
-          <div data-drift-wall></div>
-        </div>
-      </section>
-      <section class="section" style="padding-top:0">
+      <section class="section">
         <div class="wrap">
           <div class="toolbar">
             <label class="search-label">${esc(f.tx("search"))}

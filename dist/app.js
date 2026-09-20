@@ -144,18 +144,17 @@
     if (count) count.textContent = String(list.length);
     if (empty) empty.hidden = list.length > 0;
     renderTalukContext();
-    initPlacesDrift(list);
   }
 
-  function initPlacesDrift(list) {
-    if (PAGE !== "places" || !window.CKMDriftWall) return;
+  function initHomeDrift() {
+    if (PAGE !== "home" || !window.CKMDriftWall) return;
     const el = document.querySelector("[data-drift-wall]");
     if (!el) return;
     if (el._ckmDrift) {
       el._ckmDrift.destroy();
       el._ckmDrift = null;
     }
-    const items = (list || []).map((place) => ({
+    const items = (CKM.destinations || []).map((place) => ({
       placeId: place.id,
       image: place.image,
       title: state.lang === "kn" ? place.kannada : place.name,
@@ -181,9 +180,10 @@
       parallax: 0.55,
       pauseOnHover: false,
       lift: 56,
-      fade: 0.55,
-      dim: 0.58,
-      overlayColor: "#0c1f13",
+      fade: 0,
+      dim: 1,
+      grayscale: false,
+      overlayColor: "transparent",
       onOpenPlace(id) {
         openModal(id);
       },
@@ -1166,6 +1166,7 @@
     bindUi();
     initMotion();
     initPopularGallery();
+    initHomeDrift();
     filterPopular();
     if (PAGE === "taluk" && state.selectedTaluk) {
       const taluk = CKMMap.talukById(state.selectedTaluk);
