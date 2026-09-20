@@ -39,7 +39,7 @@ npx vercel --yes --prod
 
 | Page | What it is |
 | --- | --- |
-| `index.html` | Hero, nine-taluk map, **Explore Chikkamagaluru** (Food, Nature, Stays, Heritage), popular carousel |
+| `index.html` | Hero, nine-taluk map, **Explore Chikkamagaluru** accordion (Food, Nature, Stays, Heritage, Tourism), DriftWall, popular carousel |
 | `food.html` | Food hub — Malnad kitchen plates (`?id=` for a dish story) |
 | `nature.html` | Nature hub — seasons, outdoor places, forest care, field photographs |
 | `stay.html` | Hill air — Kemmanagundi, trip sketches, visitor notes. **Not** a booking or homestay list |
@@ -64,6 +64,7 @@ npx vercel --yes --prod
 - WebMCP tools (`search_destinations`, `add_place_to_trip`) when the browser exposes `document.modelContext` or `navigator.modelContext`
 - Motion from the Cyatra Stash (Transitions.dev, Kinetics, UIverse, Sylva): sliding tabs, toasts, modals, accordion cards, magnetic buttons, number pop on the trip badge
 - Homepage popular places use a React Bits **Carousel** (ported to vanilla JS + GSAP): eight featured stops, autoplay with pause on hover, swipe and dots. Hours sit beside the card on desktop and under it on phones.
+- Explore Chikkamagaluru uses a React Bits **AccordionGallery** (vanilla JS + GSAP): five theme panels expand on hover, keyboard and tap. The open panel keeps the Food / Nature-style caption and **View more** link; side arrows step through the row.
 - Under Welcome / Explore Chikkamagaluru, a React Bits **DriftWall** (vanilla port) packs destination stills flush and keeps them scrolling. Themes cycle falls, mountains, heritage, food, water, wildlife. Click a tile to pause and flip a two-to-three-line note.
 - **Tourism** is an Explore Chikkamagaluru card (`tourism.html`) with published 2024–2025 destination visits from Kannada Prabha, a month-by-month seasonal planner, catalogue counts per taluk, and an empty accommodation-data shell. Visit figures stay in `dist/statistics.js`, separate from the place catalogue.
 - Coffee origin on `coffee.html` is eight sequential illustrated chapters (landscape 3:2), stacked as a long read on phones so each picture stays in proportion and the story sits under it.
@@ -82,6 +83,8 @@ Photographs are Wikimedia Commons and Creative Commons Flickr stills, cover-crop
 | `dist/map.js` | SVG nine-taluk choropleth; place pins only on a taluk page |
 | `dist/app.js` | Search, modal, itinerary, passport, WebMCP |
 | `dist/carousel.js` | Homepage popular carousel (React Bits port) |
+| `dist/drift-wall.js` | Homepage DriftWall (React Bits port) |
+| `dist/accordion-gallery.js` | Explore AccordionGallery (React Bits port) |
 | `dist/assets/` | Photographs and `taluks.geojson` |
 
 `scripts/write_pages.py` regenerates the HTML shells. `scripts/fetch_images.py` re-downloads selected Commons originals. `scripts/build-data.py` can rebuild `data.js` from Python records — the live site reads `dist/data.js` directly.

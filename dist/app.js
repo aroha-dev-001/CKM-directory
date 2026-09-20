@@ -251,6 +251,43 @@
     }
   }
 
+  function initExploreAccordion() {
+    if (PAGE !== "home" || !window.CKMAccordionGallery) return;
+    const el = document.querySelector("[data-explore-accordion]");
+    if (!el) return;
+    if (el._ckmAccordion) {
+      el._ckmAccordion.destroy();
+      el._ckmAccordion = null;
+    }
+    const kn = state.lang === "kn";
+    const items = (CKM.explore || []).map((item) => ({
+      image: item.image,
+      link: item.href,
+      kicker: kn ? item.labelKn || item.label : item.label,
+      title: kn ? item.titleKn || item.title : item.title,
+      lede: kn ? item.ledeKn || item.lede : item.lede,
+      more: kn ? "ಇನ್ನಷ್ಟು ನೋಡಿ" : "View more",
+      alt: kn ? item.titleKn || item.title : item.title,
+    }));
+    if (!items.length) return;
+    el._ckmAccordion = window.CKMAccordionGallery.mount(el, {
+      items,
+      defaultIndex: 0,
+      expandRatio: 0.46,
+      trigger: "hover",
+      height: window.innerWidth < 720 ? 520 : 430,
+      gap: 12,
+      radius: 22,
+      tilt: 7,
+      parallax: 0.45,
+      grayscale: false,
+      overlayColor: "#0c1f13",
+      accentColor: "#c8ae6e",
+      textColor: "#fcfbf8",
+      label: kn ? "ಚಿಕ್ಕಮಗಳೂರು ಅನ್ವೇಷಣೆ" : "Explore Chikkamagaluru",
+    });
+  }
+
   function renderTalukContext() {
     const title = document.getElementById("places-title");
     const kicker = document.getElementById("places-kicker");
@@ -891,11 +928,11 @@
       const explorePrev = event.target.closest("[data-explore-prev]");
       const exploreNext = event.target.closest("[data-explore-next]");
       if (explorePrev || exploreNext) {
-        const rail = document.querySelector("[data-explore-rail]");
-        if (rail) {
-          const reduce = prefersReduced();
-          const dir = exploreNext ? 1 : -1;
-          rail.scrollBy({ left: dir * Math.min(rail.clientWidth * 0.86, 720), behavior: reduce ? "auto" : "smooth" });
+        const gallery = document.querySelector("[data-explore-accordion]");
+        const api = gallery && gallery._ckmAccordion;
+        if (api) {
+          if (exploreNext) api.next();
+          else api.prev();
         }
         return;
       }
@@ -1242,6 +1279,7 @@
     initMotion();
     initPopularGallery();
     initHomeDrift();
+    initExploreAccordion();
     initNumbers();
     filterPopular();
     if (PAGE === "taluk" && state.selectedTaluk) {

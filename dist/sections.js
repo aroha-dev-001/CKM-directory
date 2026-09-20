@@ -705,11 +705,9 @@
           <p class="explore-wave" aria-hidden="true">∿</p>
           <p class="section-lead explore-lead">Food, nature, hill air, heritage and tourism — five ways into a district companion. No rooms, no restaurants, no tickets.</p>
         </div>
-        <div class="explore-rail-wrap">
+        <div class="explore-rail-wrap explore-accordion-wrap">
           <button class="explore-nav" type="button" data-explore-prev aria-label="Previous explore card">‹</button>
-          <div class="explore-rail" data-explore-rail tabindex="0" aria-label="Explore Chikkamagaluru">
-            ${f.exploreCards}
-          </div>
+          <div data-explore-accordion></div>
           <button class="explore-nav" type="button" data-explore-next aria-label="Next explore card">›</button>
         </div>
       </section>

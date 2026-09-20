@@ -3,20 +3,28 @@
     return global.gsap;
   }
 
+  function esc(s) {
+    return String(s ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
   function mount(root, options) {
     if (!root) return { destroy() {} };
     const items = Array.isArray(options.items) ? options.items : [];
     const count = items.length;
     if (!count) return { destroy() {} };
 
-    const defaultIndex = Math.min(Math.max(options.defaultIndex ?? 2, 0), count - 1);
+    const defaultIndex = Math.min(Math.max(options.defaultIndex ?? 0, 0), count - 1);
     const accentColor = options.accentColor ?? "#c8ae6e";
     const overlayColor = options.overlayColor ?? "#0c1f13";
     const textColor = options.textColor ?? "#fcfbf8";
-    const height = options.height ?? 460;
-    const gap = options.gap ?? 10;
-    const radius = options.radius ?? 16;
-    const expandRatio = options.expandRatio ?? 0.52;
+    const height = options.height ?? 420;
+    const gap = options.gap ?? 12;
+    const radius = options.radius ?? 22;
+    const expandRatio = options.expandRatio ?? 0.48;
     const orientation = options.orientation ?? "horizontal";
     const duration = options.duration ?? 0.6;
     const ease = options.ease ?? "power3.out";
@@ -25,19 +33,12 @@
     const stagger = options.stagger ?? 0.06;
     const trigger = options.trigger ?? "hover";
     const showLabels = options.showLabels !== false;
-    const grayscale = options.grayscale !== false;
+    const grayscale = options.grayscale === true;
     const vertical = orientation === "vertical";
     const prefersReduced =
       typeof window !== "undefined" && window.matchMedia
         ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
         : false;
-
-    const esc = (s) =>
-      String(s ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;");
 
     let active = defaultIndex;
     let firstRun = true;
@@ -52,32 +53,42 @@
     root.style.setProperty("--ag-radius", `${radius}px`);
     root.style.height = vertical ? `${Math.round(height * 1.6)}px` : `${height}px`;
     root.setAttribute("role", "list");
-    root.setAttribute("aria-label", options.label || "Popular places");
+    root.setAttribute("aria-label", options.label || "Explore Chikkamagaluru");
 
     root.innerHTML = items
       .map((item, i) => {
         const href = item.link ? ` href="${esc(item.link)}"` : "";
         const tagOpen = item.link ? `<a${href}` : "<div";
         const tagClose = item.link ? "</a>" : "</div>";
-        const label = showLabels
-          ? `<span class="ag-panel__label" aria-hidden="true"><span class="ag-panel__bar"></span><span class="ag-panel__text">${esc(item.label || "")}</span></span>`
+        const kicker = item.kicker || item.label || "";
+        const title = item.title || item.label || "";
+        const lede = item.lede || "";
+        const more = item.more || "";
+        const copy = showLabels
+          ? `<span class="ag-panel__label" aria-hidden="true">
+              <span class="ag-panel__copy">
+                ${kicker ? `<span class="ag-panel__kicker">${esc(kicker)}</span>` : ""}
+                ${title ? `<span class="ag-panel__title">${esc(title)}</span>` : ""}
+                ${lede ? `<span class="ag-panel__lede">${esc(lede)}</span>` : ""}
+                ${more ? `<span class="ag-panel__more">${esc(more)} <span aria-hidden="true">→</span></span>` : ""}
+              </span>
+            </span>`
           : "";
-        return `${tagOpen} class="ag-panel" style="border-radius:${radius}px" role="listitem" tabindex="0" data-ag-index="${i}" aria-label="${esc(item.label || "")}">
+        return `${tagOpen} class="ag-panel" style="border-radius:${radius}px" role="listitem" tabindex="0" data-ag-index="${i}" aria-label="${esc(title || kicker)}">
           <span class="ag-panel__frame">
             <span class="ag-panel__media">
-              <img src="${esc(item.image)}" alt="${esc(item.alt || item.label || "")}" draggable="false" />
+              <img src="${esc(item.image)}" alt="${esc(item.alt || title || kicker)}" draggable="false" />
             </span>
             <span class="ag-panel__overlay" aria-hidden="true"></span>
           </span>
-          ${label}
+          ${copy}
         ${tagClose}`;
       })
       .join("");
 
     const panels = Array.from(root.querySelectorAll(".ag-panel"));
     const medias = Array.from(root.querySelectorAll(".ag-panel__media"));
-    const bars = Array.from(root.querySelectorAll(".ag-panel__bar"));
-    const texts = Array.from(root.querySelectorAll(".ag-panel__text"));
+    const copies = Array.from(root.querySelectorAll(".ag-panel__copy"));
 
     function applyLayout(animate) {
       const gsap = gsapLib();
@@ -95,18 +106,14 @@
         const rot = isActive ? 0 : i < active ? tilt : -tilt;
         const rotProp = vertical ? { rotateX: -rot } : { rotateY: rot };
         const media = medias[i];
-        const bar = bars[i];
-        const text = texts[i];
+        const copy = copies[i];
         const drift = Math.max(-1.5, Math.min(1.5, active - i));
         const shift = drift * parallax * mediaSize * 0.06;
         const gray = grayscale ? (isActive ? 0 : 1) : 0;
+        const dim = isActive ? 0.12 : 0.42;
 
         if (gsap && tl) {
-          tl.to(
-            panel,
-            { flexGrow: isActive ? grow : 1, ...rotProp, "--ag-dim": isActive ? 0 : 0.35, duration: dur, ease },
-            0
-          );
+          tl.to(panel, { flexGrow: isActive ? grow : 1, ...rotProp, "--ag-dim": dim, duration: dur, ease }, 0);
           if (media) {
             tl.to(
               media,
@@ -116,25 +123,26 @@
                 x: vertical ? 0 : isActive ? 0 : shift,
                 y: vertical ? (isActive ? 0 : shift) : 0,
                 "--ag-gray": gray,
-                "--ag-dim": isActive ? 0 : 0.35,
                 duration: dur,
                 ease,
               },
               0
             );
           }
-          if (showLabels && bar && text) {
+          if (showLabels && copy) {
             if (isActive) {
-              tl.to([bar, text], { opacity: 1, x: 0, duration: dur, ease, stagger: prefersReduced ? 0 : stagger }, 0);
+              tl.to(copy, { opacity: 1, y: 0, duration: dur, ease, stagger: prefersReduced ? 0 : stagger }, 0);
             } else {
-              tl.to([bar, text], { opacity: 0, x: -14, duration: dur * 0.6, ease }, 0);
+              tl.to(copy, { opacity: 0, y: 10, duration: dur * 0.55, ease }, 0);
             }
           }
         } else {
           panel.style.flexGrow = String(isActive ? grow : 1);
-          if (media) {
-            media.style.setProperty("--ag-gray", String(gray));
-            media.style.setProperty("--ag-dim", isActive ? "0" : "0.35");
+          panel.style.setProperty("--ag-dim", String(dim));
+          if (media) media.style.setProperty("--ag-gray", String(gray));
+          if (copy) {
+            copy.style.opacity = isActive ? "1" : "0";
+            copy.style.transform = isActive ? "none" : "translateY(10px)";
           }
         }
       });
@@ -187,6 +195,13 @@
     options.onChange?.(active, items[active]);
 
     return {
+      setActive,
+      next() {
+        setActive(active + 1);
+      },
+      prev() {
+        setActive(active - 1);
+      },
       destroy() {
         tl?.kill();
         ro.disconnect();
