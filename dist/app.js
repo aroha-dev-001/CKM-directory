@@ -969,6 +969,69 @@
     });
   }
 
+  function popularDepthItems() {
+    return (CKM.popularPlaces || [])
+      .map((item) => {
+        const place = (CKM.destinations || []).find((p) => p.id === item.id);
+        if (!place) return null;
+        return {
+          id: place.id,
+          image: place.image,
+          alt: place.name,
+          kicker: item.kicker,
+          name: place.name,
+          hours: item.hours,
+          hoursDetail: item.hoursDetail,
+          why: item.why,
+          hoursSource: item.hoursSource,
+        };
+      })
+      .filter(Boolean);
+  }
+
+  function renderPopDepthNote(item) {
+    const note = document.querySelector("[data-pop-depth-note]");
+    if (!note || !item) return;
+    const src = item.hoursSource || {};
+    note.innerHTML = `
+      <p class="kicker">${CKMSections.esc(item.kicker || "")}</p>
+      <h3>${CKMSections.esc(item.name || "")}</h3>
+      <p><span class="pop-hours">${CKMSections.esc(item.hours || "")}</span></p>
+      <p>${CKMSections.esc(item.hoursDetail || "")}</p>
+      <p class="kicker" style="margin-top:0.9rem">Why people come</p>
+      <p>${CKMSections.esc(item.why || "")}</p>
+      <p class="pop-source">Hours and access change. Confirm on <a href="${CKMSections.esc(src.url || "#")}" rel="noopener noreferrer">${CKMSections.esc(src.label || "the official page")}</a> — this companion does not list fees.</p>
+      <div class="pop-actions">
+        <button class="btn btn-dark shine" type="button" data-open-place="${CKMSections.esc(item.id)}" data-magnetic>Open this place</button>
+        <a class="btn btn-line t-learn" href="places.html?id=${CKMSections.esc(item.id)}">Go to places</a>
+      </div>`;
+  }
+
+  function initPopularDepth() {
+    const el = document.querySelector("[data-depth-carousel]");
+    if (!el || !window.CKMDepthCarousel) return;
+    const items = popularDepthItems();
+    if (!items.length) return;
+    window.CKMDepthCarousel.mount(el, {
+      items,
+      depth: 220,
+      spread: 90,
+      tilt: 10,
+      tiltDirection: "right",
+      perspective: 1400,
+      visibleCards: 5,
+      falloff: 0.2,
+      blur: 6,
+      autoplay: true,
+      loop: true,
+      radius: 17,
+      tint: "#7e5678",
+      onChange(_, item) {
+        renderPopDepthNote(item);
+      },
+    });
+  }
+
   function paint() {
     const main = document.getElementById("main");
     main.innerHTML = CKMSections.renderPage(PAGE, state.lang);
@@ -989,6 +1052,7 @@
     syncTripCount();
     bindUi();
     initMotion();
+    initPopularDepth();
     if (PAGE === "places" && state.jumpTo) {
       window.setTimeout(() => {
         document.getElementById(`section-${state.jumpTo}`)?.scrollIntoView({ behavior: prefersReduced() ? "auto" : "smooth", block: "start" });

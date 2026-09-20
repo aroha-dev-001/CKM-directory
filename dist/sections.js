@@ -386,6 +386,24 @@
       .slice(0, 3)
       .map((c) => `<article class="guide-card"><h3>${esc(c.title)}</h3><p>${esc(c.text)}</p></article>`)
       .join("");
+    const popularCarousel = (d.popularPlaces || [])
+      .map((item) => {
+        const place = d.destinations.find((p) => p.id === item.id);
+        if (!place) return null;
+        return {
+          id: place.id,
+          image: place.image,
+          alt: place.name,
+          kicker: item.kicker,
+          name: place.name,
+          kannada: place.kannada,
+          hours: item.hours,
+          hoursDetail: item.hoursDetail,
+          why: item.why,
+          hoursSource: item.hoursSource,
+        };
+      })
+      .filter(Boolean);
     const popularCards = (d.popularPlaces || [])
       .map((item) => {
         const place = d.destinations.find((p) => p.id === item.id);
@@ -500,7 +518,7 @@
       d, tx, interests, featured, talukBtns, circuits, faqs, packing, dos, donts, about,
       filters, places, season, seasonMonths, stories, storyIndex, essentials, guide, gallery, credits,
       talukIndex, placeJump, official: d.official, tickerItems, seasonCards, whyCards,
-      homeCircuits, homeGallery, fieldNotes, popularCards, origin, originChapters, originSources,
+      homeCircuits, homeGallery, fieldNotes, popularCards, popularCarousel, origin, originChapters, originSources,
       originIndex, originHero,
       foodCards, galleryNum,
     };
@@ -625,9 +643,12 @@
           <div class="section-head">
             <p class="kicker">Popular places</p>
             <h2>Open a card. See why it draws a crowd.</h2>
-            <p class="section-lead">Typical hours from temple sites and the district desk — not a live board. Tap a card for the longer note, then confirm on the linked page before you travel. No fees are listed here.</p>
+            <p class="section-lead">Typical hours from temple sites and the district desk — not a live board. Drag, swipe, or use the arrows. The note under the stack is for the card in front. Confirm on the linked page before you travel. No fees are listed here.</p>
           </div>
-          <div class="pop-grid reveal-stagger">${f.popularCards}</div>
+          <div class="pop-depth-stage">
+            <div data-depth-carousel></div>
+          </div>
+          <div class="pop-depth-note" data-pop-depth-note></div>
         </div>
       </section>
       <section class="coffee-origin reveal-on-scroll" id="coffee-origin" aria-labelledby="origin-title">
