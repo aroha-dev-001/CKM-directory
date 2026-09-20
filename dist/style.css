@@ -969,7 +969,8 @@ a.food-card-link .pop-face {
   width: 100%;
   height: auto;
   max-height: none;
-  aspect-ratio: 1800 / 1200;
+  min-height: 0;
+  aspect-ratio: 3 / 2;
   object-fit: contain;
   object-position: center;
   border-radius: 1.15rem;
@@ -1041,7 +1042,7 @@ a.food-card-link .pop-face {
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
   gap: clamp(1.2rem, 3.2vw, 2.4rem);
-  align-items: center;
+  align-items: start;
   scroll-margin-top: calc(var(--header) + 1.15rem);
 }
 
@@ -1056,13 +1057,15 @@ a.food-card-link .pop-face {
 .origin-scene-media {
   margin: 0;
   min-width: 0;
+  min-height: 0;
 }
 
 .origin-scene-media img {
   width: 100%;
-  height: auto;
+  height: auto !important;
   max-height: none;
-  aspect-ratio: 1800 / 1200;
+  min-height: 0;
+  aspect-ratio: 3 / 2;
   object-fit: contain;
   object-position: center center;
   border-radius: 1.1rem;
@@ -1118,9 +1121,10 @@ a.food-card-link .pop-face {
 }
 
 body[data-page="coffee"] .story-longread img {
-  height: auto;
+  height: auto !important;
   max-height: none;
-  aspect-ratio: 1800 / 1200;
+  min-height: 0;
+  aspect-ratio: 3 / 2;
   object-fit: contain;
   object-position: center;
 }
@@ -3870,9 +3874,7 @@ body[data-page="coffee"] .origin-chapter p {
 
   .origin-scene,
   .origin-scene.is-flip {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
+    align-items: start;
     gap: 0.85rem;
   }
 
