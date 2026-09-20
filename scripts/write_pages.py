@@ -94,7 +94,7 @@ TEMPLATE = """<!DOCTYPE html>
     <script src="sections.js?v=sage14"></script>
     <script src="map.js?v=sage6"></script>
     <script src="carousel.js?v=sage6"></script>
-    <script src="drift-wall.js?v=sage1"></script>
+    <script src="drift-wall.js?v=sage2"></script>
     <script src="app.js?v=sage13"></script>
   </body>
 </html>

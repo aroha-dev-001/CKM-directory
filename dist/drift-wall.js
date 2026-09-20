@@ -175,8 +175,12 @@
           const paused = pausedByFlip || (wallHovered && pauseOnHover) || hoveredCol === c;
           const factor = paused ? 0 : 1;
           const target = baseVelocities[c] * factor;
-          const ease = 1 - Math.exp(-dt / (target === 0 ? 0.16 : 0.28));
-          velocities[c] += (target - velocities[c]) * ease;
+          if (pausedByFlip) {
+            velocities[c] = 0;
+          } else {
+            const ease = 1 - Math.exp(-dt / (target === 0 ? 0.16 : 0.28));
+            velocities[c] += (target - velocities[c]) * ease;
+          }
           let next = (offsets[c] ?? 0) + velocities[c] * dt;
           next = ((next % meta.copyHeight) + meta.copyHeight) % meta.copyHeight;
           offsets[c] = next;
