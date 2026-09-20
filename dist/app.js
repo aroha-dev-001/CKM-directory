@@ -1103,6 +1103,11 @@
       const taluk = CKMMap.talukById(state.selectedTaluk);
       if (taluk) document.title = `${taluk.listName || taluk.name} — Chikkamagaluru`;
     }
+    if (PAGE === "taluk" && location.hash.startsWith("#place-")) {
+      window.setTimeout(() => {
+        document.getElementById(location.hash.slice(1))?.scrollIntoView({ behavior: prefersReduced() ? "auto" : "smooth", block: "start" });
+      }, 80);
+    }
     if (PAGE === "places" && state.jumpTo) {
       window.setTimeout(() => {
         document.getElementById(`section-${state.jumpTo}`)?.scrollIntoView({ behavior: prefersReduced() ? "auto" : "smooth", block: "start" });
