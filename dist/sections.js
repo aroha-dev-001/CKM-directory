@@ -481,6 +481,12 @@
         </a>`;
       })
       .join("");
+    const originStack = `<div class="origin-stack-block">
+          <div class="origin-stack-frame">
+            <div data-origin-stack></div>
+          </div>
+          <p class="origin-stack-meta" data-origin-stack-meta></p>
+        </div>`;
     const originHero = origin.image
       ? `<figure class="origin-hero">
           <img src="${esc(origin.image)}" alt="${esc(origin.caption || origin.title)}" width="1800" height="1200" />
@@ -525,7 +531,7 @@
       filters, places, season, seasonMonths, stories, storyIndex, essentials, guide, gallery, credits,
       talukIndex, placeJump, official: d.official, tickerItems, seasonCards, whyCards,
       homeCircuits, homeGallery, fieldNotes, popularCards, popularCarousel, origin, originChapters, originSources,
-      originIndex, originHero,
+      originIndex, originHero, originStack,
       foodCards, galleryNum,
     };
   }
@@ -1245,7 +1251,7 @@
       <section class="story-longread">
         <div class="wrap">
           ${f.originHero || ""}
-          <nav class="origin-index" aria-label="Scenes in this story">${f.originIndex}</nav>
+          ${f.originStack || ""}
           <div class="origin-scenes">${f.originChapters}</div>
           <div class="origin-sources">
             <p class="kicker">Sources</p>

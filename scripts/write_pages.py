@@ -33,8 +33,9 @@ TEMPLATE = """<!DOCTYPE html>
       href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css?v=sage5" />
+    <link rel="stylesheet" href="style.css?v=sage6" />
     <link rel="stylesheet" href="carousel.css?v=sage5" />
+    <link rel="stylesheet" href="stack.css?v=sage6" />
   </head>
   <body data-page="{page}">
     <a class="skip" href="#main">Skip to content</a>
@@ -86,10 +87,11 @@ TEMPLATE = """<!DOCTYPE html>
     </noscript>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
     <script src="data.js?v=sage5"></script>
-    <script src="sections.js?v=sage5"></script>
+    <script src="sections.js?v=sage6"></script>
     <script src="map.js?v=sage5"></script>
     <script src="carousel.js?v=sage5"></script>
-    <script src="app.js?v=sage5"></script>
+    <script src="stack.js?v=sage6"></script>
+    <script src="app.js?v=sage6"></script>
   </body>
 </html>
 """
