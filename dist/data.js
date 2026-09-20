@@ -231,7 +231,7 @@ window.CKM = {
       "taluk": "Kalasa",
       "lat": 13.2322,
       "lng": 75.3582,
-      "image": "assets/coffee-hills.jpg",
+      "image": "assets/kalasa-stream.jpg",
       "blurb": "A Jain basadi in a Shaiva temple town — the other half of Kalasa's history.",
       "summary": "A Jain basadi in a Shaiva temple town — the other half of Kalasa's history.",
       "visit": "A Jain basadi at Kalasa. A working shrine; photography and hours follow the basadi, not a brochure.",
@@ -293,7 +293,7 @@ window.CKM = {
       "taluk": "Koppa",
       "lat": 13.525,
       "lng": 75.296,
-      "image": "assets/hariharapura-tunga.jpg",
+      "image": "assets/hariharapura-hara.jpg",
       "blurb": "A four-hundred-year-old Shiva temple carved on three sides with the entire Ramayana.",
       "summary": "A four-hundred-year-old Shiva temple carved on three sides with the entire Ramayana.",
       "visit": "A stone Shiva temple at Hariharapura, known for Ramayana carving. It is a living shrine. Photography and dress follow the temple, not this page.",
@@ -809,7 +809,7 @@ window.CKM = {
       "taluk": "Chikkamagaluru",
       "lat": 13.3864,
       "lng": 75.7079,
-      "image": "assets/mullayanagiri.jpg",
+      "image": "assets/seethalayyanagiri.jpg",
       "blurb": "The green shoulder below Mullayanagiri, with a Shiva shrine and a view over both valleys.",
       "summary": "The green shoulder below Mullayanagiri, with a Shiva shrine and a view over both valleys.",
       "visit": "A Shiva shrine on the green shoulder below Mullayanagiri. The last stretch is walked. Confirm the road and weather before you start — this page does not run a gate.",
@@ -1030,7 +1030,7 @@ window.CKM = {
       "taluk": "Kadur",
       "lat": 13.6144,
       "lng": 76.1499,
-      "image": "assets/sringeri.jpg",
+      "image": "assets/yagati-kadur-road.jpg",
       "blurb": "A quiet Shaiva temple in the dry east, where almost no visitor from the hills ever gets to.",
       "summary": "A quiet Shaiva temple in the dry east, where almost no visitor from the hills ever gets to.",
       "visit": "A Shaiva temple in the dry east toward Kadur, quiet compared with the ghats. Temple hours are local.",
@@ -1762,7 +1762,7 @@ window.CKM = {
       "taluk": "Tarikere",
       "lat": 13.5505,
       "lng": 75.7654,
-      "image": "assets/hebbe-falls.jpg",
+      "image": "assets/shanti-falls.jpg",
       "blurb": "A small fall on the Z Point path that almost nobody stops at — which is the whole point.",
       "summary": "A small fall on the Z Point path that almost nobody stops at — which is the whole point.",
       "visit": "A small fall on the Z Point path at Kemmanagundi. Daylight only. Garden and horticulture notices at Kemmanagundi are the practical source.",
@@ -3255,14 +3255,6 @@ window.CKM = {
       "url": "https://commons.wikimedia.org/wiki/File:Veeranarayana_temple_at_Belavadi,_Chikkamagaluru_district.jpg"
     },
     {
-      "local": "kalasa.jpg",
-      "place": "Kalaseshwara Temple, Kalasa",
-      "file": "Dravidian style shikhara and shrine of Kalaseshwara temple at Kalasa, Karnataka state.jpg",
-      "artist": "Dineshkannambadi",
-      "license": "CC BY-SA 4.0",
-      "url": "https://commons.wikimedia.org/wiki/File:Dravidian_style_shikhara_and_shrine_of_Kalaseshwara_temple_at_Kalasa,_Karnataka_state.jpg"
-    },
-    {
       "local": "vidyashankara.jpg",
       "place": "Vidyashankara Temple, Sringeri",
       "file": "Sringeri Vidyashankara Temple. An Architectural marvel.jpg",
@@ -3487,28 +3479,12 @@ window.CKM = {
       "url": "https://commons.wikimedia.org/wiki/File:Bhadra_river.jpg"
     },
     {
-      "local": "kavikal-gandi.jpg",
-      "place": "Attigundi road (Kavikal Gandi approach)",
-      "file": "Attigundi Road (30428360504).jpg",
-      "artist": "Dinesh Valke",
-      "license": "CC BY-SA 2.0",
-      "url": "https://commons.wikimedia.org/wiki/File:Attigundi_Road_(30428360504).jpg"
-    },
-    {
       "local": "koppa-hills.jpg",
       "place": "Tea estate near Koppa",
       "file": "Koppachikmagalur.jpg",
       "artist": "Irrigator",
       "license": "CC BY-SA 3.0",
       "url": "https://commons.wikimedia.org/wiki/File:Koppachikmagalur.jpg"
-    },
-    {
-      "local": "balehonnur.jpg",
-      "place": "Country between Sringeri and Balehonnur",
-      "file": "Tea plantation between Sringeri and Balehonnur.jpg",
-      "artist": "b sarangi",
-      "license": "CC BY 2.0",
-      "url": "https://commons.wikimedia.org/wiki/File:Tea_plantation_between_Sringeri_and_Balehonnur.jpg"
     },
     {
       "local": "samse.jpg",
@@ -3541,6 +3517,70 @@ window.CKM = {
       "artist": "Kgpramod2",
       "license": "CC BY-SA 4.0",
       "url": "https://commons.wikimedia.org/wiki/File:Bhadra_riverside.jpg"
+    },
+    {
+      "local": "shanti-falls.jpg",
+      "place": "Waterfall on the Z Point trail (Shanti Falls)",
+      "file": "A waterfall at Z point chikamagaluru.jpg",
+      "artist": "Maneesha Shetty",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:A_waterfall_at_Z_point_chikamagaluru.jpg"
+    },
+    {
+      "local": "seethalayyanagiri.jpg",
+      "place": "Hill adjacent to Mullayanagiri (Seethalayanagiri ridge)",
+      "file": "Hill adjacent to Mullayanagiri - panoramio.jpg",
+      "artist": "Likhith N.P",
+      "license": "CC BY-SA 3.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Hill_adjacent_to_Mullayanagiri_-_panoramio.jpg"
+    },
+    {
+      "local": "hariharapura-hara.jpg",
+      "place": "Someshwara Temple, Hariharapura",
+      "file": "SomeshwaraTemple.jpg",
+      "artist": "Knguru",
+      "license": "Public domain",
+      "url": "https://commons.wikimedia.org/wiki/File:SomeshwaraTemple.jpg"
+    },
+    {
+      "local": "kavikal-gandi.jpg",
+      "place": "Valley of the Chandra Drona range (Kavikal Gandi)",
+      "file": "Valley formed by Chandradrona mountain range - panoramio.jpg",
+      "artist": "Likhith N.P",
+      "license": "CC BY-SA 3.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Valley_formed_by_Chandradrona_mountain_range_-_panoramio.jpg"
+    },
+    {
+      "local": "kalasa.jpg",
+      "place": "Kalaseshwara Temple, Kalasa",
+      "file": "Kalaseshwara Temple, Kalasa.jpg",
+      "artist": "Vikramkkl",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Kalaseshwara_Temple,_Kalasa.jpg"
+    },
+    {
+      "local": "yagati-kadur-road.jpg",
+      "place": "Kadur Road, Chikkamagaluru (Yagati is in Kadur taluk)",
+      "file": "Kadur Road, Chikmagalur..jpg",
+      "artist": "Prof tpms",
+      "license": "CC BY-SA 3.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Kadur_Road,_Chikmagalur..jpg"
+    },
+    {
+      "local": "balehonnur.jpg",
+      "place": "Country between Sringeri and Balehonnur",
+      "file": "Tea plantation between Sringeri and Balehonnur.jpg",
+      "artist": "b sarangi",
+      "license": "CC BY 2.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Tea_plantation_between_Sringeri_and_Balehonnur.jpg"
+    },
+    {
+      "local": "kalasa-stream.jpg",
+      "place": "Stream in Kalasa, near Horanadu (Chandranatha Basadi country)",
+      "file": "A Small Stream in Kalasa, Near Horanadu (22099971756).jpg",
+      "artist": "Hari K Patibanda",
+      "license": "CC BY 2.0",
+      "url": "https://commons.wikimedia.org/wiki/File:A_Small_Stream_in_Kalasa,_Near_Horanadu_(22099971756).jpg"
     }
   ],
   "featured": [
