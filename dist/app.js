@@ -476,6 +476,20 @@
           ? `${label} — no places in this companion yet. Open the taluk page for the boundary.`
           : `${label} — ${places.length} place${places.length === 1 ? "" : "s"}. Click to open the taluk page.`;
     }
+    const metrics = document.getElementById("taluk-metrics");
+    if (metrics && window.CKMStatistics) {
+      const m = CKMStatistics.talukMetrics(id);
+      metrics.hidden = false;
+      const cats = m.categories
+        .slice(0, 4)
+        .map((c) => `${c.label} ${c.count}`)
+        .join(" · ");
+      const featured = m.featured.map((p) => p.name).join(", ");
+      const permit = m.permitCount ? ` ${m.permitCount} permit-noted.` : "";
+      metrics.innerHTML = `<p>${m.places.length} documented${cats ? ` — ${cats}` : ""}.${permit}</p>${
+        featured ? `<p>Featured: ${featured}.</p>` : ""
+      }`;
+    }
     document.querySelectorAll("[data-select-taluk]").forEach((btn) => {
       const on = btn.getAttribute("data-select-taluk") === id;
       btn.setAttribute("aria-current", on ? "true" : "false");
@@ -1228,6 +1242,7 @@
     initMotion();
     initPopularGallery();
     initHomeDrift();
+    initNumbers();
     filterPopular();
     if (PAGE === "taluk" && state.selectedTaluk) {
       const taluk = CKMMap.talukById(state.selectedTaluk);
@@ -1256,6 +1271,16 @@
     };
     (CKM.destinations || []).forEach((place) => add(place.image));
     (CKM.malnadFoods || []).forEach((dish) => add(dish.image));
+  }
+
+  function initNumbers() {
+    const root = document.getElementById("chikkamagaluru-in-numbers");
+    if (!root || !window.CKMNumbers) return;
+    CKMNumbers.onTaluk = (id) => {
+      if (state.mapApi && typeof state.mapApi.choose === "function") state.mapApi.choose(id, false);
+      else updateTalukUi(id);
+    };
+    CKMNumbers.bind(root);
   }
 
   function start() {

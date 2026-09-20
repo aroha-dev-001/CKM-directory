@@ -677,7 +677,8 @@
               </div>
               <ul class="taluk-index" id="taluk-index">${f.talukIndex}</ul>
               <p class="taluk-summary" id="taluk-summary">Click a taluk to open its places.</p>
-              <p class="taluk-footnote">Kalasa and Ajjampura were carved out of Mudigere and Tarikere after older maps were drawn. Each is shown here with its current OSM boundary.</p>
+              <div id="taluk-metrics" class="taluk-metrics" hidden></div>
+              <p class="taluk-footnote">Kalasa and Ajjampura were carved out of Mudigere and Tarikere after older maps were drawn. Each is shown here with its current OSM boundary. The map uses nine current administrative taluks — not a historical grouping.</p>
             </aside>
           </div>
         </div>
@@ -737,6 +738,7 @@
           </div>
         </div>
       </section>
+      ${typeof global.CKMNumbers === "object" && global.CKMNumbers.numbersSectionHtml ? global.CKMNumbers.numbersSectionHtml() : ""}
       <section class="section close-band reveal-on-scroll">
         <div class="wrap">
           <div class="section-head">
