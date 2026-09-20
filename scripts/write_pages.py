@@ -5,6 +5,7 @@ from pathlib import Path
 PAGES = [
     ("index.html", "home", "Chikkamagaluru — a Western Ghats companion"),
     ("places.html", "places", "Places to visit — Chikkamagaluru"),
+    ("popular.html", "popular", "Popular tourist places — Chikkamagaluru"),
     ("map.html", "map", "District map — Chikkamagaluru"),
     ("stories.html", "stories", "Coffee, culture and seasons — Chikkamagaluru"),
     ("coffee.html", "coffee", "Seven seeds from Mocha — Chikkamagaluru"),
@@ -49,6 +50,7 @@ TEMPLATE = """<!DOCTYPE html>
         <nav class="site-nav" id="site-nav" aria-label="Primary">
           <a href="index.html" data-nav="home" data-i18n="nav_home">Home</a>
           <a href="places.html" data-nav="places" data-i18n="nav_places">Places</a>
+          <a href="popular.html" data-nav="popular" data-i18n="nav_popular">Popular</a>
           <a href="map.html" data-nav="map" data-i18n="nav_map">Map</a>
           <a href="stories.html" data-nav="stories" data-i18n="nav_stories">Stories</a>
           <a href="plan.html" data-nav="plan" data-i18n="nav_plan">Plan</a>

@@ -40,7 +40,8 @@ npx vercel --yes --prod
 | Page | What it is |
 | --- | --- |
 | `index.html` | Editorial home with popular places, coffee origin, Malnad kitchen, seasons, stories, trip sketches, gallery and illustrated taluk map |
-| `places.html` | Destinations grouped under waterfalls, temples, dams, lakes, hill stations, peaks, wildlife, and coffee country |
+| `places.html` | Destinations grouped under waterfalls, temples, dams, lakes, hill stations, peaks, wildlife, treks, forts and coffee country |
+| `popular.html` | Dedicated popular-tourist page: 30 in-district stops that recur on Tripadvisor Things to Do, district place lists and typical 2-day loops |
 | `map.html` | Interactive choropleth of the nine taluks |
 | `stories.html` | Separate chapters: seasons, coffee, culture, food, Malnad kitchen dishes, responsible travel, photographs |
 | `coffee.html` | Full coffee-origin story: eight illustrated scenes from Mocha to shade canopy |

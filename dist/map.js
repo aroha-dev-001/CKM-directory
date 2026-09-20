@@ -333,18 +333,20 @@
           .join("");
 
         root.innerHTML = `
-          <div class="map-canvas">
-            <div class="map-hud" aria-hidden="true">
+          <div class="map-shell">
+            <div class="map-hud">
               <span class="map-hud-tag" data-map-hud-band>CKM · FIELD</span>
               <span class="map-hud-tag" data-map-hud-coords>${fmtCoord(13.32, 75.77)}</span>
               <button class="map-hud-back" type="button" data-map-zoom-out hidden>All taluks</button>
             </div>
-            <svg class="choropleth-svg" viewBox="0 0 ${VB.w} ${VB.h}" aria-label="Chikkamagaluru district taluks">
-              ${paths}
-              <g class="place-pins" data-place-pins></g>
-            </svg>
-            <div class="map-tooltip" data-map-tooltip hidden></div>
-            <div class="map-scan" aria-hidden="true"></div>
+            <div class="map-canvas">
+              <svg class="choropleth-svg" viewBox="0 0 ${VB.w} ${VB.h}" aria-label="Chikkamagaluru district taluks">
+                ${paths}
+                <g class="place-pins" data-place-pins></g>
+              </svg>
+              <div class="map-tooltip" data-map-tooltip hidden></div>
+              <div class="map-scan" aria-hidden="true"></div>
+            </div>
           </div>`;
 
         state.svg = root.querySelector(".choropleth-svg");
@@ -392,10 +394,7 @@
           if (state.hudCoords) state.hudCoords.textContent = fmtCoord(lat, lon);
         });
 
-        state.hudZoom?.addEventListener("click", (event) => {
-          event.stopPropagation();
-          showDistrict();
-        });
+        bindZoomButtons();
 
         paint();
         if (state.drilled) applyView(true);
@@ -443,7 +442,7 @@
       if (selectedG && selectedG.parentNode) selectedG.parentNode.appendChild(selectedG);
       const pins = root.querySelector("[data-place-pins]");
       if (pins && pins.parentNode) pins.parentNode.appendChild(pins);
-      if (state.hudZoom) state.hudZoom.hidden = !state.drilled;
+      syncZoomButtons();
       const band = root.querySelector("[data-map-hud-band]");
       if (band) {
         const taluk = talukById(state.selected);
@@ -466,6 +465,7 @@
       if (state.reduced) {
         state.vb = { ...to };
         svg.setAttribute("viewBox", vbString(state.vb));
+        renderPins();
         return;
       }
       const start = performance.now();
@@ -481,6 +481,7 @@
         };
         svg.setAttribute("viewBox", vbString(state.vb));
         if (t < 1) state.anim = requestAnimationFrame(tick);
+        else renderPins();
       }
       state.anim = requestAnimationFrame(tick);
     }
@@ -504,11 +505,17 @@
       return dests.filter((p) => p.talukId === state.selected);
     }
 
+    function pinScale() {
+      const w = state.vb && state.vb.w ? state.vb.w : VB.w;
+      return Math.max(state.drilled ? 0.38 : 1, w / VB.w);
+    }
+
     function renderPins() {
       const layer = root.querySelector("[data-place-pins]");
       if (!layer || !state.districtB) return;
       const pop = popularIdSet();
       const places = pinList();
+      const s = pinScale();
       layer.innerHTML = places
         .map((p) => {
           if (typeof p.lat !== "number" || typeof p.lng !== "number") return "";
@@ -516,16 +523,20 @@
           const popular = pop.has(p.id);
           const fill = popular ? LIME : PIN[p.category] || BONE;
           const on = p.id === state.placeId;
-          const r = on ? 8 : popular ? 6.4 : 4.6;
+          const r = (on ? 20 : popular ? 18 : 11) * s;
           const label = escapeXml(p.name);
+          const labelSide = x > VB.w * 0.62 ? "end" : "start";
+          const lx = labelSide === "end" ? x - 16 * s : x + 16 * s;
           const nameLabel =
             popular && !state.drilled
-              ? `<text class="place-pin-label" x="${(x + 10).toFixed(1)}" y="${(y + 4).toFixed(1)}">${label}</text>`
+              ? `<text class="place-pin-label" text-anchor="${labelSide}" x="${lx.toFixed(1)}" y="${(y + 5).toFixed(1)}" font-size="${(15 * s).toFixed(1)}">${label}</text>`
               : "";
+          const mark = r * 1.15;
           return `<g class="place-pin${on ? " is-active" : ""}${popular ? " is-popular" : ""}" data-place-pin="${escapeXml(p.id)}">
-            <circle class="place-pin-halo" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(r + 5).toFixed(1)}" />
-            ${popular ? `<rect class="place-pin-mark" x="${(x - r * 0.72).toFixed(1)}" y="${(y - r * 0.72).toFixed(1)}" width="${(r * 1.44).toFixed(1)}" height="${(r * 1.44).toFixed(1)}" transform="rotate(45 ${x.toFixed(1)} ${y.toFixed(1)})" fill="${fill}" />` : ""}
-            <circle class="place-pin-dot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${popular ? (r * 0.42).toFixed(1) : r}" fill="${popular ? OBSIDIAN : fill}" tabindex="0" role="button" aria-label="${label}. Open visitor notes." />
+            <circle class="place-pin-hit" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(r * 1.85).toFixed(1)}" />
+            <circle class="place-pin-halo" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(r + 8 * s).toFixed(1)}" />
+            ${popular ? `<rect class="place-pin-mark" x="${(x - mark / 2).toFixed(1)}" y="${(y - mark / 2).toFixed(1)}" width="${mark.toFixed(1)}" height="${mark.toFixed(1)}" transform="rotate(45 ${x.toFixed(1)} ${y.toFixed(1)})" fill="${fill}" />` : ""}
+            <circle class="place-pin-dot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${popular ? (r * 0.38).toFixed(1) : r}" fill="${popular ? OBSIDIAN : fill}" tabindex="0" role="button" aria-label="${label}. Open visitor notes." />
             ${nameLabel}
           </g>`;
         })

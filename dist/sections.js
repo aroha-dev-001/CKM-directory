@@ -1,6 +1,7 @@
 (function (global) {
   const CATEGORY_COLOR = {
     peaks: "#c4a36a",
+    viewpoints: "#8a9a6b",
     waterfalls: "#7aa3b8",
     dams: "#3f6f7c",
     lakes: "#4d7c8a",
@@ -8,6 +9,8 @@
     temples: "#b08968",
     heritage: "#8a6a4b",
     "hill-station": "#6b8f71",
+    treks: "#5f7a4a",
+    forts: "#8a6f55",
   };
 
   function t(lang, key) {
@@ -387,6 +390,7 @@
       .map((c) => `<article class="guide-card"><h3>${esc(c.title)}</h3><p>${esc(c.text)}</p></article>`)
       .join("");
     const popularCarousel = (d.popularPlaces || [])
+      .filter((item) => item.featured)
       .map((item) => {
         const place = d.destinations.find((p) => p.id === item.id);
         if (!place) return null;
@@ -405,6 +409,7 @@
       })
       .filter(Boolean);
     const popularCards = (d.popularPlaces || [])
+      .filter((item) => item.featured)
       .map((item) => {
         const place = d.destinations.find((p) => p.id === item.id);
         if (!place) return "";
@@ -603,7 +608,7 @@
             <div class="hero-actions">
               <a class="btn btn-light shine t-learn" href="places.html" data-magnetic>${learn("Explore all places")}</a>
               <a class="btn btn-ghost" href="map.html">Open the district map</a>
-              <a class="btn btn-ghost" href="#popular-places">Popular places</a>
+              <a class="btn btn-ghost" href="popular.html">Popular places</a>
               <a class="btn btn-ghost" href="#malnad-foods">Malnad kitchen</a>
             </div>
             <dl class="hero-stats">
@@ -643,7 +648,8 @@
           <div class="section-head">
             <p class="kicker">Popular places</p>
             <h2>Open a card. See why it draws a crowd.</h2>
-            <p class="section-lead">Typical hours from temple sites and the district desk — not a live board. Hover or tap a panel; the expanded one holds the caption. Confirm on the linked page before you travel. No fees are listed here.</p>
+            <p class="section-lead">Six stops that show up first on visitor lists — typical hours from temple and district pages, not a live board. The full set lives on the popular page.</p>
+            <a class="text-link t-learn" href="popular.html">${learn("All popular places")}</a>
           </div>
           <div class="pop-accordion-wrap">
             <div data-accordion-gallery></div>
@@ -824,6 +830,121 @@
           <p class="results-meta"><span id="result-count">${f.d.destinations.length}</span> ${esc(f.tx("results"))}</p>
           <div id="place-sections">${renderPlaceSections(lang, f.d.destinations)}</div>
           <p class="empty-state" id="place-empty" hidden>${esc(f.tx("empty"))}</p>
+        </div>
+      </section>
+      ${footer(f)}`;
+  }
+
+  function listedLabel(key) {
+    return (
+      {
+        tripadvisor: "Tripadvisor Things to Do",
+        "travel-chikmagalur": "District place lists",
+        "weekend-lists": "Typical 2-day loops",
+      }[key] || key
+    );
+  }
+
+  function renderPopularPage(lang) {
+    const f = fragments(lang);
+    const groups = [
+      ["all", "All popular"],
+      ["peaks", "Peaks"],
+      ["waterfalls", "Waterfalls"],
+      ["hills", "Hills & ghats"],
+      ["temples", "Temples"],
+      ["lakes", "Lakes & dams"],
+      ["forest", "Forest"],
+      ["heritage", "Coffee & heritage"],
+    ];
+    const filters = groups
+      .map(
+        ([id, label], i) =>
+          `<button class="t-tab" type="button" role="tab" data-popular-group="${esc(id)}" aria-selected="${i === 0 ? "true" : "false"}">${esc(label)}</button>`
+      )
+      .join("");
+    const cards = (f.d.popularPlaces || [])
+      .map((item) => {
+        const place = f.d.destinations.find((p) => p.id === item.id);
+        if (!place) return "";
+        const chips = (item.listed || [])
+          .map((k) => `<span class="pop-listed">${esc(listedLabel(k))}</span>`)
+          .join("");
+        const km =
+          place.distanceKm != null ? `<span>${esc(String(place.distanceKm))} km from town</span>` : "";
+        const dur =
+          place.durationMin != null
+            ? `<span>${esc(String(Math.round(place.durationMin / 60) || 1))} h typical stop</span>`
+            : "";
+        return `
+          <article class="popular-card" data-popular-card data-popular-group="${esc(item.group || "all")}" data-name="${esc(place.name)} ${esc(place.kannada)}">
+            <button class="popular-card-media" type="button" data-open-place="${esc(place.id)}">
+              <img src="${esc(place.image)}" alt="${esc(place.name)}" width="1800" height="1200" loading="lazy" />
+            </button>
+            <div class="popular-card-body">
+              <p class="kicker">${esc(item.kicker || catLabel(place.category, lang))}</p>
+              <h2>${esc(place.name)}</h2>
+              <p class="kn">${esc(place.kannada)}</p>
+              <p class="popular-why">${esc(item.why || place.blurb)}</p>
+              <p class="popular-hours"><strong>${esc(item.hours || "Daylight")}</strong> — ${esc(item.hoursDetail || place.visit)}</p>
+              <p class="popular-meta">${km}${dur}<span>${esc(place.taluk)}</span></p>
+              <div class="popular-chips">${chips}</div>
+              <div class="popular-actions">
+                <button class="btn btn-dark" type="button" data-open-place="${esc(place.id)}">Visitor notes</button>
+                <a class="btn btn-line" href="map.html?taluk=${esc(place.talukId || "")}&place=${esc(place.id)}">Show on map</a>
+              </div>
+              ${
+                item.hoursSource
+                  ? `<p class="visitor-source"><a href="${esc(item.hoursSource.url)}" rel="noopener noreferrer">${esc(item.hoursSource.label)}</a></p>`
+                  : ""
+              }
+            </div>
+          </article>`;
+      })
+      .join("");
+    const nearby = (f.d.nearbyPlaces || [])
+      .map(
+        (n) => `
+        <article class="nearby-card">
+          <p class="kicker">${esc(n.district)}</p>
+          <h3>${esc(n.name)}</h3>
+          <p>${esc(n.blurb)}</p>
+          <a href="${esc(n.url)}" rel="noopener noreferrer">Karnataka Tourism</a>
+        </article>`
+      )
+      .join("");
+    return `
+      <section class="page-hero popular-hero">
+        <div class="wrap">
+          <p class="kicker">Popular tourist places</p>
+          <h1>What visitors actually queue for</h1>
+          <p class="section-lead">Thirty stops that keep showing up on Tripadvisor’s Chikmagalur Things to Do, on district-oriented place lists, and on typical 2-day hill loops. Copy here is this companion’s — not those sites’. Hours are published hints, not a live gate. No fees, rooms or packages.</p>
+          <p class="popular-count" data-popular-count>${(f.d.popularPlaces || []).length} popular places in the district</p>
+        </div>
+      </section>
+      <section class="section" style="padding-top:0">
+        <div class="wrap">
+          <div class="toolbar popular-toolbar">
+            <label class="search-label">${esc(f.tx("search"))}
+              <input id="popular-search" type="search" placeholder="Mullayanagiri, Hebbe, Sringeri…" autocomplete="off" />
+            </label>
+            <div class="t-tabs" role="tablist" aria-label="Kind of popular place" data-tabs>
+              <span class="t-tabs-pill" aria-hidden="true"></span>
+              ${filters}
+            </div>
+          </div>
+          <div class="popular-stack" id="popular-stack">${cards}</div>
+          <p class="empty-state" id="popular-empty" hidden>Nothing in that slice. Clear the search or pick another group.</p>
+        </div>
+      </section>
+      <section class="section nearby-band">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="kicker">Often bundled, not in this district</p>
+            <h2>Hassan is next door.</h2>
+            <p class="section-lead">2-day blogs add Belur, Halebidu and Yagachi because they sit on the same Bangalore road. They are Hassan district sights. This companion will not pretend they are taluks of Chikkamagaluru.</p>
+          </div>
+          <div class="nearby-grid">${nearby}</div>
         </div>
       </section>
       ${footer(f)}`;
@@ -1117,6 +1238,7 @@
     const pages = {
       home: renderHome,
       places: renderPlacesPage,
+      popular: renderPopularPage,
       map: renderMapPage,
       stories: renderStoriesPage,
       coffee: renderCoffeePage,

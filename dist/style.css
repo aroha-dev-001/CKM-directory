@@ -1682,6 +1682,131 @@ a.food-card-link .pop-face {
   gap: 1.35rem 1.15rem;
 }
 
+.popular-hero .section-lead {
+  max-width: 46rem;
+}
+
+.popular-count {
+  margin-top: 1.2rem;
+  font-family: var(--mono, "JetBrains Mono", ui-monospace, monospace);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.popular-toolbar {
+  margin-bottom: 2rem;
+}
+
+.popular-stack {
+  display: grid;
+  gap: 2.4rem;
+}
+
+.popular-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.2fr);
+  gap: 1.4rem 1.8rem;
+  align-items: start;
+  padding-bottom: 2.2rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.popular-card:nth-child(even) {
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.05fr);
+}
+
+.popular-card:nth-child(even) .popular-card-media {
+  order: 2;
+}
+
+.popular-card-media {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.popular-card-media img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+.popular-card-body h2 {
+  font-size: clamp(1.6rem, 3vw, 2.15rem);
+  margin: 0.2rem 0 0.15rem;
+}
+
+.popular-why {
+  margin: 0.7rem 0;
+  font-size: 1.02rem;
+  max-width: 40rem;
+}
+
+.popular-hours {
+  color: var(--muted);
+  font-size: 0.92rem;
+  max-width: 40rem;
+}
+
+.popular-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  margin: 0.7rem 0;
+  font-size: 0.88rem;
+  color: var(--forest);
+}
+
+.popular-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.pop-listed {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--line);
+  padding: 0.28rem 0.5rem;
+  border-radius: 999px;
+  color: var(--muted);
+}
+
+.popular-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.nearby-band {
+  background: var(--paper);
+}
+
+.nearby-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.2rem;
+}
+
+.nearby-card {
+  background: var(--cream);
+  padding: 1.15rem 1.2rem 1.3rem;
+  border-radius: var(--radius);
+}
+
+.nearby-card h3 {
+  font-size: 1.25rem;
+  margin: 0.3rem 0 0.55rem;
+}
+
 .place-card-wrap,
 .highlight-card,
 .gallery-item,
@@ -3905,6 +4030,19 @@ a.food-card-link .pop-face {
   .home-circuit-grid,
   .home-gallery,
   .pop-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .popular-card,
+  .popular-card:nth-child(even) {
+    grid-template-columns: 1fr;
+  }
+
+  .popular-card:nth-child(even) .popular-card-media {
+    order: 0;
+  }
+
+  .nearby-grid {
     grid-template-columns: 1fr;
   }
 

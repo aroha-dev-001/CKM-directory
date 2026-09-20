@@ -98,6 +98,10 @@
       const id = q.get("id");
       if (id) window.setTimeout(() => openModal(id), 80);
     }
+    if (PAGE === "popular") {
+      const id = q.get("id");
+      if (id) window.setTimeout(() => openModal(id), 80);
+    }
     if (PAGE === "map") {
       const place = placeById(q.get("place"));
       state.selectedTaluk = q.get("taluk") || (place && place.talukId) || "chikkamagaluru";
@@ -487,6 +491,26 @@
     }
   }
 
+  function filterPopular() {
+    const stack = document.getElementById("popular-stack");
+    if (!stack) return;
+    const q = (document.getElementById("popular-search")?.value || "").trim().toLowerCase();
+    const group =
+      document.querySelector("[data-popular-group][aria-selected='true']")?.getAttribute("data-popular-group") || "all";
+    let n = 0;
+    stack.querySelectorAll("[data-popular-card]").forEach((card) => {
+      const g = card.getAttribute("data-popular-group");
+      const name = (card.getAttribute("data-name") || "").toLowerCase();
+      const show = (group === "all" || g === group) && (!q || name.includes(q));
+      card.hidden = !show;
+      if (show) n += 1;
+    });
+    const empty = document.getElementById("popular-empty");
+    if (empty) empty.hidden = n > 0;
+    const count = document.querySelector("[data-popular-count]");
+    if (count) count.textContent = `${n} popular place${n === 1 ? "" : "s"} in this slice`;
+  }
+
   function selectTab(tab) {
     const bar = tab?.closest("[data-tabs]");
     if (!bar || !tab) return;
@@ -799,7 +823,10 @@
         return;
       }
       const tab = event.target.closest(".t-tab");
-      if (tab && tab.closest("[data-tabs]")) selectTab(tab);
+      if (tab && tab.closest("[data-tabs]")) {
+        selectTab(tab);
+        filterPopular();
+      }
       const open = event.target.closest("[data-open-place]");
       if (open) {
         openModal(open.getAttribute("data-open-place"));
@@ -888,6 +915,7 @@
         state.query = event.target.value;
         renderPlaces();
       }
+      if (event.target.id === "popular-search") filterPopular();
       if (event.target.id === "season-slider") {
         CKMSections.renderSeason(Number(event.target.value), state.lang);
         initTabs();
@@ -1102,6 +1130,7 @@
     bindUi();
     initMotion();
     initPopularGallery();
+    filterPopular();
     if (PAGE === "places" && state.jumpTo) {
       window.setTimeout(() => {
         document.getElementById(`section-${state.jumpTo}`)?.scrollIntoView({ behavior: prefersReduced() ? "auto" : "smooth", block: "start" });

@@ -1,0 +1,397 @@
+#!/usr/bin/env python3
+"""Expand popularPlaces from public visitor lists (original copy, no fees)."""
+import json
+import re
+from pathlib import Path
+
+DATA = Path("/workspace/dist/data.js")
+DIST = "https://chikkamagaluru.nic.in/en/tourism/"
+FOREST = "https://aranya.gov.in/"
+SRINGERI = "https://www.sringeri.net/pilgrim-info/temple-timings"
+HORANADU = "https://srikshetrahoranadu.com/"
+
+TA = "tripadvisor"
+TC = "travel-chikmagalur"
+BB = "weekend-lists"
+
+
+def src(label, url):
+    return {"label": label, "url": url}
+
+
+POPULAR = [
+    {
+        "id": "mullayanagiri",
+        "featured": True,
+        "group": "peaks",
+        "kicker": "Highest in Karnataka",
+        "hours": "Daylight",
+        "hoursDetail": "No municipal opening hours are published. The district notes a narrow hill road and a final walk to the summit temple. After dark the hairpins are unlit and often in cloud.",
+        "why": "Karnataka’s high point at about 1,930 m on the Baba Budan / Chandra Drona range. Visitor lists put it first for a reason: a grass-and-shola ridge, a small summit shrine, and winter mornings when the maidan is still in mist. The last stretch is typically walked.",
+        "hoursSource": src("District tourism", DIST),
+        "listed": [TA, TC, BB],
+    },
+    {
+        "id": "hebbe-falls",
+        "featured": True,
+        "group": "waterfalls",
+        "kicker": "Two-stage cascade",
+        "hours": "Jeep window often 09:00–15:00",
+        "hoursDetail": "Cars stop before the forest stretch. Authorised jeeps from the Kemmanagundi side are the usual last miles. Confirm at the counter. No fee is quoted here.",
+        "why": "Dodda Hebbe and Chikka Hebbe drop through coffee and reserved forest below Kemmanagundi. Weekend itineraries pair it with the hill station. Access closes with rain, estate work or forest rules — ask on the ground.",
+        "hoursSource": src("Karnataka Forest Department", FOREST),
+        "listed": [TA, TC, BB],
+    },
+    {
+        "id": "baba-budangiri",
+        "featured": True,
+        "group": "peaks",
+        "kicker": "Coffee-country ridge",
+        "hours": "Daylight on the ridge",
+        "hoursDetail": "The cave shrine’s crowd rules and inner hours change with festivals. Use the ridge in daylight. Do not treat a blog’s sunrise slot as a published gate time.",
+        "why": "Chandra Drona — the hill the Coffee Board names for Baba Budan’s seven Mocha seeds, and a shared shrine to Datta Peetha. Tripadvisor and 2-day loops put it with Mullayanagiri because the same range holds both.",
+        "hoursSource": src("District tourism", DIST),
+        "listed": [TA, TC, BB],
+    },
+    {
+        "id": "kemmanagundi",
+        "featured": True,
+        "group": "hills",
+        "kicker": "Garden hill station",
+        "hours": "Gardens often 09:00–18:00",
+        "hoursDetail": "Krishnaraja Wodeyar IV’s summer camp. Flower gardens are commonly visited through the day; Z Point walks belong to daylight. Confirm at the horticulture counter.",
+        "why": "A 1,434 m garden shelf on the same range, with ornamental beds, shola views and the road-head for Hebbe. First-timers often spend a cooler afternoon here when the town is hot.",
+        "hoursSource": src("District tourism", DIST),
+        "listed": [TA, TC, BB],
+    },
+    {
+        "id": "jhari-falls",
+        "featured": False,
+        "group": "waterfalls",
+        "kicker": "Buttermilk Falls",
+        "hours": "Daylight; fullest after monsoon",
+        "hoursDetail": "A short walk from a jeep/estate track off the Mullayanagiri–Baba Budangiri side. Rocks are wet. Summer often reduces the sheet to a trickle.",
+        "why": "A white fall off granite, close to the high-ridge road, so it shows up on almost every 2-day sketch and on Tripadvisor’s waterfall list. Not a swimming-pool notice — seasonal water only.",
+        "hoursSource": src("District tourism", DIST),
+        "listed": [TA, TC, BB],
+    },
+    {
+        "id": "hirekolale",
+        "featured": False,
+        "group": "lakes",
+        "kicker": "Town evening water",
+        "hours": "Open lakeshore; best at dusk",
+        "hoursDetail": "An irrigation and town-supply tank, not a ticketed park. Stay off the bund if it is wet. No boating desk is run from this page.",
+        "why": "Nine kilometres from town, with Mullayanagiri on the skyline. Visitor sites list it for sunrise and sunset because it is close, level, and quiet after the hairpins.",
+        "hoursSource": src("District tourism", DIST),
+        "listed": [TA, TC, BB],
+    },
+    {
+        "id": "kudremukh-peak",
+        "featured": False,
+        "group": "peaks",
+        "kicker": "Horse-face of the ghats",
+        "hours": "Forest-permit daylight",
+        "hoursDetail": "Inside Kudremukh National Park. Treks run only when the forest department allows them. Confirm the current window at a park counter — not from a blog.",
+        "why": "The peak that gives the park its name. Tripadvisor ranks it with Mullayanagiri among mountain walks, but this one is a notified forest, not a town hill road.",
+        "hoursSource": src("Karnataka Forest Department", FOREST),
+        "listed": [TA, TC, BB],
+    },
+    {
+        "id": "kudremukh-np",
+        "featured": False,
+        "group": "forest",
+        "kicker": "Shola and rainforest",
+        "hours": "Park hours as notified",
+        "hoursDetail": "About 600 km² of grassland and wet evergreen forest. Enter only with a current forest permit. No stay or safari is sold here.",
+        "why": "Tiger, hornbill country and the story of three river sources. Weekend lists put it on day one; in practice it is a separate ghat day from town, not a quick add-on.",
+        "hoursSource": src("Karnataka Forest Department", FOREST),
+        "listed": [TA, TC, BB],
+    },
+    {
+        "id": "sringeri",
+        "featured": True,
+        "group": "temples",
+        "kicker": "Matha on the Tunga",
+        "hours": "06:00–14:00 & 16:00–21:00",
+        "hoursDetail": "Sharadamba Temple on ordinary days: 6:00 AM–2:00 PM and 4:00 PM–9:00 PM, with maha-mangalarati noted on the matha site. Camp and festival days move. sringeri.net is the authority.",
+        "why": "Adi Shankara’s southern seat. Two-day itineraries stretch west for darshan; it is a living campus, not a viewpoint bolted onto a trek.",
+        "hoursSource": src("Sringeri Sharada Peetham — temple timings", SRINGERI),
+        "listed": [TA, TC, BB],
+    },
+    {
+        "id": "horanadu",
+        "featured": True,
+        "group": "temples",
+        "kicker": "Annapoorneshwari",
+        "hours": "06:00–21:00",
+        "hoursDetail": "The temple’s site lists darshan 6:00 AM to 9:00 PM, with a traditional dress code. Annadana follows the kitchen. Festival days move.",
+        "why": "A forest-wrapped shrine to the goddess of food, toward Kalasa. Pilgrim lists and Tripadvisor both keep it among the district’s most visited temples.",
+        "hoursSource": src("Sri Kshetra Horanadu", HORANADU),
+        "listed": [TA, TC, BB],
+    },
+    {
+        "id": "z-point",
+        "featured": False,
+        "group": "hills",
+        "kicker": "Kemmanagundi sunset walk",
+        "hours": "Daylight; last light on the ridge",
+        "hoursDetail": "A few kilometres on foot from the hill station. Shanti Falls is a small stop on some descriptions of the same path. Return before dark — the track is unlit.",
+        "why": "The sunset shelf above Kemmanagundi. Weekend write-ups name it next to Hebbe because both hang off the same hill day.",
+        "hoursSource": src("District tourism", DIST),
+        "listed": [TA, TC, BB],
+    },
+    {
+        "id": "kallathigiri",
+        "featured": False,
+        "group": "waterfalls",
+        "kicker": "Kalhatti Falls",
+        "hours": "Daylight on the Kemmanagundi road",
+        "hoursDetail": "A Veerabhadra shrine sits with the cascade. The road is the same hill line as Kemmanagundi. Wet rock; no herbal claims are made here.",
+        "why": "A familiar stop between town and the garden hills. 2-day lists include it because you pass it; the fall itself is seasonal.",
+        "hoursSource": src("District tourism", DIST),
+        "listed": [TA, TC, BB],
+    },
+    {
+        "id": "manikyadhara",
+        "featured": False,
+        "group": "waterfalls",
+        "hours": "Often described as daylight, about 06:00–18:00",
+        "hoursDetail": "On the Baba Budangiri slopes. Visitor blogs copy a 6-to-6 window — treat it as a daylight hint, not a municipal board. Confirm locally.",
+        "kicker": "Sacred spray",
+        "why": "A short cascade used as a pilgrimage stop on the same ridge as Baba Budan. Commonly bundled with the cave shrine on day-one hill loops.",
+        "hoursSource": src("District tourism", DIST),
+        "listed": [TC, BB],
+    },
+    {
+        "id": "bhadra-wls",
+        "featured": False,
+        "group": "forest",
+        "kicker": "Tiger reserve",
+        "hours": "Safari slots as the forest department notifies",
+        "hoursDetail": "Muthodi and other ranges are notified forest. Jeep timings and any fees belong to the department counter, not this page.",
+        "why": "The coffee-hills tiger reserve. Tripadvisor and weekend lists name it; you still need a current permit, not a blog’s ‘jeep from town’.",
+        "hoursSource": src("Karnataka Forest Department", FOREST),
+        "listed": [TA, TC, BB],
+    },
+    {
+        "id": "bhadra-dam",
+        "featured": False,
+        "group": "lakes",
+        "kicker": "Lakkavalli reservoir",
+        "hours": "Viewpoints in daylight",
+        "hoursDetail": "A working dam on the Bhadra. Any boating or gallery access is local. This is not a water-sports desk.",
+        "why": "One of Karnataka’s older large dams, holding the water that shapes the tiger reserve’s western edge. 2-day lists pair it with Bhadra forest.",
+        "hoursSource": src("District tourism", DIST),
+        "listed": [TC, BB],
+    },
+    {
+        "id": "belavadi",
+        "featured": False,
+        "group": "temples",
+        "kicker": "Hoysala trikuta",
+        "hours": "Temple daylight; inner rules are theirs",
+        "hoursDetail": "The Veeranarayana temple is a living shrine. Photography and dress follow the temple, not a tourism card.",
+        "why": "A three-shrine Hoysala house of stone east of town. Tripadvisor and heritage loops name it; BanBanjara’s 2-day list does too.",
+        "hoursSource": src("District tourism", DIST),
+        "listed": [TA, TC, BB],
+    },
+    {
+        "id": "amruthapura",
+        "featured": False,
+        "group": "temples",
+        "kicker": "Amrutesvara, 1196 CE",
+        "hours": "Temple daylight",
+        "hoursDetail": "Built under Veera Ballala II. A relatively intact Hoysala shrine north toward Tarikere. No fee is quoted here.",
+        "why": "The stone temple 2-day itineraries add when they swing north. Quiet compared with the ghats, and worth the extra kilometres if you care about Hoysala work.",
+        "hoursSource": src("District tourism", DIST),
+        "listed": [TC, BB],
+    },
+    {
+        "id": "ayyanakere",
+        "featured": False,
+        "group": "lakes",
+        "kicker": "Old tank, open water",
+        "hours": "Lakeshore daylight",
+        "hoursDetail": "A historic irrigation tank in Kadur taluk, not a ticketed park. Fishing and any boat use are local customs, not a listing here.",
+        "why": "One of the large old tanks of the dry east, with the Baba Budan range on the skyline. Weekend pages list it as a picnic sheet of water.",
+        "hoursSource": src("District tourism", DIST),
+        "listed": [TC, BB],
+    },
+    {
+        "id": "charmadi",
+        "featured": False,
+        "group": "hills",
+        "kicker": "Ghat to the coast",
+        "hours": "Drive in daylight; monsoon is serious",
+        "hoursDetail": "Hairpins through the wet western forest. Landslip and mist close the road without warning. Not a viewpoint with a ticket booth.",
+        "why": "The district’s steep drop toward Dakshina Kannada. Place lists treat it as a drive and a lookout, not a town stroll.",
+        "hoursSource": src("District tourism", DIST),
+        "listed": [TC],
+    },
+    {
+        "id": "seethalayyanagiri",
+        "featured": False,
+        "group": "peaks",
+        "kicker": "Shoulder below Mullayanagiri",
+        "hours": "Daylight; same hill road as the high peak",
+        "hoursDetail": "A Shiva shrine and a view over both valleys. Often walked on the way back from Mullayanagiri. Road and weather still decide.",
+        "why": "Travel Chikmagalur and 2-day blogs name it as the greener step under Karnataka’s high point — a stop, not a second summit day.",
+        "hoursSource": src("District tourism", DIST),
+        "listed": [TC, BB],
+    },
+    {
+        "id": "ettina-bhuja",
+        "featured": False,
+        "group": "peaks",
+        "kicker": "Ox’s shoulder",
+        "hours": "Fair-weather half day",
+        "hoursDetail": "A rock nose over the Charmadi valley. Not a jeep summit. Carry water; turn around in cloud.",
+        "why": "The district’s best-known half-day climb on the Mudigere side. It appears on serious place lists more than on packed 2-day town loops.",
+        "hoursSource": src("District tourism", DIST),
+        "listed": [TC],
+    },
+    {
+        "id": "kadambi-falls",
+        "featured": False,
+        "group": "waterfalls",
+        "kicker": "Near Kigga",
+        "hours": "Daylight; liveliest after rain",
+        "hoursDetail": "A stepped fall in the Sringeri–Kigga country. Slippery laterite. No stable public fee is listed here.",
+        "why": "Two-day west-side itineraries add it after Sringeri. Treat it as a seasonal cascade, not a swimming notice.",
+        "hoursSource": src("District tourism", DIST),
+        "listed": [TC, BB],
+    },
+    {
+        "id": "kodandarama-temple-hiremagalur",
+        "featured": False,
+        "group": "temples",
+        "kicker": "Town Rama shrine",
+        "hours": "Temple hours as posted locally",
+        "hoursDetail": "At Hiremagalur, just south of Chikkamagaluru town. Inner-sanctum and dress rules are the temple’s.",
+        "why": "A living Kodandarama shrine close to town — the stop 2-day plans use when they still have an evening in the headquarters.",
+        "hoursSource": src("District tourism", DIST),
+        "listed": [TC, BB],
+    },
+    {
+        "id": "coffee-museum",
+        "featured": False,
+        "group": "heritage",
+        "kicker": "Coffee Board museum",
+        "hours": "Confirm in town before you go",
+        "hoursDetail": "A museum on the bean in this district. Opening hours belong to the museum / Coffee Board notices, not to a tour brochure.",
+        "why": "The indoor half of coffee country: how the crop is explained in town. Weekend lists put it on day two because it is close and does not need a jeep.",
+        "hoursSource": src("Coffee Board of India", "https://coffeeboard.gov.in/aboutus.aspx"),
+        "listed": [TC, BB],
+    },
+    {
+        "id": "vidyashankara",
+        "featured": False,
+        "group": "temples",
+        "kicker": "Zodiac stone, Sringeri",
+        "hours": "Same campus as Sharadamba — use matha timings",
+        "hoursDetail": "Fourteenth-century stone on the Tunga campus. Pillars associated with the solar months are the usual visitor note. The matha sets access.",
+        "why": "The architecture stop beside the living shrine. Place lists keep it with Sringeri rather than as a separate day.",
+        "hoursSource": src("Sringeri Sharada Peetham — temple timings", SRINGERI),
+        "listed": [TC],
+    },
+    {
+        "id": "hanuman-gundi",
+        "featured": False,
+        "group": "waterfalls",
+        "kicker": "Inside Kudremukh park",
+        "hours": "Only with park access",
+        "hoursDetail": "A rock-cut plunge in notified forest. Closed when the park is closed. No fee is invented here.",
+        "why": "The waterfall 2-day Kudremukh sketches mention after the grasslands. It is a forest place first.",
+        "hoursSource": src("Karnataka Forest Department", FOREST),
+        "listed": [TC, BB],
+    },
+    {
+        "id": "sirimane-falls",
+        "featured": False,
+        "group": "waterfalls",
+        "kicker": "Sringeri countryside",
+        "hours": "Daylight after monsoon",
+        "hoursDetail": "A stepped cascade near Sringeri. Seasonal. Local access rules change with rain.",
+        "why": "The west-side fall on temple-day itineraries. Quieter than Hebbe, and just as dependent on the monsoon.",
+        "hoursSource": src("District tourism", DIST),
+        "listed": [TC],
+    },
+    {
+        "id": "kalasa",
+        "featured": False,
+        "group": "temples",
+        "kicker": "Kalaseshwara",
+        "hours": "Temple daylight",
+        "hoursDetail": "The taluk town shrine on the way to Horanadu and the Kudremukh approaches. Living temple rules apply.",
+        "why": "The waypoint 2-day Kalasa–Horanadu drives actually stop at, not only pass.",
+        "hoursSource": src("District tourism", DIST),
+        "listed": [TC],
+    },
+    {
+        "id": "lakya-dam",
+        "featured": False,
+        "group": "lakes",
+        "kicker": "Kudremukh grasslands water",
+        "hours": "Daylight; park-edge country",
+        "hoursDetail": "The old tailings dam, now still water under grassland. Access follows forest and local practice.",
+        "why": "A quiet sheet of water on Kudremukh lists — not a town lake, and not a sports reservoir.",
+        "hoursSource": src("District tourism", DIST),
+        "listed": [TC],
+    },
+    {
+        "id": "deviramma",
+        "featured": False,
+        "group": "peaks",
+        "kicker": "Hill goddess",
+        "hours": "Daylight on the ridge",
+        "hoursDetail": "A pointed peak near Baba Budangiri, with an easier shrine at Bindiga noted by the district. Festival days crowd.",
+        "why": "Tripadvisor nearby-things lists name Deviramma with the same range as Mullayanagiri. A local deity hill, not a second high-point trophy.",
+        "hoursSource": src("District tourism", DIST),
+        "listed": [TA, TC],
+    },
+]
+
+NEARBY = [
+    {
+        "id": "belur-chennakeshava",
+        "name": "Chennakeshava Temple, Belur",
+        "district": "Hassan district",
+        "blurb": "Hoysala stone at Belur, often tagged onto a Chikkamagaluru weekend. It is not inside this district — about 25 km toward Hassan. Temple hours and ASI notices are theirs.",
+        "url": "https://karnatakatourism.org/",
+    },
+    {
+        "id": "halebidu",
+        "name": "Hoysaleswara Temple, Halebidu",
+        "district": "Hassan district",
+        "blurb": "The other great Hoysala terrace, a short hop from Belur. Weekend lists bundle it with Chikkamagaluru; geographically it is Hassan.",
+        "url": "https://karnatakatourism.org/",
+    },
+    {
+        "id": "yagachi-dam",
+        "name": "Yagachi Dam",
+        "district": "Hassan district",
+        "blurb": "A reservoir some 2-day blogs list with Chikkamagaluru water-sports. It sits outside this district. Any boat desk is local and not sold here.",
+        "url": "https://karnatakatourism.org/",
+    },
+]
+
+
+def main():
+    raw = DATA.read_text(encoding="utf-8")
+    m = re.match(r"window\.CKM = (\{.*\});\s*\Z", raw, re.S)
+    ckm = json.loads(m.group(1))
+    ids = {d["id"] for d in ckm["destinations"]}
+    missing = [p["id"] for p in POPULAR if p["id"] not in ids]
+    if missing:
+        raise SystemExit(f"missing destinations: {missing}")
+    ckm["popularPlaces"] = POPULAR
+    ckm["nearbyPlaces"] = NEARBY
+    ckm["i18n"]["en"]["nav_popular"] = "Popular"
+    ckm["i18n"]["kn"]["nav_popular"] = "ಜನಪ್ರಿಯ"
+    DATA.write_text("window.CKM = " + json.dumps(ckm, indent=2, ensure_ascii=False) + ";\n", encoding="utf-8")
+    print("popular", len(POPULAR), "nearby", len(NEARBY))
+
+
+if __name__ == "__main__":
+    main()
