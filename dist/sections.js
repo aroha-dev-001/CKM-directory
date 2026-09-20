@@ -711,6 +711,16 @@
           <button class="explore-nav" type="button" data-explore-next aria-label="Next explore card">›</button>
         </div>
       </section>
+      <section class="places-drift-band" aria-labelledby="places-drift-title">
+        <div class="wrap places-drift-intro">
+          <p class="kicker">The wall</p>
+          <h2 id="places-drift-title">Still drifting through the district.</h2>
+          <p class="section-lead">Click a photograph to pause the wall and flip it. Two or three lines of place notes are on the back — visitor hours live in Places.</p>
+        </div>
+        <div class="places-drift-stage">
+          <div data-drift-wall></div>
+        </div>
+      </section>
       <section class="section pop-section reveal-on-scroll" id="popular-places">
         <div class="wrap">
           <div class="section-head">
@@ -725,16 +735,6 @@
             </div>
             <div class="pop-depth-note" data-pop-depth-note></div>
           </div>
-        </div>
-      </section>
-      <section class="places-drift-band" aria-labelledby="places-drift-title">
-        <div class="wrap places-drift-intro">
-          <p class="kicker">The wall</p>
-          <h2 id="places-drift-title">Still drifting through the district.</h2>
-          <p class="section-lead">Click a photograph to pause the wall and flip it. Two or three lines of place notes are on the back — visitor hours live in Places.</p>
-        </div>
-        <div class="places-drift-stage">
-          <div data-drift-wall></div>
         </div>
       </section>
       <section class="section close-band reveal-on-scroll">
