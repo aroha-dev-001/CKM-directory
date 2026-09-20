@@ -674,13 +674,15 @@
           <div class="section-head">
             <p class="kicker">Popular places</p>
             <h2>Open a card. See why it draws a crowd.</h2>
-            <p class="section-lead">Six stops that show up first on visitor lists — typical hours from temple and district pages, not a live board. The full set lives on the popular page.</p>
+            <p class="section-lead">Eight stops that show up first on visitor lists — typical hours from temple and district pages, not a live board. The full set lives on the popular page.</p>
             <a class="text-link t-learn" href="popular.html">${learn("All popular places")}</a>
           </div>
-          <div class="pop-accordion-wrap">
-            <div data-accordion-gallery></div>
+          <div class="pop-carousel-layout">
+            <div class="pop-carousel-stage">
+              <div data-popular-carousel></div>
+            </div>
+            <div class="pop-depth-note" data-pop-depth-note></div>
           </div>
-          <div class="pop-depth-note" data-pop-depth-note></div>
         </div>
       </section>
       <section class="coffee-origin reveal-on-scroll" id="coffee-origin" aria-labelledby="origin-title">

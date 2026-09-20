@@ -1,0 +1,225 @@
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(44, 90, 56, 0.35);
+  border-radius: 24px;
+  padding: 16px;
+  background: #12261a;
+  box-shadow: 0 24px 48px rgba(12, 31, 19, 0.18);
+  touch-action: pan-y;
+  outline: none;
+  --outer-r: 24px;
+  --p-distance: 12px;
+}
+
+.carousel-container:focus-visible {
+  outline: 2px solid #c8ae6e;
+  outline-offset: 3px;
+}
+
+.carousel-track {
+  display: flex;
+  height: 420px;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  cursor: grab;
+  will-change: transform;
+}
+
+.carousel-item {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  justify-content: flex-end;
+  border: 1px solid rgba(227, 237, 226, 0.18);
+  border-radius: calc(var(--outer-r) - var(--p-distance));
+  background-color: #0c1f13;
+  overflow: hidden;
+  color: #fcfbf8;
+  text-decoration: none;
+  transform-origin: center center;
+  backface-visibility: hidden;
+}
+
+.carousel-container:active .carousel-track,
+.carousel-item:active {
+  cursor: grabbing;
+}
+
+.carousel-item-media {
+  position: absolute;
+  inset: 0;
+}
+
+.carousel-item-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.carousel-item-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 1.15rem 1.05rem 1.2rem;
+  background: linear-gradient(180deg, transparent 0%, rgba(12, 31, 19, 0.18) 28%, rgba(12, 31, 19, 0.88) 100%);
+}
+
+.carousel-item-kicker {
+  display: block;
+  margin-bottom: 0.28rem;
+  color: #c8ae6e;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.carousel-item-title {
+  display: block;
+  font-family: Fraunces, Georgia, serif;
+  font-size: 1.28rem;
+  font-weight: 500;
+  line-height: 1.15;
+  color: #fff;
+}
+
+.carousel-item-description {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.86rem;
+  line-height: 1.4;
+  color: rgba(252, 251, 248, 0.82);
+}
+
+.carousel-indicators-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.carousel-indicators {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  max-width: 220px;
+  padding: 0 8px;
+}
+
+.carousel-indicator {
+  height: 8px;
+  width: 8px;
+  border: none;
+  padding: 0;
+  appearance: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: rgba(252, 251, 248, 0.28);
+  transition: background-color 150ms, transform 150ms;
+}
+
+.carousel-indicator.active {
+  background-color: #c8ae6e;
+  transform: scale(1.25);
+}
+
+.carousel-indicator.inactive {
+  background-color: rgba(252, 251, 248, 0.28);
+}
+
+.carousel-indicator:focus-visible {
+  outline: 2px solid #c8ae6e;
+  outline-offset: 2px;
+}
+
+.carousel-container.round {
+  border-radius: 50%;
+}
+
+.carousel-item.round {
+  border-radius: 50%;
+}
+
+.pop-carousel-layout {
+  display: grid;
+  grid-template-columns: minmax(240px, 340px) minmax(0, 1fr);
+  gap: 1.6rem 2.2rem;
+  align-items: start;
+  margin-top: 0.4rem;
+}
+
+.pop-carousel-stage {
+  display: flex;
+  justify-content: center;
+  min-height: 520px;
+}
+
+.pop-depth-note {
+  padding: 0.2rem 0 0;
+}
+
+.pop-depth-note h3 {
+  margin: 0.2rem 0 0.45rem;
+  font-family: Fraunces, Georgia, serif;
+  font-size: clamp(1.6rem, 2.4vw, 2.15rem);
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+@media (max-width: 860px) {
+  .pop-carousel-layout {
+    grid-template-columns: 1fr;
+    gap: 1.15rem;
+  }
+
+  .pop-carousel-stage {
+    min-height: 0;
+  }
+
+  .carousel-container {
+    margin: 0 auto;
+    max-width: 100%;
+  }
+
+  .carousel-track {
+    height: min(58vw, 380px);
+    min-height: 300px;
+  }
+
+  .carousel-item-title {
+    font-size: 1.12rem;
+  }
+
+  .carousel-item-description {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .carousel-container {
+    border-radius: 18px;
+    padding: 12px;
+  }
+
+  .carousel-track {
+    height: min(72vw, 360px);
+    min-height: 280px;
+  }
+
+  .carousel-item-content {
+    padding: 0.9rem 0.85rem 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-item,
+  .carousel-track,
+  .carousel-indicator {
+    transition: none !important;
+    transform: none !important;
+  }
+}

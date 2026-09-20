@@ -1016,6 +1016,8 @@
 
   function popularDepthItems() {
     return (CKM.popularPlaces || [])
+      .filter((item) => item.featured)
+      .slice(0, 8)
       .map((item) => {
         const place = (CKM.destinations || []).find((p) => p.id === item.id);
         if (!place) return null;
@@ -1053,27 +1055,27 @@
   }
 
   function initPopularGallery() {
-    const el = document.querySelector("[data-accordion-gallery]");
-    if (!el || !window.CKMAccordionGallery) return;
+    const el = document.querySelector("[data-popular-carousel]");
+    if (!el || !window.CKMCarousel) return;
+    if (el._ckmCarousel && typeof el._ckmCarousel.destroy === "function") {
+      el._ckmCarousel.destroy();
+    }
     const items = popularDepthItems().map((item) => ({
       ...item,
-      label: item.name,
+      title: item.name,
+      description: item.hours || "",
       link: `places.html?id=${item.id}`,
     }));
     if (!items.length) return;
-    window.CKMAccordionGallery.mount(el, {
+    el._ckmCarousel = window.CKMCarousel.mount(el, {
       items,
-      defaultIndex: 2,
-      expandRatio: 0.52,
-      trigger: "hover",
-      accentColor: "#c8ae6e",
-      overlayColor: "#0c1f13",
-      textColor: "#fcfbf8",
-      height: 460,
-      gap: 10,
-      radius: 16,
-      grayscale: true,
-      onChange(_, item) {
+      baseWidth: 320,
+      autoplay: true,
+      autoplayDelay: 2800,
+      pauseOnHover: true,
+      loop: true,
+      round: false,
+      onChange(item) {
         renderPopDepthNote(item);
       },
     });

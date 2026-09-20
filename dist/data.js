@@ -2062,7 +2062,7 @@ window.CKM = {
     },
     {
       "id": "jhari-falls",
-      "featured": false,
+      "featured": true,
       "group": "waterfalls",
       "kicker": "Buttermilk Falls",
       "hours": "Daylight; fullest after monsoon",
@@ -2459,7 +2459,7 @@ window.CKM = {
     },
     {
       "id": "kalasa",
-      "featured": false,
+      "featured": true,
       "group": "temples",
       "kicker": "Kalaseshwara",
       "hours": "Temple daylight",

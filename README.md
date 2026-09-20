@@ -60,7 +60,7 @@ npx vercel --yes --prod
 - Reduced-motion and keyboard support
 - WebMCP tools (`search_destinations`, `add_place_to_trip`) when the browser exposes `document.modelContext` or `navigator.modelContext`
 - Motion from the Cyatra Stash (Transitions.dev, Kinetics, UIverse, Sylva): sliding tabs, toasts, modals, accordion cards, magnetic buttons, number pop on the trip badge
-- Homepage popular places use a React Bits **Accordion Gallery** (ported to vanilla JS + GSAP). Hover or tap expands a panel; the page scroll is not captured. Hours sit under the row.
+- Homepage popular places use a React Bits **Carousel** (ported to vanilla JS + GSAP): eight featured stops, autoplay with pause on hover, swipe and dots. Hours sit beside the card on desktop and under it on phones.
 
 Photographs are Wikimedia Commons stills, cover-cropped to **1800×1200** (hero **2400×1350**), plus original companion illustrations for the coffee origin, Baba Budan, and Malnad kitchen plates. Credits name the file, artist and licence.
 
@@ -74,6 +74,7 @@ Photographs are Wikimedia Commons stills, cover-cropped to **1800×1200** (hero 
 | `dist/sections.js` | HTML rendering |
 | `dist/map.js` | SVG nine-taluk choropleth; place pins only on a taluk page |
 | `dist/app.js` | Search, modal, itinerary, passport, WebMCP |
+| `dist/carousel.js` | Homepage popular carousel (React Bits port) |
 | `dist/assets/` | Photographs and `taluks.geojson` |
 
 `scripts/write_pages.py` regenerates the HTML shells. `scripts/fetch_images.py` re-downloads selected Commons originals. `scripts/build-data.py` can rebuild `data.js` from Python records — the live site reads `dist/data.js` directly.
