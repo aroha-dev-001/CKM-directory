@@ -1,4 +1,26 @@
 (function (global) {
+  const preloadCache = new Map();
+
+  function preloadSrc(src) {
+    if (!src) return Promise.resolve();
+    if (preloadCache.has(src)) return preloadCache.get(src);
+    const done = new Promise((resolve) => {
+      const img = new Image();
+      img.decoding = "async";
+      const finish = () => resolve(src);
+      img.onload = finish;
+      img.onerror = () => {
+        const retry = new Image();
+        retry.onload = finish;
+        retry.onerror = finish;
+        retry.src = src;
+      };
+      img.src = src;
+    });
+    preloadCache.set(src, done);
+    return done;
+  }
+
   function prefersReducedMotion() {
     return Boolean(global.matchMedia && global.matchMedia("(prefers-reduced-motion: reduce)").matches);
   }
@@ -68,7 +90,7 @@
     const unit = tileHeight + gap;
     const columnMeta = columnItems.map((col) => {
       const copyHeight = Math.max(unit, col.length * unit);
-      const copies = Math.max(3, Math.ceil((containerHeight * 2.2) / copyHeight) + 1);
+      const copies = Math.min(3, Math.max(2, Math.ceil(containerHeight / copyHeight) + 1));
       return { copyHeight, copies };
     });
 
@@ -104,17 +126,18 @@
     root.setAttribute("role", "group");
     root.setAttribute("aria-label", "Drifting wall of places. Click a still to pause and read.");
 
-    function renderTile(item, id, colIndex) {
+    function renderTile(item, id, colIndex, copyIndex) {
       const blurb = esc(item.blurb || "");
       const title = esc(item.title || "");
       const kn = item.kannada ? `<span class="kn">${esc(item.kannada)}</span>` : "";
       const more = item.openPlace && item.placeId
         ? `<span class="drift-wall__more" data-open-place="${esc(item.placeId)}">Visitor notes</span>`
         : "";
+      const eager = copyIndex === 0 ? ' fetchpriority="high"' : "";
       return `<button type="button" class="drift-wall__tile" data-tile-id="${esc(id)}" data-col="${colIndex}" data-place-id="${esc(item.placeId || "")}" aria-label="${title}">
         <span class="drift-wall__flip">
           <span class="drift-wall__face drift-wall__inner">
-            <img src="${esc(item.image)}" alt="${title}" width="600" height="400" loading="lazy" decoding="async" draggable="false" />
+            <img src="${esc(item.image)}" alt="${title}" width="600" height="400" loading="eager" decoding="async"${eager} draggable="false" />
             <span class="drift-wall__overlay" aria-hidden="true"></span>
           </span>
           <span class="drift-wall__face drift-wall__face--back">
@@ -132,7 +155,7 @@
         const meta = columnMeta[c];
         let copies = "";
         for (let copyIndex = 0; copyIndex < meta.copies; copyIndex += 1) {
-          copies += col.map((item, itemIndex) => renderTile(item, `${c}-${copyIndex}-${itemIndex}`, c)).join("");
+          copies += col.map((item, itemIndex) => renderTile(item, `${c}-${copyIndex}-${itemIndex}`, c, copyIndex)).join("");
         }
         return `<div class="drift-wall__col"><div class="drift-wall__track" data-track="${c}">${copies}</div></div>`;
       })
@@ -142,6 +165,33 @@
     plane = root.querySelector(".drift-wall__plane");
     root.querySelectorAll("[data-track]").forEach((el) => {
       trackEls[Number(el.getAttribute("data-track"))] = el;
+    });
+
+    const uniqueSrc = Array.from(new Set(items.map((item) => item.image).filter(Boolean)));
+    uniqueSrc.forEach(preloadSrc);
+
+    function markReady(img) {
+      if (img && img.naturalWidth) img.classList.add("is-ready");
+    }
+    function onImgLoad(e) {
+      if (e.target && e.target.tagName === "IMG") markReady(e.target);
+    }
+    function onImgError(e) {
+      const img = e.target;
+      if (!img || img.tagName !== "IMG") return;
+      const n = Number(img.getAttribute("data-retries") || 0);
+      if (n >= 2) return;
+      img.setAttribute("data-retries", String(n + 1));
+      const src = img.getAttribute("src");
+      img.removeAttribute("src");
+      preloadSrc(src).then(() => {
+        if (!destroyed && src) img.src = src;
+      });
+    }
+    root.addEventListener("load", onImgLoad, true);
+    root.addEventListener("error", onImgError, true);
+    root.querySelectorAll("img").forEach((img) => {
+      if (img.complete) markReady(img);
     });
 
     function applyPlaneTransform(px, py) {
@@ -309,6 +359,8 @@
         root.removeEventListener("pointerenter", onPointerEnter);
         root.removeEventListener("pointerleave", onPointerLeave);
         root.removeEventListener("click", onClick);
+        root.removeEventListener("load", onImgLoad, true);
+        root.removeEventListener("error", onImgError, true);
         global.removeEventListener("keydown", onKey);
         if (mq.removeEventListener) mq.removeEventListener("change", onMq);
         else mq.removeListener(onMq);

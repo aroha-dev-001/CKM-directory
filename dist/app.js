@@ -213,7 +213,7 @@
     const narrow = window.innerWidth < 720;
     const tileWidth = narrow ? 148 : 200;
     const tileHeight = narrow ? 98 : 132;
-    const columns = Math.max(narrow ? 4 : 6, Math.ceil(stageW / tileWidth) + 2);
+    const columns = Math.min(narrow ? 4 : 7, Math.max(narrow ? 3 : 5, Math.ceil(stageW / tileWidth) + 1));
     el._ckmDrift = window.CKMDriftWall.mount(el, {
       items,
       fill: "columns",
@@ -1245,8 +1245,22 @@
     }
   }
 
+  function warmupDriftImages() {
+    const seen = new Set();
+    const add = (src) => {
+      if (!src || seen.has(src)) return;
+      seen.add(src);
+      const img = new Image();
+      img.decoding = "async";
+      img.src = src;
+    };
+    (CKM.destinations || []).forEach((place) => add(place.image));
+    (CKM.malnadFoods || []).forEach((dish) => add(dish.image));
+  }
+
   function start() {
     if (!window.CKM || !window.CKMSections) return;
+    if (PAGE === "home") warmupDriftImages();
     initHeader();
     paint();
     registerWebMCP();
