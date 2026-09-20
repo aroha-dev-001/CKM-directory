@@ -3848,6 +3848,17 @@ window.CKM = {
       "titleKn": "ಶಿಲ್ಪ, ಮಠ, ಏಳು ಕಾಫಿ ಬೀಜ",
       "lede": "Hoysala east, living shrines on the Tunga, and the coffee story the district still tells.",
       "ledeKn": "ಹೊಯ್ಸಳ ಶಿಲ್ಪ, ತುಂಗಾ ತಟದ ಮಠಗಳು, ಜಿಲ್ಲೆಯ ಕಾಫಿ ಕಥೆ."
+    },
+    {
+      "id": "figures",
+      "href": "index.html#chikkamagaluru-in-numbers",
+      "image": "assets/kemmanagundi.jpg",
+      "label": "Figures",
+      "labelKn": "ಅಂಕಿ ಅಂಶ",
+      "title": "How the hills were counted",
+      "titleKn": "ಬೆಟ್ಟಗಳನ್ನು ಹೇಗೆ ಎಣಿಸಿದರು",
+      "lede": "Published destination visits for 2024 and 2025 — recorded entries, not unique travellers.",
+      "ledeKn": "೨೦೨೪–೨೦೨೫ರ ದಾಖಲಿತ ಭೇಟಿಗಳು. ಪ್ರತ್ಯೇಕ ಪ್ರವಾಸಿಗರ ಸಂಖ್ಯೆಯಲ್ಲ."
     }
   ]
 };

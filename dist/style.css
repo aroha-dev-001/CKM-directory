@@ -4433,6 +4433,11 @@ body[data-page="coffee"] .origin-chapter p {
   padding: 3.2rem 0 2.8rem;
   border-top: 1px solid var(--line);
 }
+.explore-section .num-section {
+  margin-top: 1.6rem;
+  padding: 2.4rem 0 0.4rem;
+  border-top: 1px solid var(--line);
+}
 .num-section h2,
 .num-section h3,
 .num-section h4 {

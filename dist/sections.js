@@ -605,6 +605,7 @@
       ["nature", "nature.html", "Nature", "ಪ್ರಕೃತಿ"],
       ["stay", "stay.html", "Stays", "ಗಿರಿಧಾಮ"],
       ["heritage", "heritage.html", "Heritage", "ಪರಂಪರೆ"],
+      ["figures", "index.html#chikkamagaluru-in-numbers", "Figures", "ಅಂಕಿ ಅಂಶ"],
     ];
     const links = items
       .map(([id, href, en, kn]) => {
@@ -702,7 +703,7 @@
           <p class="kicker explore-kicker">Welcome</p>
           <h2 id="explore-title">Explore Chikkamagaluru</h2>
           <p class="explore-wave" aria-hidden="true">∿</p>
-          <p class="section-lead explore-lead">Food, nature, hill air and heritage — four ways into a district companion. No rooms, no restaurants, no tickets.</p>
+          <p class="section-lead explore-lead">Food, nature, hill air, heritage — and the published count. Five ways into a district companion. No rooms, no restaurants, no tickets.</p>
         </div>
         <div class="explore-rail-wrap">
           <button class="explore-nav" type="button" data-explore-prev aria-label="Previous explore card">‹</button>
@@ -711,6 +712,7 @@
           </div>
           <button class="explore-nav" type="button" data-explore-next aria-label="Next explore card">›</button>
         </div>
+        ${typeof global.CKMNumbers === "object" && global.CKMNumbers.numbersSectionHtml ? global.CKMNumbers.numbersSectionHtml() : ""}
       </section>
       <section class="places-drift-band" aria-labelledby="places-drift-title">
         <div class="wrap places-drift-intro">
@@ -738,7 +740,6 @@
           </div>
         </div>
       </section>
-      ${typeof global.CKMNumbers === "object" && global.CKMNumbers.numbersSectionHtml ? global.CKMNumbers.numbersSectionHtml() : ""}
       <section class="section close-band reveal-on-scroll">
         <div class="wrap">
           <div class="section-head">
