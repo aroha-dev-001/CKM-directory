@@ -58,7 +58,7 @@ npx vercel --yes --prod
 - Reduced-motion and keyboard support
 - WebMCP tools (`search_destinations`, `add_place_to_trip`) when the browser exposes `document.modelContext` or `navigator.modelContext`
 - Motion from the Cyatra Stash (Transitions.dev, Kinetics, UIverse, Sylva): sliding tabs, toasts, modals, accordion cards, magnetic buttons, number pop on the trip badge
-- Homepage popular places use a **Depth Carousel** (React Bits, ported to vanilla JS + GSAP) so six ridge cards fan in depth. Hours and the “open this place” note sit under the stack.
+- Homepage popular places use a React Bits **Accordion Gallery** (ported to vanilla JS + GSAP). Hover or tap expands a panel; the page scroll is not captured. Hours sit under the row.
 
 Photographs are Wikimedia Commons stills, cover-cropped to **1800×1200** (hero **2400×1350**), plus original companion illustrations for the coffee origin, Baba Budan, and Malnad kitchen plates. Credits name the file, artist and licence.
 

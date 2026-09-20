@@ -32,7 +32,7 @@ TEMPLATE = """<!DOCTYPE html>
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="depth-carousel.css" />
+    <link rel="stylesheet" href="accordion-gallery.css" />
   </head>
   <body data-page="{page}">
     <a class="skip" href="#main">Skip to content</a>
@@ -85,7 +85,7 @@ TEMPLATE = """<!DOCTYPE html>
     <script src="data.js"></script>
     <script src="sections.js"></script>
     <script src="map.js"></script>
-    <script src="depth-carousel.js"></script>
+    <script src="accordion-gallery.js"></script>
     <script src="app.js"></script>
   </body>
 </html>

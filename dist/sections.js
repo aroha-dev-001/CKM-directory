@@ -643,10 +643,10 @@
           <div class="section-head">
             <p class="kicker">Popular places</p>
             <h2>Open a card. See why it draws a crowd.</h2>
-            <p class="section-lead">Typical hours from temple sites and the district desk — not a live board. Drag, swipe, or use the arrows. The note under the stack is for the card in front. Confirm on the linked page before you travel. No fees are listed here.</p>
+            <p class="section-lead">Typical hours from temple sites and the district desk — not a live board. Hover or tap a panel; the expanded one holds the caption. Confirm on the linked page before you travel. No fees are listed here.</p>
           </div>
-          <div class="pop-depth-stage">
-            <div data-depth-carousel></div>
+          <div class="pop-accordion-wrap">
+            <div data-accordion-gallery></div>
           </div>
           <div class="pop-depth-note" data-pop-depth-note></div>
         </div>

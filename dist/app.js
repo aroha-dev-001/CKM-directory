@@ -1007,25 +1007,27 @@
       </div>`;
   }
 
-  function initPopularDepth() {
-    const el = document.querySelector("[data-depth-carousel]");
-    if (!el || !window.CKMDepthCarousel) return;
-    const items = popularDepthItems();
+  function initPopularGallery() {
+    const el = document.querySelector("[data-accordion-gallery]");
+    if (!el || !window.CKMAccordionGallery) return;
+    const items = popularDepthItems().map((item) => ({
+      ...item,
+      label: item.name,
+      link: `places.html?id=${item.id}`,
+    }));
     if (!items.length) return;
-    window.CKMDepthCarousel.mount(el, {
+    window.CKMAccordionGallery.mount(el, {
       items,
-      depth: 220,
-      spread: 90,
-      tilt: 10,
-      tiltDirection: "right",
-      perspective: 1400,
-      visibleCards: 5,
-      falloff: 0.2,
-      blur: 6,
-      autoplay: true,
-      loop: true,
-      radius: 17,
-      tint: "#7e5678",
+      defaultIndex: 2,
+      expandRatio: 0.52,
+      trigger: "hover",
+      accentColor: "#c8ae6e",
+      overlayColor: "#0c1f13",
+      textColor: "#fcfbf8",
+      height: 460,
+      gap: 10,
+      radius: 16,
+      grayscale: true,
       onChange(_, item) {
         renderPopDepthNote(item);
       },
@@ -1052,7 +1054,7 @@
     syncTripCount();
     bindUi();
     initMotion();
-    initPopularDepth();
+    initPopularGallery();
     if (PAGE === "places" && state.jumpTo) {
       window.setTimeout(() => {
         document.getElementById(`section-${state.jumpTo}`)?.scrollIntoView({ behavior: prefersReduced() ? "auto" : "smooth", block: "start" });
