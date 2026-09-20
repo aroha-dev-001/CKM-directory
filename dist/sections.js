@@ -506,11 +506,15 @@
       .filter(Boolean)
       .map((t) => {
         const label = lang === "kn" ? t.kannada : t.listName || t.name;
+        const n = (global.CKM.canon && global.CKM.canon.byTaluk[t.id]) || 0;
+        const count = n
+          ? `<span class="taluk-index-count">${n}</span>`
+          : `<span class="taluk-index-count is-empty">No listings yet</span>`;
         return `<li>
           <a class="taluk-index-row" href="taluk.html?id=${esc(t.id)}" data-select-taluk="${esc(t.id)}">
             <span class="taluk-index-name">${esc(label)}</span>
             <span class="taluk-index-dots" aria-hidden="true"></span>
-            <span class="taluk-index-count">${t.count}</span>
+            ${count}
             <span class="taluk-index-go" aria-hidden="true">→</span>
           </a>
         </li>`;
@@ -562,7 +566,7 @@
             <div>
               <p class="wordmark-en">Chikkamagaluru</p>
               <p class="wordmark-kn">ಚಿಕ್ಕಮಗಳೂರು</p>
-              <p style="margin-top:0.8rem;color:rgba(243,238,228,.7)">${esc(f.tx("disclaimer"))}</p>
+              <p class="fineprint" style="margin-top:0.8rem">${esc(f.tx("disclaimer"))}</p>
             </div>
             <div>
               <h2 class="kicker">${esc(f.tx("official"))}</h2>
@@ -590,213 +594,240 @@
 
   function renderHome(lang) {
     const f = fragments(lang);
+    const U = global.CKMUI;
+    const canon = global.CKM.canon || {};
+    const destById = Object.fromEntries((f.d.destinations || []).map((p) => [p.id, p]));
+    const catLabel = (id) => {
+      const c = (f.d.categories || []).find((x) => x.id === id);
+      return lang === "kn" && c ? c.kn : c ? c.label : id;
+    };
+    const slides = [
+      { title: "Cloud ridge", poster: "assets/hero.jpg", label: "Mullayanagiri ridge in mist, Chikkamagaluru" },
+      { title: "Coffee country", poster: "assets/coffee-estate.jpg", label: "Shade coffee estate in Chikkamagaluru" },
+      { title: "Temple and river", poster: "assets/sringeri.jpg", label: "Sringeri temple terrace on the Tunga" },
+    ];
+    const featured = (canon.featuredHomeIds || [])
+      .map((id, i) => {
+        const p = destById[id];
+        if (!p) return "";
+        const size = i === 0 ? "feature" : i < 3 ? "medium" : "compact";
+        return U.DestinationCard(
+          {
+            ...p,
+            categoryLabel: catLabel(p.category),
+            duration: U.formatDuration(p.durationMin),
+          },
+          { size, priority: i === 0 }
+        );
+      })
+      .join("");
+    const interests = (canon.interests || []).map((item) => U.InterestCard(item)).join("");
+    const itineraries = (f.d.circuits || [])
+      .map((c) => {
+        const stops = (c.places || []).map((id) => destById[id]).filter(Boolean);
+        const km = stops.reduce((n, p) => n + (p.distanceKm || 0), 0);
+        return U.ItineraryCard(c, {
+          stops,
+          drive: km ? `About ${km} km of listed road-heads from town, split across days.` : "",
+          caveat: "Access, jeep tracks and forest gates change. Confirm before you copy this sketch.",
+        });
+      })
+      .join("");
+    const seasons = (f.d.seasons || [])
+      .map((s, i) =>
+        U.SeasonPanel(s, i, {
+          label: canon.seasonSource && canon.seasonSource.label,
+          url: canon.seasonSource && canon.seasonSource.url,
+          reviewedAt: canon.reviewedAt,
+        })
+      )
+      .join("");
+    const origin = f.origin || f.d.coffeeOrigin || {};
+    const chips = (f.d.taluks || [])
+      .map((t) => {
+        const n = (canon.byTaluk && canon.byTaluk[t.id]) || 0;
+        const label = lang === "kn" ? t.kannada : t.listName || t.name;
+        return `<a href="taluk.html?id=${U.esc(t.id)}" data-select-taluk="${U.esc(t.id)}">${U.esc(label)}</a>`;
+      })
+      .join("");
     return `
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-media" aria-hidden="true">
-          <img src="assets/hero.jpg" alt="" width="2400" height="1350" fetchpriority="high" />
-        </div>
+      <section class="hero hero-essence" aria-labelledby="hero-title">
+        ${U.HeroSlider(slides)}
         <div class="hero-scrim"></div>
-        <p class="hero-ghost" aria-hidden="true">CHIKKAMAGALURU</p>
         <div class="hero-bottom">
           <div class="hero-copy">
-            <p class="eyebrow shimmer">Chikkamagaluru · Karnataka</p>
-            <h1 id="hero-title" class="reveal-lines">
-              <span><i>Above the</i></span>
-              <span><i>cloud line.</i></span>
-            </h1>
+            <p class="eyebrow">Chikkamagaluru · Western Ghats · Karnataka</p>
+            <h1 id="hero-title">Above the cloud line.</h1>
             <p class="hero-kn" lang="kn">ಮೇಘರೇಖೆಯ ಮೇಲೆ</p>
-            <p class="lede">Good coffee, quieter journeys. A district companion for peaks, temples, forests and the working shade of Malnad — not a booking desk.</p>
+            <p class="lede">Coffee country, ancient temples, forest roads and Karnataka’s highest peak. Explore Chikkamagaluru at the pace the hills deserve.</p>
             <div class="hero-actions">
-              <a class="btn btn-light shine t-learn" href="places.html" data-magnetic>${learn("Explore all places")}</a>
-              <a class="btn btn-ghost" href="map.html">Open the district map</a>
-              <a class="btn btn-ghost" href="popular.html">Popular places</a>
-              <a class="btn btn-ghost" href="#malnad-foods">Malnad kitchen</a>
+              <a class="btn btn-light shine" href="places.html">Explore places</a>
+              <a class="btn btn-ghost" href="plan.html">Plan a trip</a>
+              <a class="hero-text-cta t-learn" href="map.html">View district map</a>
             </div>
-            <dl class="hero-stats">
+            <dl class="hero-rail">
               <div>
-                <dt>Places mapped</dt>
-                <dd><span data-count="${f.d.destinations.length}">${f.d.destinations.length}</span></dd>
+                <dt>Best time to visit</dt>
+                <dd>${U.esc(canon.bestTime || "November – February")}</dd>
               </div>
               <div>
-                <dt>Taluks</dt>
-                <dd><span data-count="9">9</span></dd>
+                <dt>Current season</dt>
+                <dd data-current-season>Guidance by month — not live weather</dd>
               </div>
               <div>
-                <dt>Highest peak</dt>
-                <dd>1,930 m</dd>
+                <dt>Highest point</dt>
+                <dd>${U.esc((canon.highestPoint && canon.highestPoint.name) || "Mullayanagiri")} · ${U.esc(
+                  String((canon.highestPoint && canon.highestPoint.elevationM) || 1930)
+                )} m</dd>
+              </div>
+              <div>
+                <dt>Travel information</dt>
+                <dd><a class="hero-text-cta" href="visit.html">Visitor notes</a></dd>
               </div>
             </dl>
-            <a class="hero-scroll" href="#district-pulse">Scroll into the district</a>
           </div>
         </div>
       </section>
-      <section class="ribbon" id="district-pulse" aria-label="At a glance">
-        <div class="wrap ribbon-grid">
-          <p><strong data-count="${f.d.destinations.length}">${f.d.destinations.length}</strong> places to read</p>
-          <p><strong data-count="9">9</strong> taluks on the map</p>
-          <p><strong data-count="3">3</strong> trip sketches</p>
-          <p><a href="https://chikkamagaluru.nic.in/en/tourism/" rel="noopener noreferrer">Official district tourism</a></p>
-        </div>
-      </section>
-      <div class="name-ticker" aria-hidden="true">
-        <div class="name-ticker-track">
-          <div class="name-ticker-set">${f.tickerItems}</div>
-          <div class="name-ticker-set">${f.tickerItems}</div>
-        </div>
-      </div>
-      <section class="section pop-section reveal-on-scroll" id="popular-places">
+      <section class="section" id="choose-journey">
         <div class="wrap">
-          <div class="section-head">
-            <p class="kicker">Popular places</p>
-            <h2>Open a card. See why it draws a crowd.</h2>
-            <p class="section-lead">Six stops that show up first on visitor lists — typical hours from temple and district pages, not a live board. The full set lives on the popular page.</p>
-            <a class="text-link t-learn" href="popular.html">${learn("All popular places")}</a>
-          </div>
-          <div class="pop-accordion-wrap">
-            <div data-accordion-gallery></div>
-          </div>
-          <div class="pop-depth-note" data-pop-depth-note></div>
+          ${U.SectionIntro({
+            kicker: "Explore by interest",
+            title: "How would you like to experience the hills?",
+            lead: "Six ways into the district. Counts come from this companion’s listed places, not a complete gazetteer.",
+          })}
+          <div class="explore-interest-grid">${interests}</div>
         </div>
       </section>
-      <section class="coffee-origin reveal-on-scroll" id="coffee-origin" aria-labelledby="origin-title">
-        <div class="wrap">
-          <a class="story-entry-card tilt-card shine-card" href="coffee.html" data-tilt>
-            <span class="media">
-              <img src="${esc(f.origin.saint?.image || f.origin.image)}" alt="${esc(f.origin.saint?.caption || f.origin.title)}" width="1800" height="1200" />
-            </span>
-            <span class="story-entry-copy">
-              <span class="kicker">${esc(f.origin.kicker)}</span>
-              <h2 id="origin-title">${esc(f.origin.title)}</h2>
-              <p>${esc(f.origin.lede)}</p>
-              <span class="text-link t-learn">${learn("Read the full story")}</span>
-            </span>
-          </a>
-        </div>
-      </section>
-      <section class="section food-section reveal-on-scroll" id="malnad-foods" aria-labelledby="home-foods-title">
+      <section class="section" id="essential-places">
         <div class="wrap">
           <div class="section-head-row">
-            <div class="section-head">
-              <p class="kicker">Malnad kitchen</p>
-              <h2 id="home-foods-title">Rice, leaf, and a cup from the hill.</h2>
-              <p class="section-lead">Popular dishes the ghats still cook — akki rotti, pathrode, kotte kadubu, neer dosa, jackfruit chips, and filter coffee. Open a card for the full origin story. Photographs are companion stills, not a restaurant list, and this page does not sell a meal.</p>
-            </div>
-            <a class="text-link t-learn" href="food.html">${learn("Kitchen stories")}</a>
+            ${U.SectionIntro({
+              kicker: "Essential Chikkamagaluru",
+              title: "Six places to begin.",
+              lead: "A short list to start from, not the whole district.",
+              href: "places.html",
+              linkLabel: "All listed places",
+            })}
           </div>
-          <div class="pop-grid food-grid reveal-stagger">${f.foodCards}</div>
+          <div class="essential-grid">${featured}</div>
         </div>
       </section>
-      <section class="section why-section reveal-on-scroll">
+      <section class="section" id="signature-journeys">
         <div class="wrap">
-          <div class="section-head-row">
-            <div class="section-head">
-              <p class="kicker">Why this district</p>
-              <h2>Coffee, stone, and a living forest.</h2>
-              <p class="section-lead">Three ways of reading Chikkamagaluru before you pick a road: the working shade of arabica, Hoysala and Malnad pilgrimage, and a Western Ghats hotspot that is not a backdrop.</p>
-            </div>
-            <a class="text-link t-learn" href="stories.html">${learn("All stories")}</a>
-          </div>
-          <div class="why-grid reveal-stagger">${f.whyCards}</div>
-        </div>
-      </section>
-      <section class="section reveal-on-scroll" style="padding-top:0" id="seasons-home">
-        <div class="wrap">
-          <div class="section-head-row">
-            <div class="section-head">
-              <p class="kicker">${esc(f.tx("nav_seasons"))}</p>
-              <h2>Four weathers, four districts.</h2>
-              <p class="section-lead">Clear ridges in winter, thinner falls by summer, a monsoon that turns the ghats to water, and an October still dripping green. Come for the season you can actually walk.</p>
-            </div>
-            <a class="text-link t-learn" href="stories.html#seasons">${learn("Season notes")}</a>
-          </div>
-          <div class="season-card-grid reveal-stagger">${f.seasonCards}</div>
-        </div>
-      </section>
-      <section class="section interest-section reveal-on-scroll" id="explore">
-        <div class="wrap">
-          <div class="section-head-row">
-            <div class="section-head">
-              <p class="kicker">Browse by interest</p>
-              <h2>What do you love?</h2>
-              <p class="section-lead">Peaks, water, stone and forest — the same kinds of country a tourism desk would point you toward, without a stay to sell. Cards rest three seconds, then the rail moves on.</p>
-            </div>
-            <div class="interest-controls">
-              <button class="interest-nav" type="button" data-interest-prev aria-label="Previous kind of place">‹</button>
-              <button class="interest-nav" type="button" data-interest-next aria-label="Next kind of place">›</button>
-            </div>
-          </div>
-          <div class="interest-rail" data-interest-rail tabindex="0" aria-label="Kinds of place">
-            <div class="interest-track">${f.interests}</div>
-          </div>
-          <div class="interest-dots" data-interest-dots role="tablist" aria-label="Interest cards"></div>
-        </div>
-      </section>
-      <section class="section circuits-home reveal-on-scroll">
-        <div class="wrap">
-          <div class="section-head-row">
-            <div class="section-head">
-              <p class="kicker">Trip sketches</p>
-              <h2>Three ways through the hills.</h2>
-              <p class="section-lead">Coffee ridges, temple terraces, and permit country. Load a sketch into a private notebook in this browser — no account, no payment.</p>
-            </div>
-            <a class="text-link t-learn" href="plan.html">${learn("Open the planner")}</a>
-          </div>
-          <div class="home-circuit-grid reveal-stagger">${f.homeCircuits}</div>
+          ${U.SectionIntro({
+            kicker: "Trip sketches",
+            title: "Three ways through the hills.",
+            lead: "Coffee ridges, temple terraces, and permit country. Using a sketch fills a private notebook in this browser.",
+            href: "plan.html",
+            linkLabel: "Open the planner",
+          })}
+          <div class="itinerary-grid">${itineraries}</div>
         </div>
       </section>
       <section class="district-explorer-section" id="explore-district">
         <div class="wrap wrap-wide">
-          <div class="district-explorer">
-            <div class="district-copy">
-              <p class="kicker">Explore the district</p>
-              <h2>Nine taluks, endless experiences.</h2>
-              <p class="section-lead">From Mullayanagiri’s cloud line to the temples of Sringeri and the tiger forests of Bhadra — Chikkamagaluru is a district of contrasts. Explore by taluk to see what awaits you.</p>
-              <a class="btn btn-dark shine t-learn" data-map-cta href="map.html" data-magnetic>${learn("View district map")}</a>
-            </div>
+          ${U.SectionIntro({
+            kicker: "Explore by taluk",
+            title: "Nine current taluks on one map.",
+            lead: "",
+          })}
+          <p class="map-note">This companion shows the nine current administrative taluks of Chikkamagaluru, including Kalasa and Ajjampura. The drawing is OSM (ODbL), for orientation — not a survey. It is the same nine-region map as the administration, not an older seven-region grouping.</p>
+          <div class="taluk-chip-row" aria-label="Taluks">${chips}</div>
+          <div class="taluk-explorer">
             <div class="district-map-stage">
               <div class="choropleth" id="district-svg" data-map-root data-map-mode="home"></div>
               <span class="map-north" aria-hidden="true"><small>N</small><i></i></span>
             </div>
-            <aside class="district-index">
-              <div class="district-index-head">
-                <span>The district</span>
-                <span>${f.d.destinations.length} places</span>
-              </div>
+            <aside class="taluk-panel" id="taluk-panel">
+              <p class="kicker">The district</p>
+              <h3 id="taluk-panel-title">Choose a taluk</h3>
+              <p id="taluk-summary">Click a shape or a name. Destinations for that taluk appear here.</p>
+              <ul class="taluk-top-list" id="taluk-top-list"></ul>
+              <p class="taluk-panel-count" id="taluk-panel-count"></p>
+              <a class="btn btn-dark" id="taluk-places-cta" href="map.html">Explore this taluk</a>
               <ul class="taluk-index" id="taluk-index">${f.talukIndex}</ul>
-              <p class="taluk-summary" id="taluk-summary">Click a taluk to open its places.</p>
-              <p class="taluk-footnote">Kalasa and Ajjampura were carved out of Mudigere and Tarikere after older maps were drawn. Each is shown here with its current OSM boundary.</p>
             </aside>
           </div>
         </div>
       </section>
-      <section class="section reveal-on-scroll" id="home-gallery">
-        <div class="wrap">
-          <div class="section-head-row">
-            <div class="section-head">
-              <p class="kicker">Field photographs</p>
-              <h2>A quieter look.</h2>
-              <p class="section-lead">Ridges, shade coffee, falling water and the Tunga terrace — stills from people who walked here, credited on the visit page.</p>
+      <section class="section" id="coffee-country">
+        <div class="wrap coffee-cinematic">
+          <div>
+            <p class="kicker">Coffee country</p>
+            <h2>Seven seeds, a working forest, and a country shaped by coffee.</h2>
+            <p class="section-lead">${U.esc(
+              origin.lede ||
+                "A Sufi hermitage, a Yemeni port, and a district that still grows arabica in shade. The dates disagree. The slope does not."
+            )}</p>
+            <p class="map-note">The Coffee Board and later tellings disagree on the year. Treat the seven Mocha seeds as tradition the hills still stand by, not a dated shipping ledger.</p>
+            <div class="hero-actions">
+              <a class="btn btn-dark" href="coffee.html">Read the coffee story</a>
+              <a class="btn btn-line" href="places.html?interest=coffee">Explore coffee-country places</a>
             </div>
-            <a class="text-link t-learn" href="stories.html#gallery">${learn("Full gallery")}</a>
           </div>
-          <div class="home-gallery reveal-stagger">${f.homeGallery}</div>
+          <figure>
+            <img src="${U.esc(origin.saint && origin.saint.image ? origin.saint.image : "assets/coffee-estate.jpg")}" alt="${U.esc(
+              origin.saint && origin.saint.caption ? origin.saint.caption : "Coffee country"
+            )}" width="1800" height="1200" loading="lazy" />
+          </figure>
         </div>
       </section>
-      <section class="section close-band reveal-on-scroll">
+      <section class="section" id="season-planner">
         <div class="wrap">
-          <div class="section-head">
-            <p class="kicker">Before you leave town</p>
-            <h2>Give the peaks a morning.</h2>
-            <p class="section-lead">${esc(f.d.guide.intro)}</p>
-          </div>
-          <div class="guide-grid">${f.fieldNotes}</div>
-          <div class="close-actions">
-            <a class="btn btn-dark shine t-learn" href="plan.html" data-magnetic>${learn("Sketch a private trip")}</a>
-            <a class="btn btn-line" href="visit.html">Visitor information</a>
-            <a class="btn btn-line" href="${esc(f.official.district_en)}" rel="noopener noreferrer">District tourism</a>
+          ${U.SectionIntro({
+            kicker: "Season planner",
+            title: "Four weathers, four ways to travel.",
+            lead: "Guidance from published district notes, not a live forecast.",
+          })}
+          <div class="season-panel-grid">${seasons}</div>
+        </div>
+      </section>
+      <section class="section" id="culture-life">
+        <div class="wrap">
+          ${U.SectionIntro({
+            kicker: "Culture and local life",
+            title: "Kitchen, matha, and coffee-town air.",
+          })}
+          <div class="culture-grid">
+            <a class="culture-card" href="food.html">
+              <img src="assets/food-akki-rotti.jpg" alt="" width="1200" height="800" loading="lazy" />
+              <div>
+                <p class="kicker">Kitchen</p>
+                <h3>Malnad kitchen</h3>
+                <p>Rice, leaf, and filter coffee from beans that grew under shade.</p>
+              </div>
+            </a>
+            <a class="culture-card" href="stories.html#story-culture">
+              <img src="assets/sringeri.jpg" alt="" width="1200" height="800" loading="lazy" />
+              <div>
+                <p class="kicker">Matha</p>
+                <h3>Living temple traditions</h3>
+                <p>Sringeri, Horanadu, Kalasa — dress and hours belong to the shrines.</p>
+              </div>
+            </a>
+            <a class="culture-card" href="stories.html">
+              <img src="assets/coffee-hills.jpg" alt="" width="1200" height="800" loading="lazy" />
+              <div>
+                <p class="kicker">Town</p>
+                <h3>Festivals and coffee-town culture</h3>
+                <p>Harvest air, Kannada in the street, a town that is not a hill station brochure.</p>
+              </div>
+            </a>
           </div>
         </div>
       </section>
+      ${U.ResponsibleTravelBand(
+        [
+          "Stay on marked paths",
+          "Confirm forest access",
+          "Respect temple customs",
+          "Avoid stacking distant waterfalls in one day",
+          "Drive ghats in daylight",
+          "Carry waste back",
+        ],
+        "visit.html"
+      )}
+      ${U.ClosingPlannerCTA()}
       ${footer(f)}`;
   }
 
