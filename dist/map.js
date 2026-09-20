@@ -1,6 +1,6 @@
 (function (global) {
   const GEOJSON = "assets/taluks.geojson";
-  const VB = { w: 720, h: 780, pad: 18 };
+  const VB = { w: 760, h: 820, pad: 36 };
   const SELECTED = "#2C5A38";
   const HOVER = "#C5D8C2";
   const FILL_LO = "#E3EDE2";
@@ -12,10 +12,10 @@
     tarikere: [75.79, 13.70],
     kadur: [76.13, 13.53],
     mudigere: [75.58, 13.07],
-    koppa: [75.34, 13.455],
-    nrpura: [75.52, 13.68],
-    sringeri: [75.20, 13.37],
-    kalasa: [75.30, 13.20],
+    koppa: [75.385, 13.448],
+    nrpura: [75.545, 13.675],
+    sringeri: [75.225, 13.365],
+    kalasa: [75.305, 13.205],
     ajjampura: [76.07, 13.80],
   };
   const MAP_LABEL = {
@@ -30,15 +30,15 @@
     ajjampura: "Ajjampura",
   };
   const LABEL_SIZE = {
-    chikkamagaluru: 16,
-    tarikere: 14,
-    kadur: 14,
-    mudigere: 14,
-    koppa: 12,
-    nrpura: 12,
-    sringeri: 12,
-    kalasa: 12,
-    ajjampura: 13,
+    chikkamagaluru: 22,
+    tarikere: 18,
+    kadur: 18,
+    mudigere: 18,
+    koppa: 16,
+    nrpura: 16,
+    sringeri: 16,
+    kalasa: 16,
+    ajjampura: 17,
   };
 
   let geoCache = null;

@@ -199,6 +199,7 @@
     }
 
     function emit() {
+      if (destroyed) return;
       paintIndicators();
       if (onChange) onChange(items[activeIndex()], activeIndex());
     }
@@ -207,28 +208,31 @@
       const max = itemsForRender.length - 1;
       position = clamp(next, 0, max);
       setX(-position * trackItemOffset, immediate);
-      emit();
     }
 
     function handleAnimationComplete() {
       isAnimating = false;
-      if (!loop || itemsForRender.length <= 1) return;
-      const lastCloneIndex = itemsForRender.length - 1;
-      if (position === lastCloneIndex) {
-        isJumping = true;
-        position = 1;
-        setX(-position * trackItemOffset, true);
-        isJumping = false;
-        emit();
-        return;
+      if (isJumping) return;
+      if (loop && itemsForRender.length > 1) {
+        const lastCloneIndex = itemsForRender.length - 1;
+        if (position === lastCloneIndex) {
+          isJumping = true;
+          position = 1;
+          setX(-position * trackItemOffset, true);
+          isJumping = false;
+          emit();
+          return;
+        }
+        if (position === 0) {
+          isJumping = true;
+          position = items.length;
+          setX(-position * trackItemOffset, true);
+          isJumping = false;
+          emit();
+          return;
+        }
       }
-      if (position === 0) {
-        isJumping = true;
-        position = items.length;
-        setX(-position * trackItemOffset, true);
-        isJumping = false;
-        emit();
-      }
+      emit();
     }
 
     function stopAutoplay() {
@@ -349,7 +353,6 @@
     global.addEventListener("resize", onResize);
 
     goTo(position, true);
-    emit();
     startAutoplay();
 
     return {

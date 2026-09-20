@@ -174,7 +174,7 @@ p {
 }
 
 .wrap-wide {
-  width: min(1440px, calc(100% - var(--pad) * 2));
+  width: min(1520px, calc(100% - var(--pad) * 2));
 }
 
 @view-transition {
@@ -2031,8 +2031,8 @@ body[data-page="coffee"] .origin-chapter p {
 
 .district-explorer {
   display: grid;
-  grid-template-columns: minmax(0, 16rem) minmax(0, 1fr) minmax(0, 17rem);
-  gap: 2rem 1.4rem;
+  grid-template-columns: minmax(0, 14.5rem) minmax(22rem, 1.9fr) minmax(0, 15.5rem);
+  gap: 2rem 1.15rem;
   align-items: center;
 }
 
@@ -2041,7 +2041,7 @@ body[data-page="coffee"] .origin-chapter p {
 }
 
 .district-explorer-page .district-explorer {
-  grid-template-columns: minmax(0, 15.5rem) minmax(0, 1.55fr) minmax(0, 16.5rem);
+  grid-template-columns: minmax(0, 14rem) minmax(24rem, 2.05fr) minmax(0, 15rem);
 }
 
 .district-copy h1,
@@ -2073,13 +2073,15 @@ body[data-page="coffee"] .origin-chapter p {
 
 .district-map-stage {
   position: relative;
-  min-height: 24rem;
+  min-height: 32rem;
+  overflow: visible;
 }
 
 .map-canvas {
   position: relative;
   background: transparent;
   border: 0;
+  overflow: visible;
 }
 
 .choropleth {
@@ -2087,7 +2089,7 @@ body[data-page="coffee"] .origin-chapter p {
 }
 
 .choropleth-lg {
-  min-height: 34rem;
+  min-height: 42rem;
 }
 
 .choropleth-svg {
@@ -2095,7 +2097,7 @@ body[data-page="coffee"] .origin-chapter p {
   height: auto;
   display: block;
   overflow: visible;
-  max-height: min(78vh, 46rem);
+  max-height: min(90vh, 58rem);
   background: transparent;
 }
 
@@ -2125,13 +2127,23 @@ body[data-page="coffee"] .origin-chapter p {
 
 .choropleth-svg text {
   font-family: var(--sans);
-  font-weight: 500;
+  font-weight: 600;
   pointer-events: none;
-  letter-spacing: 0;
+  letter-spacing: 0.01em;
+  fill: #3a4639;
+}
+
+.choropleth-svg .taluk-name {
+  stroke: #f3f1e8;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  paint-order: stroke fill;
 }
 
 .choropleth-svg .taluk-g.is-selected .taluk-name {
-  font-weight: 600;
+  font-weight: 700;
+  stroke: #2c5a38;
+  stroke-width: 3px;
 }
 
 .map-tooltip {

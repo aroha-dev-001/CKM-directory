@@ -1067,6 +1067,7 @@
       link: `places.html?id=${item.id}`,
     }));
     if (!items.length) return;
+    renderPopDepthNote(items[0]);
     el._ckmCarousel = window.CKMCarousel.mount(el, {
       items,
       baseWidth: 380,
