@@ -14,6 +14,27 @@ python3 -m http.server 4173 --bind 0.0.0.0 --directory dist
 
 Then open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 
+## Host on Vercel
+
+The site is static files in `dist/`. `vercel.json` tells Vercel to publish that folder with no build.
+
+**From the Vercel dashboard (once this project is on GitHub):**
+
+1. Click **Create repo** in Cursor so the project has a GitHub repository.
+2. Open [vercel.com/new](https://vercel.com/new) and import that repository.
+3. Leave the framework preset as **Other**.
+4. Set **Output Directory** to `dist` (already in `vercel.json`).
+5. Deploy. You get a lasting `*.vercel.app` URL.
+
+**From the CLI (your machine):**
+
+```bash
+npx vercel login
+npx vercel --yes --prod
+```
+
+**GitHub Actions:** after the first dashboard deploy, add repository secrets `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID`. Pushes to `main` then ship to production.
+
 ## Pages
 
 | Page | What it is |
