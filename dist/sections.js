@@ -473,12 +473,6 @@
         </article>`;
       })
       .join("");
-    const originHero = origin.image
-      ? `<figure class="origin-hero">
-          <img src="${esc(origin.image)}" alt="${esc(origin.caption || origin.title)}" width="1800" height="1200" decoding="async" />
-          <figcaption>${esc(origin.caption || "")}</figcaption>
-        </figure>`
-      : "";
     const originSources = (origin.sources || [])
       .map((s) => `<li><a href="${esc(s.url)}" rel="noopener noreferrer">${esc(s.label)}</a></li>`)
       .join("");
@@ -517,7 +511,6 @@
       filters, places, season, seasonMonths, stories, storyIndex, essentials, guide, gallery, credits,
       talukIndex, placeJump, official: d.official, tickerItems, seasonCards, whyCards,
       origin, originChapters, originSources,
-      originHero,
       foodCards, galleryNum, homeCircuits, homeGallery, fieldNotes, popularCards, popularCarousel,
     };
   }
@@ -1236,7 +1229,6 @@
       </section>
       <section class="story-longread coffee-longread">
         <div class="wrap">
-          ${f.originHero || ""}
           <div class="origin-scenes">${f.originChapters}</div>
           <div class="origin-sources">
             <p class="kicker">Sources</p>
