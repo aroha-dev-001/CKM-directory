@@ -209,34 +209,46 @@
       blurb: place.blurb || place.summary || "",
     }));
     if (!items.length) return;
+    const stageW = el.clientWidth || window.innerWidth;
     const narrow = window.innerWidth < 720;
+    const tileWidth = narrow ? 148 : 200;
+    const tileHeight = narrow ? 98 : 132;
+    const columns = Math.max(narrow ? 4 : 6, Math.ceil(stageW / tileWidth) + 2);
     el._ckmDrift = window.CKMDriftWall.mount(el, {
       items,
       fill: "columns",
-      columns: narrow ? 3 : 6,
-      tileWidth: narrow ? 156 : 188,
-      tileHeight: narrow ? 104 : 124,
+      columns,
+      tileWidth,
+      tileHeight,
       gap: 0,
-      radius: 8,
-      tilt: 8,
-      turn: -6,
-      perspective: 1400,
-      depth: 80,
-      speed: 46,
+      radius: 10,
+      tilt: 22,
+      turn: -18,
+      roll: -2,
+      perspective: 880,
+      depth: 200,
+      speed: 44,
       direction: "up",
-      variance: 0.18,
-      parallax: 0.35,
+      variance: 0.22,
+      parallax: 0.9,
       pauseOnHover: false,
-      lift: 28,
-      fade: 0,
+      lift: 72,
+      fade: 0.14,
       dim: 1,
       grayscale: false,
       overlayColor: "transparent",
-      scale: 1.62,
+      scale: 1.28,
       onOpenPlace(id) {
         openModal(id);
       },
     });
+    if (!initHomeDrift.onResize) {
+      initHomeDrift.onResize = () => {
+        window.clearTimeout(initHomeDrift.resizeTimer);
+        initHomeDrift.resizeTimer = window.setTimeout(() => initHomeDrift(), 180);
+      };
+      window.addEventListener("resize", initHomeDrift.onResize);
+    }
   }
 
   function renderTalukContext() {

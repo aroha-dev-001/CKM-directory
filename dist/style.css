@@ -4399,14 +4399,17 @@ body[data-page="coffee"] .origin-chapter p {
   padding-bottom: 0.6rem;
 }
 .places-drift-stage {
-  height: min(72vh, 38rem);
-  min-height: 22rem;
+  height: min(88vh, 52rem);
+  min-height: 28rem;
   margin: 0 auto;
-  max-width: 1400px;
+  max-width: none;
+  width: 100%;
+  overflow: hidden;
 }
 @media (max-width: 720px) {
   .places-drift-stage {
-    height: 22rem;
+    height: 28rem;
+    min-height: 24rem;
   }
 }
 

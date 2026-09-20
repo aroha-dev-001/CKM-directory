@@ -78,7 +78,7 @@
       return speed * columnFactor(c, variance) * dirSign * altSign;
     });
 
-    const offsets = columnMeta.map((meta, c) => (c % 2 === 0 ? 0 : unit * 0.5));
+    const offsets = columnMeta.map(() => 0);
     const velocities = baseVelocities.slice();
     const trackEls = [];
     let hoveredCol = -1;
@@ -147,7 +147,7 @@
     function applyPlaneTransform(px, py) {
       if (!plane) return;
       plane.style.transform =
-        `translate(-50%, -50%) scale(${scale}) ` +
+        `translate(-50%, -46%) scale(${scale}) ` +
         `rotateX(${tilt + py}deg) rotateY(${turn + px}deg) rotateZ(${roll}deg) ` +
         `translateZ(${-depth}px)`;
     }
@@ -194,13 +194,17 @@
           next = ((next % meta.copyHeight) + meta.copyHeight) % meta.copyHeight;
           offsets[c] = next;
           const el = trackEls[c];
-          if (el) el.style.transform = `translate3d(0, ${-next}px, 0)`;
+          const z = (c - (trackEls.length - 1) / 2) * 36;
+          if (el) el.style.transform = `translate3d(0, ${-next}px, ${z}px)`;
         }
       } else {
         for (let c = 0; c < trackEls.length; c += 1) {
           const el = trackEls[c];
           const meta = columnMeta[c];
-          if (el && meta) el.style.transform = `translate3d(0, ${-(offsets[c] ?? 0)}px, 0)`;
+          if (el && meta) {
+            const z = (c - (trackEls.length - 1) / 2) * 36;
+            el.style.transform = `translate3d(0, ${-(offsets[c] ?? 0)}px, ${z}px)`;
+          }
         }
       }
 
