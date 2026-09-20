@@ -200,7 +200,7 @@ window.CKM = {
       "taluk": "Mudigere",
       "lat": 13.1667,
       "lng": 75.4667,
-      "image": "assets/charmadi.jpg",
+      "image": "assets/ballalarayana-durga.jpg",
       "blurb": "A Hoysala hill fort on the Charmadi ridge, reached on foot through shola grassland.",
       "summary": "A Hoysala hill fort on the Charmadi ridge, reached on foot through shola grassland.",
       "visit": "A Hoysala-period hill fort on the Charmadi ridge, reached on foot through shola grassland. There is no ticket sold here. Forest and weather decide whether the walk is open.",
@@ -262,7 +262,7 @@ window.CKM = {
       "taluk": "Chikkamagaluru",
       "lat": 13.3161,
       "lng": 75.772,
-      "image": "assets/coffee-hills.jpg",
+      "image": "assets/coffee-museum.jpg",
       "blurb": "The bean's journey, from Baba Budan to your cup",
       "summary": "The bean's journey, from Baba Budan to your cup",
       "visit": "The Coffee Museum in Chikkamagaluru town, on the bean’s journey in this district. Opening hours belong to the museum / Coffee Board notices — confirm in town.",
@@ -293,7 +293,7 @@ window.CKM = {
       "taluk": "Koppa",
       "lat": 13.525,
       "lng": 75.296,
-      "image": "assets/coffee-hills.jpg",
+      "image": "assets/hariharapura-tunga.jpg",
       "blurb": "A four-hundred-year-old Shiva temple carved on three sides with the entire Ramayana.",
       "summary": "A four-hundred-year-old Shiva temple carved on three sides with the entire Ramayana.",
       "visit": "A stone Shiva temple at Hariharapura, known for Ramayana carving. It is a living shrine. Photography and dress follow the temple, not this page.",
@@ -324,7 +324,7 @@ window.CKM = {
       "taluk": "Mudigere",
       "lat": 13.093,
       "lng": 75.568,
-      "image": "assets/coffee-hills.jpg",
+      "image": "assets/kottigehara.jpg",
       "blurb": "The junction town where the plateau ends and Charmadi begins — coffee, cardamom and the last fuel pump.",
       "summary": "The junction town where the plateau ends and Charmadi begins — coffee, cardamom and the last fuel pump.",
       "visit": "The plateau-edge junction where Charmadi begins — coffee, cardamom, and the last stretch before the ghat. A waypoint, not a ticketed sight.",
@@ -355,7 +355,7 @@ window.CKM = {
       "taluk": "Kadur",
       "lat": 13.4332,
       "lng": 75.9209,
-      "image": "assets/coffee-hills.jpg",
+      "image": "assets/sakharayapatna.jpg",
       "blurb": "An old chieftain's town at the foot of the Baba Budan range, and the seat that built Ayyanakere.",
       "summary": "An old chieftain's town at the foot of the Baba Budan range, and the seat that built Ayyanakere.",
       "visit": "An old town at the foot of the Baba Budan range, tied to the Ayyanakere tank. Come for the tank and the dry-east light, not a resort listing.",
@@ -414,7 +414,7 @@ window.CKM = {
       "taluk": "N.R. Pura",
       "lat": 13.59,
       "lng": 75.48,
-      "image": "assets/coffee-hills.jpg",
+      "image": "assets/simhanagadde.jpg",
       "blurb": "The Jwalamalini atishaya kshetra — a Jain place of miracles, and the district's Jain centre.",
       "summary": "The Jwalamalini atishaya kshetra — a Jain place of miracles, and the district's Jain centre.",
       "visit": "A Jain kshetra in N.R. Pura country. Temple hours and any festival crowding are published by the kshetra, not by this companion.",
@@ -512,7 +512,7 @@ window.CKM = {
       "taluk": "N.R. Pura",
       "lat": 13.6108,
       "lng": 75.5117,
-      "image": "assets/hirekolale.jpg",
+      "image": "assets/bhadra-river.jpg",
       "blurb": "The upper reach of the Bhadra reservoir — coracles, islands, and the tiger reserve on the far bank.",
       "summary": "The upper reach of the Bhadra reservoir — coracles, islands, and the tiger reserve on the far bank.",
       "visit": "The upper Bhadra reservoir toward N.R. Pura — water, islands, and the tiger reserve on the far bank. Boats and any reservoir rules are local; this is not a ticket desk.",
@@ -543,7 +543,7 @@ window.CKM = {
       "taluk": "Chikkamagaluru",
       "lat": 13.402,
       "lng": 75.735,
-      "image": "assets/hirekolale.jpg",
+      "image": "assets/galikere.jpg",
       "blurb": "A small hill tarn on the Baba Budangiri ridge — the windy lake, and usually empty.",
       "summary": "A small hill tarn on the Baba Budangiri ridge — the windy lake, and usually empty.",
       "visit": "A small tarn on the Baba Budangiri ridge, often windy and empty. Daylight, layers, and the same ridge-road cautions as the rest of Chandra Drona.",
@@ -706,7 +706,7 @@ window.CKM = {
       "taluk": "Kalasa",
       "lat": 13.21,
       "lng": 75.19,
-      "image": "assets/mullayanagiri.jpg",
+      "image": "assets/gangamoola.jpg",
       "blurb": "One hill, three rivers — the Tunga, the Bhadra and the Netravathi all start here.",
       "summary": "One hill, three rivers — the Tunga, the Bhadra and the Netravathi all start here.",
       "visit": "Varaha Parvatha — the hill where the Tunga, Bhadra and Netravathi are said to rise. Inside Kudremukh country; enter only as the forest department currently allows.",
@@ -873,7 +873,7 @@ window.CKM = {
       "taluk": "Koppa",
       "lat": 13.5205,
       "lng": 75.3018,
-      "image": "assets/sringeri.jpg",
+      "image": "assets/hariharapura-matha.jpg",
       "blurb": "A Shankaracharya foundation on the Tunga that almost no visitor to Sringeri ever hears about.",
       "summary": "A Shankaracharya foundation on the Tunga that almost no visitor to Sringeri ever hears about.",
       "visit": "A living matha on the Tunga at Hariharapura. Dress and darshan rules belong to the peetham. Use their notices, not a tourism brochure.",
@@ -968,7 +968,7 @@ window.CKM = {
       "taluk": "Chikkamagaluru",
       "lat": 13.3057,
       "lng": 75.7957,
-      "image": "assets/sringeri.jpg",
+      "image": "assets/hiremagalur-kodandarama.jpg",
       "blurb": "The town temple where Sita stands on Rama's right — an arrangement you will not find elsewhere.",
       "summary": "The town temple where Sita stands on Rama's right — an arrangement you will not find elsewhere.",
       "visit": "The Kodandarama temple at Hiremagalur, just south of town. Dress and inner-sanctum rules are the temple’s. No fee is quoted here.",
@@ -999,7 +999,7 @@ window.CKM = {
       "taluk": "Koppa",
       "lat": 13.5332,
       "lng": 75.3634,
-      "image": "assets/sringeri.jpg",
+      "image": "assets/koppa-hills.jpg",
       "blurb": "The temple the town is named for, in the middle of areca country.",
       "summary": "The temple the town is named for, in the middle of areca country.",
       "visit": "Veerabhadra temple at Koppa, in areca country. A living shrine; timings are local.",
@@ -1061,7 +1061,7 @@ window.CKM = {
       "taluk": "N.R. Pura",
       "lat": 13.3479,
       "lng": 75.4617,
-      "image": "assets/sringeri.jpg",
+      "image": "assets/balehonnur.jpg",
       "blurb": "The oldest of the five Veerashaiva Panchapeethas, on the bank of the Bhadra.",
       "summary": "The oldest of the five Veerashaiva Panchapeethas, on the bank of the Bhadra.",
       "visit": "Rambhapuri Peetha at Balehonnur, on the Bhadra — one of the Veerashaiva panchapeethas. Temple timings are theirs to set.",
@@ -1092,7 +1092,7 @@ window.CKM = {
       "taluk": "Sringeri",
       "lat": 13.4184,
       "lng": 75.1833,
-      "image": "assets/sringeri.jpg",
+      "image": "assets/kigga.jpg",
       "blurb": "The rain-bringer's shrine, ten kilometres above Sringeri in the rainforest.",
       "summary": "The rain-bringer's shrine, ten kilometres above Sringeri in the rainforest.",
       "visit": "The Rishyashringa shrine above Sringeri at Kigga. A living temple in rainforest; follow matha and temple notices for darshan.",
@@ -1123,7 +1123,7 @@ window.CKM = {
       "taluk": "Kalasa",
       "lat": 13.188,
       "lng": 75.3343,
-      "image": "assets/sringeri.jpg",
+      "image": "assets/samse.jpg",
       "blurb": "A Ganapathi shrine standing in the middle of a tea estate, ten kilometres from Kalasa.",
       "summary": "A Ganapathi shrine standing in the middle of a tea estate, ten kilometres from Kalasa.",
       "visit": "A Ganapathi shrine in tea country near Samse / Kalasa. Living temple; follow their dress and hours.",
@@ -1257,7 +1257,7 @@ window.CKM = {
       "taluk": "Mudigere",
       "lat": 13.01,
       "lng": 75.53,
-      "image": "assets/ettina-bhuja.jpg",
+      "image": "assets/amedikallu.jpg",
       "blurb": "The hard one on the Charmadi ridge — steeper than Ettina Bhuja, rockier at the top, and far quieter.",
       "summary": "The hard one on the Charmadi ridge — steeper than Ettina Bhuja, rockier at the top, and far quieter.",
       "visit": "A rock climb on the Charmadi side, steeper and quieter than Ettina Bhuja. Only in fair weather, with a local sense of the route. No fee is quoted here.",
@@ -1288,7 +1288,7 @@ window.CKM = {
       "taluk": "Mudigere",
       "lat": 13.1044,
       "lng": 75.4152,
-      "image": "assets/ettina-bhuja.jpg",
+      "image": "assets/bandaje-falls.jpg",
       "blurb": "Two days from Sunkasale over Ballalarayana Durga and down past the falls to Ujire — the finest walk in these hills.",
       "summary": "Two days from Sunkasale over Ballalarayana Durga and down past the falls to Ujire — the finest walk in these hills.",
       "visit": "A long ridge walk linking Ballalarayana Durga toward the Bandaje falls country. Treat it as a serious trek: water, daylight, and local advice — not a jeep outing listed here.",
@@ -1319,7 +1319,7 @@ window.CKM = {
       "taluk": "Kalasa",
       "lat": 13.22,
       "lng": 75.18,
-      "image": "assets/ettina-bhuja.jpg",
+      "image": "assets/gangadikal.jpg",
       "blurb": "Rolling shola grassland near the three-river source, with the Kudremukh massif on the horizon.",
       "summary": "Rolling shola grassland near the three-river source, with the Kudremukh massif on the horizon.",
       "visit": "Rolling shola near the three-river source, with Kudremukh on the horizon. Treat as park-edge country: permits if required, no invented fees.",
@@ -1350,7 +1350,7 @@ window.CKM = {
       "taluk": "Mudigere",
       "lat": 13.04,
       "lng": 75.52,
-      "image": "assets/ettina-bhuja.jpg",
+      "image": "assets/jenukallu-gudda.jpg",
       "blurb": "Honey-rock hill — named for the wild hives on its cliffs, and they are still there.",
       "summary": "Honey-rock hill — named for the wild hives on its cliffs, and they are still there.",
       "visit": "Honey-rock hill on the Charmadi side, named for wild hives on the cliffs. A walk, not a drive. Stay off hive ledges.",
@@ -1381,7 +1381,7 @@ window.CKM = {
       "taluk": "Kalasa",
       "lat": 13.23,
       "lng": 75.21,
-      "image": "assets/ettina-bhuja.jpg",
+      "image": "assets/kurinjal.jpg",
       "blurb": "Seven kilometres each way from Bhagavathi camp, through rainforest into grassland.",
       "summary": "Seven kilometres each way from Bhagavathi camp, through rainforest into grassland.",
       "visit": "A grassland walk toward the Kudremukh massif. Permits and seasonal closures belong to Kudremukh National Park / the forest department.",
@@ -1412,7 +1412,7 @@ window.CKM = {
       "taluk": "Kalasa",
       "lat": 13.18,
       "lng": 75.3,
-      "image": "assets/ettina-bhuja.jpg",
+      "image": "assets/meruthi-gudda.jpg",
       "blurb": "A half-day grassland climb outside the park core — the trek to do when the permits have gone.",
       "summary": "A half-day grassland climb outside the park core — the trek to do when the permits have gone.",
       "visit": "A half-day grassland climb outside the Kudremukh core. When park permits are gone, this is the walk people still ask about — still check weather and access on the ground.",
@@ -1443,7 +1443,7 @@ window.CKM = {
       "taluk": "Kalasa",
       "lat": 13.16,
       "lng": 75.24,
-      "image": "assets/ettina-bhuja.jpg",
+      "image": "assets/netravathi-peak.jpg",
       "blurb": "A long grassland walk above the Netravathi's headwaters, with the coastal plain in view.",
       "summary": "A long grassland walk above the Netravathi's headwaters, with the coastal plain in view.",
       "visit": "A grassland walk above the Netravathi headwaters. Park rules and the monsoon decide access. Confirm at a forest counter.",
@@ -1506,7 +1506,7 @@ window.CKM = {
       "taluk": "Chikkamagaluru",
       "lat": 13.415,
       "lng": 75.748,
-      "image": "assets/z-point.jpg",
+      "image": "assets/kavikal-gandi.jpg",
       "blurb": "The horseshoe gorge on the Mullayanagiri–Baba Budangiri road — fifty steps up, and the whole range in front of you.",
       "summary": "The horseshoe gorge on the Mullayanagiri–Baba Budangiri road — fifty steps up, and the whole range in front of you.",
       "visit": "A horseshoe notch on the Mullayanagiri–Baba Budangiri road, often a short stop for the view. Park only where it is safe; the hairpins are narrow.",
@@ -1666,7 +1666,7 @@ window.CKM = {
       "taluk": "Kalasa",
       "lat": 13.2364,
       "lng": 75.1783,
-      "image": "assets/hebbe-falls.jpg",
+      "image": "assets/kadambi-falls.jpg",
       "blurb": "A thirty-foot fall through rock inside Kudremukh National Park, right beside the road.",
       "summary": "A thirty-foot fall through rock inside Kudremukh National Park, right beside the road.",
       "visit": "A stepped fall near Kigga, often treated as a family stop after rains. Rocks are slippery; there is no stable public fee listed here.",
@@ -2520,7 +2520,10 @@ window.CKM = {
       {
         "id": "origin-01",
         "label": "01 · The plant",
-        "focus": [0.52, 0.6],
+        "focus": [
+          0.52,
+          0.6
+        ],
         "kicker": "The plant",
         "title": "A shrub that liked mist",
         "text": "Before it was a cup on the Hassan bus, coffee was a red cherry in highland weather — a shrub that preferred cloud to open sun. That plant walked a long way from Ethiopian slopes before it ever saw these ghats.\n\nWhat took root on Chandra Drona is still that same highland thing: shade-hungry, slow, and particular about rain.",
@@ -2530,7 +2533,10 @@ window.CKM = {
       {
         "id": "origin-02",
         "label": "02 · Mocha",
-        "focus": [0.55, 0.5],
+        "focus": [
+          0.55,
+          0.5
+        ],
         "kicker": "Mocha",
         "title": "The harbour that sold the cup",
         "text": "On the Yemeni shore, Mocha became the name people used when they meant coffee itself. The city sold the roasted drink freely enough. Live seed was another matter.\n\nKeep the tree at home, and the world stays a customer. What left that harbour as cargo was meant to be drunk, not planted.",
@@ -2540,7 +2546,10 @@ window.CKM = {
       {
         "id": "origin-03",
         "label": "03 · Seven seeds",
-        "focus": [0.46, 0.4],
+        "focus": [
+          0.46,
+          0.4
+        ],
         "kicker": "Seven seeds",
         "title": "A courtyard on this ridge",
         "text": "Then a Sufi from these hills is said to have come home with seven Mocha seeds and set them in the courtyard of his hermitage on Baba Budan Giri. Some tellings put that planting near 1600. Others walk him home from Hajj nearer 1670.\n\nThe years argue. The ridge does not. It still carries his name, and the trees still like the same mist.",
@@ -2550,7 +2559,10 @@ window.CKM = {
       {
         "id": "origin-04",
         "label": "04 · The Hajj lore",
-        "focus": [0.48, 0.5],
+        "focus": [
+          0.48,
+          0.5
+        ],
         "kicker": "The Hajj lore",
         "title": "What the hills still tell",
         "text": "The story that travels with the seeds is a smuggler's story: seven raw beans, because seven is sacred, tucked away — in a beard, in the later tellings — so a port would not notice a future forest leaving in a pilgrim's clothes.\n\nNo ship's book confirms it. The district tells it anyway, the way a family tells how the house was built. Believe the slope. Treat the beard as lore.",
@@ -2560,7 +2572,10 @@ window.CKM = {
       {
         "id": "origin-05",
         "label": "05 · Chandra Drona",
-        "focus": [0.58, 0.46],
+        "focus": [
+          0.58,
+          0.46
+        ],
         "kicker": "Chandra Drona",
         "title": "A garden before it was a crop",
         "text": "Those first plants did not become a landscape overnight. For a long time they were a curiosity in courtyard earth — a few trees behind a house, not yet the silver-oak rows you pass on the Charmadi road.\n\nChandra Drona held a garden before it held an estate. The shrine is still on that ridge. The crop learned patience here.",
@@ -2570,7 +2585,10 @@ window.CKM = {
       {
         "id": "origin-06",
         "label": "06 · Estate country",
-        "focus": [0.52, 0.5],
+        "focus": [
+          0.52,
+          0.5
+        ],
         "kicker": "Estate country",
         "title": "When the forest learned rows",
         "text": "Rows came later, when the forested south was cut into property. In the 1820s planters opened country beside this same ridge, and the crop walked on into Wayanad, the Shevaroys, the Nilgiris.\n\nWhat had been a hermitage tree became a hillside of labour — shade measured, paths named, a bungalow on the shoulder of the hill.",
@@ -2580,7 +2598,10 @@ window.CKM = {
       {
         "id": "origin-07",
         "label": "07 · Shade work",
-        "focus": [0.5, 0.42],
+        "focus": [
+          0.5,
+          0.42
+        ],
         "kicker": "Shade work",
         "title": "What you see from the bus",
         "text": "Look out between Mudigere and Balehonnur and you are looking at work: two roofs of shade, pepper on the trunks, arabica underneath. Karnataka still grows the largest share of the Indian crop. Rust and stem borer later asked for tougher trees.\n\nIn 1925 an experiment station opened near Balehonnur, in this district — a house of trial plots that the canopy still leans on. The green you photograph from the window is someone's season.",
@@ -2590,7 +2611,10 @@ window.CKM = {
       {
         "id": "origin-08",
         "label": "08 · This companion",
-        "focus": [0.5, 0.56],
+        "focus": [
+          0.5,
+          0.56
+        ],
         "kicker": "This companion",
         "title": "Walk as a guest",
         "text": "This page will not sell you a cupping, a bungalow, or a jeep through someone else's silver oak. If a planter opens a path, that is their door. Stay on it.\n\nThe seven seeds are a story people keep. The canopy is a living crop in a living forest. Drink the cup. Leave the rows as you found them.",
@@ -3325,6 +3349,198 @@ window.CKM = {
       "artist": "Anand Osuri",
       "license": "CC BY-SA 4.0",
       "url": "https://commons.wikimedia.org/wiki/File:Traditional_shade_coffee_plantation_Chikmagalur_1.jpg"
+    },
+    {
+      "local": "amedikallu.jpg",
+      "place": "Amedikallu from Shishila",
+      "file": "Amedikallu-Peak-From-Shishila.jpg",
+      "artist": "IndianCourser",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Amedikallu-Peak-From-Shishila.jpg"
+    },
+    {
+      "local": "bandaje-falls.jpg",
+      "place": "Bandaje Falls",
+      "file": "Bandagge falls.jpg",
+      "artist": "Mallanagoud017",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Bandagge_falls.jpg"
+    },
+    {
+      "local": "gangadikal.jpg",
+      "place": "Gangadikal, Kudremukh",
+      "file": "Gangadikal view Middle (51572133065).jpg",
+      "artist": "solarisgirl",
+      "license": "CC BY-SA 2.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Gangadikal_view_Middle_(51572133065).jpg"
+    },
+    {
+      "local": "jenukallu-gudda.jpg",
+      "place": "Jenukallu Gudda",
+      "file": "Sun at horizon.jpg",
+      "artist": "Thushar p s",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Sun_at_horizon.jpg"
+    },
+    {
+      "local": "kurinjal.jpg",
+      "place": "Kurinjal Peak, Kudremukh National Park",
+      "file": "Green haven.jpg",
+      "artist": "789rajes987",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Green_haven.jpg"
+    },
+    {
+      "local": "meruthi-gudda.jpg",
+      "place": "Meruthi Hills, Basarikatte",
+      "file": "Meruthi Hills.jpg",
+      "artist": "AshwathAcharya",
+      "license": "CC BY-SA 3.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Meruthi_Hills.jpg"
+    },
+    {
+      "local": "netravathi-peak.jpg",
+      "place": "Trekking trail on Netravati peak",
+      "file": "Trekking trail on Netravati peak.jpg",
+      "artist": "iMahesh",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Trekking_trail_on_Netravati_peak.jpg"
+    },
+    {
+      "local": "hariharapura-matha.jpg",
+      "place": "Sri Math, Hariharapura",
+      "file": "Sri Math Hariharapura.jpg",
+      "artist": "Knguru",
+      "license": "Public domain",
+      "url": "https://commons.wikimedia.org/wiki/File:Sri_Math_Hariharapura.jpg"
+    },
+    {
+      "local": "hariharapura-tunga.jpg",
+      "place": "Tunga River in front of Hariharapura temple",
+      "file": "Tunga River infront of Hariharapura temple - panoramio.jpg",
+      "artist": "siddushiv",
+      "license": "CC BY-SA 3.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Tunga_River_infront_of_Hariharapura_temple_-_panoramio.jpg"
+    },
+    {
+      "local": "hiremagalur-kodandarama.jpg",
+      "place": "Kodandarama Temple, Hiremagalur",
+      "file": "Kothanda Ramar temple, Hiremagalur 01.jpg",
+      "artist": "Ssriram mt",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Kothanda_Ramar_temple,_Hiremagalur_01.jpg"
+    },
+    {
+      "local": "galikere.jpg",
+      "place": "Galikere pond near Baba Budangiri",
+      "file": "Gaalikere.jpg",
+      "artist": "Kgpramod2",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Gaalikere.jpg"
+    },
+    {
+      "local": "kottigehara.jpg",
+      "place": "Kottigehara",
+      "file": "Kottigehara 2018.jpg",
+      "artist": "Prof tpms",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Kottigehara_2018.jpg"
+    },
+    {
+      "local": "sakharayapatna.jpg",
+      "place": "Road between Sakrepatna and Chikkamagaluru",
+      "file": "Sakrepatna IMG20210731140038.jpg",
+      "artist": "Shyamal",
+      "license": "CC0",
+      "url": "https://commons.wikimedia.org/wiki/File:Sakrepatna_IMG20210731140038.jpg"
+    },
+    {
+      "local": "gangamoola.jpg",
+      "place": "Gangamula, source of the rivers",
+      "file": "Gangamula : The source of two/three rivers (Flickr 3943754344)",
+      "artist": "Nikhil Verma",
+      "license": "CC BY-SA 2.0",
+      "url": "https://www.flickr.com/photos/51989840@N00/3943754344"
+    },
+    {
+      "local": "kadambi-falls.jpg",
+      "place": "Kadambi Falls",
+      "file": "Kadambi Falls (Flickr 3942940845)",
+      "artist": "Nikhil Verma",
+      "license": "CC BY-SA 2.0",
+      "url": "https://www.flickr.com/photos/51989840@N00/3942940845"
+    },
+    {
+      "local": "ballalarayana-durga.jpg",
+      "place": "Ballalarayana Durga fort",
+      "file": "The Ballalarayana Durga (fort) (Flickr 20405609968)",
+      "artist": "bikashdas",
+      "license": "CC BY 2.0",
+      "url": "https://www.flickr.com/photos/13508369@N07/20405609968"
+    },
+    {
+      "local": "bhadra-river.jpg",
+      "place": "Bhadra River",
+      "file": "Bhadra river.jpg",
+      "artist": "Kgpramod2",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Bhadra_river.jpg"
+    },
+    {
+      "local": "kavikal-gandi.jpg",
+      "place": "Attigundi road (Kavikal Gandi approach)",
+      "file": "Attigundi Road (30428360504).jpg",
+      "artist": "Dinesh Valke",
+      "license": "CC BY-SA 2.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Attigundi_Road_(30428360504).jpg"
+    },
+    {
+      "local": "koppa-hills.jpg",
+      "place": "Tea estate near Koppa",
+      "file": "Koppachikmagalur.jpg",
+      "artist": "Irrigator",
+      "license": "CC BY-SA 3.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Koppachikmagalur.jpg"
+    },
+    {
+      "local": "balehonnur.jpg",
+      "place": "Country between Sringeri and Balehonnur",
+      "file": "Tea plantation between Sringeri and Balehonnur.jpg",
+      "artist": "b sarangi",
+      "license": "CC BY 2.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Tea_plantation_between_Sringeri_and_Balehonnur.jpg"
+    },
+    {
+      "local": "samse.jpg",
+      "place": "Samse tea estate",
+      "file": "Samse tea estate.jpg",
+      "artist": "Prof tpms",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Samse_tea_estate.jpg"
+    },
+    {
+      "local": "coffee-museum.jpg",
+      "place": "Coffee estate, Chikkamagaluru (museum country)",
+      "file": "Chikmagalur Coffee Estate (8322311510).jpg",
+      "artist": "Ashwin Kumar",
+      "license": "CC BY-SA 2.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Chikmagalur_Coffee_Estate_(8322311510).jpg"
+    },
+    {
+      "local": "kigga.jpg",
+      "place": "Narasimha Parvatha above Kigga",
+      "file": "Peak pole Narasimha Parvatha Kigga.jpg",
+      "artist": "Nithin.c.s",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Peak_pole_Narasimha_Parvatha_Kigga.jpg"
+    },
+    {
+      "local": "simhanagadde.jpg",
+      "place": "Bhadra riverside, Chikkamagaluru (N.R. Pura country)",
+      "file": "Bhadra riverside.jpg",
+      "artist": "Kgpramod2",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Bhadra_riverside.jpg"
     }
   ],
   "featured": [
