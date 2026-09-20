@@ -14,6 +14,7 @@ PAGES = [
     ("nature.html", "nature", "Nature — Chikkamagaluru"),
     ("stay.html", "stay", "Hill air — Chikkamagaluru"),
     ("heritage.html", "heritage", "Heritage — Chikkamagaluru"),
+    ("tourism.html", "tourism", "Tourism figures — Chikkamagaluru"),
     ("plan.html", "plan", "Plan a trip — Chikkamagaluru"),
     ("visit.html", "visit", "Visitor information — Chikkamagaluru"),
 ]
@@ -90,14 +91,14 @@ TEMPLATE = """<!DOCTYPE html>
       <p class="wrap noscript">This companion needs JavaScript for the map, itinerary and search.</p>
     </noscript>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-    <script src="data.js?v=sage16"></script>
+    <script src="data.js?v=sage17"></script>
     <script src="statistics.js?v=sage1"></script>
-    <script src="numbers.js?v=sage3"></script>
-    <script src="sections.js?v=sage19"></script>
+    <script src="numbers.js?v=sage4"></script>
+    <script src="sections.js?v=sage20"></script>
     <script src="map.js?v=sage6"></script>
     <script src="carousel.js?v=sage6"></script>
     <script src="drift-wall.js?v=sage6"></script>
-    <script src="app.js?v=sage18"></script>
+    <script src="app.js?v=sage19"></script>
   </body>
 </html>
 """

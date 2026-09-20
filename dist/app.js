@@ -82,7 +82,7 @@
       const pageKey =
         PAGE === "coffee"
           ? "stories"
-          : PAGE === "food" || PAGE === "nature" || PAGE === "stay" || PAGE === "heritage"
+          : PAGE === "food" || PAGE === "nature" || PAGE === "stay" || PAGE === "heritage" || PAGE === "tourism"
             ? "explore"
             : PAGE === "taluk"
               ? "map"

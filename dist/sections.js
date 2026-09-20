@@ -605,7 +605,7 @@
       ["nature", "nature.html", "Nature", "ಪ್ರಕೃತಿ"],
       ["stay", "stay.html", "Stays", "ಗಿರಿಧಾಮ"],
       ["heritage", "heritage.html", "Heritage", "ಪರಂಪರೆ"],
-      ["tourism", "index.html#chikkamagaluru-in-numbers", "Tourism", "ಪ್ರವಾಸೋದ್ಯಮ"],
+      ["tourism", "tourism.html", "Tourism", "ಪ್ರವಾಸೋದ್ಯಮ"],
     ];
     const links = items
       .map(([id, href, en, kn]) => {
@@ -703,7 +703,7 @@
           <p class="kicker explore-kicker">Welcome</p>
           <h2 id="explore-title">Explore Chikkamagaluru</h2>
           <p class="explore-wave" aria-hidden="true">∿</p>
-          <p class="section-lead explore-lead">Food, nature, hill air, heritage — and the published count. Five ways into a district companion. No rooms, no restaurants, no tickets.</p>
+          <p class="section-lead explore-lead">Food, nature, hill air, heritage and tourism — five ways into a district companion. No rooms, no restaurants, no tickets.</p>
         </div>
         <div class="explore-rail-wrap">
           <button class="explore-nav" type="button" data-explore-prev aria-label="Previous explore card">‹</button>
@@ -712,7 +712,6 @@
           </div>
           <button class="explore-nav" type="button" data-explore-next aria-label="Next explore card">›</button>
         </div>
-        ${typeof global.CKMNumbers === "object" && global.CKMNumbers.numbersSectionHtml ? global.CKMNumbers.numbersSectionHtml() : ""}
       </section>
       <section class="places-drift-band" aria-labelledby="places-drift-title">
         <div class="wrap places-drift-intro">
@@ -1497,6 +1496,22 @@
       ${footer(f)}`;
   }
 
+  function renderTourismPage(lang) {
+    const f = fragments(lang);
+    const stats = typeof global.CKMNumbers === "object" && global.CKMNumbers.numbersSectionHtml ? global.CKMNumbers.numbersSectionHtml("page") : "";
+    return `
+      <section class="page-hero">
+        <div class="wrap">
+          <p class="kicker">Explore · Tourism</p>
+          <h1>How the hills were counted</h1>
+          <p class="section-lead">Published destination entries for 2024 and 2025, set beside the places this companion actually documents. These are historical records, not a live gate.</p>
+          ${exploreHubNav("tourism", lang)}
+        </div>
+      </section>
+      ${stats}
+      ${footer(f)}`;
+  }
+
   function renderPage(page, lang) {
     const pages = {
       home: renderHome,
@@ -1510,6 +1525,7 @@
       nature: renderNaturePage,
       heritage: renderHeritagePage,
       stay: renderStayPage,
+      tourism: renderTourismPage,
       plan: renderPlanPage,
       visit: renderVisitPage,
     };

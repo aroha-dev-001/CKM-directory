@@ -3851,8 +3851,8 @@ window.CKM = {
     },
     {
       "id": "tourism",
-      "href": "index.html#chikkamagaluru-in-numbers",
-      "image": "assets/kemmanagundi.jpg",
+      "href": "tourism.html",
+      "image": "assets/mullayanagiri.jpg",
       "label": "Tourism",
       "labelKn": "ಪ್ರವಾಸೋದ್ಯಮ",
       "title": "How the hills were counted",

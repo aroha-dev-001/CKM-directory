@@ -144,7 +144,7 @@
       <a class="btn btn-line" href="taluk.html?id=${esc(m.taluk.id)}">Explore ${esc(m.taluk.listName || m.taluk.name)}</a>`;
   }
 
-  function numbersSectionHtml() {
+    function numbersSectionHtml(mode) {
     const S = global.CKMStatistics;
     const totals = S.districtTotals();
     const months = S.MONTHS.map(
@@ -157,9 +157,19 @@
         return `<button type="button" class="num-taluk-btn" data-numbers-taluk="${esc(taluk.id)}" aria-pressed="${i === 0 ? "true" : "false"}">${esc(taluk.listName || taluk.name)}</button>`;
       })
       .join("");
-    return `
-      <section class="num-section" id="chikkamagaluru-in-numbers" aria-labelledby="num-title">
-        <div class="wrap">
+    const intro =
+      mode === "page"
+        ? `<div class="wrap">
+          <p class="num-tooltip-line">
+            <button type="button" class="num-info" data-num-info aria-expanded="false" aria-controls="num-info-panel">About these visits</button>
+          </p>
+          <div class="num-info-panel" id="num-info-panel" hidden>
+            <p>Recorded visits are destination entries, not necessarily unique travellers.</p>
+          </div>
+          ${metricCardsHtml()}
+          <p class="num-district-note">District totals are the published district figures (${esc(S.formatIndian(totals.y24.visits))} in 2024; ${esc(S.formatIndian(totals.y25.visits))} in 2025). The five destination rows below do not add up to those totals — other locations are included in the district count.</p>
+        </div>`
+        : `<div class="wrap">
           <p class="kicker">Tourism</p>
           <h2 id="num-title">How the hills were counted.</h2>
           <p class="section-lead">Published destination entries for 2024 and 2025, set beside the places this companion actually documents. These are historical records, not a live gate.</p>
@@ -171,7 +181,10 @@
           </div>
           ${metricCardsHtml()}
           <p class="num-district-note">District totals are the published district figures (${esc(S.formatIndian(totals.y24.visits))} in 2024; ${esc(S.formatIndian(totals.y25.visits))} in 2025). The five destination rows below do not add up to those totals — other locations are included in the district count.</p>
-        </div>
+        </div>`;
+    return `
+      <section class="num-section" id="chikkamagaluru-in-numbers" aria-label="Tourism statistics">
+        ${intro}
 
         <div class="wrap num-block">
           <p class="kicker">Visitor patterns</p>
@@ -210,8 +223,8 @@
         <div class="wrap num-block">
           <p class="kicker">Explore the district</p>
           <h3>Nine current taluks, one map.</h3>
-          <p class="section-lead">Catalogue counts below are from this guide’s published places. The choropleth on this homepage is the same district map — it is not drawn twice. Kalasa and Ajjampura were carved from Mudigere and Tarikere after older maps; the OSM boundaries used here are the current nine taluks, not a historical grouping.</p>
-          <p><a class="text-link t-learn" href="#explore-district">Jump to the district map</a></p>
+          <p class="section-lead">Catalogue counts below are from this guide’s published places. The nine-taluk choropleth lives on the homepage and the map page — it is not drawn twice here. Kalasa and Ajjampura were carved from Mudigere and Tarikere after older maps; the OSM boundaries used there are the current nine taluks, not a historical grouping.</p>
+          <p><a class="text-link t-learn" href="map.html">Open the district map</a></p>
           <div class="num-taluk-layout">
             <div class="num-taluk-list" role="group" aria-label="Taluks">${talukBtns}</div>
             <div class="num-taluk-panel" data-taluk-panel>${talukPanelHtml("chikkamagaluru")}</div>
