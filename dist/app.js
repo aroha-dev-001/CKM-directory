@@ -251,6 +251,14 @@
     }
   }
 
+  function placeCoffeeAfterWall() {
+    if (PAGE !== "home") return;
+    const wall = document.querySelector(".places-drift-band");
+    const coffee = document.getElementById("coffee-origin");
+    if (!wall || !coffee) return;
+    if (wall.nextElementSibling !== coffee) wall.after(coffee);
+  }
+
   function initExploreAccordion() {
     if (PAGE !== "home" || !window.CKMAccordionGallery) return;
     const el = document.querySelector("[data-explore-accordion]");
@@ -1279,6 +1287,7 @@
     initMotion();
     initPopularGallery();
     initHomeDrift();
+    placeCoffeeAfterWall();
     initExploreAccordion();
     initNumbers();
     filterPopular();

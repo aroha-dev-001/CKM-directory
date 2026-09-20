@@ -826,9 +826,13 @@ a.food-card-link:hover {
 }
 
 .coffee-origin--home {
+  position: relative;
+  z-index: 6;
   background: var(--ivory);
-  padding: clamp(2.6rem, 6vw, 4.4rem) 0;
+  padding: clamp(2.8rem, 6vw, 4.6rem) 0;
+  margin: 0;
   border-top: 1px solid var(--line);
+  scroll-margin-top: calc(var(--header) + 1rem);
 }
 
 .coffee-origin--home .story-entry-card {
@@ -4403,9 +4407,11 @@ body[data-page="coffee"] .origin-chapter p {
   border-color: var(--ink);
 }
 .places-drift-band {
+  position: relative;
+  z-index: 1;
   background: var(--cream);
-  padding: 0 0 2.8rem;
-  overflow: clip;
+  padding: 0 0 1.4rem;
+  isolation: isolate;
 }
 .places-drift-intro {
   padding-bottom: 0.6rem;
@@ -4417,6 +4423,8 @@ body[data-page="coffee"] .origin-chapter p {
   max-width: none;
   width: 100%;
   overflow: hidden;
+  isolation: isolate;
+  contain: paint;
 }
 @media (max-width: 720px) {
   .places-drift-stage {

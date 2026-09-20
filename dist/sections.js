@@ -37,7 +37,7 @@
   function coffeeOriginCard(f) {
     const origin = f.origin || {};
     return `
-      <section class="coffee-origin coffee-origin--home reveal-on-scroll" id="coffee-origin" aria-labelledby="origin-title">
+      <section class="coffee-origin coffee-origin--home" id="coffee-origin" aria-labelledby="origin-title">
         <div class="wrap">
           <a class="story-entry-card tilt-card shine-card" href="coffee.html" data-tilt>
             <span class="media">
