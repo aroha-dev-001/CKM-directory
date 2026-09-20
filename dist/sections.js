@@ -626,7 +626,32 @@
                 <dd>1,930 m</dd>
               </div>
             </dl>
-            <a class="hero-scroll" href="#district-pulse">Scroll into the district</a>
+            <a class="hero-scroll" href="#explore-district">Scroll into the district</a>
+          </div>
+        </div>
+      </section>
+      <section class="district-explorer-section" id="explore-district">
+        <div class="wrap wrap-wide">
+          <div class="district-explorer">
+            <div class="district-copy">
+              <p class="kicker">Explore the district</p>
+              <h2>Nine taluks, endless experiences.</h2>
+              <p class="section-lead">From Mullayanagiri’s cloud line to the temples of Sringeri and the tiger forests of Bhadra — Chikkamagaluru is a district of contrasts. Explore by taluk to see what awaits you.</p>
+              <a class="btn btn-dark shine t-learn" data-map-cta href="map.html" data-magnetic>${learn("View district map")}</a>
+            </div>
+            <div class="district-map-stage">
+              <div class="choropleth" id="district-svg" data-map-root data-map-mode="home"></div>
+              <span class="map-north" aria-hidden="true"><small>N</small><i></i></span>
+            </div>
+            <aside class="district-index">
+              <div class="district-index-head">
+                <span>The district</span>
+                <span>${f.d.destinations.length} places</span>
+              </div>
+              <ul class="taluk-index" id="taluk-index">${f.talukIndex}</ul>
+              <p class="taluk-summary" id="taluk-summary">Click a taluk to open its places.</p>
+              <p class="taluk-footnote">Kalasa and Ajjampura were carved out of Mudigere and Tarikere after older maps were drawn. Each is shown here with its current OSM boundary.</p>
+            </aside>
           </div>
         </div>
       </section>
@@ -742,31 +767,6 @@
             <a class="text-link t-learn" href="plan.html">${learn("Open the planner")}</a>
           </div>
           <div class="home-circuit-grid reveal-stagger">${f.homeCircuits}</div>
-        </div>
-      </section>
-      <section class="district-explorer-section" id="explore-district">
-        <div class="wrap wrap-wide">
-          <div class="district-explorer">
-            <div class="district-copy">
-              <p class="kicker">Explore the district</p>
-              <h2>Nine taluks, endless experiences.</h2>
-              <p class="section-lead">From Mullayanagiri’s cloud line to the temples of Sringeri and the tiger forests of Bhadra — Chikkamagaluru is a district of contrasts. Explore by taluk to see what awaits you.</p>
-              <a class="btn btn-dark shine t-learn" data-map-cta href="map.html" data-magnetic>${learn("View district map")}</a>
-            </div>
-            <div class="district-map-stage">
-              <div class="choropleth" id="district-svg" data-map-root data-map-mode="home"></div>
-              <span class="map-north" aria-hidden="true"><small>N</small><i></i></span>
-            </div>
-            <aside class="district-index">
-              <div class="district-index-head">
-                <span>The district</span>
-                <span>${f.d.destinations.length} places</span>
-              </div>
-              <ul class="taluk-index" id="taluk-index">${f.talukIndex}</ul>
-              <p class="taluk-summary" id="taluk-summary">Click a taluk to open its places.</p>
-              <p class="taluk-footnote">Kalasa and Ajjampura were carved out of Mudigere and Tarikere after older maps were drawn. Each is shown here with its current OSM boundary.</p>
-            </aside>
-          </div>
         </div>
       </section>
       <section class="section reveal-on-scroll" id="home-gallery">
