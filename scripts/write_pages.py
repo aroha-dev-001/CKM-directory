@@ -11,6 +11,9 @@ PAGES = [
     ("stories.html", "stories", "Coffee, culture and seasons — Chikkamagaluru"),
     ("coffee.html", "coffee", "Seven seeds from Mocha — Chikkamagaluru"),
     ("food.html", "food", "Malnad kitchen — Chikkamagaluru"),
+    ("nature.html", "nature", "Nature — Chikkamagaluru"),
+    ("stay.html", "stay", "Hill air — Chikkamagaluru"),
+    ("heritage.html", "heritage", "Heritage — Chikkamagaluru"),
     ("plan.html", "plan", "Plan a trip — Chikkamagaluru"),
     ("visit.html", "visit", "Visitor information — Chikkamagaluru"),
 ]
@@ -33,7 +36,7 @@ TEMPLATE = """<!DOCTYPE html>
       href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;700&family=Outfit:wght@400&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css?v=sage12" />
+    <link rel="stylesheet" href="style.css?v=sage13" />
     <link rel="stylesheet" href="carousel.css?v=sage6" />
   </head>
   <body data-page="{page}">
@@ -50,6 +53,7 @@ TEMPLATE = """<!DOCTYPE html>
         </button>
         <nav class="site-nav" id="site-nav" aria-label="Primary">
           <a href="index.html" data-nav="home" data-i18n="nav_home">Home</a>
+          <a href="index.html#explore-chikmagaluru" data-nav="explore" data-i18n="nav_explore">Explore</a>
           <a href="places.html" data-nav="places" data-i18n="nav_places">Places</a>
           <a href="popular.html" data-nav="popular" data-i18n="nav_popular">Popular</a>
           <a href="map.html" data-nav="map" data-i18n="nav_map">Map</a>
@@ -85,11 +89,11 @@ TEMPLATE = """<!DOCTYPE html>
       <p class="wrap noscript">This companion needs JavaScript for the map, itinerary and search.</p>
     </noscript>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-    <script src="data.js?v=sage13"></script>
-    <script src="sections.js?v=sage12"></script>
+    <script src="data.js?v=sage14"></script>
+    <script src="sections.js?v=sage13"></script>
     <script src="map.js?v=sage6"></script>
     <script src="carousel.js?v=sage6"></script>
-    <script src="app.js?v=sage11"></script>
+    <script src="app.js?v=sage12"></script>
   </body>
 </html>
 """

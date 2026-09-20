@@ -2860,7 +2860,8 @@ window.CKM = {
       "nav_interest": "Explore",
       "nav_home": "Home",
       "nav_visit": "Visit",
-      "nav_popular": "Popular"
+      "nav_popular": "Popular",
+      "nav_explore": "Explore"
     },
     "kn": {
       "skip": "ಮುಖ್ಯ ವಿಷಯಕ್ಕೆ ಹೋಗಿ",
@@ -2906,7 +2907,8 @@ window.CKM = {
       "nav_interest": "ಅನ್ವೇಷಿಸಿ",
       "nav_home": "ಮುಖಪುಟ",
       "nav_visit": "ಭೇಟಿ",
-      "nav_popular": "ಜನಪ್ರಿಯ"
+      "nav_popular": "ಜನಪ್ರಿಯ",
+      "nav_explore": "ಅನ್ವೇಷಿಸಿ"
     }
   },
   "highlights": [
@@ -3800,6 +3802,52 @@ window.CKM = {
       "district": "Hassan district",
       "blurb": "A reservoir some 2-day blogs list with Chikkamagaluru water-sports. It sits outside this district. Any boat desk is local and not sold here.",
       "url": "https://karnatakatourism.org/"
+    }
+  ],
+  "explore": [
+    {
+      "id": "food",
+      "href": "food.html",
+      "image": "assets/food-akki-rotti.jpg",
+      "label": "Food",
+      "labelKn": "ಆಹಾರ",
+      "title": "Rice, leaf, and a cup from the hill",
+      "titleKn": "ಅಕ್ಕಿ, ಎಲೆ, ಬೆಟ್ಟದ ಕಾಫಿ",
+      "lede": "Akki rotti, pathrode, kadubu, neer dosa, jackfruit chips and filter coffee — kitchen tradition, not a restaurant list.",
+      "ledeKn": "ಮಲೆನಾಡಿನ ಅಡುಗೆ: ಅಕ್ಕಿ ರೊಟ್ಟಿ, ಪಥ್ರೋಡೆ, ಕಡುಬು, ನೀರ್ ದೋಸೆ. ಉಪಾಹಾರ ಮನೆ ಪಟ್ಟಿಯಲ್ಲ."
+    },
+    {
+      "id": "nature",
+      "href": "nature.html",
+      "image": "assets/kudremukh-np.jpg",
+      "label": "Nature",
+      "labelKn": "ಪ್ರಕೃತಿ",
+      "title": "Ridges, water, and a living forest",
+      "titleKn": "ಶಿಖರ, ಜಲಪಾತ, ಅರಣ್ಯ",
+      "lede": "From Mullayanagiri’s cloud line to Hebbe and the permitted walks of Kudremukh and Bhadra.",
+      "ledeKn": "ಮುಳ್ಳಯ್ಯನಗಿರಿಯಿಂದ ಹೆಬ್ಬೆ, ಕುದುರೆಮುಖ ಮತ್ತು ಭದ್ರಾ ಅರಣ್ಯದವರೆಗೆ."
+    },
+    {
+      "id": "stay",
+      "href": "stay.html",
+      "image": "assets/kemmanagundi.jpg",
+      "label": "Stays",
+      "labelKn": "ಗಿರಿಧಾಮ",
+      "title": "Hill air, not a room list",
+      "titleKn": "ಗಿರಿಧಾಮದ ಗಾಳಿ — ಕೊಠಡಿ ಪಟ್ಟಿಯಲ್ಲ",
+      "lede": "Kemmanagundi’s garden hills, visitor notes, and a private trip sketch. This companion does not sell a room.",
+      "ledeKn": "ಕೆಮ್ಮಣ್ಣುಗುಂಡಿ, ಭೇಟಿ ಟಿಪ್ಪಣಿ, ಖಾಸಗಿ ಯೋಜನೆ. ಈ ತಾಣ ಕೊಠಡಿ ಮಾರಾಟ ಮಾಡುವುದಿಲ್ಲ."
+    },
+    {
+      "id": "heritage",
+      "href": "heritage.html",
+      "image": "assets/sringeri.jpg",
+      "label": "Heritage",
+      "labelKn": "ಪರಂಪರೆ",
+      "title": "Stone, matha, and seven Mocha seeds",
+      "titleKn": "ಶಿಲ್ಪ, ಮಠ, ಏಳು ಕಾಫಿ ಬೀಜ",
+      "lede": "Hoysala east, living shrines on the Tunga, and the coffee story the district still tells.",
+      "ledeKn": "ಹೊಯ್ಸಳ ಶಿಲ್ಪ, ತುಂಗಾ ತಟದ ಮಠಗಳು, ಜಿಲ್ಲೆಯ ಕಾಫಿ ಕಥೆ."
     }
   ]
 };

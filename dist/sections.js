@@ -384,6 +384,26 @@
         </figure>`
       )
       .join("");
+    const exploreCards = (d.explore || [])
+      .map((item, i) => {
+        const title = lang === "kn" ? item.titleKn || item.title : item.title;
+        const lede = lang === "kn" ? item.ledeKn || item.lede : item.lede;
+        const label = lang === "kn" ? item.labelKn || item.label : item.label;
+        return `
+        <a class="explore-card${i === 0 ? " explore-card--lead" : ""}" href="${esc(item.href)}">
+          <span class="explore-card-media">
+            <img src="${esc(item.image)}" alt="${esc(title)}" width="1800" height="1200" />
+          </span>
+          <span class="explore-card-scrim" aria-hidden="true"></span>
+          <span class="explore-card-copy">
+            <span class="explore-card-label">${esc(label)}</span>
+            <h3>${esc(title)}</h3>
+            <p>${esc(lede)}</p>
+            <span class="explore-more">${lang === "kn" ? "ಇನ್ನಷ್ಟು ನೋಡಿ" : "View more"} <span aria-hidden="true">→</span></span>
+          </span>
+        </a>`;
+      })
+      .join("");
     const fieldNotes = (d.guide?.cards || [])
       .slice(0, 3)
       .map((c) => `<article class="guide-card"><h3>${esc(c.title)}</h3><p>${esc(c.text)}</p></article>`)
@@ -512,11 +532,12 @@
       talukIndex, placeJump, official: d.official, tickerItems, seasonCards, whyCards,
       origin, originChapters, originSources,
       foodCards, galleryNum, homeCircuits, homeGallery, fieldNotes, popularCards, popularCarousel,
+      exploreCards,
     };
   }
 
-  function renderPlaceSections(lang, list) {
-    const cats = global.CKM.categories.filter((c) => c.id !== "all");
+  function renderPlaceSections(lang, list, catIds) {
+    const cats = global.CKM.categories.filter((c) => c.id !== "all" && (!catIds || catIds.includes(c.id)));
     return cats
       .map((cat) => {
         const items = list.filter((p) => p.category === cat.id);
@@ -561,6 +582,11 @@
             <div>
               <h2 class="kicker">Pages</h2>
               <ul>
+                <li><a href="index.html#explore-chikmagaluru">Explore</a></li>
+                <li><a href="food.html">Food</a></li>
+                <li><a href="nature.html">Nature</a></li>
+                <li><a href="stay.html">Hill air</a></li>
+                <li><a href="heritage.html">Heritage</a></li>
                 <li><a href="places.html">Places</a></li>
                 <li><a href="map.html">District map</a></li>
                 <li><a href="plan.html">Plan</a></li>
@@ -571,6 +597,22 @@
           <p class="fineprint">Independent static companion. Source links remain the authority for access, fees, permits and announcements. Map boundaries © OpenStreetMap contributors (ODbL).</p>
         </div>
       </footer>`;
+  }
+
+  function exploreHubNav(active, lang) {
+    const items = [
+      ["food", "food.html", "Food", "ಆಹಾರ"],
+      ["nature", "nature.html", "Nature", "ಪ್ರಕೃತಿ"],
+      ["stay", "stay.html", "Stays", "ಗಿರಿಧಾಮ"],
+      ["heritage", "heritage.html", "Heritage", "ಪರಂಪರೆ"],
+    ];
+    const links = items
+      .map(([id, href, en, kn]) => {
+        const on = id === active;
+        return `<a href="${href}"${on ? ' aria-current="page" class="is-active"' : ""}>${lang === "kn" ? kn : en}</a>`;
+      })
+      .join("");
+    return `<nav class="explore-hub-nav" aria-label="Explore Chikkamagaluru">${links}</nav>`;
   }
 
   function renderHome(lang) {
@@ -595,7 +637,7 @@
               <a class="btn btn-light shine t-learn" href="places.html" data-magnetic>${learn("Explore all places")}</a>
               <a class="btn btn-ghost" href="map.html">Open the district map</a>
               <a class="btn btn-ghost" href="popular.html">Popular places</a>
-              <a class="btn btn-ghost" href="#malnad-foods">Malnad kitchen</a>
+              <a class="btn btn-ghost" href="#explore-chikmagaluru">Explore Chikkamagaluru</a>
             </div>
             <dl class="hero-stats">
               <div>
@@ -654,6 +696,21 @@
           <div class="name-ticker-set">${f.tickerItems}</div>
         </div>
       </div>
+      <section class="explore-section reveal-on-scroll" id="explore-chikmagaluru" aria-labelledby="explore-title">
+        <div class="wrap">
+          <p class="kicker explore-kicker">Welcome</p>
+          <h2 id="explore-title">Explore Chikkamagaluru</h2>
+          <p class="explore-wave" aria-hidden="true">∿</p>
+          <p class="section-lead explore-lead">Food, nature, hill air and heritage — four ways into a district companion. No rooms, no restaurants, no tickets.</p>
+        </div>
+        <div class="explore-rail-wrap">
+          <button class="explore-nav" type="button" data-explore-prev aria-label="Previous explore card">‹</button>
+          <div class="explore-rail" data-explore-rail tabindex="0" aria-label="Explore Chikkamagaluru">
+            ${f.exploreCards}
+          </div>
+          <button class="explore-nav" type="button" data-explore-next aria-label="Next explore card">›</button>
+        </div>
+      </section>
       <section class="section pop-section reveal-on-scroll" id="popular-places">
         <div class="wrap">
           <div class="section-head">
@@ -668,105 +725,6 @@
             </div>
             <div class="pop-depth-note" data-pop-depth-note></div>
           </div>
-        </div>
-      </section>
-      <section class="coffee-origin reveal-on-scroll" id="coffee-origin" aria-labelledby="origin-title">
-        <div class="wrap">
-          <a class="story-entry-card tilt-card shine-card" href="coffee.html" data-tilt>
-            <span class="media">
-              <img src="${esc(f.origin.saint?.image || f.origin.image)}" alt="${esc(f.origin.saint?.caption || f.origin.title)}" width="1800" height="1200" />
-            </span>
-            <span class="story-entry-copy">
-              <span class="kicker">${esc(f.origin.kicker)}</span>
-              <h2 id="origin-title">${esc(f.origin.title)}</h2>
-              <p>${esc(f.origin.lede)}</p>
-              <span class="text-link t-learn">${learn("Read the full story")}</span>
-            </span>
-          </a>
-        </div>
-      </section>
-      <section class="section food-section reveal-on-scroll" id="malnad-foods" aria-labelledby="home-foods-title">
-        <div class="wrap">
-          <div class="section-head-row">
-            <div class="section-head">
-              <p class="kicker">Malnad kitchen</p>
-              <h2 id="home-foods-title">Rice, leaf, and a cup from the hill.</h2>
-              <p class="section-lead">Popular dishes the ghats still cook — akki rotti, pathrode, kotte kadubu, neer dosa, jackfruit chips, and filter coffee. Open a card for the full origin story. Photographs are companion stills, not a restaurant list, and this page does not sell a meal.</p>
-            </div>
-            <a class="text-link t-learn" href="food.html">${learn("Kitchen stories")}</a>
-          </div>
-          <div class="pop-grid food-grid reveal-stagger">${f.foodCards}</div>
-        </div>
-      </section>
-      <section class="section why-section reveal-on-scroll">
-        <div class="wrap">
-          <div class="section-head-row">
-            <div class="section-head">
-              <p class="kicker">Why this district</p>
-              <h2>Coffee, stone, and a living forest.</h2>
-              <p class="section-lead">Three ways of reading Chikkamagaluru before you pick a road: the working shade of arabica, Hoysala and Malnad pilgrimage, and a Western Ghats hotspot that is not a backdrop.</p>
-            </div>
-            <a class="text-link t-learn" href="stories.html">${learn("All stories")}</a>
-          </div>
-          <div class="why-grid reveal-stagger">${f.whyCards}</div>
-        </div>
-      </section>
-      <section class="section reveal-on-scroll" style="padding-top:0" id="seasons-home">
-        <div class="wrap">
-          <div class="section-head-row">
-            <div class="section-head">
-              <p class="kicker">${esc(f.tx("nav_seasons"))}</p>
-              <h2>Four weathers, four districts.</h2>
-              <p class="section-lead">Clear ridges in winter, thinner falls by summer, a monsoon that turns the ghats to water, and an October still dripping green. Come for the season you can actually walk.</p>
-            </div>
-            <a class="text-link t-learn" href="stories.html#seasons">${learn("Season notes")}</a>
-          </div>
-          <div class="season-card-grid reveal-stagger">${f.seasonCards}</div>
-        </div>
-      </section>
-      <section class="section interest-section reveal-on-scroll" id="explore">
-        <div class="wrap">
-          <div class="section-head-row">
-            <div class="section-head">
-              <p class="kicker">Browse by interest</p>
-              <h2>What do you love?</h2>
-              <p class="section-lead">Peaks, water, stone and forest — the same kinds of country a tourism desk would point you toward, without a stay to sell. Cards rest three seconds, then the rail moves on.</p>
-            </div>
-            <div class="interest-controls">
-              <button class="interest-nav" type="button" data-interest-prev aria-label="Previous kind of place">‹</button>
-              <button class="interest-nav" type="button" data-interest-next aria-label="Next kind of place">›</button>
-            </div>
-          </div>
-          <div class="interest-rail" data-interest-rail tabindex="0" aria-label="Kinds of place">
-            <div class="interest-track">${f.interests}</div>
-          </div>
-          <div class="interest-dots" data-interest-dots role="tablist" aria-label="Interest cards"></div>
-        </div>
-      </section>
-      <section class="section circuits-home reveal-on-scroll">
-        <div class="wrap">
-          <div class="section-head-row">
-            <div class="section-head">
-              <p class="kicker">Trip sketches</p>
-              <h2>Three ways through the hills.</h2>
-              <p class="section-lead">Coffee ridges, temple terraces, and permit country. Load a sketch into a private notebook in this browser — no account, no payment.</p>
-            </div>
-            <a class="text-link t-learn" href="plan.html">${learn("Open the planner")}</a>
-          </div>
-          <div class="home-circuit-grid reveal-stagger">${f.homeCircuits}</div>
-        </div>
-      </section>
-      <section class="section reveal-on-scroll" id="home-gallery">
-        <div class="wrap">
-          <div class="section-head-row">
-            <div class="section-head">
-              <p class="kicker">Field photographs</p>
-              <h2>A quieter look.</h2>
-              <p class="section-lead">Ridges, shade coffee, falling water and the Tunga terrace — stills from people who walked here, credited on the visit page.</p>
-            </div>
-            <a class="text-link t-learn" href="stories.html#gallery">${learn("Full gallery")}</a>
-          </div>
-          <div class="home-gallery reveal-stagger">${f.homeGallery}</div>
         </div>
       </section>
       <section class="section close-band reveal-on-scroll">
@@ -1224,7 +1182,7 @@
           <p class="kicker">${esc(origin.kicker || "How coffee reached these hills")}</p>
           <h1>${esc(origin.title || "Seven seeds from Mocha")}</h1>
           <p class="section-lead">${esc(origin.lede || "")}</p>
-          <p><a class="text-link t-learn" href="index.html#coffee-origin">${learn("Back to the homepage card")}</a></p>
+          <p><a class="text-link t-learn" href="heritage.html">${learn("Back to heritage")}</a></p>
         </div>
       </section>
       <section class="story-longread coffee-longread">
@@ -1246,8 +1204,31 @@
     const f = fragments(lang);
     const foods = f.d.malnadFoods || [];
     const id = new URLSearchParams(location.search).get("id");
+    const foodStory = (f.d.stories || []).find((s) => s.id === "food");
+    if (!id) {
+      return `
+      <section class="page-hero">
+        <div class="wrap">
+          <p class="kicker">Explore · Food</p>
+          <h1>Rice, leaf, and a cup from the hill</h1>
+          <p class="section-lead">${esc(foodStory?.paragraphs?.[0] || "Malnad cooking is rice-first. This page does not sell a meal.")}</p>
+          ${exploreHubNav("food", lang)}
+        </div>
+      </section>
+      <section class="section food-section" id="malnad-foods" aria-labelledby="foods-hub-title" style="padding-top:0">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="kicker">Malnad kitchen</p>
+            <h2 id="foods-hub-title">Open a plate for the origin story.</h2>
+            <p class="section-lead">Photographs are companion stills, not a restaurant list.</p>
+          </div>
+          <div class="pop-grid food-grid">${f.foodCards}</div>
+        </div>
+      </section>
+      ${footer(f)}`;
+    }
     const found = foods.find((item) => item.id === id);
-    const dish = found || (!id && foods[0]);
+    const dish = found;
     if (!dish) {
       return `
         <section class="page-hero">
@@ -1255,7 +1236,7 @@
             <p class="kicker">Malnad kitchen</p>
             <h1>No dish listed yet</h1>
             <p class="section-lead">This companion does not yet hold that plate.</p>
-            <p><a class="text-link t-learn" href="index.html#malnad-foods">${learn("Back to the kitchen")}</a></p>
+            <p><a class="text-link t-learn" href="food.html">${learn("Back to the kitchen")}</a></p>
           </div>
         </section>
         ${footer(f)}`;
@@ -1283,7 +1264,7 @@
           <p class="kicker">${esc(dish.kicker)}</p>
           <h1>${esc(dish.name)}</h1>
           <p class="hero-kn" lang="kn">${esc(dish.kannada)}</p>
-          <p><a class="text-link t-learn" href="index.html#malnad-foods">${learn("All Malnad dishes")}</a></p>
+          <p><a class="text-link t-learn" href="food.html">${learn("All Malnad dishes")}</a></p>
         </div>
       </section>
       <section class="story-longread">
@@ -1311,6 +1292,198 @@
       ${footer(f)}`;
   }
 
+  function renderNaturePage(lang) {
+    const f = fragments(lang);
+    const natureCats = ["waterfalls", "lakes", "dams", "peaks", "viewpoints", "treks", "wildlife"];
+    const responsible = (f.d.stories || []).find((s) => s.id === "responsible");
+    return `
+      <section class="page-hero">
+        <div class="wrap">
+          <p class="kicker">Explore · Nature</p>
+          <h1>Ridges, water, and a living forest</h1>
+          <p class="section-lead">Peaks, falls, lakes and notified forests. Enter Kudremukh and Bhadra only with a permit. Nothing here is a live gate.</p>
+          ${exploreHubNav("nature", lang)}
+        </div>
+      </section>
+      <section class="section" id="seasons-home" style="padding-top:0">
+        <div class="wrap">
+          <div class="section-head-row">
+            <div class="section-head">
+              <p class="kicker">${esc(f.tx("nav_seasons"))}</p>
+              <h2>Four weathers, four districts.</h2>
+              <p class="section-lead">Come for the season you can actually walk.</p>
+            </div>
+            <a class="text-link t-learn" href="stories.html#seasons">${learn("Season notes")}</a>
+          </div>
+          <div class="season-card-grid">${f.seasonCards}</div>
+        </div>
+      </section>
+      <section class="section" style="padding-top:0">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="kicker">In the open</p>
+            <h2>Water, ridge, and forest.</h2>
+            <p class="section-lead">The outdoor catalogue from this companion — grouped the way you look for them.</p>
+          </div>
+          <div id="place-sections">${renderPlaceSections(lang, f.d.destinations, natureCats)}</div>
+          <p><a class="text-link t-learn" href="places.html">${learn("All places")}</a></p>
+        </div>
+      </section>
+      ${
+        responsible
+          ? `<section class="section" style="padding-top:0">
+        <div class="wrap">
+          <a class="story-entry-card tilt-card shine-card" href="stories.html#story-responsible" data-tilt>
+            <span class="media">
+              <img src="${esc(responsible.image)}" alt="${esc(responsible.title)}" width="1800" height="1200" />
+            </span>
+            <span class="story-entry-copy">
+              <span class="kicker">${esc(responsible.kicker)}</span>
+              <h2>${esc(responsible.title)}</h2>
+              <p>${esc(responsible.paragraphs[0])}</p>
+              <span class="text-link t-learn">${learn("Read on")}</span>
+            </span>
+          </a>
+        </div>
+      </section>`
+          : ""
+      }
+      <section class="section" id="home-gallery">
+        <div class="wrap">
+          <div class="section-head-row">
+            <div class="section-head">
+              <p class="kicker">Field photographs</p>
+              <h2>A quieter look.</h2>
+            </div>
+            <a class="text-link t-learn" href="stories.html#gallery">${learn("Full gallery")}</a>
+          </div>
+          <div class="home-gallery">${f.homeGallery}</div>
+        </div>
+      </section>
+      ${footer(f)}`;
+  }
+
+  function renderHeritagePage(lang) {
+    const f = fragments(lang);
+    const heritageCats = ["temples", "forts", "heritage"];
+    const cultureWhy = (f.d.stories || [])
+      .filter((s) => s.id === "culture" || s.id === "coffee")
+      .map((s) => {
+        const href = s.id === "coffee" ? "coffee.html" : `stories.html#story-${esc(s.id)}`;
+        const img = s.id === "coffee" && f.d.coffeeOrigin?.saint?.image ? f.d.coffeeOrigin.saint.image : s.image;
+        return `
+        <a class="why-card tilt-card shine-card" href="${href}" data-tilt>
+          <div class="media">
+            <img src="${esc(img)}" alt="${esc(s.title)}" width="1800" height="1200" loading="lazy" />
+          </div>
+          <span class="why-card-copy">
+            <span class="kicker">${esc(s.kicker)}</span>
+            <h3>${esc(s.title)}</h3>
+            <p>${esc(s.paragraphs[0])}</p>
+            <span class="text-link t-learn">${learn("Read on")}</span>
+          </span>
+        </a>`;
+      })
+      .join("");
+    return `
+      <section class="page-hero">
+        <div class="wrap">
+          <p class="kicker">Explore · Heritage</p>
+          <h1>Stone, matha, and seven Mocha seeds</h1>
+          <p class="section-lead">Hoysala east, living shrines on the Tunga, and the coffee story the district still tells.</p>
+          ${exploreHubNav("heritage", lang)}
+        </div>
+      </section>
+      <section class="coffee-origin" id="coffee-origin" aria-labelledby="origin-title">
+        <div class="wrap">
+          <a class="story-entry-card tilt-card shine-card" href="coffee.html" data-tilt>
+            <span class="media">
+              <img src="${esc(f.origin.saint?.image || f.origin.image)}" alt="${esc(f.origin.saint?.caption || f.origin.title)}" width="1800" height="1200" />
+            </span>
+            <span class="story-entry-copy">
+              <span class="kicker">${esc(f.origin.kicker)}</span>
+              <h2 id="origin-title">${esc(f.origin.title)}</h2>
+              <p>${esc(f.origin.lede)}</p>
+              <span class="text-link t-learn">${learn("Read the full story")}</span>
+            </span>
+          </a>
+        </div>
+      </section>
+      <section class="section why-section" style="padding-top:0">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="kicker">Why this district</p>
+            <h2>Coffee and stone.</h2>
+          </div>
+          <div class="why-grid">${cultureWhy}</div>
+        </div>
+      </section>
+      <section class="section" style="padding-top:0">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="kicker">Shrines and working country</p>
+            <h2>Temples, forts, coffee hills.</h2>
+          </div>
+          <div id="place-sections">${renderPlaceSections(lang, f.d.destinations, heritageCats)}</div>
+          <p><a class="text-link t-learn" href="places.html">${learn("All places")}</a></p>
+        </div>
+      </section>
+      ${footer(f)}`;
+  }
+
+  function renderStayPage(lang) {
+    const f = fragments(lang);
+    const stayCats = ["hill-station"];
+    return `
+      <section class="page-hero">
+        <div class="wrap">
+          <p class="kicker">Explore · Stays</p>
+          <h1>Hill air, not a room list</h1>
+          <p class="section-lead">Kemmanagundi’s garden hills, visitor notes, and a private trip sketch stored in this browser. Homestays, hotels and payments are intentionally absent.</p>
+          ${exploreHubNav("stay", lang)}
+        </div>
+      </section>
+      <section class="section" style="padding-top:0">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="kicker">Hill station</p>
+            <h2>Where the old garden still holds the night air.</h2>
+            <p class="section-lead">A hill station is not a booking desk. Kemmanagundi is the Wodeyar summer ground this companion actually describes.</p>
+          </div>
+          <div id="place-sections">${renderPlaceSections(lang, f.d.destinations, stayCats)}</div>
+        </div>
+      </section>
+      <section class="section circuits-home" style="padding-top:0">
+        <div class="wrap">
+          <div class="section-head-row">
+            <div class="section-head">
+              <p class="kicker">Trip sketches</p>
+              <h2>Three ways through the hills.</h2>
+              <p class="section-lead">Load a sketch into a private notebook — no account, no payment.</p>
+            </div>
+            <a class="text-link t-learn" href="plan.html">${learn("Open the planner")}</a>
+          </div>
+          <div class="home-circuit-grid">${f.homeCircuits}</div>
+        </div>
+      </section>
+      <section class="section close-band" style="padding-top:0">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="kicker">Before you leave town</p>
+            <h2>${esc(f.d.guide.title)}</h2>
+            <p class="section-lead">${esc(f.d.guide.intro)}</p>
+          </div>
+          <div class="guide-grid">${f.guide}</div>
+          <div class="close-actions">
+            <a class="btn btn-dark shine t-learn" href="visit.html" data-magnetic>${learn("Visitor information")}</a>
+            <a class="btn btn-line" href="plan.html">Sketch a private trip</a>
+            <a class="btn btn-line" href="${esc(f.official.district_en)}" rel="noopener noreferrer">District tourism</a>
+          </div>
+        </div>
+      </section>
+      ${footer(f)}`;
+  }
+
   function renderPage(page, lang) {
     const pages = {
       home: renderHome,
@@ -1321,6 +1494,9 @@
       stories: renderStoriesPage,
       coffee: renderCoffeePage,
       food: renderFoodPage,
+      nature: renderNaturePage,
+      heritage: renderHeritagePage,
+      stay: renderStayPage,
       plan: renderPlanPage,
       visit: renderVisitPage,
     };

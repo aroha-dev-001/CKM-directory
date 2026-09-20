@@ -39,14 +39,17 @@ npx vercel --yes --prod
 
 | Page | What it is |
 | --- | --- |
-| `index.html` | Editorial home with popular places, coffee origin, Malnad kitchen, seasons, stories, trip sketches, gallery and illustrated taluk map |
+| `index.html` | Hero, nine-taluk map, **Explore Chikkamagaluru** (Food, Nature, Stays, Heritage), popular carousel |
+| `food.html` | Food hub — Malnad kitchen plates (`?id=` for a dish story) |
+| `nature.html` | Nature hub — seasons, outdoor places, forest care, field photographs |
+| `stay.html` | Hill air — Kemmanagundi, trip sketches, visitor notes. **Not** a booking or homestay list |
+| `heritage.html` | Heritage hub — coffee origin, temples, forts, coffee country |
 | `places.html` | Destinations grouped under waterfalls, temples, dams, lakes, hill stations, peaks, wildlife, treks, forts and coffee country |
 | `popular.html` | Dedicated popular-tourist page: 30 in-district stops that recur on Tripadvisor Things to Do, district place lists and typical 2-day loops |
 | `map.html` | Light green choropleth of the nine taluks only — no place pins |
 | `taluk.html` | Dedicated taluk page (`?id=`) with a closer map, every listed sight, and public visitor notes |
 | `stories.html` | Separate chapters: seasons, coffee, culture, food, Malnad kitchen dishes, responsible travel, photographs |
 | `coffee.html` | Full coffee-origin story: eight illustrated scenes from Mocha to shade canopy |
-| `food.html` | One Malnad dish per page (`?id=`) |
 | `plan.html` | Private itinerary and explorer passport (`localStorage`) |
 | `visit.html` | Access, packing, conduct, official links, credits |
 

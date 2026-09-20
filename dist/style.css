@@ -322,8 +322,10 @@ p {
 
 .site-nav {
   display: flex;
-  gap: 1.15rem;
+  gap: 0.85rem;
   margin-left: auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .site-nav a {
@@ -4207,7 +4209,200 @@ body[data-page="coffee"] .origin-chapter p {
   .season-card:hover img,
   .why-card:hover img,
   .home-circuit:hover img,
+  .explore-card:hover img,
   .btn:hover {
     transform: none;
   }
 }
+
+/* Explore Chikkamagaluru — Udupi-style photo rail */
+.explore-section {
+  background: var(--cream);
+  padding: clamp(2.4rem, 6vw, 4.4rem) 0 3.2rem;
+  color: var(--ink);
+}
+.explore-kicker {
+  text-align: center;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.explore-section h2 {
+  text-align: center;
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4.4vw, 3.2rem);
+  font-weight: 600;
+  margin: 0.35rem 0 0;
+  color: var(--ink);
+}
+.explore-wave {
+  text-align: center;
+  color: var(--gold);
+  font-size: 1.4rem;
+  margin: 0.15rem 0 0.6rem;
+  line-height: 1;
+}
+.explore-lead {
+  text-align: center;
+  max-width: 36rem;
+  margin: 0 auto 1.6rem;
+}
+.explore-rail-wrap {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 var(--pad);
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.explore-nav {
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  color: var(--ink);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.explore-nav:hover,
+.explore-nav:focus-visible {
+  background: var(--ink);
+  color: var(--cream);
+}
+.explore-rail {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0.5rem;
+  padding: 0.2rem 0.2rem 0.8rem;
+  -webkit-overflow-scrolling: touch;
+}
+.explore-rail:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+.explore-card {
+  position: relative;
+  flex: 0 0 min(86vw, 34rem);
+  aspect-ratio: 16 / 10;
+  min-height: 20rem;
+  border-radius: 1.35rem;
+  overflow: hidden;
+  color: #fff;
+  text-decoration: none;
+  scroll-snap-align: start;
+  isolation: isolate;
+}
+.explore-card--lead {
+  flex-basis: min(92vw, 42rem);
+}
+.explore-card-media,
+.explore-card-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.explore-card-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8, 16, 12, 0.15) 0%, rgba(8, 16, 12, 0.55) 100%);
+  z-index: 1;
+}
+.explore-card-copy {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: inherit;
+  padding: 2rem 1.6rem;
+  height: 100%;
+}
+.explore-card-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.88;
+  margin-bottom: 0.55rem;
+}
+.explore-card h3 {
+  font-family: var(--serif);
+  font-size: clamp(1.45rem, 2.6vw, 2.15rem);
+  font-weight: 600;
+  margin: 0 0 0.7rem;
+  max-width: 18ch;
+  color: #fff;
+}
+.explore-card p {
+  margin: 0 0 1.15rem;
+  max-width: 36ch;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.92);
+}
+.explore-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(8px);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.explore-card:hover img,
+.explore-card:focus-visible img {
+  transform: scale(1.04);
+}
+.explore-card-media img {
+  transition: transform 0.7s var(--ease-out);
+}
+.explore-hub-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 1.2rem;
+}
+.explore-hub-nav a {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  text-decoration: none;
+  color: var(--ink);
+  font-size: 0.88rem;
+}
+.explore-hub-nav a.is-active,
+.explore-hub-nav a[aria-current="page"] {
+  background: var(--ink);
+  color: var(--cream);
+  border-color: var(--ink);
+}
+
+@media (max-width: 720px) {
+  .explore-rail-wrap {
+    grid-template-columns: 1fr;
+  }
+  .explore-nav {
+    display: none;
+  }
+  .explore-card,
+  .explore-card--lead {
+    flex-basis: 86vw;
+    min-height: 22rem;
+  }
+}
+

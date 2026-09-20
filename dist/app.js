@@ -79,7 +79,14 @@
   function markNav() {
     document.querySelectorAll("[data-nav]").forEach((link) => {
       const nav = link.getAttribute("data-nav");
-      const pageKey = PAGE === "coffee" || PAGE === "food" ? "stories" : PAGE === "taluk" ? "map" : PAGE;
+      const pageKey =
+        PAGE === "coffee"
+          ? "stories"
+          : PAGE === "food" || PAGE === "nature" || PAGE === "stay" || PAGE === "heritage"
+            ? "explore"
+            : PAGE === "taluk"
+              ? "map"
+              : PAGE;
       const on = nav === pageKey;
       link.classList.toggle("is-active", on);
       if (on) link.setAttribute("aria-current", "page");
@@ -127,6 +134,7 @@
   }
 
   function renderPlaces() {
+    if (PAGE !== "places") return;
     const root = document.getElementById("place-sections");
     const empty = document.getElementById("place-empty");
     const count = document.getElementById("result-count");
@@ -761,6 +769,17 @@
     const main = document.getElementById("main");
 
     main.addEventListener("click", (event) => {
+      const explorePrev = event.target.closest("[data-explore-prev]");
+      const exploreNext = event.target.closest("[data-explore-next]");
+      if (explorePrev || exploreNext) {
+        const rail = document.querySelector("[data-explore-rail]");
+        if (rail) {
+          const reduce = prefersReduced();
+          const dir = exploreNext ? 1 : -1;
+          rail.scrollBy({ left: dir * Math.min(rail.clientWidth * 0.86, 720), behavior: reduce ? "auto" : "smooth" });
+        }
+        return;
+      }
       const popToggle = event.target.closest("[data-pop-toggle]");
       if (popToggle) {
         const card = popToggle.closest(".t-acc, .pop-card");
