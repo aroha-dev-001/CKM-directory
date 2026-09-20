@@ -826,8 +826,9 @@ a.food-card-link:hover {
 }
 
 .coffee-origin--home {
-  background: var(--cream);
-  padding: 0.4rem 0 3.4rem;
+  background: var(--ivory);
+  padding: clamp(2.6rem, 6vw, 4.4rem) 0;
+  border-top: 1px solid var(--line);
 }
 
 .coffee-origin--home .story-entry-card {
@@ -4403,7 +4404,8 @@ body[data-page="coffee"] .origin-chapter p {
 }
 .places-drift-band {
   background: var(--cream);
-  padding: 0 0 2.4rem;
+  padding: 0 0 2.8rem;
+  overflow: clip;
 }
 .places-drift-intro {
   padding-bottom: 0.6rem;
