@@ -891,7 +891,7 @@
               <div class="popular-chips">${chips}</div>
               <div class="popular-actions">
                 <button class="btn btn-dark" type="button" data-open-place="${esc(place.id)}">Visitor notes</button>
-                <a class="btn btn-line" href="map.html?taluk=${esc(place.talukId || "")}&place=${esc(place.id)}">Show on map</a>
+                <a class="btn btn-line" href="taluk.html?id=${esc(place.talukId || "")}#place-${esc(place.id)}">Show on map</a>
               </div>
               ${
                 item.hoursSource

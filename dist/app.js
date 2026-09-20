@@ -155,7 +155,7 @@
     title.textContent = `Places in ${name}`;
     if (lead) lead.textContent = taluk.blurb || "";
     if (bar) bar.hidden = false;
-    if (mapLink) mapLink.setAttribute("href", `map.html?taluk=${encodeURIComponent(taluk.id)}`);
+    if (mapLink) mapLink.setAttribute("href", `taluk.html?id=${encodeURIComponent(taluk.id)}`);
   }
 
   function setDigits(group, str) {
@@ -468,6 +468,7 @@
       const name = (card.getAttribute("data-name") || "").toLowerCase();
       const show = (group === "all" || g === group) && (!q || name.includes(q));
       card.hidden = !show;
+      card.classList.toggle("is-alt", show && n % 2 === 1);
       if (show) n += 1;
     });
     const empty = document.getElementById("popular-empty");
@@ -791,6 +792,7 @@
       if (tab && tab.closest("[data-tabs]")) {
         selectTab(tab);
         filterPopular();
+        return;
       }
       const open = event.target.closest("[data-open-place]");
       if (open) {

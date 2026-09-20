@@ -107,6 +107,10 @@ body {
   overflow-x: hidden;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 img {
   max-width: 100%;
   display: block;
@@ -1713,10 +1717,12 @@ a.food-card-link .pop-face {
   border-bottom: 1px solid var(--line);
 }
 
+.popular-card.is-alt,
 .popular-card:nth-child(even) {
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.05fr);
 }
 
+.popular-card.is-alt .popular-card-media,
 .popular-card:nth-child(even) .popular-card-media {
   order: 2;
 }
