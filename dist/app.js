@@ -144,6 +144,50 @@
     if (count) count.textContent = String(list.length);
     if (empty) empty.hidden = list.length > 0;
     renderTalukContext();
+    initPlacesDrift(list);
+  }
+
+  function initPlacesDrift(list) {
+    if (PAGE !== "places" || !window.CKMDriftWall) return;
+    const el = document.querySelector("[data-drift-wall]");
+    if (!el) return;
+    if (el._ckmDrift) {
+      el._ckmDrift.destroy();
+      el._ckmDrift = null;
+    }
+    const items = (list || []).map((place) => ({
+      placeId: place.id,
+      image: place.image,
+      title: state.lang === "kn" ? place.kannada : place.name,
+      kannada: state.lang === "kn" ? place.name : place.kannada,
+      blurb: place.blurb || place.summary || "",
+    }));
+    if (!items.length) return;
+    const narrow = window.innerWidth < 720;
+    el._ckmDrift = window.CKMDriftWall.mount(el, {
+      items,
+      columns: narrow ? 3 : 5,
+      tileWidth: narrow ? 168 : 200,
+      tileHeight: narrow ? 112 : 132,
+      gap: 16,
+      radius: 14,
+      tilt: 14,
+      turn: -12,
+      perspective: 1200,
+      depth: 120,
+      speed: 38,
+      direction: "up",
+      variance: 0.45,
+      parallax: 0.55,
+      pauseOnHover: false,
+      lift: 56,
+      fade: 0.55,
+      dim: 0.58,
+      overlayColor: "#0c1f13",
+      onOpenPlace(id) {
+        openModal(id);
+      },
+    });
   }
 
   function renderTalukContext() {
