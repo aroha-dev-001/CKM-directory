@@ -44,6 +44,7 @@
     const dim = options.dim ?? 0.55;
     const grayscale = Boolean(options.grayscale);
     const overlayColor = options.overlayColor || "#0c1f13";
+    const scale = options.scale ?? 1.18;
     const onOpenPlace = typeof options.onOpenPlace === "function" ? options.onOpenPlace : null;
 
     let reduced = prefersReducedMotion();
@@ -54,7 +55,12 @@
     let destroyed = false;
 
     const columnItems = Array.from({ length: columns }, () => []);
-    items.forEach((item, i) => columnItems[i % columns].push(item));
+    if (options.fill === "columns") {
+      const per = Math.ceil(items.length / columns);
+      items.forEach((item, i) => columnItems[Math.min(columns - 1, Math.floor(i / per))].push(item));
+    } else {
+      items.forEach((item, i) => columnItems[i % columns].push(item));
+    }
     columnItems.forEach((col, i) => {
       if (!col.length) columnItems[i] = items.slice(0, 1);
     });
@@ -62,7 +68,7 @@
     const unit = tileHeight + gap;
     const columnMeta = columnItems.map((col) => {
       const copyHeight = Math.max(unit, col.length * unit);
-      const copies = Math.max(2, Math.ceil((containerHeight * 1.6) / copyHeight) + 1);
+      const copies = Math.max(3, Math.ceil((containerHeight * 2.2) / copyHeight) + 1);
       return { copyHeight, copies };
     });
 
@@ -72,8 +78,8 @@
       return speed * columnFactor(c, variance) * dirSign * altSign;
     });
 
-    const offsets = columnMeta.map((meta, c) => meta.copyHeight * ((c * 0.37) % 1));
-    const velocities = columnItems.map(() => 0);
+    const offsets = columnMeta.map((meta, c) => (c % 2 === 0 ? 0 : unit * 0.5));
+    const velocities = baseVelocities.slice();
     const trackEls = [];
     let hoveredCol = -1;
     let wallHovered = false;
@@ -102,7 +108,7 @@
       const blurb = esc(item.blurb || "");
       const title = esc(item.title || "");
       const kn = item.kannada ? `<span class="kn">${esc(item.kannada)}</span>` : "";
-      const more = item.placeId
+      const more = item.openPlace && item.placeId
         ? `<span class="drift-wall__more" data-open-place="${esc(item.placeId)}">Visitor notes</span>`
         : "";
       return `<button type="button" class="drift-wall__tile" data-tile-id="${esc(id)}" data-col="${colIndex}" data-place-id="${esc(item.placeId || "")}" aria-label="${title}">
@@ -141,7 +147,7 @@
     function applyPlaneTransform(px, py) {
       if (!plane) return;
       plane.style.transform =
-        `translate(-50%, -50%) scale(1.18) ` +
+        `translate(-50%, -50%) scale(${scale}) ` +
         `rotateX(${tilt + py}deg) rotateY(${turn + px}deg) rotateZ(${roll}deg) ` +
         `translateZ(${-depth}px)`;
     }
@@ -173,14 +179,16 @@
         for (let c = 0; c < trackEls.length; c += 1) {
           const meta = columnMeta[c];
           if (!meta) continue;
-          const paused = pausedByFlip || (wallHovered && pauseOnHover) || hoveredCol === c;
+          const paused = pausedByFlip || (wallHovered && pauseOnHover);
           const factor = paused ? 0 : 1;
           const target = baseVelocities[c] * factor;
           if (pausedByFlip) {
             velocities[c] = 0;
-          } else {
-            const ease = 1 - Math.exp(-dt / (target === 0 ? 0.16 : 0.28));
+          } else if (paused) {
+            const ease = 1 - Math.exp(-dt / 0.16);
             velocities[c] += (target - velocities[c]) * ease;
+          } else {
+            velocities[c] = target;
           }
           let next = (offsets[c] ?? 0) + velocities[c] * dt;
           next = ((next % meta.copyHeight) + meta.copyHeight) % meta.copyHeight;

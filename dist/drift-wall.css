@@ -63,7 +63,8 @@
 
 .drift-wall__flip {
   position: absolute;
-  inset: calc(var(--dw-gap) / 2);
+  inset: 0;
+  margin: calc(var(--dw-gap) / 2);
   transform-style: preserve-3d;
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }

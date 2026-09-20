@@ -38,7 +38,7 @@ TEMPLATE = """<!DOCTYPE html>
     />
     <link rel="stylesheet" href="style.css?v=sage15" />
     <link rel="stylesheet" href="carousel.css?v=sage6" />
-    <link rel="stylesheet" href="drift-wall.css?v=sage3" />
+    <link rel="stylesheet" href="drift-wall.css?v=sage4" />
   </head>
   <body data-page="{page}">
     <a class="skip" href="#main">Skip to content</a>
@@ -94,8 +94,8 @@ TEMPLATE = """<!DOCTYPE html>
     <script src="sections.js?v=sage15"></script>
     <script src="map.js?v=sage6"></script>
     <script src="carousel.js?v=sage6"></script>
-    <script src="drift-wall.js?v=sage3"></script>
-    <script src="app.js?v=sage14"></script>
+    <script src="drift-wall.js?v=sage4"></script>
+    <script src="app.js?v=sage15"></script>
   </body>
 </html>
 """

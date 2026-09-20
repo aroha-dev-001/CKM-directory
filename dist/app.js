@@ -146,6 +146,51 @@
     renderTalukContext();
   }
 
+  function driftTheme(place) {
+    const cat = place.category || "";
+    const tags = (place.tags || []).join(" ");
+    if (place.theme === "food" || cat === "food") return "food";
+    if (cat === "waterfalls") return "falls";
+    if (cat === "peaks" || cat === "hill-station" || cat === "viewpoints" || cat === "treks") return "mountains";
+    if (cat === "lakes" || cat === "dams") return "water";
+    if (cat === "wildlife") return "wildlife";
+    if (place.id === "coffee-hills" || place.id === "coffee-museum" || /\bcoffee\b/.test(tags)) return "food";
+    if (cat === "temples" || cat === "forts" || cat === "heritage") return "heritage";
+    return "heritage";
+  }
+
+  function interleaveDriftItems(places, foods) {
+    const order = ["falls", "mountains", "heritage", "food", "water", "wildlife"];
+    const buckets = Object.fromEntries(order.map((key) => [key, []]));
+    (places || []).forEach((place) => {
+      const key = driftTheme(place);
+      (buckets[key] || buckets.heritage).push(place);
+    });
+    (foods || []).forEach((dish) => {
+      buckets.food.push({
+        id: `food-${dish.id}`,
+        theme: "food",
+        image: dish.image,
+        name: dish.name,
+        kannada: dish.kannada,
+        blurb: dish.story || dish.kicker || "",
+        category: "food",
+      });
+    });
+    const items = [];
+    let added = true;
+    while (added) {
+      added = false;
+      order.forEach((key) => {
+        if (buckets[key].length) {
+          items.push(buckets[key].shift());
+          added = true;
+        }
+      });
+    }
+    return items;
+  }
+
   function initHomeDrift() {
     if (PAGE !== "home" || !window.CKMDriftWall) return;
     const el = document.querySelector("[data-drift-wall]");
@@ -154,8 +199,10 @@
       el._ckmDrift.destroy();
       el._ckmDrift = null;
     }
-    const items = (CKM.destinations || []).map((place) => ({
+    const stream = interleaveDriftItems(CKM.destinations || [], CKM.malnadFoods || []);
+    const items = stream.map((place) => ({
       placeId: place.id,
+      openPlace: !String(place.id || "").startsWith("food-"),
       image: place.image,
       title: state.lang === "kn" ? place.kannada : place.name,
       kannada: state.lang === "kn" ? place.name : place.kannada,
@@ -165,25 +212,27 @@
     const narrow = window.innerWidth < 720;
     el._ckmDrift = window.CKMDriftWall.mount(el, {
       items,
-      columns: narrow ? 3 : 5,
-      tileWidth: narrow ? 168 : 200,
-      tileHeight: narrow ? 112 : 132,
-      gap: 16,
-      radius: 14,
-      tilt: 14,
-      turn: -12,
-      perspective: 1200,
-      depth: 120,
-      speed: 38,
+      fill: "columns",
+      columns: narrow ? 3 : 6,
+      tileWidth: narrow ? 156 : 188,
+      tileHeight: narrow ? 104 : 124,
+      gap: 0,
+      radius: 8,
+      tilt: 8,
+      turn: -6,
+      perspective: 1400,
+      depth: 80,
+      speed: 46,
       direction: "up",
-      variance: 0.45,
-      parallax: 0.55,
+      variance: 0.18,
+      parallax: 0.35,
       pauseOnHover: false,
-      lift: 56,
+      lift: 28,
       fade: 0,
       dim: 1,
       grayscale: false,
       overlayColor: "transparent",
+      scale: 1.62,
       onOpenPlace(id) {
         openModal(id);
       },
