@@ -1,13 +1,12 @@
 (function (global) {
   const GEOJSON = "assets/taluks.geojson";
   const VB = { w: 720, h: 780, pad: 18 };
-  const SELECTED = "#2F6B3F";
-  const HOVER = "#C6DCC0";
-  const FILL_LO = "#F1EFE5";
-  const FILL_HI = "#A9C5A3";
-  const STROKE = "#A9A392";
-  const LABEL_IDLE = "#3F3A2E";
-  const LABEL_ON = "#FFFFFF";
+  const SELECTED = "#2C5A38";
+  const HOVER = "#C5D8C2";
+  const FILL_LO = "#E3EDE2";
+  const FILL_HI = "#7FA87C";
+  const LABEL_IDLE = "#4A5548";
+  const LABEL_ON = "#F4F7F2";
   const LABEL_AT = {
     chikkamagaluru: [75.77, 13.36],
     tarikere: [75.79, 13.70],
@@ -25,7 +24,7 @@
     kadur: "Kadur",
     mudigere: "Mudigere",
     koppa: "Koppa",
-    nrpura: "NR Pura",
+    nrpura: "N.R. Pura",
     sringeri: "Sringeri",
     kalasa: "Kalasa",
     ajjampura: "Ajjampura",
@@ -231,7 +230,7 @@
             const name = MAP_LABEL[id] || feature.properties.name;
             const d = featurePath(feature, b);
             const focused = !state.focus || id === state.focus;
-            const fill = focused ? countFill(id, max) : hexMix(FILL_LO, "#ffffff", 0.45);
+            const fill = focused ? countFill(id, max) : hexMix(FILL_LO, "#F3F6F1", 0.55);
             const [lx, ly] = project((LABEL_AT[id] || [0, 0])[0], (LABEL_AT[id] || [0, 0])[1], b);
             const size = LABEL_SIZE[id] || 11;
             const n = placesInTaluk(id).length;
@@ -242,7 +241,7 @@
               .join("");
             const countY = ly + lines.length * (lineH * 0.55) + 10;
             const tab = focused && !state.focus ? `tabindex="0" role="button" aria-pressed="false"` : `tabindex="-1"`;
-            const countText = state.focus ? "" : `<text class="taluk-count" x="${lx.toFixed(1)}" y="${countY.toFixed(1)}" text-anchor="middle" font-size="10">${n} ${n === 1 ? "place" : "places"}</text>`;
+            const countText = "";
             const nameText = state.focus && id !== state.focus ? "" : `<text class="taluk-name" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-size="${size}">${tspans}</text>`;
             return `
               <g class="taluk-g${focused ? "" : " is-dim"}" data-taluk-shape="${escapeXml(id)}">

@@ -1982,11 +1982,17 @@ a.food-card-link .pop-face {
   line-height: 1;
 }
 
-/* Illustrated taluk map — light green district explorer */
+/* Illustrated taluk map — sage green district explorer */
 .district-explorer-section {
-  background: #f4f1e8;
+  background: #f3f1e8;
   color: var(--ink);
   padding: clamp(3.2rem, 7vw, 5.8rem) 0;
+}
+
+.district-explorer-section .kicker,
+.taluk-hero .kicker,
+.taluk-guide .kicker {
+  color: #2c5a38;
 }
 
 .district-explorer-page {
@@ -2024,6 +2030,15 @@ a.food-card-link .pop-face {
 
 .district-copy .btn {
   margin-top: 1.5rem;
+  padding: 0.7rem 1.45rem;
+  background: #1f3d2a;
+  color: #f3f6f1;
+}
+
+.district-copy .btn-line {
+  background: transparent;
+  color: var(--ink);
+  border-color: #c5d0c3;
 }
 
 .district-map-stage {
@@ -2033,8 +2048,8 @@ a.food-card-link .pop-face {
 
 .map-canvas {
   position: relative;
-  background: #fbfaf5;
-  border: 1px solid #e5e0d2;
+  background: transparent;
+  border: 0;
 }
 
 .choropleth {
@@ -2051,12 +2066,12 @@ a.food-card-link .pop-face {
   display: block;
   overflow: visible;
   max-height: min(78vh, 46rem);
-  background: #fbfaf5;
+  background: transparent;
 }
 
 .choropleth-svg path {
-  stroke: #a9a392;
-  stroke-width: 0.9;
+  stroke: #c5d0c3;
+  stroke-width: 1.05;
   cursor: pointer;
   transition: fill 0.28s var(--ease);
   outline: none;
@@ -2064,9 +2079,9 @@ a.food-card-link .pop-face {
 }
 
 .choropleth-svg .taluk-g.is-selected path {
-  stroke: #14361f;
-  stroke-width: 1.4;
-  filter: drop-shadow(0 1.4px 1.8px rgba(20, 54, 31, 0.28));
+  stroke: #1f3d2a;
+  stroke-width: 1.35;
+  filter: drop-shadow(0 1.2px 1.6px rgba(31, 61, 42, 0.22));
 }
 
 .choropleth-svg path:focus {
@@ -2094,8 +2109,8 @@ a.food-card-link .pop-face {
   z-index: 4;
   width: min(16.5rem, calc(100% - 1.2rem));
   padding: 0.65rem 0.8rem 0.75rem;
-  background: #14361f;
-  color: #fff;
+  background: #1f3d2a;
+  color: #f3f6f1;
   pointer-events: none;
 }
 
@@ -2117,7 +2132,7 @@ a.food-card-link .pop-face {
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #8fa893;
+  color: #a8c4aa;
 }
 
 .map-north {
@@ -2127,7 +2142,7 @@ a.food-card-link .pop-face {
   display: grid;
   justify-items: center;
   gap: 0.15rem;
-  color: #5a6b5e;
+  color: #6b786c;
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   font-weight: 600;
@@ -2137,7 +2152,7 @@ a.food-card-link .pop-face {
   display: block;
   width: 1px;
   height: 1.35rem;
-  background: #5a6b5e;
+  background: #6b786c;
   position: relative;
 }
 
@@ -2150,7 +2165,7 @@ a.food-card-link .pop-face {
   height: 0;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
-  border-bottom: 7px solid #5a6b5e;
+  border-bottom: 7px solid #6b786c;
   transform: translateX(-50%);
 }
 
@@ -2200,7 +2215,7 @@ a.food-card-link .pop-face {
 .taluk-index-dots {
   display: block;
   height: 0;
-  border-bottom: 1px dotted #c8c3b4;
+  border-bottom: 1px dotted #b7c4b5;
   align-self: center;
 }
 
@@ -2227,7 +2242,11 @@ a.food-card-link .pop-face {
 }
 
 .taluk-index li.is-active .taluk-index-row {
-  color: #2f6b3f;
+  color: #2c5a38;
+}
+
+.taluk-index li.is-active .taluk-index-go {
+  color: #c17a3a;
 }
 
 .taluk-index li.is-active .taluk-index-name {
@@ -2237,13 +2256,15 @@ a.food-card-link .pop-face {
 .taluk-summary,
 .taluk-footnote {
   overflow-wrap: break-word;
-}
-
-.taluk-footnote {
   margin-top: 0.7rem;
-  color: #8a9588;
+  color: #7a8578;
   font-size: 0.82rem;
   line-height: 1.45;
+}
+
+.taluk-hero,
+.taluk-guide {
+  background: #f3f1e8;
 }
 
 .taluk-place {
@@ -2304,7 +2325,7 @@ a.food-card-link .pop-face {
 }
 
 .place-pin circle {
-  stroke: #fbfaf5;
+  stroke: #f3f6f1;
 }
 
 .place-pin text {

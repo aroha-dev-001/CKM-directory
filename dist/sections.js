@@ -750,7 +750,7 @@
             <div class="district-copy">
               <p class="kicker">Explore the district</p>
               <h2>Nine taluks, endless experiences.</h2>
-              <p class="section-lead">The overview shows only the nine taluks of Chikkamagaluru. Click a taluk — or a name in the list — to open its page. Places appear there, with visitor notes drawn from public sources, not as pins on this map.</p>
+              <p class="section-lead">From Mullayanagiri’s cloud line to the temples of Sringeri and the tiger forests of Bhadra — Chikkamagaluru is a district of contrasts. Explore by taluk to see what awaits you.</p>
               <a class="btn btn-dark shine t-learn" data-map-cta href="map.html" data-magnetic>${learn("View district map")}</a>
             </div>
             <div class="district-map-stage">
@@ -957,9 +957,9 @@
         <div class="wrap wrap-wide">
           <div class="district-explorer">
             <div class="district-copy">
-              <p class="kicker">The district</p>
-              <h1>Nine taluks. Open one.</h1>
-              <p class="section-lead">Green fills follow how many places this companion holds in each taluk. Click a shape to leave this overview and open that taluk’s dedicated page — with a closer map, every listed sight, and public descriptions. Boundaries are OpenStreetMap reference, not a survey.</p>
+              <p class="kicker">Explore the district</p>
+              <h1>Nine taluks, endless experiences.</h1>
+              <p class="section-lead">Sage fills follow how many places this companion holds in each taluk. Click a shape — or a name — to open that taluk’s page. Places are marked only there. Boundaries are OpenStreetMap reference, not a survey.</p>
               <a class="btn btn-dark shine t-learn" id="taluk-places-cta" href="places.html" data-magnetic>${learn("Browse all places")}</a>
             </div>
             <div class="district-map-stage">
