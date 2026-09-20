@@ -229,8 +229,7 @@
           ? d.coffeeOrigin.chapters
               .map((ch, j) => {
                 const n = String(j + 1).padStart(2, "0");
-                const firstStop = String(ch.text || "").indexOf(". ");
-                const teaser = firstStop > 40 ? ch.text.slice(0, firstStop + 1) : ch.text;
+                const teaser = String(ch.text || "").split(/\n\n/)[0] || "";
                 return `
             <article class="story-beat story-beat-scene">
               <a class="story-beat-thumb" href="coffee.html#origin-${n}">
@@ -452,6 +451,7 @@
     const origin = d.coffeeOrigin || {};
     const originChapters = (origin.chapters || [])
       .map((ch, i) => {
+        const paras = String(ch.text || "").split(/\n\n/).filter(Boolean);
         const n = String(i + 1).padStart(2, "0");
         const flip = i % 2 === 1 ? " is-flip" : "";
         const kicker = ch.kicker ? `<p class="kicker origin-kicker">${esc(ch.kicker)}</p>` : "";
@@ -467,7 +467,7 @@
             <p class="story-beat-num">${n}</p>
             ${kicker}
             <h3>${esc(ch.title)}</h3>
-            <p>${esc(ch.text)}</p>
+            ${paras.map((p) => `<p>${esc(p)}</p>`).join("")}
           </div>
         </article>`;
       })

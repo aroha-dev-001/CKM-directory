@@ -1948,10 +1948,9 @@ window.CKM = {
       "title": "Seven beans from Mocha, a forest that learned to drink",
       "image": "assets/baba-budan-saint.jpg",
       "paragraphs": [
-        "The Coffee Board of India tells the opening of the Indian crop as the planting of seven Mocha seeds, around 1600 CE, in the courtyard of Baba Budan’s hermitage on these hills. Wikipedia’s page on the saint places a related Hajj story in the seventeenth century — often dated 1670 — with the raw beans said to have been carried from the Yemeni port of Mocha. Both are tradition, not a dated shipping ledger. What the sources agree on is the geography: Chandra Drona / Baba Budan Giri, above present-day Chikkamagaluru.",
-        "Yemen then guarded coffee as a trade. Unprocessed beans were not meant to leave Mocha, so that drinkers elsewhere stayed customers. Lore says Baba Budan brought seven live seeds because seven is sacred in Islam, and that he hid them — in a beard, in some later retellings. NDTV and other features repeat that image. Treat it as a story the hills still tell, not as courtroom fact.",
-        "The Board’s own history is more agricultural than cinematic: the plants remained a garden curiosity and backyard crop for a long time. Commercial plantations, it says, take off in the eighteenth century as British enterprise pushed into the forested south. Wikipedia notes substantial British estates from the 1820s beside Baba Budan Giri, then spread into Wayanad, the Shevaroys and the Nilgiris.",
-        "What you still see from a ridge is shade, not open sun. Karnataka grows most of India’s coffee; Indian arabica and robusta are typically two-tier canopy crops, often interplanted with pepper and other spices. Organised research began in 1925 at the Mysore Coffee Experiment Station near Balehonnur, in this same district — later the Central Coffee Research Institute.",
+        "People here still begin the crop with a courtyard. A Sufi of these hills, they say, came home from Mocha with seven live seeds and set them on Baba Budan Giri. One telling puts the year near 1600. Another walks him back from Hajj nearer 1670. The calendars disagree. The ridge does not.",
+        "Mocha had sold the drink and tried to keep the tree. Lore tucks those seven beans in a beard so a harbour would not notice a forest leaving. Treat it as the story the district keeps, not as a shipping ledger. What everyone agrees on is the ground: Chandra Drona, above present-day Chikkamagaluru.",
+        "For a long time the plants were a garden, not a landscape. Rows came later, when the forested south was cut into estates and the crop walked on toward Wayanad and the Nilgiris. What you still see from a bus window is shade work — silver oak, pepper, arabica underneath — and a research house near Balehonnur that grew out of a 1925 experiment station.",
         "This companion treats coffee as culture and ecology, not as a room to book. Walk an estate only where you are invited."
       ]
     },
@@ -2520,57 +2519,57 @@ window.CKM = {
     "chapters": [
       {
         "kicker": "The plant",
-        "title": "From the Ethiopian highlands",
-        "text": "Coffee’s cultivated story runs from the Ethiopian highlands into Arabia. The shrub that still prefers mist and shade begins there, as cherry on a slope, before it is a port commodity. What later takes root on Chandra Drona is that same highland plant, carried a long way from home.",
+        "title": "A shrub that liked mist",
+        "text": "Before it was a cup on the Hassan bus, coffee was a red cherry in highland weather — a shrub that preferred cloud to open sun. That plant walked a long way from Ethiopian slopes before it ever saw these ghats.\n\nWhat took root on Chandra Drona is still that same highland thing: shade-hungry, slow, and particular about rain.",
         "image": "assets/coffee-highlands.jpg",
         "caption": "Companion illustration — wild arabica in highland mist. Imagined landscape, not a field survey of Ethiopia."
       },
       {
         "kicker": "Mocha",
-        "title": "A drink Arabia meant to keep",
-        "text": "By the fifteenth century the Yemeni port of Mocha was synonymous with the trade. Wikipedia’s history of Indian coffee notes that unprocessed beans were not meant to leave, so that germinating seed — and future competition — stayed at home. Roasted coffee could travel; a live seed was another matter.",
+        "title": "The harbour that sold the cup",
+        "text": "On the Yemeni shore, Mocha became the name people used when they meant coffee itself. The city sold the roasted drink freely enough. Live seed was another matter.\n\nKeep the tree at home, and the world stays a customer. What left that harbour as cargo was meant to be drunk, not planted.",
         "image": "assets/coffee-mocha.jpg",
         "caption": "Companion illustration — Mocha harbour, dhows, and sacks of cherry. Not a historical survey of the port."
       },
       {
         "kicker": "Seven seeds",
-        "title": "Two calendars, one courtyard",
-        "text": "The Coffee Board of India, a Government of India body, opens its own history like this: seven seeds of Mocha planted around 1600 AD by Baba Budan in the courtyard of his hermitage on Baba Budan Giri. Wikipedia’s page on the saint, and its coffee-production article, retell a seventeenth-century Hajj, often dated 1670. The dates disagree. The ridge named for him does not.",
+        "title": "A courtyard on this ridge",
+        "text": "Then a Sufi from these hills is said to have come home with seven Mocha seeds and set them in the courtyard of his hermitage on Baba Budan Giri. Some tellings put that planting near 1600. Others walk him home from Hajj nearer 1670.\n\nThe years argue. The ridge does not. It still carries his name, and the trees still like the same mist.",
         "image": "assets/baba-budan-saint.jpg",
         "caption": "Companion illustration of Baba Budan with seven cherries. No period portrait is known — this is not a historical likeness."
       },
       {
         "kicker": "The Hajj lore",
-        "title": "Seven beans, and a story still told",
-        "text": "Wikipedia’s retelling has a Sufi from these hills smuggling seven raw beans from Mocha, sometimes said to have been hidden in a beard because seven is sacred in Islam. NDTV and other features repeat that image. None of these pages is a primary shipping record. Read them as the story the district and the Board still stand by.",
+        "title": "What the hills still tell",
+        "text": "The story that travels with the seeds is a smuggler's story: seven raw beans, because seven is sacred, tucked away — in a beard, in the later tellings — so a port would not notice a future forest leaving in a pilgrim's clothes.\n\nNo ship's book confirms it. The district tells it anyway, the way a family tells how the house was built. Believe the slope. Treat the beard as lore.",
         "image": "assets/coffee-voyage.jpg",
         "caption": "Companion illustration of the voyage lore: a dhow, a cloth pouch, Mocha astern. Not a reconstruction of a dated crossing."
       },
       {
         "kicker": "Chandra Drona",
-        "title": "Then a slow garden",
-        "text": "The beans were raised on the Chandra Drona / Baba Budan range above Chikkamagaluru — the ridge that still holds his shrine. The Board is plain about the next chapter: for a long time the plants were a garden curiosity and spread only as backyard plantings.",
+        "title": "A garden before it was a crop",
+        "text": "Those first plants did not become a landscape overnight. For a long time they were a curiosity in courtyard earth — a few trees behind a house, not yet the silver-oak rows you pass on the Charmadi road.\n\nChandra Drona held a garden before it held an estate. The shrine is still on that ridge. The crop learned patience here.",
         "image": "assets/coffee-hermitage.jpg",
         "caption": "Companion illustration — a cave hermitage and seedling terraces on Chandra Drona. Imagined courtyard, not a measured plan of the shrine."
       },
       {
         "kicker": "Estate country",
-        "title": "When the forest was put to rows",
-        "text": "Commercial plantations, the Coffee Board says, wait until the eighteenth century, when British enterprise pushed through the forested south. Wikipedia dates substantial British estates from the 1820s beside Baba Budan Giri (Cannon, and J.H. Jolly of Parry & Co. near Chandragiri), then Wayanad, the Shevaroys and the Nilgiris.",
+        "title": "When the forest learned rows",
+        "text": "Rows came later, when the forested south was cut into property. In the 1820s planters opened country beside this same ridge, and the crop walked on into Wayanad, the Shevaroys, the Nilgiris.\n\nWhat had been a hermitage tree became a hillside of labour — shade measured, paths named, a bungalow on the shoulder of the hill.",
         "image": "assets/coffee-estates.jpg",
         "caption": "Companion illustration — early shade rows and a ridge bungalow. Imagined estate country, not a portrait of Cannon or any working property."
       },
       {
         "kicker": "Shade work",
-        "title": "Rust, canopy, and a research station in this district",
-        "text": "Indian coffee is still mostly a Western Ghats shade crop. Karnataka grows the largest share. Two-tier canopy, often with pepper and other spices, is the working landscape you see from a bus window — not wilderness alone. Leaf rust and white stem borer later forced robusta and rust-tolerant arabica into the mix. Organised research began in 1925 when the Mysore government opened the Coffee Experiment Station near Balehonnur, in Chikkamagaluru district; it became the Central Coffee Research Institute under the Board created by the Coffee Act of 1942.",
+        "title": "What you see from the bus",
+        "text": "Look out between Mudigere and Balehonnur and you are looking at work: two roofs of shade, pepper on the trunks, arabica underneath. Karnataka still grows the largest share of the Indian crop. Rust and stem borer later asked for tougher trees.\n\nIn 1925 an experiment station opened near Balehonnur, in this district — a house of trial plots that the canopy still leans on. The green you photograph from the window is someone's season.",
         "image": "assets/coffee-shade-work.jpg",
         "caption": "Companion illustration — silver-oak shade, pepper vine, and a tiled research bungalow. Not a photograph of CCRI."
       },
       {
         "kicker": "This companion",
-        "title": "What this page will not do",
-        "text": "Estate walks, homestays and cuppings are hospitality, not a listing here. If a planter invites you under the silver oak, that is their door. The hills remain a biodiversity hotspot. Stay on paths. The story of seven seeds is culture. The canopy is work.",
+        "title": "Walk as a guest",
+        "text": "This page will not sell you a cupping, a bungalow, or a jeep through someone else's silver oak. If a planter opens a path, that is their door. Stay on it.\n\nThe seven seeds are a story people keep. The canopy is a living crop in a living forest. Drink the cup. Leave the rows as you found them.",
         "image": "assets/coffee-canopy-path.jpg",
         "caption": "Companion illustration — a quiet path under coffee. This page does not sell a stay or a tour."
       }

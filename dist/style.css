@@ -1104,7 +1104,13 @@ a.food-card-link .pop-face {
 }
 
 .origin-chapter p {
-  color: var(--muted);
+  color: var(--ink);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.origin-chapter p + p {
+  margin-top: 0.85rem;
 }
 
 .story-beat-scene {
