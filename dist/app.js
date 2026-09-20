@@ -9,7 +9,7 @@
     filter: "all",
     taluk: "all",
     query: "",
-    selectedTaluk: "chikkamagaluru",
+    selectedTaluk: "",
     trip: loadTrip(),
     passport: loadPassport(),
     lastFocus: null,
@@ -79,7 +79,7 @@
   function markNav() {
     document.querySelectorAll("[data-nav]").forEach((link) => {
       const nav = link.getAttribute("data-nav");
-      const pageKey = PAGE === "coffee" || PAGE === "food" ? "stories" : PAGE;
+      const pageKey = PAGE === "coffee" || PAGE === "food" ? "stories" : PAGE === "taluk" ? "map" : PAGE;
       const on = nav === pageKey;
       link.classList.toggle("is-active", on);
       if (on) link.setAttribute("aria-current", "page");
@@ -103,8 +103,10 @@
       if (id) window.setTimeout(() => openModal(id), 80);
     }
     if (PAGE === "map") {
-      const place = placeById(q.get("place"));
-      state.selectedTaluk = q.get("taluk") || (place && place.talukId) || "chikkamagaluru";
+      state.selectedTaluk = "";
+    }
+    if (PAGE === "taluk") {
+      state.selectedTaluk = q.get("id") || "";
     }
     if (PAGE === "plan") {
       const circuitId = q.get("circuit");
@@ -311,7 +313,7 @@
       <p class="visitor-disclaimer">Public notes only — not a ticket, permit, fee table or live gate status. Confirm on the official page before you go.</p>
       <div class="modal-actions">
         <button class="btn btn-dark" type="button" data-stamp="${place.id}">${stamped ? t("stamped") : t("stamp")}</button>
-        <a class="btn btn-line" href="map.html?taluk=${encodeURIComponent(place.talukId || "")}&place=${encodeURIComponent(place.id)}">${t("open_map")}</a>
+        <a class="btn btn-line" href="taluk.html?id=${encodeURIComponent(place.talukId || "")}#place-${encodeURIComponent(place.id)}">${t("open_map")}</a>
       </div>
       <p class="kicker">${t("add")}</p>
       <div class="day-pick">${dayBtns}</div>
@@ -358,8 +360,8 @@
     if (summary) {
       summary.textContent =
         places.length === 0
-          ? `${label} — no places in this companion yet.`
-          : `${label} — ${places.length} place${places.length === 1 ? "" : "s"} in the guide.`;
+          ? `${label} — no places in this companion yet. Open the taluk page for the boundary.`
+          : `${label} — ${places.length} place${places.length === 1 ? "" : "s"}. Click to open the taluk page.`;
     }
     document.querySelectorAll("[data-select-taluk]").forEach((btn) => {
       const on = btn.getAttribute("data-select-taluk") === id;
@@ -367,69 +369,32 @@
       btn.closest("li")?.classList.toggle("is-active", on);
     });
     const cta = document.querySelector("[data-map-cta]");
-    if (cta) cta.setAttribute("href", `map.html?taluk=${encodeURIComponent(id)}`);
+    if (cta) cta.setAttribute("href", `taluk.html?id=${encodeURIComponent(id)}`);
     const browse = document.getElementById("taluk-places-cta");
-    if (browse) browse.setAttribute("href", `places.html?taluk=${encodeURIComponent(id)}`);
-    const heading = document.getElementById("taluk-places-heading");
-    const lead = document.getElementById("taluk-places-lead");
-    const grid = document.getElementById("taluk-places");
-    const empty = document.getElementById("taluk-places-empty");
-    if (heading) heading.textContent = label;
-    if (lead) lead.textContent = taluk.blurb || "";
-    if (grid) {
-      grid.innerHTML = places.map((p) => CKMSections.placeCard(p, state.lang)).join("");
-    }
-    if (empty) empty.hidden = places.length > 0;
-    const inspector = document.getElementById("taluk-inspector");
-    if (inspector) inspector.innerHTML = renderTalukInspector(places);
-  }
-
-  function renderTalukInspector(places) {
-    const pop = new Set((CKM.popularPlaces || []).map((p) => p.id));
-    if (!places.length) {
-      return `<p class="taluk-inspector-empty">No destination is listed here yet. Neighbour taluks still have pins you can open.</p>`;
-    }
-    const groups = new Map();
-    places.forEach((p) => {
-      const key = p.category || "other";
-      if (!groups.has(key)) groups.set(key, []);
-      groups.get(key).push(p);
-    });
-    const order = (CKM.categories || []).map((c) => c.id).filter((id) => id !== "all");
-    return order
-      .filter((id) => groups.has(id))
-      .map((id) => {
-        const items = groups
-          .get(id)
-          .map((p) => {
-            const popular = pop.has(p.id);
-            return `<button type="button" class="taluk-inspector-place${popular ? " is-popular" : ""}" data-open-place="${CKMSections.esc(p.id)}">${CKMSections.esc(state.lang === "kn" ? p.kannada : p.name)}${popular ? " · popular" : ""}</button>`;
-          })
-          .join("");
-        return `<div class="taluk-inspector-group"><p class="taluk-inspector-cat">${CKMSections.esc(CKMSections.catLabel(id, state.lang))}</p>${items}</div>`;
-      })
-      .join("");
+    if (browse && id) browse.setAttribute("href", `taluk.html?id=${encodeURIComponent(id)}`);
   }
 
   function initDistrictMap() {
     const root = document.querySelector("[data-map-root]");
     if (!root || !window.CKMMap) return;
-    const q = new URLSearchParams(location.search);
-    const placeId = PAGE === "map" ? q.get("place") || "" : "";
+    const focus = root.getAttribute("data-focus-taluk") || (PAGE === "taluk" ? state.selectedTaluk : "");
     state.mapApi = CKMMap.mount(root, {
-      selected: state.selectedTaluk,
-      drill: PAGE === "map" && !!(q.get("taluk") || placeId),
-      placeId,
+      selected: focus || "",
+      focus,
       onSelect: (id) => updateTalukUi(id),
-      onPlace: (id) => openModal(id),
-      onReady: (api) => {
-        if (placeId) {
-          api.highlightPlace(placeId);
-          openModal(placeId);
+      onActivate: (id) => {
+        location.href = `taluk.html?id=${encodeURIComponent(id)}`;
+      },
+      onPlace: (id) => {
+        const target = document.getElementById(`place-${id}`);
+        if (target) {
+          target.scrollIntoView({ behavior: prefersReduced() ? "auto" : "smooth", block: "start" });
+          return;
         }
+        openModal(id);
       },
     });
-    updateTalukUi(state.selectedTaluk);
+    if (focus) updateTalukUi(focus);
   }
 
   function downloadPack() {
@@ -853,11 +818,14 @@
       }
       const selectTaluk = event.target.closest("[data-select-taluk]");
       if (selectTaluk) {
-        event.preventDefault();
         const id = selectTaluk.getAttribute("data-select-taluk");
-        state.selectedTaluk = id;
-        if (state.mapApi) state.mapApi.choose(id);
-        else updateTalukUi(id);
+        if (selectTaluk.tagName === "A") {
+          if (state.mapApi) state.mapApi.choose(id, false);
+          return;
+        }
+        event.preventDefault();
+        if (state.mapApi) state.mapApi.choose(id, true);
+        else location.href = `taluk.html?id=${encodeURIComponent(id)}`;
         return;
       }
       const seasonBtn = event.target.closest("[data-season-index]");
@@ -1131,6 +1099,10 @@
     initMotion();
     initPopularGallery();
     filterPopular();
+    if (PAGE === "taluk" && state.selectedTaluk) {
+      const taluk = CKMMap.talukById(state.selectedTaluk);
+      if (taluk) document.title = `${taluk.listName || taluk.name} — Chikkamagaluru`;
+    }
     if (PAGE === "places" && state.jumpTo) {
       window.setTimeout(() => {
         document.getElementById(`section-${state.jumpTo}`)?.scrollIntoView({ behavior: prefersReduced() ? "auto" : "smooth", block: "start" });

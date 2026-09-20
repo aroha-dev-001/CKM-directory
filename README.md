@@ -42,7 +42,8 @@ npx vercel --yes --prod
 | `index.html` | Editorial home with popular places, coffee origin, Malnad kitchen, seasons, stories, trip sketches, gallery and illustrated taluk map |
 | `places.html` | Destinations grouped under waterfalls, temples, dams, lakes, hill stations, peaks, wildlife, treks, forts and coffee country |
 | `popular.html` | Dedicated popular-tourist page: 30 in-district stops that recur on Tripadvisor Things to Do, district place lists and typical 2-day loops |
-| `map.html` | Interactive choropleth of the nine taluks |
+| `map.html` | Light green choropleth of the nine taluks only — no place pins |
+| `taluk.html` | Dedicated taluk page (`?id=`) with a closer map, every listed sight, and public visitor notes |
 | `stories.html` | Separate chapters: seasons, coffee, culture, food, Malnad kitchen dishes, responsible travel, photographs |
 | `coffee.html` | Full coffee-origin story: eight illustrated scenes from Mocha to shade canopy |
 | `food.html` | One Malnad dish per page (`?id=`) |
@@ -51,7 +52,7 @@ npx vercel --yes --prod
 
 ## What is in the companion
 
-- Illustrated, colourful taluk map (SVG from OpenStreetMap polygons — not a tile map). Lime pins mark popular visitor places; click a pin for published hours and official notes.
+- Illustrated green taluk map (SVG from OpenStreetMap polygons — not a tile map). The district overview shows **only the nine taluks**. Click a taluk to open `taluk.html`, where that taluk’s tourist places are marked and described from public sources.
 - Destination detail modal
 - Day-by-day itinerary with drag-and-drop
 - Downloadable offline trip pack (HTML)
@@ -71,7 +72,7 @@ Photographs are Wikimedia Commons stills, cover-cropped to **1800×1200** (hero 
 | `dist/style.css` | Layout and visual system |
 | `dist/data.js` | Destinations, copy, credits, official URLs |
 | `dist/sections.js` | HTML rendering |
-| `dist/map.js` | SVG taluk choropleth, drilldown, and place pins |
+| `dist/map.js` | SVG nine-taluk choropleth; place pins only on a taluk page |
 | `dist/app.js` | Search, modal, itinerary, passport, WebMCP |
 | `dist/assets/` | Photographs and `taluks.geojson` |
 

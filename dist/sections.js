@@ -507,11 +507,12 @@
       .map((t) => {
         const label = lang === "kn" ? t.kannada : t.listName || t.name;
         return `<li>
-          <button type="button" class="taluk-index-row" data-select-taluk="${esc(t.id)}" aria-current="false">
+          <a class="taluk-index-row" href="taluk.html?id=${esc(t.id)}" data-select-taluk="${esc(t.id)}">
             <span class="taluk-index-name">${esc(label)}</span>
+            <span class="taluk-index-dots" aria-hidden="true"></span>
             <span class="taluk-index-count">${t.count}</span>
             <span class="taluk-index-go" aria-hidden="true">→</span>
-          </button>
+          </a>
         </li>`;
       })
       .join("");
@@ -748,8 +749,8 @@
           <div class="district-explorer">
             <div class="district-copy">
               <p class="kicker">Explore the district</p>
-              <h2>Nine taluks. Click a lime pin.</h2>
-              <p class="section-lead">Lime diamonds mark popular visitor places. Click a pin for published hours, how to approach, and official pages — not a ticket or a fee. Click a taluk to zoom and see every place this companion holds there.</p>
+              <h2>Nine taluks, endless experiences.</h2>
+              <p class="section-lead">The overview shows only the nine taluks of Chikkamagaluru. Click a taluk — or a name in the list — to open its page. Places appear there, with visitor notes drawn from public sources, not as pins on this map.</p>
               <a class="btn btn-dark shine t-learn" data-map-cta href="map.html" data-magnetic>${learn("View district map")}</a>
             </div>
             <div class="district-map-stage">
@@ -762,8 +763,7 @@
                 <span>${f.d.destinations.length} places</span>
               </div>
               <ul class="taluk-index" id="taluk-index">${f.talukIndex}</ul>
-              <p class="taluk-summary" id="taluk-summary"></p>
-              <div class="taluk-inspector" id="taluk-inspector"></div>
+              <p class="taluk-summary" id="taluk-summary">Click a taluk to open its places.</p>
               <p class="taluk-footnote">Kalasa and Ajjampura were carved out of Mudigere and Tarikere after older maps were drawn. Each is shown here with its current OSM boundary.</p>
             </aside>
           </div>
@@ -958,9 +958,9 @@
           <div class="district-explorer">
             <div class="district-copy">
               <p class="kicker">The district</p>
-              <h1>Nine taluks. Pins you can open.</h1>
-              <p class="section-lead">Lime diamonds are popular tourist stops. Click one for visitor notes already published by temples, the district, or the forest department. Zoom a taluk for every place in this companion. Boundaries are OpenStreetMap reference, not a survey.</p>
-              <a class="btn btn-dark shine t-learn" id="taluk-places-cta" href="places.html" data-magnetic>${learn("Browse places in this taluk")}</a>
+              <h1>Nine taluks. Open one.</h1>
+              <p class="section-lead">Green fills follow how many places this companion holds in each taluk. Click a shape to leave this overview and open that taluk’s dedicated page — with a closer map, every listed sight, and public descriptions. Boundaries are OpenStreetMap reference, not a survey.</p>
+              <a class="btn btn-dark shine t-learn" id="taluk-places-cta" href="places.html" data-magnetic>${learn("Browse all places")}</a>
             </div>
             <div class="district-map-stage">
               <div class="choropleth choropleth-lg" id="district-svg" data-map-root data-map-mode="page" role="application" aria-label="Interactive Chikkamagaluru taluk map"></div>
@@ -972,22 +972,114 @@
                 <span>${f.d.destinations.length} places</span>
               </div>
               <ul class="taluk-index" id="taluk-index">${f.talukIndex}</ul>
-              <p class="taluk-summary" id="taluk-summary"></p>
-              <div class="taluk-inspector" id="taluk-inspector"></div>
+              <p class="taluk-summary" id="taluk-summary">Nine taluks. Places wait on each taluk’s own page.</p>
               <p class="taluk-footnote">${esc(f.d.mapNote || "")}</p>
             </aside>
           </div>
         </div>
       </section>
-      <section class="section" style="padding-top:0">
+      ${footer(f)}`;
+  }
+
+  function talukPlaceArticle(place, lang) {
+    const extra = (global.CKM.popularPlaces || []).find((p) => p.id === place.id);
+    const title = lang === "kn" ? place.kannada : place.name;
+    const sources = []
+      .concat(place.sources || [])
+      .concat(extra && extra.hoursSource ? [extra.hoursSource] : [])
+      .filter((s, i, arr) => s && s.url && arr.findIndex((x) => x.url === s.url) === i)
+      .map((s) => `<li><a href="${esc(s.url)}" rel="noopener noreferrer">${esc(s.label)}</a></li>`)
+      .join("");
+    const why = extra
+      ? `<p class="taluk-place-why">${esc(extra.why)}</p>
+         <p class="taluk-place-hours"><strong>${esc(extra.hours)}</strong> — ${esc(extra.hoursDetail)}</p>`
+      : "";
+    return `
+      <article class="taluk-place" id="place-${esc(place.id)}">
+        <figure class="taluk-place-media">
+          <img src="${esc(place.image)}" alt="${esc(place.name)}" width="1800" height="1200" loading="lazy" />
+        </figure>
+        <div class="taluk-place-body">
+          <p class="kicker">${esc(catLabel(place.category, lang))} · ${esc(place.taluk)}</p>
+          <h2>${esc(title)}</h2>
+          <p class="kn">${esc(place.kannada)}</p>
+          <p>${esc(place.summary || place.blurb)}</p>
+          ${why}
+          <p>${esc(place.visit)}</p>
+          <p class="taluk-place-meta">${esc(place.bestTime || "")}${place.elevation ? " · " + esc(place.elevation) : ""}</p>
+          ${sources ? `<ul class="taluk-sources">${sources}</ul>` : ""}
+          <div class="taluk-place-actions">
+            <button class="btn btn-dark" type="button" data-open-place="${esc(place.id)}">${learn("Open visitor notes")}</button>
+            <button class="btn btn-line" type="button" data-add-day="0" data-place="${esc(place.id)}">Add to trip</button>
+          </div>
+        </div>
+      </article>`;
+  }
+
+  function renderTalukPage(lang) {
+    const f = fragments(lang);
+    const id = new URLSearchParams(location.search).get("id") || "";
+    const taluk = (f.d.taluks || []).find((t) => t.id === id);
+    if (!taluk) {
+      return `
+        <section class="page-hero">
+          <div class="wrap">
+            <p class="kicker">Taluk guide</p>
+            <h1>Choose a taluk</h1>
+            <p class="section-lead">This page needs a taluk in the address. Open the district map and click one of the nine.</p>
+            <a class="btn btn-dark shine" href="map.html">${learn("Nine-taluk map")}</a>
+          </div>
+        </section>
+        ${footer(f)}`;
+    }
+    const places = (f.d.destinations || []).filter((p) => p.talukId === taluk.id);
+    const label = lang === "kn" ? taluk.kannada : taluk.listName || taluk.name;
+    const articles = places.map((p) => talukPlaceArticle(p, lang)).join("");
+    const empty = places.length
+      ? ""
+      : `<p class="empty-state" id="taluk-places-empty">This companion does not yet list a destination in ${esc(label)}. The OSM boundary is shown so the nine-taluk map stays complete. Neighbour taluks still have full guides.</p>`;
+    const grouped = (f.d.categories || [])
+      .filter((c) => c.id !== "all")
+      .map((c) => {
+        const n = places.filter((p) => p.category === c.id).length;
+        return n ? `<span class="taluk-chip">${esc(lang === "kn" ? c.kn : c.label)} · ${n}</span>` : "";
+      })
+      .join("");
+    return `
+      <section class="page-hero taluk-hero">
+        <div class="wrap">
+          <p class="kicker"><a href="map.html">The district</a> · ${esc(label)}</p>
+          <h1>${esc(label)}</h1>
+          <p class="kn">${esc(taluk.kannada)}</p>
+          <p class="section-lead">${esc(taluk.blurb)}</p>
+          <div class="taluk-chips">${grouped}</div>
+          <p class="taluk-place-meta">${places.length} place${places.length === 1 ? "" : "s"} in this companion — descriptions from district tourism, temple and forest pages already on the public web. Not a complete gazetteer.</p>
+        </div>
+      </section>
+      <section class="district-explorer-section taluk-focus-section">
+        <div class="wrap wrap-wide">
+          <div class="taluk-focus-grid">
+            <div class="district-copy">
+              <p class="kicker">This taluk</p>
+              <h2>Places on the map.</h2>
+              <p class="section-lead">The district overview hid every pin. Here the listed sights sit on ${esc(label)}’s OSM polygon. Click a marker to jump to its notes below.</p>
+              <a class="btn btn-line" href="map.html">${learn("Back to nine taluks")}</a>
+            </div>
+            <div class="district-map-stage">
+              <div class="choropleth choropleth-lg" id="district-svg" data-map-root data-map-mode="taluk" data-focus-taluk="${esc(taluk.id)}" role="img" aria-label="Places in ${esc(label)}"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section taluk-guide">
         <div class="wrap">
           <div class="section-head">
-            <p class="kicker" id="taluk-places-kicker">Places in this taluk</p>
-            <h2 id="taluk-places-heading">Choose a taluk</h2>
-            <p class="section-lead" id="taluk-places-lead">The map lists what this companion holds — not a complete gazetteer.</p>
+            <p class="kicker">Visitor notes</p>
+            <h2>Every listed place in ${esc(label)}.</h2>
+            <p class="section-lead">Hours, approach and “why people stop” come from public pages — the district, Karnataka Forest Department, mathas — not from a booking desk. Confirm before you go.</p>
           </div>
-          <div id="taluk-places" class="place-grid"></div>
-          <p class="empty-state" id="taluk-places-empty" hidden>This companion does not yet list a destination in that taluk. Try a neighbour, or browse all places.</p>
+          <div class="taluk-place-list">${articles}</div>
+          ${empty}
         </div>
       </section>
       ${footer(f)}`;
@@ -1240,6 +1332,7 @@
       places: renderPlacesPage,
       popular: renderPopularPage,
       map: renderMapPage,
+      taluk: renderTalukPage,
       stories: renderStoriesPage,
       coffee: renderCoffeePage,
       food: renderFoodPage,
