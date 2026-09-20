@@ -2518,6 +2518,9 @@ window.CKM = {
     },
     "chapters": [
       {
+        "id": "origin-01",
+        "label": "01 · The plant",
+        "focus": [0.52, 0.6],
         "kicker": "The plant",
         "title": "A shrub that liked mist",
         "text": "Before it was a cup on the Hassan bus, coffee was a red cherry in highland weather — a shrub that preferred cloud to open sun. That plant walked a long way from Ethiopian slopes before it ever saw these ghats.\n\nWhat took root on Chandra Drona is still that same highland thing: shade-hungry, slow, and particular about rain.",
@@ -2525,6 +2528,9 @@ window.CKM = {
         "caption": "Companion illustration — wild arabica in highland mist. Imagined landscape, not a field survey of Ethiopia."
       },
       {
+        "id": "origin-02",
+        "label": "02 · Mocha",
+        "focus": [0.55, 0.5],
         "kicker": "Mocha",
         "title": "The harbour that sold the cup",
         "text": "On the Yemeni shore, Mocha became the name people used when they meant coffee itself. The city sold the roasted drink freely enough. Live seed was another matter.\n\nKeep the tree at home, and the world stays a customer. What left that harbour as cargo was meant to be drunk, not planted.",
@@ -2532,6 +2538,9 @@ window.CKM = {
         "caption": "Companion illustration — Mocha harbour, dhows, and sacks of cherry. Not a historical survey of the port."
       },
       {
+        "id": "origin-03",
+        "label": "03 · Seven seeds",
+        "focus": [0.46, 0.4],
         "kicker": "Seven seeds",
         "title": "A courtyard on this ridge",
         "text": "Then a Sufi from these hills is said to have come home with seven Mocha seeds and set them in the courtyard of his hermitage on Baba Budan Giri. Some tellings put that planting near 1600. Others walk him home from Hajj nearer 1670.\n\nThe years argue. The ridge does not. It still carries his name, and the trees still like the same mist.",
@@ -2539,6 +2548,9 @@ window.CKM = {
         "caption": "Companion illustration of Baba Budan with seven cherries. No period portrait is known — this is not a historical likeness."
       },
       {
+        "id": "origin-04",
+        "label": "04 · The Hajj lore",
+        "focus": [0.48, 0.5],
         "kicker": "The Hajj lore",
         "title": "What the hills still tell",
         "text": "The story that travels with the seeds is a smuggler's story: seven raw beans, because seven is sacred, tucked away — in a beard, in the later tellings — so a port would not notice a future forest leaving in a pilgrim's clothes.\n\nNo ship's book confirms it. The district tells it anyway, the way a family tells how the house was built. Believe the slope. Treat the beard as lore.",
@@ -2546,6 +2558,9 @@ window.CKM = {
         "caption": "Companion illustration of the voyage lore: a dhow, a cloth pouch, Mocha astern. Not a reconstruction of a dated crossing."
       },
       {
+        "id": "origin-05",
+        "label": "05 · Chandra Drona",
+        "focus": [0.58, 0.46],
         "kicker": "Chandra Drona",
         "title": "A garden before it was a crop",
         "text": "Those first plants did not become a landscape overnight. For a long time they were a curiosity in courtyard earth — a few trees behind a house, not yet the silver-oak rows you pass on the Charmadi road.\n\nChandra Drona held a garden before it held an estate. The shrine is still on that ridge. The crop learned patience here.",
@@ -2553,6 +2568,9 @@ window.CKM = {
         "caption": "Companion illustration — a cave hermitage and seedling terraces on Chandra Drona. Imagined courtyard, not a measured plan of the shrine."
       },
       {
+        "id": "origin-06",
+        "label": "06 · Estate country",
+        "focus": [0.52, 0.5],
         "kicker": "Estate country",
         "title": "When the forest learned rows",
         "text": "Rows came later, when the forested south was cut into property. In the 1820s planters opened country beside this same ridge, and the crop walked on into Wayanad, the Shevaroys, the Nilgiris.\n\nWhat had been a hermitage tree became a hillside of labour — shade measured, paths named, a bungalow on the shoulder of the hill.",
@@ -2560,6 +2578,9 @@ window.CKM = {
         "caption": "Companion illustration — early shade rows and a ridge bungalow. Imagined estate country, not a portrait of Cannon or any working property."
       },
       {
+        "id": "origin-07",
+        "label": "07 · Shade work",
+        "focus": [0.5, 0.42],
         "kicker": "Shade work",
         "title": "What you see from the bus",
         "text": "Look out between Mudigere and Balehonnur and you are looking at work: two roofs of shade, pepper on the trunks, arabica underneath. Karnataka still grows the largest share of the Indian crop. Rust and stem borer later asked for tougher trees.\n\nIn 1925 an experiment station opened near Balehonnur, in this district — a house of trial plots that the canopy still leans on. The green you photograph from the window is someone's season.",
@@ -2567,6 +2588,9 @@ window.CKM = {
         "caption": "Companion illustration — silver-oak shade, pepper vine, and a tiled research bungalow. Not a photograph of CCRI."
       },
       {
+        "id": "origin-08",
+        "label": "08 · This companion",
+        "focus": [0.5, 0.56],
         "kicker": "This companion",
         "title": "Walk as a guest",
         "text": "This page will not sell you a cupping, a bungalow, or a jeep through someone else's silver oak. If a planter opens a path, that is their door. Stay on it.\n\nThe seven seeds are a story people keep. The canopy is a living crop in a living forest. Drink the cup. Leave the rows as you found them.",

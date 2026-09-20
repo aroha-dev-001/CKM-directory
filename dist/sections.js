@@ -449,44 +449,79 @@
       })
       .join("");
     const origin = d.coffeeOrigin || {};
-    const originChapters = (origin.chapters || [])
+    const chapters = origin.chapters || [];
+    const originAnchors = chapters
       .map((ch, i) => {
-        const paras = String(ch.text || "").split(/\n\n/).filter(Boolean);
+        const id = ch.id || `origin-${String(i + 1).padStart(2, "0")}`;
+        return `<span id="${esc(id)}"></span>`;
+      })
+      .join("");
+    const originThumbs = chapters
+      .map((ch, i) => {
+        const id = ch.id || `origin-${String(i + 1).padStart(2, "0")}`;
+        return `<button class="origin-thumb" type="button" data-origin-goto="${i}" aria-current="${i === 0 ? "true" : "false"}">
+          <img src="${esc(ch.image)}" alt="${esc(ch.caption || ch.title)}" width="600" height="400" />
+          <span>${esc(ch.label || `${String(i + 1).padStart(2, "0")} · ${ch.kicker}`)}</span>
+        </button>`;
+      })
+      .join("");
+    const originLinks = chapters
+      .map((ch, i) => {
+        const id = ch.id || `origin-${String(i + 1).padStart(2, "0")}`;
+        return `<a href="#${esc(id)}" data-origin-goto="${i}"${i === 0 ? ' aria-current="page"' : ""}>${esc(ch.label || ch.kicker)}</a>`;
+      })
+      .join("");
+    const first = chapters[0] || {};
+    const firstParas = String(first.text || "")
+      .split(/\n\n/)
+      .filter(Boolean)
+      .map((p) => `<p>${esc(p)}</p>`)
+      .join("");
+    const originFull = chapters
+      .map((ch, i) => {
         const n = String(i + 1).padStart(2, "0");
-        const last = i === (origin.chapters || []).length - 1;
-        return `<article class="sg-origin-slide" id="origin-${n}" data-origin-slide aria-roledescription="slide" aria-label="${esc(n)}. ${esc(ch.title)}">
-          <figure class="sg-origin-photo">
-            <img src="${esc(ch.image)}" alt="${esc(ch.caption || ch.title)}" width="1800" height="1200" ${i < 2 ? "" : 'loading="lazy"'} />
-            <figcaption>${esc(ch.caption || "")}</figcaption>
-          </figure>
-          <div class="sg-origin-panel">
-            <p class="sg-eyebrow">${n} · ${esc((ch.kicker || "").toUpperCase())}</p>
-            <h2>${esc(ch.title)}</h2>
-            <div class="sg-origin-copy">${paras.map((p) => `<p>${esc(p)}</p>`).join("")}</div>
-            <div class="sg-origin-actions">
-              <button class="sg-ghost" type="button" data-origin-prev>Back</button>
-              <button class="sg-pill sg-pill-lime" type="button" data-origin-next ${last ? "hidden" : ""}>Next →</button>
-              <a class="sg-pill sg-pill-forest" data-origin-end href="places.html?id=baba-budangiri" ${last ? "" : "hidden"}>Open Baba Budangiri</a>
-            </div>
-          </div>
+        const paras = String(ch.text || "")
+          .split(/\n\n/)
+          .filter(Boolean)
+          .map((p) => `<p>${esc(p)}</p>`)
+          .join("");
+        return `<article class="origin-full-scene" data-origin-full-scene>
+          <p class="kicker">${esc(ch.label || `${n} · ${ch.kicker}`)}</p>
+          <h3>${esc(ch.title)}</h3>
+          <img src="${esc(ch.image)}" alt="${esc(ch.caption || ch.title)}" width="1800" height="1200" loading="lazy" />
+          ${paras}
+          <p class="origin-panel-caption">${esc(ch.caption || "")}</p>
         </article>`;
       })
       .join("");
-    const originTabs = (origin.chapters || [])
-      .map((ch, i) => `<button class="sg-origin-tab" type="button" role="tab" data-origin-tab="${i}" aria-selected="${i === 0 ? "true" : "false"}">${esc(ch.kicker || ch.title)}</button>`)
-      .join("");
-    const originSlider = origin.chapters && origin.chapters.length
-      ? `<section class="sg-origin" aria-label="Eight scenes from Mocha to shade">
-          <div class="sg-origin-shell">
-            <div class="sg-origin-viewport" data-origin-slider tabindex="0">
-              <div class="sg-origin-track" data-origin-track>${originChapters}</div>
-            </div>
-            <div class="sg-origin-nav">
-              <p class="sg-origin-status" data-origin-status>01 / 08</p>
-              <p class="sg-ghost" aria-hidden="true">Swipe or use arrows</p>
-            </div>
-            <div class="sg-origin-tabs" role="tablist" aria-label="Scenes">${originTabs}</div>
+    const originCircle = chapters.length
+      ? `<section class="origin-circle" data-origin-circle>
+          <div class="origin-hash-anchors" aria-hidden="true">${originAnchors}</div>
+          <div class="origin-gallery-stage">
+            <div class="circular-gallery" data-origin-webgl tabindex="0" role="region" aria-label="Circular illustration gallery. Use left and right arrows or Previous and Next."></div>
+            <div class="origin-gallery-fallback" data-origin-fallback>${originThumbs}</div>
           </div>
+          <p class="origin-hint">Drag to explore · or use arrows</p>
+          <div class="origin-progress-row">
+            <button type="button" data-origin-prev>Previous</button>
+            <p data-origin-progress>01 / ${String(chapters.length).padStart(2, "0")}</p>
+            <button type="button" data-origin-next>Next</button>
+          </div>
+          <nav class="origin-chapter-links" aria-label="Chapters">${originLinks}</nav>
+          <div class="origin-panel" data-origin-panel>
+            <p class="kicker" data-origin-kicker>${esc(first.label || first.kicker || "")}</p>
+            <h2 data-origin-title>${esc(first.title || "")}</h2>
+            <div class="origin-panel-copy" data-origin-copy>${firstParas}</div>
+            <p class="origin-panel-caption" data-origin-caption>${esc(first.caption || "")}</p>
+            <div class="origin-panel-end" data-origin-end hidden>
+              <a class="btn btn-dark" href="places.html?id=baba-budangiri">Open Baba Budangiri</a>
+              <a class="btn btn-line" href="stories.html#story-coffee">Coffee chapter on Stories</a>
+              <button class="btn btn-line" type="button" data-origin-restart>Start again</button>
+            </div>
+          </div>
+          <p class="sr-only" aria-live="polite" data-origin-live></p>
+          <button class="origin-read-all" type="button" data-origin-read-all aria-expanded="false">Read all chapters</button>
+          <div class="origin-full" data-origin-full hidden>${originFull}</div>
         </section>`
       : "";
     const originHero = origin.image
@@ -532,7 +567,7 @@
       d, tx, interests, featured, talukBtns, circuits, faqs, packing, dos, donts, about,
       filters, places, season, seasonMonths, stories, storyIndex, essentials, guide, gallery, credits,
       talukIndex, placeJump, official: d.official, tickerItems, seasonCards, whyCards,
-      origin, originChapters, originSources, originSlider,
+      origin, originSources, originCircle,
       originHero,
       foodCards, galleryNum, homeCircuits, homeGallery, fieldNotes, popularCards, popularCarousel,
     };
@@ -1242,25 +1277,22 @@
     const f = fragments(lang);
     const origin = f.origin || {};
     return `
-      <section class="page-hero">
+      <section class="page-hero origin-circle-head">
         <div class="wrap">
-          <p class="kicker">${esc(origin.kicker || "Coffee country")}</p>
+          <p class="kicker">How coffee reached these hills</p>
           <h1>${esc(origin.title || "Seven seeds from Mocha")}</h1>
           <p class="section-lead">${esc(origin.lede || "")}</p>
           <p><a class="text-link t-learn" href="index.html#coffee-origin">${learn("Back to the homepage card")}</a></p>
         </div>
       </section>
-      <section class="story-longread">
+      <section class="story-longread origin-circle-page">
         <div class="wrap">
-          ${f.originHero || ""}
-          ${f.originSlider || ""}
+          ${f.originCircle || ""}
           <div class="origin-sources">
             <p class="kicker">Sources</p>
             <ul>${f.originSources}</ul>
           </div>
           <p class="section-lead" style="margin-top:2rem">The ridge that holds his shrine is still walked as Baba Budangiri / Datta Peetha. Hours and crowd rules belong to the shrine, not to this page.</p>
-          <p><a class="btn btn-dark shine t-learn" href="places.html?id=baba-budangiri" data-magnetic>${learn("Open Baba Budangiri")}</a>
-             <a class="btn btn-line" href="stories.html#story-coffee">Coffee chapter on Stories</a></p>
         </div>
       </section>
       ${footer(f)}`;

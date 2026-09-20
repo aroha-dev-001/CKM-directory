@@ -60,7 +60,8 @@ npx vercel --yes --prod
 - Reduced-motion and keyboard support
 - WebMCP tools (`search_destinations`, `add_place_to_trip`) when the browser exposes `document.modelContext` or `navigator.modelContext`
 - Motion from the Cyatra Stash (Transitions.dev, Kinetics, UIverse, Sylva): sliding tabs, toasts, modals, accordion cards, magnetic buttons, number pop on the trip badge
-- Coffee origin scenes on `coffee.html` use a Sweetgreen-inspired immersive slider: cream overlay, lime Next pill, swipe and scene tabs.
+- Homepage popular places use a React Bits **Carousel** (ported to vanilla JS + GSAP): eight featured stops, autoplay with pause on hover, swipe and dots. Hours sit beside the card on desktop and under it on phones.
+- Coffee origin on `coffee.html` uses a React Bits **Circular Gallery** adaptation (ogl, landscape 4:3 planes, no idle ripple). Drag the illustrations; the reading panel below stays in sync. A static selector is the reduced-motion / no-WebGL fallback.
 
 Photographs are Wikimedia Commons stills, cover-cropped to **1800×1200** (hero **2400×1350**), plus original companion illustrations for the coffee origin, Baba Budan, and Malnad kitchen plates. Credits name the file, artist and licence.
 
