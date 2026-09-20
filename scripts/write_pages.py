@@ -33,8 +33,8 @@ TEMPLATE = """<!DOCTYPE html>
       href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css?v=sage2" />
-    <link rel="stylesheet" href="accordion-gallery.css?v=sage2" />
+    <link rel="stylesheet" href="style.css?v=sage3" />
+    <link rel="stylesheet" href="accordion-gallery.css?v=sage3" />
   </head>
   <body data-page="{page}">
     <a class="skip" href="#main">Skip to content</a>

@@ -1403,7 +1403,7 @@ a.food-card-link .pop-face {
 
 @media (prefers-reduced-motion: no-preference) {
   .name-ticker-track {
-    animation: ticker-scroll 58s linear infinite;
+    animation: ticker-scroll 140s linear infinite;
   }
 
   .name-ticker:hover .name-ticker-track {
