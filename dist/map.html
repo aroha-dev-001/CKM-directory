@@ -8,18 +8,16 @@
       name="description"
       content="An independent companion for discovering Chikkamagaluru: peaks, waterfalls, temples, forests, seasons and a private itinerary. Not a government site. Not a booking service."
     />
-    <meta name="theme-color" content="#102A21" />
+    <meta name="theme-color" content="#0c1f13" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <link rel="preload" as="image" href="assets/hero.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+Kannada:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css?v=ed1" />
-    <link rel="stylesheet" href="editorial.css?v=ed1" />
-    <link rel="stylesheet" href="accordion-gallery.css?v=ed1" />
+    <link rel="stylesheet" href="style.css?v=sage2" />
+    <link rel="stylesheet" href="accordion-gallery.css?v=sage2" />
   </head>
   <body data-page="map">
     <a class="skip" href="#main">Skip to content</a>
@@ -34,24 +32,17 @@
           <span class="sr-only">Open menu</span>
         </button>
         <nav class="site-nav" id="site-nav" aria-label="Primary">
-          <div class="nav-item has-menu">
-            <button class="explore-toggle" type="button" data-explore-toggle aria-expanded="false" aria-controls="explore-menu">Explore</button>
-            <div class="explore-menu" id="explore-menu" hidden>
-              <a href="places.html">All places</a>
-              <a href="popular.html">Popular places</a>
-              <a href="index.html#choose-journey">By interest</a>
-              <a href="map.html">By taluk</a>
-              <a href="index.html#season-planner">Seasonal highlights</a>
-            </div>
-          </div>
-          <a href="plan.html" data-nav="plan">Itineraries</a>
+          <a href="index.html" data-nav="home" data-i18n="nav_home">Home</a>
+          <a href="places.html" data-nav="places" data-i18n="nav_places">Places</a>
+          <a href="popular.html" data-nav="popular" data-i18n="nav_popular">Popular</a>
           <a href="map.html" data-nav="map" data-i18n="nav_map">Map</a>
           <a href="stories.html" data-nav="stories" data-i18n="nav_stories">Stories</a>
-          <a href="visit.html" data-nav="visit">Travel Info</a>
+          <a href="plan.html" data-nav="plan" data-i18n="nav_plan">Plan</a>
+          <a href="visit.html" data-nav="visit" data-i18n="nav_visit">Visit</a>
         </nav>
         <div class="header-tools">
           <button class="lang-toggle" type="button" data-lang-toggle>ಕನ್ನಡ</button>
-          <a class="header-trip" href="plan.html" data-empty="true">My Trip
+          <a class="header-trip" href="plan.html">Trip
             <span class="t-badge" data-open="true">
               <span class="t-badge-dot t-digit-group" data-trip-count>0</span>
             </span>
@@ -77,12 +68,10 @@
       <p class="wrap noscript">This companion needs JavaScript for the map, itinerary and search.</p>
     </noscript>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-    <script src="data.js?v=ed1"></script>
-    <script src="canon.js?v=ed1"></script>
-    <script src="ui.js?v=ed1"></script>
-    <script src="sections.js?v=ed1"></script>
-    <script src="map.js?v=ed1"></script>
-    <script src="accordion-gallery.js?v=ed1"></script>
-    <script src="app.js?v=ed1"></script>
+    <script src="data.js"></script>
+    <script src="sections.js"></script>
+    <script src="map.js"></script>
+    <script src="accordion-gallery.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>

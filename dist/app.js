@@ -8,7 +8,7 @@
     lang: localStorage.getItem(STORAGE_LANG) || "en",
     filter: "all",
     taluk: "all",
-    interest: "",
+    query: "",
     selectedTaluk: "",
     trip: loadTrip(),
     passport: loadPassport(),
@@ -93,7 +93,6 @@
     const q = new URLSearchParams(location.search);
     if (PAGE === "places") {
       state.jumpTo = q.get("category") || "";
-      state.interest = q.get("interest") || "";
       state.taluk = q.get("taluk") || "all";
       state.query = q.get("q") || "";
       const id = q.get("id");
@@ -118,10 +117,6 @@
 
   function matches(place) {
     if (state.filter !== "all" && place.category !== state.filter) return false;
-    if (state.interest) {
-      const spec = (CKM.canon && CKM.canon.interests || []).find((i) => i.id === state.interest);
-      if (spec && spec.categories && !spec.categories.includes(place.category)) return false;
-    }
     if (state.taluk !== "all" && place.talukId !== state.taluk && place.taluk !== state.taluk) return false;
     const q = state.query.trim().toLowerCase();
     if (!q) return true;
@@ -152,13 +147,7 @@
     if (!title) return;
     const taluk = (CKM.taluks || []).find((t) => t.id === state.taluk);
     if (!taluk || state.taluk === "all") {
-      if (state.interest) {
-        const spec = (CKM.canon.interests || []).find((i) => i.id === state.interest);
-        if (spec && title) title.textContent = spec.label;
-        if (kicker) kicker.textContent = "By interest";
-        if (lead) lead.textContent = spec ? spec.lead : "";
-      }
-      if (bar && !state.interest) bar.hidden = true;
+      if (bar) bar.hidden = true;
       return;
     }
     const name = state.lang === "kn" ? taluk.kannada : taluk.listName || taluk.name;
@@ -193,10 +182,8 @@
 
   function syncTripCount() {
     const n = state.trip.days.reduce((sum, day) => sum + day.length, 0);
-    const tripLink = document.querySelector(".header-trip");
-    if (tripLink) tripLink.setAttribute("data-empty", n > 0 ? "false" : "true");
     const badge = document.querySelector(".header-trip .t-badge");
-    if (badge) badge.setAttribute("data-open", n > 0 ? "true" : "false");
+    if (badge) badge.setAttribute("data-open", "true");
     document.querySelectorAll("[data-trip-count]").forEach((el) => setDigits(el, String(n)));
   }
 
@@ -369,29 +356,12 @@
     state.selectedTaluk = id;
     const places = CKMMap.placesInTaluk(id);
     const label = talukLabel(taluk);
-    const heading = document.getElementById("taluk-panel-title");
-    if (heading) heading.textContent = label;
-    const top = document.getElementById("taluk-top-list");
-    if (top) {
-      top.innerHTML = places
-        .slice(0, 3)
-        .map(
-          (p) =>
-            `<li><a href="places.html?id=${encodeURIComponent(p.id)}">${CKMSections.esc(state.lang === "kn" ? p.kannada : p.name)}</a></li>`
-        )
-        .join("");
-    }
-    const panelCount = document.getElementById("taluk-panel-count");
-    if (panelCount) {
-      panelCount.hidden = places.length === 0;
-      panelCount.textContent = places.length ? `${places.length} listed place${places.length === 1 ? "" : "s"}` : "";
-    }
     const summary = document.getElementById("taluk-summary");
     if (summary) {
       summary.textContent =
         places.length === 0
-          ? `${label} has no destination listed in this companion yet.`
-          : `${label} — ${places.length} listed place${places.length === 1 ? "" : "s"}.`;
+          ? `${label} — no places in this companion yet. Open the taluk page for the boundary.`
+          : `${label} — ${places.length} place${places.length === 1 ? "" : "s"}. Click to open the taluk page.`;
     }
     document.querySelectorAll("[data-select-taluk]").forEach((btn) => {
       const on = btn.getAttribute("data-select-taluk") === id;
@@ -409,14 +379,10 @@
     if (!root || !window.CKMMap) return;
     const focus = root.getAttribute("data-focus-taluk") || (PAGE === "taluk" ? state.selectedTaluk : "");
     state.mapApi = CKMMap.mount(root, {
-      selected: focus || (PAGE === "home" ? "chikkamagaluru" : ""),
+      selected: focus || "",
       focus,
       onSelect: (id) => updateTalukUi(id),
       onActivate: (id) => {
-        if (PAGE === "home") {
-          updateTalukUi(id);
-          return;
-        }
         location.href = `taluk.html?id=${encodeURIComponent(id)}`;
       },
       onPlace: (id) => {
@@ -1008,116 +974,6 @@
       localStorage.setItem(STORAGE_LANG, state.lang);
       paint();
     });
-    const onScroll = () => {
-      if (!header) return;
-      header.classList.toggle("is-solid", window.scrollY > 48 || PAGE !== "home");
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    const exploreBtn = document.querySelector("[data-explore-toggle]");
-    const exploreMenu = document.getElementById("explore-menu");
-    exploreBtn?.addEventListener("click", () => {
-      const open = exploreMenu && !exploreMenu.hidden;
-      if (exploreMenu) exploreMenu.hidden = open;
-      exploreBtn.setAttribute("aria-expanded", open ? "false" : "true");
-    });
-    document.addEventListener("keydown", (event) => {
-      if (event.key !== "Escape" || !exploreMenu) return;
-      exploreMenu.hidden = true;
-      exploreBtn?.setAttribute("aria-expanded", "false");
-    });
-  }
-
-  function currentSeasonName() {
-    const m = new Date().getMonth();
-    const seasons = CKM.seasons || [];
-    const id = m === 9 ? "post-monsoon" : m >= 5 && m <= 8 ? "monsoon" : m >= 2 && m <= 4 ? "summer" : "winter";
-    const found = seasons.find((s) => s.id === id);
-    return found ? `${found.title} (${found.months})` : "Check the season planner";
-  }
-
-  function initHeroSlider() {
-    const root = document.querySelector("[data-hero-slider]");
-    if (initHeroSlider.cleanup) {
-      initHeroSlider.cleanup();
-      initHeroSlider.cleanup = null;
-    }
-    if (!root) return;
-    const slides = [...root.querySelectorAll("[data-hero-slide]")];
-    const dots = [...root.querySelectorAll("[data-hero-to]")];
-    const pauseBtn = root.querySelector("[data-hero-pause]");
-    const reduce = prefersReduced();
-    let index = 0;
-    let timer = null;
-    let paused = reduce;
-    const videos = [...root.querySelectorAll("[data-hero-video]")];
-    function playVideo(i) {
-      videos.forEach((v, vi) => {
-        if (reduce) {
-          v.pause();
-          return;
-        }
-        if (vi === i && v.offsetParent !== null) {
-          v.play().catch(() => {});
-        } else {
-          v.pause();
-        }
-      });
-    }
-    function show(i) {
-      index = (i + slides.length) % slides.length;
-      slides.forEach((s, si) => {
-        s.hidden = si !== index;
-      });
-      dots.forEach((d, di) => d.setAttribute("aria-current", di === index ? "true" : "false"));
-      playVideo(index);
-    }
-    function tick() {
-      if (!paused) show(index + 1);
-    }
-    function start() {
-      stop();
-      if (!paused && !reduce && slides.length > 1) timer = window.setInterval(tick, 7000);
-    }
-    function stop() {
-      if (timer) window.clearInterval(timer);
-      timer = null;
-    }
-    dots.forEach((d) =>
-      d.addEventListener("click", () => {
-        show(Number(d.getAttribute("data-hero-to")));
-        start();
-      })
-    );
-    pauseBtn?.addEventListener("click", () => {
-      paused = !paused;
-      pauseBtn.setAttribute("aria-pressed", paused ? "true" : "false");
-      pauseBtn.textContent = paused ? "Play" : "Pause";
-      if (paused) {
-        stop();
-        videos.forEach((v) => v.pause());
-      } else start();
-    });
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) {
-          videos.forEach((v) => v.pause());
-          stop();
-        } else if (!paused) {
-          playVideo(index);
-          start();
-        }
-      });
-    });
-    io.observe(root);
-    show(0);
-    start();
-    initHeroSlider.cleanup = () => {
-      stop();
-      io.disconnect();
-    };
-    const season = document.querySelector("[data-current-season]");
-    if (season) season.textContent = currentSeasonName();
   }
 
   function registerWebMCP() {
@@ -1240,8 +1096,6 @@
     renderDays();
     renderPassport();
     initDistrictMap();
-    initHeroSlider();
-    if (PAGE === "home") updateTalukUi("chikkamagaluru");
     syncTripCount();
     bindUi();
     initMotion();
