@@ -34,6 +34,26 @@
     return `${esc(label)}${learnChevron()}`;
   }
 
+  function coffeeOriginCard(f) {
+    const origin = f.origin || {};
+    return `
+      <section class="coffee-origin coffee-origin--home reveal-on-scroll" id="coffee-origin" aria-labelledby="origin-title">
+        <div class="wrap">
+          <a class="story-entry-card tilt-card shine-card" href="coffee.html" data-tilt>
+            <span class="media">
+              <img src="${esc(origin.saint?.image || origin.image)}" alt="${esc(origin.saint?.caption || origin.title)}" width="1800" height="1200" />
+            </span>
+            <span class="story-entry-copy">
+              <span class="kicker">${esc(origin.kicker)}</span>
+              <h2 id="origin-title">${esc(origin.title)}</h2>
+              <p>${esc(origin.lede)}</p>
+              <span class="text-link t-learn">${learn("Read the full story")}</span>
+            </span>
+          </a>
+        </div>
+      </section>`;
+  }
+
   function accChevron() {
     return `<span class="t-acc-chevron" aria-hidden="true"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6.5L8 10.5L12 6.5" vector-effect="non-scaling-stroke"/></svg></span>`;
   }
@@ -721,6 +741,7 @@
           <div data-drift-wall></div>
         </div>
       </section>
+      ${coffeeOriginCard(f)}
       <section class="section pop-section reveal-on-scroll" id="popular-places">
         <div class="wrap">
           <div class="section-head">
@@ -1402,21 +1423,6 @@
           <h1>Stone, matha, and seven Mocha seeds</h1>
           <p class="section-lead">Hoysala east, living shrines on the Tunga, and the coffee story the district still tells.</p>
           ${exploreHubNav("heritage", lang)}
-        </div>
-      </section>
-      <section class="coffee-origin" id="coffee-origin" aria-labelledby="origin-title">
-        <div class="wrap">
-          <a class="story-entry-card tilt-card shine-card" href="coffee.html" data-tilt>
-            <span class="media">
-              <img src="${esc(f.origin.saint?.image || f.origin.image)}" alt="${esc(f.origin.saint?.caption || f.origin.title)}" width="1800" height="1200" />
-            </span>
-            <span class="story-entry-copy">
-              <span class="kicker">${esc(f.origin.kicker)}</span>
-              <h2 id="origin-title">${esc(f.origin.title)}</h2>
-              <p>${esc(f.origin.lede)}</p>
-              <span class="text-link t-learn">${learn("Read the full story")}</span>
-            </span>
-          </a>
         </div>
       </section>
       <section class="section why-section" style="padding-top:0">

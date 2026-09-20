@@ -39,7 +39,7 @@ npx vercel --yes --prod
 
 | Page | What it is |
 | --- | --- |
-| `index.html` | Hero, nine-taluk map, **Explore Chikkamagaluru** accordion (Food, Nature, Stays, Heritage, Tourism), DriftWall, popular carousel |
+| `index.html` | Hero, nine-taluk map, **Explore Chikkamagaluru** accordion (Food, Nature, Stays, Heritage, Tourism), DriftWall, Seven seeds from Mocha card, popular carousel |
 | `food.html` | Food hub — Malnad kitchen plates (`?id=` for a dish story) |
 | `nature.html` | Nature hub — seasons, outdoor places, forest care, field photographs |
 | `stay.html` | Hill air — Kemmanagundi, trip sketches, visitor notes. **Not** a booking or homestay list |

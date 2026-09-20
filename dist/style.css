@@ -825,6 +825,16 @@ a.food-card-link:hover {
   padding: clamp(3.2rem, 7vw, 5.5rem) 0;
 }
 
+.coffee-origin--home {
+  background: var(--cream);
+  padding: 0.4rem 0 3.4rem;
+}
+
+.coffee-origin--home .story-entry-card {
+  background: #fff;
+  border: 1px solid color-mix(in srgb, var(--ink) 7%, transparent);
+}
+
 .story-entry-card {
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
