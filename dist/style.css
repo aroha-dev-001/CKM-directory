@@ -827,9 +827,9 @@ a.food-card-link:hover {
 
 .coffee-origin--home {
   position: relative;
-  z-index: 6;
-  background: var(--ivory);
-  padding: clamp(2.8rem, 6vw, 4.6rem) 0;
+  z-index: 2;
+  background: var(--paper);
+  padding: clamp(2.4rem, 5vw, 3.8rem) 0;
   margin: 0;
   border-top: 1px solid var(--line);
   scroll-margin-top: calc(var(--header) + 1rem);

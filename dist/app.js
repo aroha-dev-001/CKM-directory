@@ -251,12 +251,12 @@
     }
   }
 
-  function placeCoffeeAfterWall() {
+  function placeCoffeeBeforeClose() {
     if (PAGE !== "home") return;
-    const wall = document.querySelector(".places-drift-band");
     const coffee = document.getElementById("coffee-origin");
-    if (!wall || !coffee) return;
-    if (wall.nextElementSibling !== coffee) wall.after(coffee);
+    const close = document.querySelector("main .close-band");
+    if (!coffee || !close) return;
+    if (close.previousElementSibling !== coffee) close.before(coffee);
   }
 
   function initExploreAccordion() {
@@ -1287,7 +1287,7 @@
     initMotion();
     initPopularGallery();
     initHomeDrift();
-    placeCoffeeAfterWall();
+    placeCoffeeBeforeClose();
     initExploreAccordion();
     initNumbers();
     filterPopular();

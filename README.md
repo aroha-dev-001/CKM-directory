@@ -39,11 +39,11 @@ npx vercel --yes --prod
 
 | Page | What it is |
 | --- | --- |
-| `index.html` | Hero, nine-taluk map, **Explore Chikkamagaluru** accordion (Food, Nature, Stays, Heritage, Tourism), DriftWall, Seven seeds from Mocha card, popular carousel |
+| `index.html` | Hero, nine-taluk map, Explore accordion, DriftWall, popular carousel, Seven seeds from Mocha card, then Before you leave town |
 | `food.html` | Food hub — Malnad kitchen plates (`?id=` for a dish story) |
 | `nature.html` | Nature hub — seasons, outdoor places, forest care, field photographs |
 | `stay.html` | Hill air — Kemmanagundi, trip sketches, visitor notes. **Not** a booking or homestay list |
-| `heritage.html` | Heritage hub — coffee origin, temples, forts, coffee country |
+| `heritage.html` | Heritage hub — temples, forts, coffee country |
 | `places.html` | Destinations grouped under waterfalls, temples, dams, lakes, hill stations, peaks, wildlife, treks, forts and coffee country |
 | `popular.html` | Dedicated popular-tourist page: 30 in-district stops that recur on Tripadvisor Things to Do, district place lists and typical 2-day loops |
 | `map.html` | Light green choropleth of the nine taluks only — no place pins |
