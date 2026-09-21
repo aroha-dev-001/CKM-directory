@@ -39,7 +39,8 @@ npx vercel --yes --prod
 
 | Page | What it is |
 | --- | --- |
-| `index.html` | Hero, nine-taluk map, Explore accordion, DriftWall, popular carousel, Seven seeds from Mocha card, then Before you leave town |
+| `index.html` | Hero, map, Explore accordion, DriftWall, popular carousel, Mocha card, Before you leave town |
+| `bean-to-cup.html` | Dedicated **Bean to Cup** walk (ThreeUI Kage WebGL page + six stills: shade, cherry, seed, roast, filter, cup) |
 | `food.html` | Food hub — Malnad kitchen plates (`?id=` for a dish story) |
 | `nature.html` | Nature hub — seasons, outdoor places, forest care, field photographs |
 | `stay.html` | Hill air — Kemmanagundi, trip sketches, visitor notes. **Not** a booking or homestay list |
@@ -68,6 +69,7 @@ npx vercel --yes --prod
 - Under Welcome / Explore Chikkamagaluru, a React Bits **DriftWall** (vanilla port) packs destination stills flush and keeps them scrolling. Themes cycle falls, mountains, heritage, food, water, wildlife. Click a tile to pause and flip a two-to-three-line note.
 - **Tourism** is an Explore Chikkamagaluru card (`tourism.html`) with published 2024–2025 destination visits from Kannada Prabha, a month-by-month seasonal planner, catalogue counts per taluk, and an empty accommodation-data shell. Visit figures stay in `dist/statistics.js`, separate from the place catalogue.
 - Coffee origin on `coffee.html` is eight sequential illustrated chapters (landscape 3:2), stacked as a long read on phones so each picture stays in proportion and the story sits under it.
+- **Bean to Cup** (`bean-to-cup.html`) is the authored ThreeUI **Kage** landing page (canonical `kage.html`, Three.js world, Onest, vermilion) with Chikkamagaluru copy and six stills from shade path to davara. The homepage Mocha card opens this walk.
 
 Photographs are Wikimedia Commons and Creative Commons Flickr stills, cover-cropped to **1800×1200** (hero **2400×1350**), plus original companion illustrations for the coffee origin, Baba Budan, and Malnad kitchen plates. Credits name the file, artist and licence. Instagram, Facebook, X/Twitter, Pinterest and Google Photos were searched for remaining shrines; those posts are copyrighted visitor shots and are **not** bundled. A few listings still use an honest nearby landscape (Kalasa stream, Koppa tea country, Kigga’s Narasimha Parvatha, Samse estate, Coffee Board country) where no freely licensed picture of the named building exists.
 

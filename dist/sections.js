@@ -39,7 +39,7 @@
     return `
       <section class="coffee-origin coffee-origin--home" id="coffee-origin" aria-labelledby="origin-title">
         <div class="wrap">
-          <a class="story-entry-card tilt-card shine-card" href="coffee.html" data-tilt>
+          <a class="story-entry-card tilt-card shine-card" href="bean-to-cup.html" data-tilt>
             <span class="media">
               <img src="${esc(origin.saint?.image || origin.image)}" alt="${esc(origin.saint?.caption || origin.title)}" width="1800" height="1200" />
             </span>
@@ -47,7 +47,7 @@
               <span class="kicker">${esc(origin.kicker)}</span>
               <h2 id="origin-title">${esc(origin.title)}</h2>
               <p>${esc(origin.lede)}</p>
-              <span class="text-link t-learn">${learn("Read the full story")}</span>
+              <span class="text-link t-learn">${learn("Walk bean to cup")}</span>
             </span>
           </a>
         </div>
@@ -1213,7 +1213,8 @@
           <p class="kicker">${esc(origin.kicker || "How coffee reached these hills")}</p>
           <h1>${esc(origin.title || "Seven seeds from Mocha")}</h1>
           <p class="section-lead">${esc(origin.lede || "")}</p>
-          <p><a class="text-link t-learn" href="heritage.html">${learn("Back to heritage")}</a></p>
+          <p><a class="text-link t-learn" href="bean-to-cup.html">${learn("Walk bean to cup")}</a>
+          <a class="text-link t-learn" href="heritage.html">${learn("Back to heritage")}</a></p>
         </div>
       </section>
       <section class="story-longread coffee-longread">

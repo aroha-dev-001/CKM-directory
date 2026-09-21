@@ -61,6 +61,7 @@ TEMPLATE = """<!DOCTYPE html>
           <a href="popular.html" data-nav="popular" data-i18n="nav_popular">Popular</a>
           <a href="map.html" data-nav="map" data-i18n="nav_map">Map</a>
           <a href="stories.html" data-nav="stories" data-i18n="nav_stories">Stories</a>
+          <a href="bean-to-cup.html">Bean to cup</a>
           <a href="plan.html" data-nav="plan" data-i18n="nav_plan">Plan</a>
           <a href="visit.html" data-nav="visit" data-i18n="nav_visit">Visit</a>
         </nav>
@@ -95,7 +96,7 @@ TEMPLATE = """<!DOCTYPE html>
     <script src="data.js?v=sage17"></script>
     <script src="statistics.js?v=sage1"></script>
     <script src="numbers.js?v=sage4"></script>
-    <script src="sections.js?v=sage24"></script>
+    <script src="sections.js?v=sage25"></script>
     <script src="map.js?v=sage6"></script>
     <script src="carousel.js?v=sage6"></script>
     <script src="drift-wall.js?v=sage6"></script>
