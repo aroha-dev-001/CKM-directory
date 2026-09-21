@@ -44,14 +44,6 @@
             <h2 id="bean-to-cup-title">Baba Budan, then the cup.</h2>
             <p class="section-lead">Two acts on one walk: the saint who brought seven Mocha seeds, then shade, cherry, roast, filter, davara. Not a shop. Not a booking. Lore is labelled lore.</p>
           </div>
-          <div class="bean-stills" aria-hidden="false">
-            <a href="bean-to-cup.html#act-origin"><img src="assets/bean-to-cup/story-00-baba-budan.webp" alt="Baba Budan on a misty coffee ridge with seven cherries" width="1600" height="900" /></a>
-            <a href="bean-to-cup.html#bean-plant"><img src="assets/bean-to-cup/story-01-plant.webp" alt="Arabica cherries in highland mist" width="1600" height="900" /></a>
-            <a href="bean-to-cup.html#bean-seeds"><img src="assets/bean-to-cup/story-03-seeds.webp" alt="Seven coffee seeds being planted" width="1600" height="900" /></a>
-            <a href="bean-to-cup.html#bean-shade"><img src="assets/bean-to-cup/01-shade.webp" alt="Shade path through a coffee estate at first light" width="1600" height="1000" /></a>
-            <a href="bean-to-cup.html#bean-cherry"><img src="assets/bean-to-cup/02-cherry.webp" alt="Red coffee cherries on a living shrub" width="1600" height="1000" /></a>
-            <a href="bean-to-cup.html#bean-cup"><img src="assets/bean-to-cup/06-cup.webp" alt="Steaming davara on an estate verandah" width="1600" height="1000" /></a>
-          </div>
           <a class="story-entry-card tilt-card shine-card" href="bean-to-cup.html" data-tilt>
             <span class="media">
               <img src="${esc(origin.saint?.image || origin.image)}" alt="${esc(origin.saint?.caption || origin.title)}" width="1800" height="1200" />
