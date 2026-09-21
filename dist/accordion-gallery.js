@@ -200,24 +200,22 @@
     }
 
     function pickStackIndex() {
-      const box = viewBox();
-      const line = box.top + box.height * 0.22;
-      let best = 0;
-      panels.forEach((panel, i) => {
-        if (panel.getBoundingClientRect().top <= line) best = i;
-      });
-      const chosen = panels[best].getBoundingClientRect();
-      if (chosen.bottom < line + 48 && best < count - 1) {
-        const next = panels[best + 1].getBoundingClientRect();
-        if (next.top < box.top + box.height * 0.78) best += 1;
-      }
-      return best;
+      const wrap = pinWrap();
+      if (!wrap) return 0;
+      const vh = viewBox().height;
+      const rect = wrap.getBoundingClientRect();
+      const range = Math.max(wrap.offsetHeight - vh, 1);
+      const t = Math.max(0, Math.min(0.999, -rect.top / range));
+      return Math.min(count - 1, Math.floor(t * count));
     }
+
+    const SCROLLS_PER_CARD = 2;
 
     function applyStackHeights() {
       const box = viewBox();
-      const compact = 76;
-      const open = Math.max(280, Math.round(Math.min(box.height * 0.64, box.height - 96)));
+      const compact = 64;
+      const reserved = compact * Math.max(0, count - 1) + 10 * Math.max(0, count - 1) + 24;
+      const open = Math.max(240, Math.round(box.height - reserved));
       root.style.setProperty("--ag-open-h", `${open}px`);
       root.style.setProperty("--ag-compact-h", `${compact}px`);
       panels.forEach((panel, i) => {
@@ -227,27 +225,85 @@
       });
     }
 
-    function measure() {
-      const stack = isStack();
+    function pinGallery(rect, vh) {
       const wrap = pinWrap();
-      root.classList.toggle("accordion-gallery--stack", stack);
+      if (!wrap) return;
+      const start = rect.top <= 76;
+      const end = rect.bottom <= vh + 8;
+      if (start && !end) {
+        const left = wrap.getBoundingClientRect().left;
+        root.classList.add("is-pinned");
+        root.style.position = "fixed";
+        root.style.top = "4.75rem";
+        root.style.left = `${left}px`;
+        root.style.width = `${wrap.clientWidth}px`;
+        root.style.right = "auto";
+        root.style.bottom = "auto";
+        root.style.zIndex = "5";
+      } else if (end && rect.top < 0) {
+        root.classList.remove("is-pinned");
+        root.style.position = "absolute";
+        root.style.top = "auto";
+        root.style.bottom = "0";
+        root.style.left = "0";
+        root.style.width = "100%";
+        root.style.zIndex = "2";
+      } else {
+        root.classList.remove("is-pinned");
+        root.style.position = "";
+        root.style.top = "";
+        root.style.left = "";
+        root.style.width = "";
+        root.style.right = "";
+        root.style.bottom = "";
+        root.style.zIndex = "";
+      }
+    }
+
+    function clearPin() {
+      const wrap = pinWrap();
       if (wrap) {
         wrap.classList.remove("explore-accordion-wrap--pin");
         wrap.style.minHeight = "";
+        wrap.style.position = "";
       }
-      if (stack) {
-        root.style.height = "auto";
-        root.style.position = "";
-        root.style.top = "";
-        root.style.setProperty("--ag-media-size", "100%");
-        applyLayout(false);
-        return;
-      }
+      root.classList.remove("is-pinned");
+      root.style.position = "";
+      root.style.top = "";
+      root.style.left = "";
+      root.style.width = "";
+      root.style.right = "";
+      root.style.bottom = "";
+      root.style.zIndex = "";
       panels.forEach((panel) => {
         panel.style.height = "";
         panel.style.minHeight = "";
         panel.style.maxHeight = "";
       });
+    }
+
+    function setupPin() {
+      const wrap = pinWrap();
+      const box = viewBox();
+      if (!wrap) return;
+      wrap.classList.add("explore-accordion-wrap--pin");
+      wrap.style.position = "relative";
+      wrap.style.minHeight = `${Math.round(count * SCROLLS_PER_CARD * box.height)}px`;
+    }
+
+    function measure() {
+      const stack = isStack();
+      const wrap = pinWrap();
+      root.classList.toggle("accordion-gallery--stack", stack);
+      if (!stack) {
+        clearPin();
+      } else {
+        setupPin();
+        root.style.height = "auto";
+        root.style.setProperty("--ag-media-size", "100%");
+        applyLayout(false);
+        return;
+      }
       const rect = root.getBoundingClientRect();
       const total = vertical ? rect.height : rect.width;
       const usable = Math.max(total - gap * (count - 1), 120);
@@ -260,6 +316,9 @@
 
     function syncFromScroll() {
       if (!isStack()) return;
+      const wrap = pinWrap();
+      if (!wrap) return;
+      pinGallery(wrap.getBoundingClientRect(), viewBox().height);
       setActive(pickStackIndex());
     }
 
@@ -269,10 +328,18 @@
       });
       panel.addEventListener("focus", () => setActive(i));
       panel.addEventListener("click", (e) => {
-        if (i !== active) {
-          e.preventDefault();
-          setActive(i);
+        if (i === active) return;
+        e.preventDefault();
+        if (isStack()) {
+          const wrap = pinWrap();
+          if (wrap) {
+            const vh = viewBox().height;
+            const start = wrap.getBoundingClientRect().top + (window.scrollY || window.pageYOffset);
+            const range = Math.max(wrap.offsetHeight - vh, 1);
+            window.scrollTo({ top: start + (i / count) * range + 12, behavior: prefersReduced ? "auto" : "smooth" });
+          }
         }
+        setActive(i);
       });
       panel.addEventListener("keydown", (e) => {
         if (e.key === "ArrowRight" || e.key === "ArrowDown") {
@@ -285,13 +352,13 @@
       });
     });
 
+    let lastWidth = root.clientWidth;
     const ro = new ResizeObserver((entries) => {
       const w = entries[0] && entries[0].contentRect ? entries[0].contentRect.width : root.clientWidth;
       if (Math.abs(w - lastWidth) < 8 && isStack()) return;
       lastWidth = w;
       measure();
     });
-    let lastWidth = root.clientWidth;
     ro.observe(root);
     measure();
     firstRun = false;
@@ -303,10 +370,13 @@
       ticking = true;
       requestAnimationFrame(() => {
         ticking = false;
+        if (isStack()) setupPin();
         syncFromScroll();
       });
     }
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    if (window.visualViewport) window.visualViewport.addEventListener("resize", onScroll, { passive: true });
     syncFromScroll();
 
     const onStackChange = () => measure();
@@ -325,11 +395,10 @@
         tl?.kill();
         ro.disconnect();
         window.removeEventListener("scroll", onScroll);
+        window.removeEventListener("resize", onScroll);
+        if (window.visualViewport) window.visualViewport.removeEventListener("resize", onScroll);
         const wrap = pinWrap();
-        if (wrap) {
-          wrap.style.minHeight = "";
-          wrap.classList.remove("explore-accordion-wrap--pin");
-        }
+        if (wrap) clearPin();
         if (stackQuery.removeEventListener) stackQuery.removeEventListener("change", onStackChange);
         else if (stackQuery.removeListener) stackQuery.removeListener(onStackChange);
       },
