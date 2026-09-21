@@ -689,9 +689,10 @@
     ctx.fillStyle = CFG.world.background;
     ctx.fillRect(0, 0, w, h);
     if (isMobile()) {
-      var bandH = Math.round(h * 0.54);
-      var pad = Math.round(w * 0.03);
-      drawCoverBox(frames[i0], pad, Math.round(h * 0.08), w - pad * 2, bandH, vis);
+      var navH = Math.round(Math.min(h * 0.13, Math.max(72, h * 0.09)));
+      var copyH = Math.round(h * 0.36);
+      var bandH = Math.max(1, h - navH - copyH);
+      drawCoverBox(frames[i0], 0, navH, w, bandH, vis);
     } else {
       ctx.save();
       ctx.translate(Math.round(w * CFG.plates.fallbackShift), 0);
@@ -971,7 +972,7 @@
     function resize() {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile() ? 2.5 : CFG.world.pixelRatioCap));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile() ? 1.5 : CFG.world.pixelRatioCap));
       renderer.setSize(window.innerWidth, window.innerHeight, false);
     }
 
@@ -1013,15 +1014,20 @@
 
       var currentFocus = 0;
       var plateW = plt.width;
-      var fitW = mobile ? visW * 0.94 : plateW;
-      var fitH = fitW * (9 / 16);
-      var maxBand = visH * 0.52;
-      if (mobile && fitH > maxBand) {
-        fitH = maxBand;
-        fitW = fitH * (16 / 9);
+      var plateH = plateW * (9 / 16);
+      var sx = 1;
+      var liftY = 0;
+      if (mobile) {
+        var navFrac = Math.min(0.13, Math.max(0.09, 76 / Math.max(window.innerHeight, 1)));
+        var copyFrac = 0.36;
+        var bandH = visH * Math.max(0.42, 1 - navFrac - copyFrac);
+        var bandW = visW;
+        sx = Math.max(bandW / plateW, bandH / plateH);
+        liftY = visH * (copyFrac - navFrac) / 2;
+        floor.visible = false;
+      } else {
+        floor.visible = true;
       }
-      var sx = fitW / plateW;
-      var liftY = mobile ? visH * 0.2 : 0;
       plates.forEach(function (p, i) {
         var dz = p.position.z - camera.position.z;
         var ahead = -dz;
@@ -1286,7 +1292,7 @@
   function start() {
     CFG = clone(WALK_DEFAULTS);
     boot();
-    var url = "bean-to-cup.walk.json?v=cup11";
+    var url = "bean-to-cup.walk.json?v=cup12";
     var ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
     var timed = setTimeout(function () {
       if (ctrl) ctrl.abort();
