@@ -188,6 +188,7 @@
     perspective: none;
     height: auto !important;
     gap: 10px;
+    padding-bottom: 48svh;
   }
   .accordion-gallery--stack .ag-panel {
     flex: 0 0 auto !important;
@@ -197,16 +198,17 @@
     max-height: 4.75rem;
     transform: none !important;
     overflow: hidden;
+    scroll-margin-top: 12svh;
     will-change: height, max-height;
     transition:
-      height 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-      min-height 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-      max-height 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      height 0.78s cubic-bezier(0.22, 1, 0.36, 1),
+      min-height 0.78s cubic-bezier(0.22, 1, 0.36, 1),
+      max-height 0.78s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .accordion-gallery--stack .ag-panel--active {
-    height: min(68svh, 32rem);
-    min-height: min(68svh, 32rem);
-    max-height: min(68svh, 32rem);
+    height: var(--ag-open-h, calc(100svh - 7.5rem));
+    min-height: var(--ag-open-h, calc(100svh - 7.5rem));
+    max-height: var(--ag-open-h, calc(100svh - 7.5rem));
   }
   .accordion-gallery--stack .ag-panel:not(.ag-panel--active) .ag-panel__copy {
     opacity: 0 !important;

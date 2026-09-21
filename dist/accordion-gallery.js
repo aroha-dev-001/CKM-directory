@@ -26,7 +26,7 @@
     const radius = options.radius ?? 22;
     const expandRatio = options.expandRatio ?? 0.48;
     const orientation = options.orientation ?? "horizontal";
-    const duration = options.duration ?? 0.6;
+    const duration = options.duration ?? 0.78;
     const ease = options.ease ?? "power3.out";
     const parallax = options.parallax ?? 0.5;
     const tilt = options.tilt ?? 8;
@@ -198,6 +198,28 @@
       return root.closest(".explore-accordion-wrap") || root.parentElement;
     }
 
+    function viewBox() {
+      const vv = window.visualViewport;
+      if (vv && vv.height) return { top: vv.offsetTop || 0, height: vv.height };
+      return { top: 0, height: window.innerHeight || 800 };
+    }
+
+    function activationLine() {
+      const box = viewBox();
+      return box.top + Math.max(64, Math.round(box.height * 0.12));
+    }
+
+    function setOpenHeight() {
+      if (!isStack()) {
+        root.style.removeProperty("--ag-open-h");
+        return;
+      }
+      const box = viewBox();
+      const topInset = activationLine() - box.top;
+      const open = Math.max(240, Math.round(box.height - topInset - 12));
+      root.style.setProperty("--ag-open-h", `${open}px`);
+    }
+
     function measure() {
       const stack = isStack();
       const wrap = pinWrap();
@@ -211,6 +233,7 @@
         root.style.position = "";
         root.style.top = "";
         root.style.setProperty("--ag-media-size", "100%");
+        setOpenHeight();
         applyLayout(!firstRun);
         return;
       }
@@ -229,11 +252,11 @@
 
     function syncFromScroll() {
       if (!isStack()) return;
-      const line = window.innerHeight * 0.36;
+      setOpenHeight();
+      const line = activationLine();
       let best = 0;
       panels.forEach((panel, i) => {
-        const r = panel.getBoundingClientRect();
-        if (r.top <= line) best = i;
+        if (panel.getBoundingClientRect().top <= line) best = i;
       });
       setActive(best);
     }
@@ -277,7 +300,10 @@
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("touchmove", onScroll, { passive: true });
-    if (window.visualViewport) window.visualViewport.addEventListener("scroll", onScroll, { passive: true });
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("scroll", onScroll, { passive: true });
+      window.visualViewport.addEventListener("resize", onScroll, { passive: true });
+    }
     syncFromScroll();
 
     const onStackChange = () => measure();
@@ -297,7 +323,10 @@
         ro.disconnect();
         window.removeEventListener("scroll", onScroll);
         window.removeEventListener("touchmove", onScroll);
-        if (window.visualViewport) window.visualViewport.removeEventListener("scroll", onScroll);
+        if (window.visualViewport) {
+          window.visualViewport.removeEventListener("scroll", onScroll);
+          window.visualViewport.removeEventListener("resize", onScroll);
+        }
         const wrap = pinWrap();
         if (wrap) {
           wrap.style.minHeight = "";

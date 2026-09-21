@@ -40,7 +40,7 @@ TEMPLATE = """<!DOCTYPE html>
     <link rel="stylesheet" href="style.css?v=sage31" />
     <link rel="stylesheet" href="carousel.css?v=sage6" />
     <link rel="stylesheet" href="drift-wall.css?v=sage7" />
-    <link rel="stylesheet" href="accordion-gallery.css?v=sage5" />
+    <link rel="stylesheet" href="accordion-gallery.css?v=sage6" />
   </head>
   <body data-page="{page}">
     <a class="skip" href="#main">Skip to content</a>
@@ -100,7 +100,7 @@ TEMPLATE = """<!DOCTYPE html>
     <script src="map.js?v=sage6"></script>
     <script src="carousel.js?v=sage6"></script>
     <script src="drift-wall.js?v=sage7"></script>
-    <script src="accordion-gallery.js?v=sage5"></script>
+    <script src="accordion-gallery.js?v=sage6"></script>
     <script src="app.js?v=sage25"></script>
   </body>
 </html>
