@@ -648,7 +648,7 @@
         <div class="hero-media" aria-hidden="true">
           <video
             class="hero-video"
-            poster="assets/hero.jpg?v=hero2"
+            poster="assets/hero.jpg?v=hero3"
             muted
             loop
             playsinline
@@ -656,9 +656,9 @@
             disablepictureinpicture
             autoplay
           >
-            <source src="assets/hero.mp4?v=hero2" type="video/mp4" />
+            <source src="assets/hero.mp4?v=hero3" type="video/mp4" />
           </video>
-          <img class="hero-fallback" src="assets/hero.jpg?v=hero2" alt="" width="2400" height="1350" fetchpriority="high" />
+          <img class="hero-fallback" src="assets/hero.jpg?v=hero3" alt="" width="2400" height="1350" fetchpriority="high" />
         </div>
         <div class="hero-scrim"></div>
         <p class="hero-ghost" aria-hidden="true">LAND OF COFFEE</p>
