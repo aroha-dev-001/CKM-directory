@@ -622,6 +622,28 @@
     ctx.restore();
   }
 
+  function drawContainBox(img, x, y, boxW, boxH, alpha) {
+    if (!img || !img.width || boxW <= 0 || boxH <= 0) return;
+    var ir = img.width / img.height;
+    var cr = boxW / boxH;
+    var dw, dh, dx, dy;
+    if (ir > cr) {
+      dw = boxW;
+      dh = boxW / ir;
+      dx = x;
+      dy = y + (boxH - dh) / 2;
+    } else {
+      dh = boxH;
+      dw = boxH * ir;
+      dx = x + (boxW - dw) / 2;
+      dy = y;
+    }
+    ctx.save();
+    ctx.globalAlpha = alpha == null ? 1 : alpha;
+    ctx.drawImage(img, dx, dy, dw, dh);
+    ctx.restore();
+  }
+
   function scrollProgress() {
     var reel = $("#reel");
     if (!reel) return 0;
@@ -692,7 +714,7 @@
       var navH = Math.round(Math.min(h * 0.13, Math.max(72, h * 0.09)));
       var copyH = Math.round(h * 0.36);
       var bandH = Math.max(1, h - navH - copyH);
-      drawCoverBox(frames[i0], 0, navH, w, bandH, vis);
+      drawContainBox(frames[i0], 0, navH, w, bandH, vis);
     } else {
       ctx.save();
       ctx.translate(Math.round(w * CFG.plates.fallbackShift), 0);
@@ -1005,8 +1027,13 @@
       camera.near = c.near;
       camera.far = c.far;
       camera.updateProjectionMatrix();
-      camera.position.lerp(camTarget, 1 - Math.pow(mobile ? 0.0002 : c.lerpPower, dt));
-      look.lerp(lookTarget, 1 - Math.pow(mobile ? 0.0002 : c.lerpPower, dt));
+      if (mobile) {
+        camera.position.copy(camTarget);
+        look.copy(lookTarget);
+      } else {
+        camera.position.lerp(camTarget, 1 - Math.pow(c.lerpPower, dt));
+        look.lerp(lookTarget, 1 - Math.pow(c.lerpPower, dt));
+      }
       camera.lookAt(look);
       scene.fog.density = mobile ? Math.min(CFG.world.fogDensity, 0.012) : CFG.world.fogDensity;
       scene.fog.color.setHex(hexNum(CFG.world.fogColor));
@@ -1022,7 +1049,7 @@
         var copyFrac = 0.36;
         var bandH = visH * Math.max(0.42, 1 - navFrac - copyFrac);
         var bandW = visW;
-        sx = Math.max(bandW / plateW, bandH / plateH);
+        sx = Math.min(bandW / plateW, bandH / plateH);
         liftY = visH * (copyFrac - navFrac) / 2;
         floor.visible = false;
       } else {
@@ -1292,7 +1319,7 @@
   function start() {
     CFG = clone(WALK_DEFAULTS);
     boot();
-    var url = "bean-to-cup.walk.json?v=cup12";
+    var url = "bean-to-cup.walk.json?v=cup13";
     var ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
     var timed = setTimeout(function () {
       if (ctrl) ctrl.abort();
