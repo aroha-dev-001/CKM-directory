@@ -98,3 +98,13 @@ Destination notes are reference text: live fees, permits, event dates and closur
 ## Scope
 
 Accommodation booking belongs to the tourism department and is out of scope here. Use the district tourism links on the page for current official information.
+
+## Sandbox admin (not production)
+
+The public Bean to cup page has **no** admin HUD. Motion, camera, plates, copy rail, and navigation are tunable only in the local sandbox:
+
+```bash
+python3 sandbox/serve.py
+```
+
+Open `http://127.0.0.1:43191/sandbox/bean-to-cup/`. Press **H** for the panel. Export JSON when a setting should later move into production. See `sandbox/README.md`.
