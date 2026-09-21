@@ -11,7 +11,7 @@
     <meta name="theme-color" content="#05070a" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="secret-pathways-assets/fonts.css" />
-    <link rel="stylesheet" href="seq-walk.css?v=cup13" />
+    <link rel="stylesheet" href="seq-walk.css?v=cup14" />
   </head>
   <body class="is-locked">
     <a class="skip" href="#reel">Skip to story</a>
@@ -53,6 +53,18 @@
       </nav>
       <button class="nav-burger" type="button" aria-expanded="false" aria-label="Open menu"><i></i><i></i></button>
     </header>
+    <div
+      class="walk-progress"
+      role="progressbar"
+      aria-label="Walk progress"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0"
+    >
+      <span class="walk-progress-track">
+        <i id="walk-progress-bar" class="walk-progress-indicator"></i>
+      </span>
+    </div>
 
     <div class="reel" id="reel">
       <div class="stage">
@@ -72,7 +84,6 @@
         </article>
         </div>
         <div class="stage-meta">
-          <b id="frame-num">00</b>
           <span id="frame-act">Act I · Origin</span>
         </div>
         <nav class="seq-dots" aria-label="Beats">
@@ -146,7 +157,7 @@
     </footer>
 
     <script src="secret-pathways-assets/three.min.js"></script>
-    <script src="kage-walk.js?v=cup13"></script>
+    <script src="kage-walk.js?v=cup14"></script>
     <script src="bean-cursor.js?v=bean1"></script>
   </body>
 </html>

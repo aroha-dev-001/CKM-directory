@@ -78,6 +78,21 @@ img{max-width:100%;display:block}
 .nav-burger i:nth-child(1){top:4px;width:26px}
 .nav-burger i:nth-child(2){top:11px;width:17px}
 
+.walk-progress{
+  position:fixed;top:calc(var(--nav-h) - 12px);left:var(--pad);right:var(--pad);z-index:51;
+  pointer-events:none;
+}
+.walk-progress-track{
+  display:block;height:2px;width:100%;border-radius:999px;overflow:hidden;
+  background:rgba(223,231,224,.16);
+}
+.walk-progress-indicator{
+  display:block;height:100%;width:0%;border-radius:inherit;
+  background:var(--bone);
+  transform-origin:left center;
+  transition:width .35s var(--ease-out);
+}
+
 .reel{position:relative}
 .stage{
   position:sticky;top:0;height:100svh;overflow:hidden;
@@ -140,7 +155,6 @@ img{max-width:100%;display:block}
   display:flex;flex-direction:column;align-items:flex-end;gap:6px;
   font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--bone-dim);
 }
-.stage-meta b{font-weight:400;font-size:clamp(22px,2.2vw,32px);letter-spacing:.08em;color:var(--bone);font-variant-numeric:tabular-nums}
 
 .seq-dots{
   position:absolute;z-index:4;right:var(--pad);bottom:clamp(28px,7vh,72px);
@@ -242,7 +256,8 @@ html.walk-snap .close{
   .stage-veil{
     background:linear-gradient(180deg, transparent 56%, rgba(5,7,10,.35) 72%, rgba(5,7,10,.92) 100%);
   }
-  .stage-meta{right:var(--pad);top:calc(var(--nav-h) + 6px)}
+  .stage-meta{display:none}
+  .walk-progress{top:calc(var(--nav-h) - 14px);left:var(--pad);right:var(--pad)}
   .seq-dots{display:none}
   .foot-grid{grid-template-columns:1fr 1fr}
 }

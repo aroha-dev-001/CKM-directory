@@ -578,6 +578,18 @@
     paintCopy(Math.max(0, painted < 0 ? 0 : painted));
   }
 
+  function setWalkProgress(t) {
+    var last = Math.max(BEATS.length - 1, 1);
+    var pct = Math.max(0, Math.min(1, t == null ? 0 : t)) * 100;
+    var bar = $("#walk-progress-bar");
+    var wrap = $(".walk-progress");
+    if (bar) bar.style.width = pct + "%";
+    if (wrap) {
+      wrap.setAttribute("aria-valuenow", String(Math.round(pct)));
+      wrap.setAttribute("aria-valuetext", "Beat " + String(Math.round((t || 0) * last)).padStart(2, "0") + " of " + String(last).padStart(2, "0"));
+    }
+  }
+
   function setProgress(pct) {
     var bar = $("#pre-bar");
     var num = $("#pre-num");
@@ -668,7 +680,6 @@
     if ($("#copy-p2")) $("#copy-p2").textContent = c.p2;
     if ($("#copy-cap")) $("#copy-cap").textContent = c.cap;
     if ($("#copy-lore")) $("#copy-lore").hidden = !beat.lore;
-    if ($("#frame-num")) $("#frame-num").textContent = String(i).padStart(2, "0");
     if ($("#frame-act")) $("#frame-act").textContent = beat.act === "II" ? UI[pack()].actII : UI[pack()].actI;
     $$(".seq-dots button").forEach(function (b, n) {
       b.classList.toggle("on", n === i);
@@ -1111,6 +1122,7 @@
 
   function onScroll() {
     scrollT = scrollProgress();
+    setWalkProgress(scrollT);
     if (!world) paintBlend(scrollT);
     if (!snapLock) {
       clearTimeout(snapTimer);
@@ -1319,7 +1331,7 @@
   function start() {
     CFG = clone(WALK_DEFAULTS);
     boot();
-    var url = "bean-to-cup.walk.json?v=cup13";
+    var url = "bean-to-cup.walk.json?v=cup14";
     var ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
     var timed = setTimeout(function () {
       if (ctrl) ctrl.abort();
