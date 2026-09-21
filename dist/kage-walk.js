@@ -631,7 +631,7 @@
     var scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x05070a, 0.046);
     var camera = new THREE.PerspectiveCamera(46, window.innerWidth / window.innerHeight, 0.12, 180);
-    camera.position.set(0, 0.15, START);
+    camera.position.set(-0.55, 0.15, START);
 
     var n = BEATS.length;
     var plates = [];
@@ -647,7 +647,7 @@
       tex.magFilter = THREE.LinearFilter;
       tex.anisotropy = maxAniso;
       var aspect = 16 / 9;
-      var w = 8.6;
+      var w = 7.4;
       var h = w / aspect;
       var mat = new THREE.MeshBasicMaterial({
         map: tex,
@@ -657,9 +657,9 @@
         side: THREE.FrontSide,
       });
       var mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat);
-      var side = i % 2 === 0 ? -1.55 : 1.65;
-      mesh.position.set(side, 0.08 + Math.sin(i * 0.7) * 0.12, -i * GAP);
-      mesh.rotation.y = side > 0 ? -0.22 : 0.22;
+      var side = 2.45 + (i % 2 === 0 ? -0.12 : 0.18);
+      mesh.position.set(side, 0.08 + Math.sin(i * 0.7) * 0.1, -i * GAP);
+      mesh.rotation.y = -0.16;
       mesh.userData.baseX = side;
       mesh.userData.baseY = mesh.position.y;
       mesh.userData.index = i;
@@ -667,11 +667,11 @@
       plates.push(mesh);
 
       var sm = new THREE.Mesh(
-        new THREE.PlaneGeometry(w * 0.34, h * 0.34),
-        new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0.38, depthWrite: false })
+        new THREE.PlaneGeometry(w * 0.3, h * 0.3),
+        new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0.34, depthWrite: false })
       );
-      sm.position.set(-side * 2.15, 1.35, -i * GAP - 1.8);
-      sm.rotation.y = side > 0 ? 0.4 : -0.4;
+      sm.position.set(4.55, 1.28, -i * GAP - 1.8);
+      sm.rotation.y = -0.38;
       sm.userData.phase = i * 0.6;
       scene.add(sm);
       shards.push(sm);
@@ -692,7 +692,7 @@
       var m = new THREE.Mesh(beanGeo, b % 5 === 0 ? cherryMat : beanMat);
       var s = 0.035 + Math.random() * 0.05;
       m.scale.set(s * 1.35, s, s * 0.85);
-      m.position.set((Math.random() - 0.5) * 10, (Math.random() - 0.4) * 3.2, -Math.random() * (n * GAP));
+      m.position.set(1.8 + Math.random() * 5.5, (Math.random() - 0.4) * 3.2, -Math.random() * (n * GAP));
       m.userData.spin = 0.2 + Math.random() * 0.6;
       m.userData.drift = 0.04 + Math.random() * 0.08;
       m.userData.baseY = m.position.y;
@@ -701,8 +701,8 @@
     }
 
     var look = new THREE.Vector3(0, 0.1, -4);
-    var camTarget = new THREE.Vector3(0, 0.15, START);
-    var lookTarget = new THREE.Vector3(0, 0.1, -4);
+    var camTarget = new THREE.Vector3(-0.55, 0.15, START);
+    var lookTarget = new THREE.Vector3(2.15, 0.08, -4);
 
     function resize() {
       camera.aspect = window.innerWidth / window.innerHeight;
@@ -717,10 +717,11 @@
       var n1 = Math.max(n - 1, 1);
       var z = START - scrollT * (n1 * GAP + 5.5);
       var weave = Math.sin(scrollT * Math.PI * n1 * 0.35) * 0.18;
-      camTarget.set(weave + pointer.x * 0.55, 0.12 + pointer.y * 0.22, z);
+      var rightBias = window.innerWidth < 820 ? 1.05 : 2.35;
+      camTarget.set(-0.55 + weave * 0.12 + pointer.x * 0.22, 0.12 + pointer.y * 0.18, z);
       var nearest = beatFromT(scrollT);
       var plate = plates[nearest];
-      lookTarget.set(plate ? plate.position.x * 0.28 : 0, 0.08, z - 8.4);
+      lookTarget.set(rightBias, 0.06, z - 8.4);
       camera.position.lerp(camTarget, 1 - Math.pow(0.0008, dt));
       look.lerp(lookTarget, 1 - Math.pow(0.0008, dt));
       camera.lookAt(look);
@@ -732,9 +733,9 @@
         p.material.opacity = 0.28 + focus * 0.7;
         var grow = 1 + Math.max(0, 1 - Math.abs(ahead - 7.2) / 4) * 0.12;
         p.scale.setScalar(grow);
-        p.position.x = p.userData.baseX * (0.55 + (1 - focus) * 0.45);
+        p.position.x = p.userData.baseX + (1 - focus) * 0.28;
         p.position.y = p.userData.baseY + Math.sin(clock.elapsedTime * 0.35 + i) * 0.04;
-        p.rotation.y = (p.userData.baseX > 0 ? -0.22 : 0.22) * (1 - focus * 0.7);
+        p.rotation.y = -0.14 - (1 - focus) * 0.06;
       });
       shards.forEach(function (s) {
         s.position.y = 1.25 + Math.sin(clock.elapsedTime * 0.5 + s.userData.phase) * 0.18;

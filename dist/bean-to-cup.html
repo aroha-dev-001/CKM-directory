@@ -11,7 +11,7 @@
     <meta name="theme-color" content="#05070a" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="secret-pathways-assets/fonts.css" />
-    <link rel="stylesheet" href="seq-walk.css?v=cup5" />
+    <link rel="stylesheet" href="seq-walk.css?v=cup6" />
   </head>
   <body class="is-locked">
     <a class="skip" href="#reel">Skip to story</a>
@@ -58,13 +58,10 @@
       <div class="stage">
         <canvas id="seq" aria-hidden="true"></canvas>
         <div class="stage-veil" aria-hidden="true"></div>
+        <div class="copy-rail">
         <div class="chips" aria-label="Acts">
           <button class="chip on" type="button" data-act="I"><span class="num">I</span><b data-i="chip.i">Origin</b></button>
           <button class="chip" type="button" data-act="II"><span class="num">II</span><b data-i="chip.ii">Crop</b></button>
-        </div>
-        <div class="stage-meta">
-          <b id="frame-num">00</b>
-          <span id="frame-act">Act I · Origin</span>
         </div>
         <article class="copy-card" id="copy-card">
           <p class="kicker"><span class="dot"></span><span id="copy-k">00 · The saint</span><span class="lore" id="copy-lore" hidden>Lore</span></p>
@@ -73,6 +70,11 @@
           <p class="body" id="copy-p2">The years disagree. The ridge does not.</p>
           <p class="cap" id="copy-cap">Companion still of Baba Budan.</p>
         </article>
+        </div>
+        <div class="stage-meta">
+          <b id="frame-num">00</b>
+          <span id="frame-act">Act I · Origin</span>
+        </div>
         <nav class="seq-dots" aria-label="Beats">
           <button type="button" class="on" aria-label="00"><i></i></button>
           <button type="button" aria-label="01"><i></i></button>
@@ -144,6 +146,6 @@
     </footer>
 
     <script src="secret-pathways-assets/three.min.js"></script>
-    <script src="kage-walk.js?v=cup5"></script>
+    <script src="kage-walk.js?v=cup6"></script>
   </body>
 </html>
