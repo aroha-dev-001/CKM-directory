@@ -355,10 +355,13 @@
   var lang = localStorage.getItem(STORAGE_LANG) || "en";
   var frames = [];
   var painted = -1;
-  var pending = -1;
-  var raf = 0;
   var canvas;
   var ctx;
+  var world = null;
+  var scrollT = 0;
+  var pointer = { x: 0, y: 0 };
+  var GAP = 11;
+  var START = 7.2;
 
   function $(sel, root) {
     return (root || document).querySelector(sel);
@@ -385,7 +388,7 @@
       tog.setAttribute("aria-pressed", lang === "kn" ? "true" : "false");
     }
     document.documentElement.lang = lang === "kn" ? "kn" : "en";
-    paintCopy(Math.max(0, painted));
+    paintCopy(Math.max(0, painted < 0 ? 0 : painted));
   }
 
   function setProgress(pct) {
@@ -410,7 +413,7 @@
     if (g) g.style.backgroundImage = "url(" + c.toDataURL("image/png") + ")";
   }
 
-  function drawCover(img, w, h) {
+  function drawCover(img, w, h, alpha) {
     if (!img || !img.width) return;
     var ir = img.width / img.height;
     var cr = w / h;
@@ -429,21 +432,24 @@
       dx = 0;
       dy = (h - dh) / 2;
     }
+    ctx.save();
+    ctx.globalAlpha = alpha == null ? 1 : alpha;
     ctx.drawImage(img, dx, dy, dw, dh);
+    ctx.restore();
   }
 
-  function sizeCanvas() {
-    if (!canvas) return;
-    var dpr = Math.min(window.devicePixelRatio || 1, 1.75);
-    var w = window.innerWidth;
-    var h = window.innerHeight;
-    canvas.width = Math.round(w * dpr);
-    canvas.height = Math.round(h * dpr);
-    canvas.style.width = w + "px";
-    canvas.style.height = h + "px";
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    painted = -1;
-    schedulePaint(pending < 0 ? 0 : pending);
+  function scrollProgress() {
+    var reel = $("#reel");
+    if (!reel) return 0;
+    var total = reel.offsetHeight - window.innerHeight;
+    if (total <= 0) return 0;
+    var y = -reel.getBoundingClientRect().top;
+    return Math.min(1, Math.max(0, y / total));
+  }
+
+  function beatFromT(t) {
+    var n = Math.max(BEATS.length - 1, 1);
+    return Math.min(BEATS.length - 1, Math.max(0, Math.round(t * n)));
   }
 
   function paintCopy(i) {
@@ -470,78 +476,75 @@
       b.classList.toggle("on", n === i);
     });
     $$(".chip").forEach(function (ch) {
-      var which = ch.getAttribute("data-act");
-      ch.classList.toggle("on", which === beat.act);
+      ch.classList.toggle("on", ch.getAttribute("data-act") === beat.act);
     });
   }
 
-  function paintFrame(i) {
+  function setCopyHold(t) {
+    var n = Math.max(BEATS.length - 1, 1);
+    var f = t * n;
+    var frac = f - Math.floor(f);
+    var card = $("#copy-card");
+    if (!card) return;
+    var passing = frac > 0.78 || frac < 0.12;
+    card.classList.toggle("is-pass", passing && t > 0.01 && t < 0.99);
+  }
+
+  function paintBlend(t) {
     if (!ctx || !canvas) return;
-    if (i === painted) return;
-    var img = frames[i];
-    if (!img) return;
     var w = window.innerWidth;
     var h = window.innerHeight;
-    ctx.clearRect(0, 0, w, h);
+    var n = frames.length;
+    if (!n) return;
+    var f = t * Math.max(n - 1, 1);
+    var i0 = Math.floor(f);
+    var i1 = Math.min(n - 1, i0 + 1);
+    var u = f - i0;
     ctx.fillStyle = "#05070a";
     ctx.fillRect(0, 0, w, h);
-    drawCover(img, w, h);
-    painted = i;
-    paintCopy(i);
+    drawCover(frames[i0], w, h, 1);
+    if (i1 !== i0 && frames[i1]) drawCover(frames[i1], w, h, u);
+    var idx = beatFromT(t);
+    if (idx !== painted) {
+      painted = idx;
+      paintCopy(idx);
+    }
+    setCopyHold(t);
   }
 
-  function schedulePaint(i) {
-    pending = i;
-    if (raf) return;
-    raf = requestAnimationFrame(function () {
-      raf = 0;
-      paintFrame(pending);
-    });
-  }
-
-  function frameFromScroll() {
-    var reel = $("#reel");
-    if (!reel) return 0;
-    var rect = reel.getBoundingClientRect();
-    var total = reel.offsetHeight - window.innerHeight;
-    if (total <= 0) return 0;
-    var y = -rect.top;
-    var t = Math.min(1, Math.max(0, y / total));
-    var n = frames.length;
-    var idx = Math.min(n - 1, Math.floor(t * n));
-    return idx;
-  }
-
-  function onScroll() {
-    if (reduced) return;
-    var i = frameFromScroll();
-    if (i !== painted) schedulePaint(i);
+  function size2d() {
+    if (!canvas || world) return;
+    var dpr = Math.min(window.devicePixelRatio || 1, 1.75);
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    paintBlend(scrollT);
   }
 
   function jumpToFrame(i) {
     var reel = $("#reel");
     if (!reel) return;
     var total = reel.offsetHeight - window.innerHeight;
-    var n = Math.max(frames.length, 1);
+    var n = Math.max(BEATS.length - 1, 1);
     var y = reel.offsetTop + (i / n) * total + 2;
     window.scrollTo({ top: y, behavior: reduced ? "auto" : "smooth" });
   }
 
   function preload() {
-    var list = BEATS.slice();
-    if (narrow && list.length > 8) {
-      /* phones: keep every beat — 15 stills is already the story, not a 200-frame reel */
-    }
     var done = 0;
     return new Promise(function (resolve) {
-      list.forEach(function (beat, i) {
+      BEATS.forEach(function (beat, i) {
         var img = new Image();
         img.decoding = "async";
         img.onload = img.onerror = function () {
           frames[i] = img;
           done += 1;
-          setProgress(8 + (done / list.length) * 88);
-          if (done === list.length) resolve();
+          setProgress(8 + (done / BEATS.length) * 88);
+          if (done === BEATS.length) resolve();
         };
         img.src = beat.src;
       });
@@ -551,7 +554,7 @@
   function fillLongread() {
     var host = $("#longread");
     if (!host) return;
-    host.innerHTML = BEATS.map(function (b, i) {
+    host.innerHTML = BEATS.map(function (b) {
       var c = copyOf(b);
       return (
         "<article id=\"beat-" +
@@ -602,13 +605,164 @@
     window.addEventListener("resize", function () {
       document.documentElement.style.setProperty("--vw", window.innerWidth + "px");
       narrow = window.matchMedia("(max-width: 768px)").matches;
-      sizeCanvas();
+      if (world && world.resize) world.resize();
+      else size2d();
     });
+  }
+
+  function initWorld() {
+    if (reduced || typeof THREE === "undefined") return null;
+    var renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+        antialias: true,
+        alpha: false,
+        powerPreference: "high-performance",
+      });
+    } catch (err) {
+      return null;
+    }
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+    renderer.setSize(window.innerWidth, window.innerHeight, false);
+    renderer.setClearColor(0x05070a, 1);
+    renderer.outputEncoding = THREE.sRGBEncoding;
+
+    var scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x05070a, 0.046);
+    var camera = new THREE.PerspectiveCamera(46, window.innerWidth / window.innerHeight, 0.12, 180);
+    camera.position.set(0, 0.15, START);
+
+    var n = BEATS.length;
+    var plates = [];
+    var shards = [];
+    var beans = [];
+    var loader = new THREE.TextureLoader();
+    var maxAniso = renderer.capabilities.getMaxAnisotropy();
+
+    BEATS.forEach(function (beat, i) {
+      var tex = loader.load(beat.src);
+      tex.encoding = THREE.sRGBEncoding;
+      tex.minFilter = THREE.LinearMipmapLinearFilter;
+      tex.magFilter = THREE.LinearFilter;
+      tex.anisotropy = maxAniso;
+      var aspect = 16 / 9;
+      var w = 8.6;
+      var h = w / aspect;
+      var mat = new THREE.MeshBasicMaterial({
+        map: tex,
+        transparent: true,
+        opacity: 0.96,
+        depthWrite: true,
+        side: THREE.FrontSide,
+      });
+      var mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat);
+      var side = i % 2 === 0 ? -1.55 : 1.65;
+      mesh.position.set(side, 0.08 + Math.sin(i * 0.7) * 0.12, -i * GAP);
+      mesh.rotation.y = side > 0 ? -0.22 : 0.22;
+      mesh.userData.baseX = side;
+      mesh.userData.baseY = mesh.position.y;
+      mesh.userData.index = i;
+      scene.add(mesh);
+      plates.push(mesh);
+
+      var sm = new THREE.Mesh(
+        new THREE.PlaneGeometry(w * 0.34, h * 0.34),
+        new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0.38, depthWrite: false })
+      );
+      sm.position.set(-side * 2.15, 1.35, -i * GAP - 1.8);
+      sm.rotation.y = side > 0 ? 0.4 : -0.4;
+      sm.userData.phase = i * 0.6;
+      scene.add(sm);
+      shards.push(sm);
+    });
+
+    var floor = new THREE.Mesh(
+      new THREE.PlaneGeometry(48, n * GAP + 24),
+      new THREE.MeshBasicMaterial({ color: 0x0c1014, transparent: true, opacity: 0.55 })
+    );
+    floor.rotation.x = -Math.PI / 2;
+    floor.position.set(0, -2.35, -((n - 1) * GAP) / 2);
+    scene.add(floor);
+
+    var beanGeo = new THREE.SphereGeometry(1, 10, 8);
+    var beanMat = new THREE.MeshBasicMaterial({ color: 0x4a2c1a });
+    var cherryMat = new THREE.MeshBasicMaterial({ color: 0x8a1f18 });
+    for (var b = 0; b < 36; b++) {
+      var m = new THREE.Mesh(beanGeo, b % 5 === 0 ? cherryMat : beanMat);
+      var s = 0.035 + Math.random() * 0.05;
+      m.scale.set(s * 1.35, s, s * 0.85);
+      m.position.set((Math.random() - 0.5) * 10, (Math.random() - 0.4) * 3.2, -Math.random() * (n * GAP));
+      m.userData.spin = 0.2 + Math.random() * 0.6;
+      m.userData.drift = 0.04 + Math.random() * 0.08;
+      m.userData.baseY = m.position.y;
+      scene.add(m);
+      beans.push(m);
+    }
+
+    var look = new THREE.Vector3(0, 0.1, -4);
+    var camTarget = new THREE.Vector3(0, 0.15, START);
+    var lookTarget = new THREE.Vector3(0, 0.1, -4);
+
+    function resize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight, false);
+    }
+
+    var clock = new THREE.Clock();
+    function tick() {
+      requestAnimationFrame(tick);
+      var dt = Math.min(clock.getDelta(), 0.05);
+      var n1 = Math.max(n - 1, 1);
+      var z = START - scrollT * (n1 * GAP + 5.5);
+      var weave = Math.sin(scrollT * Math.PI * n1 * 0.35) * 0.18;
+      camTarget.set(weave + pointer.x * 0.55, 0.12 + pointer.y * 0.22, z);
+      var nearest = beatFromT(scrollT);
+      var plate = plates[nearest];
+      lookTarget.set(plate ? plate.position.x * 0.28 : 0, 0.08, z - 8.4);
+      camera.position.lerp(camTarget, 1 - Math.pow(0.0008, dt));
+      look.lerp(lookTarget, 1 - Math.pow(0.0008, dt));
+      camera.lookAt(look);
+
+      plates.forEach(function (p, i) {
+        var dz = p.position.z - camera.position.z;
+        var ahead = -dz;
+        var focus = 1 - Math.min(1, Math.abs(ahead - 8.2) / 7.5);
+        p.material.opacity = 0.28 + focus * 0.7;
+        var grow = 1 + Math.max(0, 1 - Math.abs(ahead - 7.2) / 4) * 0.12;
+        p.scale.setScalar(grow);
+        p.position.x = p.userData.baseX * (0.55 + (1 - focus) * 0.45);
+        p.position.y = p.userData.baseY + Math.sin(clock.elapsedTime * 0.35 + i) * 0.04;
+        p.rotation.y = (p.userData.baseX > 0 ? -0.22 : 0.22) * (1 - focus * 0.7);
+      });
+      shards.forEach(function (s) {
+        s.position.y = 1.25 + Math.sin(clock.elapsedTime * 0.5 + s.userData.phase) * 0.18;
+        s.rotation.z = Math.sin(clock.elapsedTime * 0.2 + s.userData.phase) * 0.08;
+      });
+      beans.forEach(function (m) {
+        m.rotation.y += m.userData.spin * dt;
+        m.position.y = m.userData.baseY + Math.sin(clock.elapsedTime * m.userData.drift * 6 + m.position.z) * 0.12;
+      });
+
+      if (nearest !== painted) {
+        painted = nearest;
+        paintCopy(nearest);
+      }
+      setCopyHold(scrollT);
+      renderer.render(scene, camera);
+    }
+    tick();
+    return { resize: resize };
+  }
+
+  function onScroll() {
+    scrollT = scrollProgress();
+    if (!world) paintBlend(scrollT);
   }
 
   function boot() {
     canvas = $("#seq");
-    if (canvas) ctx = canvas.getContext("2d", { alpha: false });
     makeGrain();
     wireNav();
     fillLongread();
@@ -630,10 +784,22 @@
         jumpToFrame(ch.getAttribute("data-act") === "II" ? 9 : 0);
       });
     });
+    window.addEventListener(
+      "pointermove",
+      function (e) {
+        pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
+        pointer.y = -((e.clientY / window.innerHeight) * 2 - 1);
+      },
+      { passive: true }
+    );
 
     preload().then(function () {
-      sizeCanvas();
-      schedulePaint(0);
+      world = reduced ? null : initWorld();
+      if (!world && canvas) {
+        ctx = canvas.getContext("2d", { alpha: false });
+        size2d();
+      }
+      paintCopy(0);
       document.body.classList.remove("is-locked");
       var pre = $("#pre");
       if (pre) pre.classList.add("done");
