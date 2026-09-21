@@ -161,7 +161,7 @@
               <h3>${esc(c.title)}</h3>
               <p>${esc(c.text)}</p>
               <p class="section-lead">${esc(names)}</p>
-              <a class="btn btn-dark shine t-learn" href="plan.html?circuit=${esc(c.id)}" data-magnetic>${learn("Use this sketch")}</a>
+              <a class="btn btn-dark shine t-learn" href="places.html" data-magnetic>${learn("Open places")}</a>
             </div>
           </article>`;
       })
@@ -385,7 +385,7 @@
           .slice(0, 4)
           .join(" · ");
         return `
-          <a class="home-circuit tilt-card shine-card" href="plan.html?circuit=${esc(c.id)}" data-tilt>
+          <a class="home-circuit tilt-card shine-card" href="places.html" data-tilt>
             <div class="media">
               <img src="${esc(c.image)}" alt="${esc(c.title)}" width="1800" height="1200" loading="lazy" />
             </div>
@@ -394,7 +394,7 @@
               <h3>${esc(c.title)}</h3>
               <p>${esc(c.text)}</p>
               <p class="home-circuit-stops">${esc(names)}</p>
-              <span class="text-link t-learn">${learn("Use this sketch")}</span>
+              <span class="text-link t-learn">${learn("Browse places")}</span>
             </span>
           </a>`;
       })
@@ -772,7 +772,7 @@
           </div>
           <div class="guide-grid">${f.fieldNotes}</div>
           <div class="close-actions">
-            <a class="btn btn-dark shine t-learn" href="plan.html" data-magnetic>${learn("Sketch a private trip")}</a>
+            <a class="btn btn-dark shine t-learn" href="places.html" data-magnetic>${learn("Browse places")}</a>
             <a class="btn btn-line" href="visit.html">Visitor information</a>
             <a class="btn btn-line" href="${esc(f.official.district_en)}" rel="noopener noreferrer">District tourism</a>
           </div>
@@ -1118,30 +1118,13 @@
       <section class="page-hero">
         <div class="wrap">
           <p class="kicker">${esc(f.tx("nav_plan"))}</p>
-          <h1>${esc(f.tx("itinerary"))}</h1>
-          <p class="section-lead">A private notebook stored in this browser. Load a sketch, then drag days. No account. No payment.</p>
+          <h1>Three ways through the district</h1>
+          <p class="section-lead">Read the sketches here. This companion does not download a trip pack, stamp a passport, or keep a file on your phone.</p>
         </div>
       </section>
       <section class="section" style="padding-top:0">
         <div class="wrap">
           <div class="circuit-grid">${f.circuits}</div>
-          <div class="plan-layout" style="margin-top:2.4rem">
-            <div>
-              <div class="day-board" id="day-board"></div>
-              <div class="plan-actions">
-                <button class="btn btn-dark shine" type="button" id="add-day" data-magnetic>${esc(f.tx("add_day"))}</button>
-                <button class="btn btn-line" type="button" id="download-pack">${esc(f.tx("download"))}</button>
-                <button class="btn btn-line" type="button" id="clear-trip">${esc(f.tx("clear_trip"))}</button>
-              </div>
-            </div>
-            <aside class="passport" aria-labelledby="passport-title">
-              <h2 id="passport-title">${esc(f.tx("passport"))}</h2>
-              <p>${esc(f.tx("passport_blurb"))}</p>
-              <p><span id="stamp-count">0</span> / ${f.d.destinations.length}</p>
-              <div class="stamp-grid" id="stamp-grid"></div>
-              <div class="progress" aria-hidden="true"><span id="stamp-bar" style="width:0%"></span></div>
-            </aside>
-          </div>
         </div>
       </section>
       ${footer(f)}`;
@@ -1868,9 +1851,9 @@
             <div class="section-head">
               <p class="kicker">Trip sketches</p>
               <h2>Three ways through the hills.</h2>
-              <p class="section-lead">Load a sketch into a private notebook — no account, no payment.</p>
+              <p class="section-lead">Three quiet loops through peaks, water and living shrines. This companion does not download a file or sell a tour.</p>
             </div>
-            <a class="text-link t-learn" href="plan.html">${learn("Open the planner")}</a>
+            <a class="text-link t-learn" href="places.html">${learn("All places")}</a>
           </div>
           <div class="home-circuit-grid">${f.homeCircuits}</div>
         </div>
@@ -1885,7 +1868,7 @@
           <div class="guide-grid">${f.guide}</div>
           <div class="close-actions">
             <a class="btn btn-dark shine t-learn" href="visit.html" data-magnetic>${learn("Visitor information")}</a>
-            <a class="btn btn-line" href="plan.html">Sketch a private trip</a>
+            <a class="btn btn-line" href="places.html">Browse places</a>
             <a class="btn btn-line" href="${esc(f.official.district_en)}" rel="noopener noreferrer">District tourism</a>
           </div>
         </div>

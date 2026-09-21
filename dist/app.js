@@ -1,6 +1,4 @@
 (function () {
-  const STORAGE_TRIP = "ckm-itinerary";
-  const STORAGE_PASS = "ckm-explorer-passport";
   const STORAGE_LANG = "ckm-lang";
   const PAGE = document.body.getAttribute("data-page") || "home";
 
@@ -10,41 +8,10 @@
     taluk: "all",
     query: "",
     selectedTaluk: "",
-    trip: loadTrip(),
-    passport: loadPassport(),
     lastFocus: null,
     mapApi: null,
     queryApplied: false,
   };
-
-  function loadTrip() {
-    try {
-      const raw = JSON.parse(localStorage.getItem(STORAGE_TRIP) || "null");
-      if (raw && Array.isArray(raw.days) && raw.days.length) return raw;
-    } catch (err) {
-      /* ignore */
-    }
-    return { days: [[], [], []] };
-  }
-
-  function loadPassport() {
-    try {
-      const raw = JSON.parse(localStorage.getItem(STORAGE_PASS) || "[]");
-      return Array.isArray(raw) ? raw : [];
-    } catch (err) {
-      return [];
-    }
-  }
-
-  function saveTrip() {
-    localStorage.setItem(STORAGE_TRIP, JSON.stringify(state.trip));
-    syncTripCount();
-  }
-
-  function savePassport() {
-    localStorage.setItem(STORAGE_PASS, JSON.stringify(state.passport));
-    renderPassport();
-  }
 
   function placeById(id) {
     return CKM.destinations.find((p) => p.id === id);
@@ -116,11 +83,6 @@
     }
     if (PAGE === "taluk") {
       state.selectedTaluk = q.get("id") || "";
-    }
-    if (PAGE === "plan") {
-      const circuitId = q.get("circuit");
-      const found = (CKM.circuits || []).find((c) => c.id === circuitId);
-      if (found) loadCircuit(found, false);
     }
   }
 
@@ -318,119 +280,6 @@
     if (mapLink) mapLink.setAttribute("href", `taluk.html?id=${encodeURIComponent(taluk.id)}`);
   }
 
-  function setDigits(group, str) {
-    const prev = group.getAttribute("data-value");
-    if (!group.classList.contains("t-digit-group")) {
-      group.textContent = str;
-      return;
-    }
-    group.classList.remove("is-animating");
-    group.replaceChildren();
-    const chars = String(str).split("");
-    chars.forEach((ch, i) => {
-      const span = document.createElement("span");
-      span.className = "t-digit";
-      span.textContent = ch;
-      if (i === chars.length - 2) span.dataset.stagger = "1";
-      else if (i === chars.length - 1) span.dataset.stagger = "2";
-      group.appendChild(span);
-    });
-    group.setAttribute("data-value", str);
-    void group.offsetHeight;
-    if (prev != null && prev !== str && !prefersReduced()) group.classList.add("is-animating");
-  }
-
-  function syncTripCount() {
-    const n = state.trip.days.reduce((sum, day) => sum + day.length, 0);
-    const badge = document.querySelector(".header-trip .t-badge");
-    if (badge) badge.setAttribute("data-open", "true");
-    document.querySelectorAll("[data-trip-count]").forEach((el) => setDigits(el, String(n)));
-  }
-
-  function renderDays() {
-    const board = document.getElementById("day-board");
-    if (!board) return;
-    board.innerHTML = state.trip.days
-      .map((ids, index) => {
-        const chips = ids
-          .map((id) => {
-            const place = placeById(id);
-            if (!place) return "";
-            return `
-              <div class="trip-chip" draggable="true" data-chip-id="${place.id}" data-from-day="${index}">
-                <img src="${place.image}" alt="" width="96" height="64" />
-                <span>${CKMSections.esc(place.name)}</span>
-                <button class="icon-btn" type="button" data-remove-chip="${place.id}" data-from-day="${index}" aria-label="${t("remove")} ${place.name}">×</button>
-              </div>`;
-          })
-          .join("");
-        return `
-          <div class="day-col" data-day-index="${index}">
-            <div class="day-head">
-              <h3>Day ${index + 1}</h3>
-              ${
-                state.trip.days.length > 1
-                  ? `<button class="icon-btn" type="button" data-remove-day="${index}" aria-label="Remove day ${index + 1}">×</button>`
-                  : ""
-              }
-            </div>
-            <div class="chip-list">${chips || `<p class="section-lead">${t("empty_day")}</p>`}</div>
-          </div>`;
-      })
-      .join("");
-    syncTripCount();
-  }
-
-  function renderPassport() {
-    const grid = document.getElementById("stamp-grid");
-    const count = document.getElementById("stamp-count");
-    const bar = document.getElementById("stamp-bar");
-    if (!grid) return;
-    grid.innerHTML = CKM.destinations
-      .map((p) => {
-        const on = state.passport.includes(p.id);
-        return `<div class="passport-stamp ${on ? "is-stamped" : ""}" title="${CKMSections.esc(p.name)}">
-          <img src="${p.image}" alt="${CKMSections.esc(p.name)}" width="1800" height="1200" />
-          <span>${CKMSections.esc(p.name)}</span>
-        </div>`;
-      })
-      .join("");
-    if (count) count.textContent = String(state.passport.length);
-    if (bar) bar.style.width = `${Math.round((state.passport.length / CKM.destinations.length) * 100)}%`;
-  }
-
-  function addToDay(placeId, dayIndex) {
-    if (!placeById(placeId)) return false;
-    state.trip.days.forEach((day) => {
-      const i = day.indexOf(placeId);
-      if (i >= 0) day.splice(i, 1);
-    });
-    const idx = Math.max(0, Math.min(dayIndex, state.trip.days.length - 1));
-    state.trip.days[idx].push(placeId);
-    saveTrip();
-    renderDays();
-    return true;
-  }
-
-  function loadCircuit(found, announce) {
-    state.trip.days = [[], [], []];
-    found.places.forEach((id, i) => {
-      const day = Math.min(Math.floor(i / 2), 2);
-      if (!state.trip.days[day].includes(id)) state.trip.days[day].push(id);
-    });
-    saveTrip();
-    renderDays();
-    if (announce) toast("Trip sketch loaded");
-  }
-
-  function stamp(placeId) {
-    if (!state.passport.includes(placeId)) {
-      state.passport.push(placeId);
-      savePassport();
-      toast("Passport stamped");
-    }
-  }
-
   function openModal(placeId) {
     const place = placeById(placeId);
     const modal = document.getElementById("place-modal");
@@ -442,9 +291,6 @@
     img.alt = place.name;
     const sources = (place.sources || [])
       .map((s) => `<a href="${CKMSections.esc(s.url)}" rel="noopener noreferrer">${CKMSections.esc(s.label)}</a>`)
-      .join("");
-    const dayBtns = state.trip.days
-      .map((_, i) => `<button class="btn btn-line" type="button" data-add-day="${i}" data-place="${place.id}">Day ${i + 1}</button>`)
       .join("");
     const extra = (CKM.popularPlaces || []).find((p) => p.id === place.id);
     const hoursBlock = extra
@@ -461,7 +307,6 @@
          <h3 class="kicker" style="margin-top:1.1rem">Why travellers stop here</h3>
          <p>${CKMSections.esc(extra.why)}</p>`
       : "";
-    const stamped = state.passport.includes(place.id);
     body.innerHTML = `
       <p class="kicker">${CKMSections.esc(CKMSections.catLabel(place.category, state.lang))} · ${CKMSections.esc(place.taluk)}${place.elevation ? " · " + CKMSections.esc(place.elevation) : ""}</p>
       <h2 id="modal-title">${CKMSections.esc(place.name)}</h2>
@@ -472,11 +317,8 @@
       <p>${CKMSections.esc(place.visit)}</p>
       <p class="visitor-disclaimer">Public notes only — not a ticket, permit, fee table or live gate status. Confirm on the official page before you go.</p>
       <div class="modal-actions">
-        <button class="btn btn-dark" type="button" data-stamp="${place.id}">${stamped ? t("stamped") : t("stamp")}</button>
-        <a class="btn btn-line" href="taluk.html?id=${encodeURIComponent(place.talukId || "")}#place-${encodeURIComponent(place.id)}">${t("open_map")}</a>
+        <a class="btn btn-dark" href="taluk.html?id=${encodeURIComponent(place.talukId || "")}#place-${encodeURIComponent(place.id)}">${t("open_map")}</a>
       </div>
-      <p class="kicker">${t("add")}</p>
-      <div class="day-pick">${dayBtns}</div>
       <div class="source-list">${sources}</div>
     `;
     modal.hidden = false;
@@ -569,43 +411,6 @@
       },
     });
     if (focus) updateTalukUi(focus);
-  }
-
-  function downloadPack() {
-    const days = state.trip.days
-      .map((ids, i) => {
-        const items = ids
-          .map((id) => {
-            const p = placeById(id);
-            if (!p) return "";
-            return `<li><strong>${p.name}</strong> (${p.kannada}) — ${p.blurb}<br><em>${p.visit}</em></li>`;
-          })
-          .join("");
-        return `<h2>Day ${i + 1}</h2><ul>${items || "<li>Open day</li>"}</ul>`;
-      })
-      .join("");
-    const html = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Chikkamagaluru trip pack</title>
-      <style>body{font-family:Georgia,serif;max-width:40rem;margin:2rem auto;padding:0 1rem;line-height:1.5;color:#1a2319;background:#f3eee4}
-      a{color:#6a4126}</style></head><body>
-      <h1>Chikkamagaluru trip pack</h1>
-      <p>Private notes from the Western Ghats companion. Not a ticket, permit or booking. Confirm access with official sources.</p>
-      ${days}
-      <h2>Official pages</h2>
-      <ul>
-        <li><a href="${CKM.official.district_en}">District tourism</a></li>
-        <li><a href="${CKM.official.forest}">Karnataka Forest Department</a></li>
-        <li><a href="${CKM.official.helpline}">District helpline</a></li>
-      </ul>
-      <p>Emergency in India: 112</p>
-      </body></html>`;
-    const blob = new Blob([html], { type: "text/html" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "chikkamagaluru-trip-pack.html";
-    a.click();
-    URL.revokeObjectURL(url);
-    toast("Trip pack downloaded");
   }
 
   function prefersReduced() {
@@ -1021,39 +826,6 @@
         initTabs();
         return;
       }
-      const removeChip = event.target.closest("[data-remove-chip]");
-      if (removeChip) {
-        const day = Number(removeChip.getAttribute("data-from-day"));
-        const id = removeChip.getAttribute("data-remove-chip");
-        state.trip.days[day] = state.trip.days[day].filter((x) => x !== id);
-        saveTrip();
-        renderDays();
-        return;
-      }
-      const removeDay = event.target.closest("[data-remove-day]");
-      if (removeDay) {
-        const i = Number(removeDay.getAttribute("data-remove-day"));
-        if (state.trip.days.length > 1) {
-          state.trip.days.splice(i, 1);
-          saveTrip();
-          renderDays();
-        }
-        return;
-      }
-      if (event.target.closest("#add-day")) {
-        if (state.trip.days.length >= 8) return;
-        state.trip.days.push([]);
-        saveTrip();
-        renderDays();
-        return;
-      }
-      if (event.target.closest("#clear-trip")) {
-        state.trip = { days: [[], [], []] };
-        saveTrip();
-        renderDays();
-        return;
-      }
-      if (event.target.closest("#download-pack")) downloadPack();
     });
 
     main.addEventListener("mouseover", (event) => {
@@ -1077,61 +849,9 @@
       }
     });
 
-    main.addEventListener("dragstart", (event) => {
-      const chip = event.target.closest("[data-chip-id]");
-      if (!chip || !event.dataTransfer) return;
-      event.dataTransfer.setData(
-        "text/plain",
-        JSON.stringify({
-          id: chip.getAttribute("data-chip-id"),
-          from: Number(chip.getAttribute("data-from-day")),
-        })
-      );
-      event.dataTransfer.effectAllowed = "move";
-    });
-
-    main.addEventListener("dragover", (event) => {
-      const col = event.target.closest("[data-day-index]");
-      if (!col) return;
-      event.preventDefault();
-      col.classList.add("dragover");
-    });
-
-    main.addEventListener("dragleave", (event) => {
-      const col = event.target.closest("[data-day-index]");
-      if (col) col.classList.remove("dragover");
-    });
-
-    main.addEventListener("drop", (event) => {
-      const col = event.target.closest("[data-day-index]");
-      if (!col) return;
-      event.preventDefault();
-      col.classList.remove("dragover");
-      try {
-        const payload = JSON.parse(event.dataTransfer.getData("text/plain"));
-        addToDay(payload.id, Number(col.getAttribute("data-day-index")));
-      } catch (err) {
-        /* ignore */
-      }
-    });
-
     const modal = document.getElementById("place-modal");
     modal.addEventListener("click", (event) => {
-      if (event.target.closest("[data-close-modal]")) {
-        closeModal();
-        return;
-      }
-      const stampBtn = event.target.closest("[data-stamp]");
-      if (stampBtn) {
-        stamp(stampBtn.getAttribute("data-stamp"));
-        stampBtn.textContent = t("stamped");
-        return;
-      }
-      const addDay = event.target.closest("[data-add-day]");
-      if (addDay) {
-        addToDay(addDay.getAttribute("data-place"), Number(addDay.getAttribute("data-add-day")));
-        toast("Added to itinerary");
-      }
+      if (event.target.closest("[data-close-modal]")) closeModal();
     });
 
     document.addEventListener("keydown", (event) => {
@@ -1179,22 +899,6 @@
           [p.name, p.kannada, p.taluk, p.category, p.blurb].join(" ").toLowerCase().includes(q)
         );
         return envelope(JSON.stringify(hits.map((p) => ({ id: p.id, name: p.name, taluk: p.taluk, category: p.category })), null, 2));
-      },
-    });
-    ctx.registerTool({
-      name: "add_place_to_trip",
-      description: "Add a destination to the visitor's local itinerary stored in this browser. Does not book anything.",
-      inputSchema: {
-        type: "object",
-        properties: {
-          placeId: { type: "string", description: "Destination id such as mullayanagiri" },
-          day: { type: "integer", description: "1-based day number", default: 1 },
-        },
-        required: ["placeId"],
-      },
-      execute: async ({ placeId, day }) => {
-        const ok = addToDay(placeId, (Number(day) || 1) - 1);
-        return envelope(ok ? `Added ${placeId} to day ${day || 1}.` : `Unknown place ${placeId}.`);
       },
     });
   }
@@ -1303,10 +1007,7 @@
       btn.setAttribute("aria-selected", on ? "true" : "false");
     });
     renderPlaces();
-    renderDays();
-    renderPassport();
     initDistrictMap();
-    syncTripCount();
     bindUi();
     initMotion();
     initPopularGallery();

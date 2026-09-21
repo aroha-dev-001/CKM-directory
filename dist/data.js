@@ -3,7 +3,7 @@ window.CKM = {
     "name": "Chikkamagaluru",
     "nameKn": "ಚಿಕ್ಕಮಗಳೂರು",
     "title": "Chikkamagaluru — a Western Ghats companion",
-    "description": "An independent, static companion for discovering Chikkamagaluru district: peaks, waterfalls, temples, forests, seasons and a private itinerary. Not a government site and not a booking service.",
+    "description": "An independent, static companion for discovering Chikkamagaluru district: peaks, waterfalls, temples, forests and seasons. Not a government site, not a booking service, and nothing here is downloadable.",
     "town": {
       "lat": 13.325246,
       "lng": 75.792399,
@@ -40,7 +40,7 @@ window.CKM = {
       "id": "temples",
       "label": "Temples",
       "kn": "ದೇವಾಲಯಗಳು",
-      "count": 13,
+      "count": 14,
       "image": "assets/sringeri.jpg",
       "lead": "Living shrines from the Tunga terrace to Hoysala stone in the east.",
       "leadKn": "ತುಂಗಾ ತಟದಿಂದ ಹೊಯ್ಸಳ ಶಿಲ್ಪದವರೆಗೆ ದೇವಾಲಯಗಳು."
@@ -663,6 +663,42 @@ window.CKM = {
       "talukId": "chikkamagaluru",
       "difficulty": "moderate",
       "durationMin": 150,
+      "distanceKm": 18,
+      "bestTime": "October – February"
+    },
+    {
+      "id": "deviramma-temple",
+      "name": "Deviramma Temple, Mallenahalli",
+      "kannada": "ದೇವಿರಮ್ಮ ದೇವಸ್ಥಾನ, ಮಲ್ಲೇನಹಳ್ಳಿ",
+      "category": "temples",
+      "taluk": "Chikkamagaluru",
+      "lat": 13.452,
+      "lng": 75.778,
+      "image": "assets/deviramma-temple.jpg",
+      "blurb": "The foothill shrine of Goddess Deviramma on Bindiga estate road at Mallenahalli.",
+      "summary": "Adishakthyathmaka Sri Deviramma Temple sits in the quiet of Mallenahalli, on Bindiga estate road north of Chikkamagaluru town. Devotees come here year-round; the hill shrine on Deviramma Betta above is associated with Deepavali, when the climb is traditionally opened.",
+      "visit": "The Mallenahalli temple is the everyday access. The peak temple is described locally as festival-time only. Dress, photography and festival dates follow the shrine, not this page. Confirm access on the district tourism note before you go.",
+      "seasons": [
+        "winter",
+        "post-monsoon"
+      ],
+      "tags": [
+        "heritage",
+        "temple"
+      ],
+      "sources": [
+        {
+          "label": "District tourism note",
+          "url": "https://chikkamagaluru.nic.in/en/tourism/"
+        },
+        {
+          "label": "Photograph — Bindiga estate road, Mallenahalli",
+          "url": "https://commons.wikimedia.org/wiki/File:DEVIRAMMA_TEMPLE.jpg"
+        }
+      ],
+      "talukId": "chikkamagaluru",
+      "difficulty": "easy",
+      "durationMin": 60,
       "distanceKm": 18,
       "bestTime": "October – February"
     },
@@ -2826,7 +2862,7 @@ window.CKM = {
       "nav_plan": "Plan",
       "nav_guide": "Guide",
       "explore": "Explore the district",
-      "plan_trip": "Build an itinerary",
+      "plan_trip": "Read trip sketches",
       "official": "Official tourism pages",
       "search": "Search places",
       "search_ph": "Try Kudremukh, waterfall, Sringeri…",
@@ -2853,9 +2889,9 @@ window.CKM = {
       "drag": "Drag to a day",
       "remove": "Remove",
       "guide_cta": "Open visitor guide",
-      "webmcp": "Page tools can search places and add them to your local trip.",
+      "webmcp": "Page tools can search places in this companion.",
       "reduced": "Animations are eased because you prefer reduced motion.",
-      "nojs": "This companion needs JavaScript for the map, itinerary and search.",
+      "nojs": "This companion needs JavaScript for the map and search.",
       "nav_about": "District",
       "nav_interest": "Explore",
       "nav_home": "Home",
@@ -2900,9 +2936,9 @@ window.CKM = {
       "drag": "ದಿನಕ್ಕೆ ಎಳೆಯಿರಿ",
       "remove": "ತೆಗೆದುಹಾಕಿ",
       "guide_cta": "ಮಾರ್ಗದರ್ಶಿ ತೆರೆಯಿರಿ",
-      "webmcp": "ಪುಟದ ಉಪಕರಣಗಳು ಸ್ಥಳ ಹುಡುಕಬಹುದು ಮತ್ತು ಸ್ಥಳೀಯ ಯೋಜನೆಗೆ ಸೇರಿಸಬಹುದು.",
+      "webmcp": "ಪುಟದ ಉಪಕರಣಗಳು ಸ್ಥಳ ಹುಡುಕಬಹುದು.",
       "reduced": "ಕಡಿಮೆ ಚಲನೆ ಆದ್ಯತೆಯಿಂದ ಅನಿಮೇಷನ್ ಕಡಿಮೆ.",
-      "nojs": "ನಕ್ಷೆ, ಯೋಜನೆ ಮತ್ತು ಹುಡುಕಾಟಕ್ಕೆ ಜಾವಾಸ್ಕ್ರಿಪ್ಟ್ ಬೇಕು.",
+      "nojs": "ನಕ್ಷೆ ಮತ್ತು ಹುಡುಕಾಟಕ್ಕೆ ಜಾವಾಸ್ಕ್ರಿಪ್ಟ್ ಬೇಕು.",
       "nav_about": "ಜಿಲ್ಲೆ",
       "nav_interest": "ಅನ್ವೇಷಿಸಿ",
       "nav_home": "ಮುಖಪುಟ",
@@ -3289,6 +3325,14 @@ window.CKM = {
       "url": "https://commons.wikimedia.org/wiki/File:Ettina_Bhuja.jpg"
     },
     {
+      "local": "deviramma-temple.jpg",
+      "place": "Deviramma Temple, Mallenahalli",
+      "file": "DEVIRAMMA TEMPLE.jpg",
+      "artist": "Basavarajmin21",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:DEVIRAMMA_TEMPLE.jpg"
+    },
+    {
       "local": "deviramma.jpg",
       "place": "Deviramma Betta",
       "file": "Deviramma Betta View.jpg",
@@ -3595,7 +3639,7 @@ window.CKM = {
       "id": "chikkamagaluru",
       "name": "Chikkamagaluru",
       "kannada": "ಚಿಕ್ಕಮಗಳೂರು",
-      "count": 14,
+      "count": 15,
       "blurb": "Town, Mullayanagiri, Baba Budangiri and the coffee hills above the cloud line.",
       "listName": "Chikkamagaluru",
       "mapLabel": "Chikkamagaluru"

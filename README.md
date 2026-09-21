@@ -1,8 +1,8 @@
 # Chikkamagaluru companion
 
-An independent, static tourism reference for **Chikkamagaluru** (ಚಿಕ್ಕಮಗಳೂರು), Karnataka. It helps visitors discover the district, browse destinations by kind, read practical travel notes, keep a private itinerary, and learn the coffee-country story.
+An independent, static tourism reference for **Chikkamagaluru** (ಚಿಕ್ಕಮಗಳೂರು), Karnataka. It helps visitors discover the district, browse destinations by kind, and read practical travel notes, including the coffee-country story.
 
-This is **not** a government website and **not** a booking service. Homestays, hotels, resorts, room availability, payments and reservations are intentionally excluded.
+This is **not** a government website and **not** a booking service. Homestays, hotels, resorts, room availability, payments and reservations are intentionally excluded. The site does **not** download files, trip packs, or stamps.
 
 ## Run locally
 
@@ -51,19 +51,17 @@ npx vercel --yes --prod
 | `taluk.html` | Dedicated taluk page (`?id=`) with a closer map, every listed sight, and public visitor notes |
 | `stories.html` | Separate chapters: seasons, coffee, culture, food, Malnad kitchen dishes, responsible travel, photographs |
 | `coffee.html` | Full coffee-origin story: eight illustrated scenes from Mocha to shade canopy |
-| `plan.html` | Private itinerary and explorer passport (`localStorage`) |
+| `plan.html` | Three read-only trip sketches. No itinerary builder, no downloads |
 | `visit.html` | Access, packing, conduct, official links, credits |
 
 ## What is in the companion
 
 - Illustrated green taluk map (SVG from OpenStreetMap polygons — not a tile map). The district overview shows **only the nine taluks**. Click a taluk to open `taluk.html`, where that taluk’s tourist places are marked and described from public sources.
 - Destination detail modal
-- Day-by-day itinerary with drag-and-drop
-- Downloadable offline trip pack (HTML)
 - Kannada labels and official `.nic.in` / forest / KSRTC links
 - Reduced-motion and keyboard support
-- WebMCP tools (`search_destinations`, `add_place_to_trip`) when the browser exposes `document.modelContext` or `navigator.modelContext`
-- Motion from the Cyatra Stash (Transitions.dev, Kinetics, UIverse, Sylva): sliding tabs, toasts, modals, accordion cards, magnetic buttons, number pop on the trip badge
+- WebMCP tool (`search_destinations`) when the browser exposes `document.modelContext` or `navigator.modelContext`
+- Motion from the Cyatra Stash (Transitions.dev, Kinetics, UIverse, Sylva): sliding tabs, toasts, modals, accordion cards, magnetic buttons
 - Homepage popular places use a React Bits **Carousel** (ported to vanilla JS + GSAP): eight featured stops, autoplay with pause on hover, swipe and dots. Hours sit beside the card on desktop and under it on phones.
 - Explore Chikkamagaluru uses a React Bits **AccordionGallery** (vanilla JS + GSAP): five theme panels expand on hover, keyboard and tap. The open panel keeps the Food / Nature-style caption and **View more** link; side arrows step through the row.
 - Under Welcome / Explore Chikkamagaluru, a React Bits **DriftWall** (vanilla port) packs destination stills flush and keeps them scrolling. Themes cycle falls, mountains, heritage, food, water, wildlife. Click a tile to pause and flip a two-to-three-line note.
@@ -83,7 +81,7 @@ Photographs are Wikimedia Commons and Creative Commons Flickr stills, cover-crop
 | `dist/numbers.js` | Homepage “in numbers” charts, season explorer, taluk metrics |
 | `dist/sections.js` | HTML rendering |
 | `dist/map.js` | SVG nine-taluk choropleth; place pins only on a taluk page |
-| `dist/app.js` | Search, modal, itinerary, passport, WebMCP |
+| `dist/app.js` | Search, modal, Explore accordion, WebMCP |
 | `dist/carousel.js` | Homepage popular carousel (React Bits port) |
 | `dist/drift-wall.js` | Homepage DriftWall (React Bits port) |
 | `dist/accordion-gallery.js` | Explore AccordionGallery (React Bits port) |

@@ -27,7 +27,7 @@ TEMPLATE = """<!DOCTYPE html>
     <title>{title}</title>
     <meta
       name="description"
-      content="An independent companion for discovering Chikkamagaluru: peaks, waterfalls, temples, forests, seasons and a private itinerary. Not a government site. Not a booking service."
+      content="An independent companion for discovering Chikkamagaluru: peaks, waterfalls, temples, forests and seasons. Not a government site. Not a booking service. Nothing here is downloadable."
     />
     <meta name="theme-color" content="#0c1f13" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
@@ -40,7 +40,7 @@ TEMPLATE = """<!DOCTYPE html>
     <link rel="stylesheet" href="style.css?v=sage32" />
     <link rel="stylesheet" href="carousel.css?v=sage6" />
     <link rel="stylesheet" href="drift-wall.css?v=sage8" />
-    <link rel="stylesheet" href="accordion-gallery.css?v=sage8" />
+    <link rel="stylesheet" href="accordion-gallery.css?v=sage9" />
   </head>
   <body data-page="{page}">
     <a class="skip" href="#main">Skip to content</a>
@@ -67,11 +67,6 @@ TEMPLATE = """<!DOCTYPE html>
         </nav>
         <div class="header-tools">
           <button class="lang-toggle" type="button" data-lang-toggle>ಕನ್ನಡ</button>
-          <a class="header-trip" href="plan.html">Trip
-            <span class="t-badge" data-open="true">
-              <span class="t-badge-dot t-digit-group" data-trip-count>0</span>
-            </span>
-          </a>
         </div>
       </div>
     </header>
@@ -90,18 +85,18 @@ TEMPLATE = """<!DOCTYPE html>
     </div>
     <div class="toast t-toast" id="toast" role="status" aria-live="polite"></div>
     <noscript>
-      <p class="wrap noscript">This companion needs JavaScript for the map, itinerary and search.</p>
+      <p class="wrap noscript">This companion needs JavaScript for the map and search.</p>
     </noscript>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-    <script src="data.js?v=sage19"></script>
+    <script src="data.js?v=sage20"></script>
     <script src="statistics.js?v=sage1"></script>
     <script src="numbers.js?v=sage4"></script>
-    <script src="sections.js?v=sage31"></script>
+    <script src="sections.js?v=sage32"></script>
     <script src="map.js?v=sage7"></script>
     <script src="carousel.js?v=sage6"></script>
     <script src="drift-wall.js?v=sage8"></script>
-    <script src="accordion-gallery.js?v=sage8"></script>
-    <script src="app.js?v=sage26"></script>
+    <script src="accordion-gallery.js?v=sage9"></script>
+    <script src="app.js?v=sage27"></script>
   </body>
 </html>
 """

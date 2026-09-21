@@ -180,11 +180,6 @@
   .explore-section.reveal-on-scroll {
     transform: none;
   }
-  .explore-accordion-wrap--pin {
-    display: block !important;
-    position: relative;
-    width: 100%;
-  }
   .accordion-gallery--stack {
     position: relative;
     top: auto;
@@ -193,7 +188,7 @@
     perspective: none;
     height: auto !important;
     gap: 10px;
-    padding-bottom: 0;
+    padding-bottom: 2rem;
     width: 100%;
   }
   .accordion-gallery--stack .ag-panel {
