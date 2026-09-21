@@ -510,13 +510,13 @@
     document.documentElement.style.setProperty("--ink", w.background);
     document.body.style.background = w.background;
     layoutSnaps();
-    var grain = $("#grain");
-    if (grain) grain.style.opacity = String(w.grainOpacity);
-    var vig = $("#vignette");
     if (vig) {
+      var vAmt = isMobile() ? Math.min(w.vignette, 0.28) : w.vignette;
       vig.style.background =
-        "radial-gradient(120% 90% at 50% 42%, transparent 42%, rgba(2,4,6," + w.vignette + ") 100%)";
+        "radial-gradient(120% 90% at 50% 42%, transparent 42%, rgba(2,4,6," + vAmt + ") 100%)";
     }
+    var grain = $("#grain");
+    if (grain) grain.style.opacity = String(isMobile() ? Math.min(w.grainOpacity, 0.025) : w.grainOpacity);
     var cr = $(".copy-rail");
     if (cr) {
       if (isMobile()) {
@@ -599,21 +599,21 @@
     if (g) g.style.backgroundImage = "url(" + c.toDataURL("image/png") + ")";
   }
 
-  function drawCover(img, w, h, alpha) {
-    if (!img || !img.width) return;
+  function drawCoverBox(img, x, y, boxW, boxH, alpha) {
+    if (!img || !img.width || boxW <= 0 || boxH <= 0) return;
     var ir = img.width / img.height;
-    var cr = w / h;
+    var cr = boxW / boxH;
     var dw, dh, dx, dy;
     if (ir > cr) {
-      dh = h;
-      dw = h * ir;
-      dx = (w - dw) / 2;
-      dy = 0;
+      dh = boxH;
+      dw = boxH * ir;
+      dx = x + (boxW - dw) / 2;
+      dy = y;
     } else {
-      dw = w;
-      dh = w / ir;
-      dx = 0;
-      dy = (h - dh) / 2;
+      dw = boxW;
+      dh = boxW / ir;
+      dx = x;
+      dy = y + (boxH - dh) / 2;
     }
     ctx.save();
     ctx.globalAlpha = alpha == null ? 1 : alpha;
@@ -687,11 +687,16 @@
     var vis = dist <= 0.16 ? 1 : Math.max(0, 1 - (dist - 0.16) / 0.34);
     ctx.fillStyle = CFG.world.background;
     ctx.fillRect(0, 0, w, h);
-    ctx.save();
-    var shift = isMobile() ? 0 : Math.round(w * CFG.plates.fallbackShift);
-    ctx.translate(shift, isMobile() ? -Math.round(h * 0.16) : 0);
-    drawCover(frames[i0], w, h, vis);
-    ctx.restore();
+    if (isMobile()) {
+      var bandH = Math.round(h * 0.54);
+      var pad = Math.round(w * 0.03);
+      drawCoverBox(frames[i0], pad, Math.round(h * 0.08), w - pad * 2, bandH, vis);
+    } else {
+      ctx.save();
+      ctx.translate(Math.round(w * CFG.plates.fallbackShift), 0);
+      drawCoverBox(frames[i0], 0, 0, w, h, vis);
+      ctx.restore();
+    }
     if (i0 !== painted) {
       painted = i0;
       paintCopy(i0);
@@ -853,7 +858,7 @@
     var cam = CFG.camera;
     var mot = CFG.motion;
     var plt = CFG.plates;
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, CFG.world.pixelRatioCap));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile() ? 2.5 : CFG.world.pixelRatioCap));
     renderer.setSize(window.innerWidth, window.innerHeight, false);
     renderer.setClearColor(hexNum(CFG.world.background), 1);
     renderer.outputEncoding = THREE.sRGBEncoding;
@@ -876,6 +881,7 @@
       tex.encoding = THREE.sRGBEncoding;
       tex.minFilter = THREE.LinearMipmapLinearFilter;
       tex.magFilter = THREE.LinearFilter;
+      tex.generateMipmaps = true;
       tex.anisotropy = maxAniso;
       textures.push(tex);
       var aspect = 16 / 9;
@@ -949,6 +955,7 @@
     function resize() {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile() ? 2.5 : CFG.world.pixelRatioCap));
       renderer.setSize(window.innerWidth, window.innerHeight, false);
     }
 
@@ -963,40 +970,56 @@
       var t = scrollT;
       var z = fo.ahead - t * n1 * mo.gap;
       var mobile = window.innerWidth < c.mobileBreakpoint;
+      var dist = fo.ahead;
+      var vFovDeg = mobile ? 38 : c.fov;
+      var vFov = (vFovDeg * Math.PI) / 180;
+      var visH = 2 * Math.tan(vFov / 2) * dist;
+      var visW = visH * (window.innerWidth / Math.max(window.innerHeight, 1));
       var weave = mobile ? 0 : Math.sin(t * Math.PI * n1 * 0.35) * c.weave;
       var px = mobile ? 0 : pointer.x * c.pointerX;
       var py = mobile ? 0 : pointer.y * c.pointerY;
-      var rightBias = mobile ? c.rightBiasMobile : c.rightBias;
-      var camY = mobile ? c.startY + 0.55 : c.startY - 0.03;
-      var lookY = mobile ? c.lookY + 0.85 : c.lookY;
-      camTarget.set((mobile ? c.startX * 0.15 : c.startX) + weave * 0.12 + px, camY + py, z);
+      var rightBias = mobile ? 0 : c.rightBias;
+      var camY = mobile ? 0 : c.startY - 0.03;
+      var lookY = mobile ? 0 : c.lookY;
+      camTarget.set(mobile ? 0 : c.startX + weave * 0.12 + px, camY + py, z);
       var nearest = beatFromT(t);
-      lookTarget.set(mobile ? 0.15 : rightBias, lookY, z - c.lookAhead);
-      camera.fov = mobile ? Math.min(c.fov + 8, 52) : c.fov;
+      lookTarget.set(rightBias, lookY, z - dist);
+      camera.fov = vFovDeg;
       camera.near = c.near;
       camera.far = c.far;
       camera.updateProjectionMatrix();
-      camera.position.lerp(camTarget, 1 - Math.pow(c.lerpPower, dt));
-      look.lerp(lookTarget, 1 - Math.pow(c.lerpPower, dt));
+      camera.position.lerp(camTarget, 1 - Math.pow(mobile ? 0.0002 : c.lerpPower, dt));
+      look.lerp(lookTarget, 1 - Math.pow(mobile ? 0.0002 : c.lerpPower, dt));
       camera.lookAt(look);
-      scene.fog.density = CFG.world.fogDensity;
+      scene.fog.density = mobile ? Math.min(CFG.world.fogDensity, 0.012) : CFG.world.fogDensity;
       scene.fog.color.setHex(hexNum(CFG.world.fogColor));
       renderer.setClearColor(hexNum(CFG.world.background), 1);
 
       var currentFocus = 0;
+      var plateW = plt.width;
+      var fitW = mobile ? visW * 0.94 : plateW;
+      var fitH = fitW * (9 / 16);
+      var maxBand = visH * 0.52;
+      if (mobile && fitH > maxBand) {
+        fitH = maxBand;
+        fitW = fitH * (16 / 9);
+      }
+      var sx = fitW / plateW;
+      var liftY = mobile ? visH * 0.2 : 0;
       plates.forEach(function (p, i) {
         var dz = p.position.z - camera.position.z;
         var ahead = -dz;
         var focus = 1 - Math.min(1, Math.abs(ahead - fo.ahead) / fo.range);
         if (i === nearest) currentFocus = focus;
-        p.material.opacity = fo.opacityIdle + focus * fo.opacityGain;
-        var grow = 1 + Math.max(0, 1 - Math.abs(ahead - fo.growAhead) / fo.growRange) * fo.growAmount;
-        if (mobile) grow *= 0.78;
-        p.scale.setScalar(grow);
-        var restX = mobile ? p.userData.baseX * 0.22 : p.userData.baseX;
-        p.position.x = restX + (1 - focus) * fo.idleDriftX;
-        p.position.y = p.userData.baseY + (mobile ? 1.42 : 0) + Math.sin(clock.elapsedTime * 0.35 + i) * mo.plateFloat;
-        p.rotation.y = fo.rotY - (1 - focus) * fo.rotYIdle;
+        p.material.opacity = mobile
+          ? (focus > 0.35 ? 0.2 + focus * 0.8 : 0)
+          : fo.opacityIdle + focus * fo.opacityGain;
+        var grow = 1 + Math.max(0, 1 - Math.abs(ahead - fo.growAhead) / fo.growRange) * (mobile ? 0 : fo.growAmount);
+        p.scale.set(sx * grow, sx * grow, 1);
+        var restX = mobile ? 0 : p.userData.baseX;
+        p.position.x = restX + (mobile ? 0 : (1 - focus) * fo.idleDriftX);
+        p.position.y = (mobile ? liftY : p.userData.baseY) + (mobile ? 0 : Math.sin(clock.elapsedTime * 0.35 + i) * mo.plateFloat);
+        p.rotation.y = mobile ? 0 : fo.rotY - (1 - focus) * fo.rotYIdle;
       });
       shards.forEach(function (s) {
         s.visible = CFG.shards.enabled && !mobile;
