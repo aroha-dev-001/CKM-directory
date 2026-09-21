@@ -3,7 +3,7 @@
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 import os
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 PORT = int(os.environ.get("SANDBOX_PORT", "43191"))
 
 
