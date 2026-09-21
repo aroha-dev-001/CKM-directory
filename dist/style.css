@@ -835,6 +835,34 @@ a.food-card-link:hover {
   scroll-margin-top: calc(var(--header) + 1rem);
 }
 
+.coffee-origin--home .section-head {
+  margin-bottom: 1.4rem;
+}
+
+.bean-stills {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.45rem;
+  margin: 0 0 1.35rem;
+}
+.bean-stills a {
+  display: block;
+  overflow: hidden;
+  border-radius: 0.7rem;
+  aspect-ratio: 4 / 3;
+}
+.bean-stills img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+@media (max-width: 720px) {
+  .bean-stills {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 .coffee-origin--home .story-entry-card {
   background: #fff;
   border: 1px solid color-mix(in srgb, var(--ink) 7%, transparent);

@@ -37,8 +37,21 @@
   function coffeeOriginCard(f) {
     const origin = f.origin || {};
     return `
-      <section class="coffee-origin coffee-origin--home" id="coffee-origin" aria-labelledby="origin-title">
+      <section class="coffee-origin coffee-origin--home" id="bean-to-cup" aria-labelledby="bean-to-cup-title">
         <div class="wrap">
+          <div class="section-head">
+            <p class="kicker">Bean to cup</p>
+            <h2 id="bean-to-cup-title">From shade, a living cup.</h2>
+            <p class="section-lead">Six stills through Chikkamagaluru coffee — path, cherry, seed, roast, filter, davara. Not a shop. Not a booking.</p>
+          </div>
+          <div class="bean-stills" aria-hidden="false">
+            <a href="bean-to-cup.html#gate"><img src="assets/bean-to-cup/01-shade.webp" alt="Shade path through a coffee estate at first light" width="1600" height="1000" /></a>
+            <a href="bean-to-cup.html#pathways"><img src="assets/bean-to-cup/02-cherry.webp" alt="Red coffee cherries on a living shrub" width="1600" height="1000" /></a>
+            <a href="bean-to-cup.html#pathways"><img src="assets/bean-to-cup/03-seed.webp" alt="Cherry, parchment and green beans" width="1600" height="1000" /></a>
+            <a href="bean-to-cup.html#pathways"><img src="assets/bean-to-cup/04-roast.webp" alt="Coffee beans in a roasting drum" width="1600" height="1000" /></a>
+            <a href="bean-to-cup.html#eternity"><img src="assets/bean-to-cup/05-brew.webp" alt="South Indian filter coffee pour" width="1600" height="1000" /></a>
+            <a href="bean-to-cup.html#eternity"><img src="assets/bean-to-cup/06-cup.webp" alt="Steaming davara on an estate verandah" width="1600" height="1000" /></a>
+          </div>
           <a class="story-entry-card tilt-card shine-card" href="bean-to-cup.html" data-tilt>
             <span class="media">
               <img src="${esc(origin.saint?.image || origin.image)}" alt="${esc(origin.saint?.caption || origin.title)}" width="1800" height="1200" />

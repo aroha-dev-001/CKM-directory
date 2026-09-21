@@ -253,7 +253,7 @@
 
   function placeCoffeeBeforeClose() {
     if (PAGE !== "home") return;
-    const coffee = document.getElementById("coffee-origin");
+    const coffee = document.getElementById("bean-to-cup");
     const close = document.querySelector("main .close-band");
     if (!coffee || !close) return;
     if (close.previousElementSibling !== coffee) close.before(coffee);

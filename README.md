@@ -39,7 +39,7 @@ npx vercel --yes --prod
 
 | Page | What it is |
 | --- | --- |
-| `index.html` | Hero, map, Explore accordion, DriftWall, popular carousel, Mocha card, Before you leave town |
+| `index.html` | Hero, map, Explore, DriftWall, popular carousel, **Bean to cup** section, Before you leave town |
 | `bean-to-cup.html` | Dedicated **Bean to Cup** walk (ThreeUI Kage WebGL page + six stills: shade, cherry, seed, roast, filter, cup) |
 | `food.html` | Food hub — Malnad kitchen plates (`?id=` for a dish story) |
 | `nature.html` | Nature hub — seasons, outdoor places, forest care, field photographs |
