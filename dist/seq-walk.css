@@ -104,7 +104,6 @@ img{max-width:100%;display:block}
   width:auto;max-width:34rem;
   padding:0;
   pointer-events:none;
-  transition:opacity .55s var(--ease-out), transform .7s var(--ease-out);
   will-change:opacity,transform;
 }
 .copy-card.is-pass{
@@ -165,7 +164,21 @@ img{max-width:100%;display:block}
 .chip.on .num{color:var(--vermilion)}
 .chip.on b{color:var(--bone)}
 
-.reel-spacer{height:560vh;pointer-events:none}
+.reel-spacer,.reel-snaps{pointer-events:none}
+.reel-snaps .snap{
+  height:100svh;
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
+}
+html.walk-snap{
+  scroll-snap-type:y mandatory;
+  scroll-behavior:auto;
+}
+html.walk-snap .stage,
+html.walk-snap .close{
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
+}
 
 .close{
   position:relative;z-index:5;padding:clamp(64px,12vh,140px) var(--pad) clamp(48px,8vh,90px);
@@ -211,16 +224,25 @@ img{max-width:100%;display:block}
   .nav-burger.active i:nth-child(1){top:7px;width:26px;transform:rotate(45deg)}
   .nav-burger.active i:nth-child(2){top:7px;width:26px;transform:rotate(-45deg)}
   html.nav-open,html.nav-open body{overflow:hidden}
-  .chips{max-width:none}
+  .brand-tx{display:none}
+  .chips{max-width:none;gap:14px}
   .chip p{display:none}
   .copy-rail{
-    width:100%;
-    padding:calc(var(--nav-h) + 12px) var(--pad) clamp(22px,5vh,40px);
-    background:linear-gradient(180deg, rgba(5,7,10,.45) 0%, rgba(5,7,10,.12) 28%, rgba(5,7,10,.9) 100%);
+    left:0;right:0;top:auto;bottom:0;height:auto;width:100% !important;
+    max-height:46svh;
+    padding:20px var(--pad) calc(18px + env(safe-area-inset-bottom, 0px));
+    background:linear-gradient(180deg, rgba(5,7,10,0) 0%, rgba(5,7,10,.88) 22%, rgba(5,7,10,.97) 48%, #05070a 100%) !important;
+    justify-content:flex-end;
+    gap:14px;
   }
   .copy-card{width:auto;max-width:none;bottom:auto}
-  .copy-card h2{font-size:clamp(24px,8vw,36px)}
-  .stage-veil{background:none}
+  .copy-card h2{font-size:clamp(22px,7vw,32px);margin:0 0 8px}
+  .copy-card .lead{font-size:14px;line-height:1.5;max-width:none;margin:0 0 8px}
+  .copy-card .body,.copy-card .cap{display:none}
+  .stage-veil{
+    background:linear-gradient(180deg, transparent 42%, rgba(5,7,10,.55) 72%, rgba(5,7,10,.92) 100%);
+  }
+  .stage-meta{right:var(--pad);top:calc(var(--nav-h) + 6px)}
   .seq-dots{display:none}
   .foot-grid{grid-template-columns:1fr 1fr}
 }

@@ -500,13 +500,16 @@
     return beat[pack()] || beat.en;
   }
 
+  function isMobile() {
+    return window.innerWidth < (CFG.camera && CFG.camera.mobileBreakpoint ? CFG.camera.mobileBreakpoint : 820);
+  }
+
   function applyChrome() {
     var w = CFG.world;
     var rail = CFG.copyRail;
     document.documentElement.style.setProperty("--ink", w.background);
     document.body.style.background = w.background;
-    var spacer = $(".reel-spacer");
-    if (spacer) spacer.style.height = w.scrollHeightVh + "vh";
+    layoutSnaps();
     var grain = $("#grain");
     if (grain) grain.style.opacity = String(w.grainOpacity);
     var vig = $("#vignette");
@@ -516,24 +519,47 @@
     }
     var cr = $(".copy-rail");
     if (cr) {
-      cr.style.width = rail.maxWidth;
-      cr.style.background = rail.overlayGradient;
-      if (rail.side === "right") {
-        cr.style.left = "auto";
-        cr.style.right = "0";
-        cr.style.background = rail.overlayGradient.replace("90deg", "270deg");
+      if (isMobile()) {
+        cr.style.width = "";
+        cr.style.background = "";
+        cr.style.left = "";
+        cr.style.right = "";
       } else {
-        cr.style.left = "0";
-        cr.style.right = "auto";
+        cr.style.width = rail.maxWidth;
+        cr.style.background = rail.overlayGradient;
+        if (rail.side === "right") {
+          cr.style.left = "auto";
+          cr.style.right = "0";
+          cr.style.background = rail.overlayGradient.replace("90deg", "270deg");
+        } else {
+          cr.style.left = "0";
+          cr.style.right = "auto";
+        }
       }
     }
     var meta = $(".stage-meta");
     if (meta) meta.style.display = rail.stageIndexVisible ? "" : "none";
     var dots = $(".seq-dots");
-    if (dots) dots.style.display = rail.dotsVisible ? "" : "none";
+    if (dots) dots.style.display = isMobile() || !rail.dotsVisible ? "none" : "";
     var chips = $(".chips");
     if (chips) chips.style.display = rail.chipsVisible ? "" : "none";
     document.body.classList.toggle("is-2d", !!CFG.debug.force2d || reducedNow());
+    document.documentElement.classList.toggle("walk-snap", !reducedNow());
+  }
+
+  function layoutSnaps() {
+    var host = $("#reel-snaps") || $(".reel-spacer");
+    if (!host) return;
+    host.className = "reel-snaps";
+    var n = Math.max(BEATS.length - 1, 1);
+    if (host.childElementCount !== n) {
+      host.innerHTML = "";
+      for (var i = 0; i < n; i++) {
+        var d = document.createElement("div");
+        d.className = "snap";
+        host.appendChild(d);
+      }
+    }
   }
 
   function applyUi() {
@@ -631,14 +657,21 @@
     if (hudBeat) hudBeat.textContent = String(i).padStart(2, "0") + " · t " + scrollT.toFixed(3);
   }
 
-  function setCopyHold(t) {
-    var n = Math.max(BEATS.length - 1, 1);
-    var f = t * n;
-    var frac = f - Math.floor(f);
+  function syncCopy(t, plateFocus) {
     var card = $("#copy-card");
     if (!card) return;
-    var passing = frac > CFG.copyRail.passHigh || frac < CFG.copyRail.passLow;
-    card.classList.toggle("is-pass", passing && t > 0.01 && t < 0.99);
+    var vis;
+    if (plateFocus != null && !isNaN(plateFocus)) {
+      vis = Math.max(0, Math.min(1, plateFocus));
+    } else {
+      var n = Math.max(BEATS.length - 1, 1);
+      var f = t * n;
+      var dist = Math.abs(f - Math.round(f));
+      vis = dist <= 0.16 ? 1 : Math.max(0, 1 - (dist - 0.16) / 0.34);
+    }
+    card.style.opacity = String(vis);
+    card.style.transform = "translate3d(0," + ((1 - vis) * 16) + "px,0)";
+    card.classList.remove("is-pass");
   }
 
   function paintBlend(t) {
@@ -647,24 +680,23 @@
     var h = window.innerHeight;
     var n = frames.length;
     if (!n) return;
-    t = ease(t, CFG.motion.easing);
     var f = t * Math.max(n - 1, 1);
-    var i0 = Math.floor(f);
-    var i1 = Math.min(n - 1, i0 + 1);
-    var u = f - i0;
+    var i0 = Math.round(f);
+    i0 = Math.max(0, Math.min(n - 1, i0));
+    var dist = Math.abs(f - i0);
+    var vis = dist <= 0.16 ? 1 : Math.max(0, 1 - (dist - 0.16) / 0.34);
     ctx.fillStyle = CFG.world.background;
     ctx.fillRect(0, 0, w, h);
     ctx.save();
-    ctx.translate(Math.round(w * CFG.plates.fallbackShift), 0);
-    drawCover(frames[i0], w, h, 1);
-    if (i1 !== i0 && frames[i1]) drawCover(frames[i1], w, h, u);
+    var shift = isMobile() ? 0 : Math.round(w * CFG.plates.fallbackShift);
+    ctx.translate(shift, isMobile() ? -Math.round(h * 0.16) : 0);
+    drawCover(frames[i0], w, h, vis);
     ctx.restore();
-    var idx = beatFromT(t);
-    if (idx !== painted) {
-      painted = idx;
-      paintCopy(idx);
+    if (i0 !== painted) {
+      painted = i0;
+      paintCopy(i0);
     }
-    setCopyHold(t);
+    syncCopy(t, vis);
   }
 
   function size2d() {
@@ -680,16 +712,43 @@
     paintBlend(scrollT);
   }
 
+  var snapLock = false;
+  var snapTimer = null;
+  var lockTimer = null;
+
+  function reelPlaying() {
+    var reel = $("#reel");
+    if (!reel) return false;
+    var r = reel.getBoundingClientRect();
+    return r.top <= 8 && r.bottom >= window.innerHeight * 0.6;
+  }
+
   function jumpToFrame(i) {
     var reel = $("#reel");
     if (!reel) return;
+    var last = Math.max(BEATS.length - 1, 1);
+    i = Math.max(0, Math.min(BEATS.length - 1, i));
     var total = reel.offsetHeight - window.innerHeight;
-    var n = Math.max(BEATS.length - 1, 1);
-    var y = reel.offsetTop + (i / n) * total + 2;
+    var y = reel.offsetTop + (i / last) * total;
+    snapLock = true;
     window.scrollTo({
       top: y,
-      behavior: CFG.nav.jumpSmooth && !reducedNow() ? "smooth" : "auto",
+      behavior: reducedNow() ? "auto" : "smooth",
     });
+    clearTimeout(lockTimer);
+    lockTimer = setTimeout(function () {
+      snapLock = false;
+    }, 720);
+  }
+
+  function snapNearest() {
+    if (snapLock || reducedNow() || !reelPlaying()) return;
+    var t = scrollProgress();
+    if (t >= 0.992) return;
+    var i = beatFromT(t);
+    var last = Math.max(BEATS.length - 1, 1);
+    var target = i / last;
+    if (Math.abs(t - target) > 0.012) jumpToFrame(i);
   }
 
   function preload() {
@@ -766,6 +825,7 @@
     document.documentElement.style.setProperty("--vw", window.innerWidth + "px");
     window.addEventListener("resize", function () {
       document.documentElement.style.setProperty("--vw", window.innerWidth + "px");
+      applyChrome();
       if (world && world.resize) world.resize();
       else size2d();
     });
@@ -900,14 +960,19 @@
       var mo = CFG.motion;
       var fo = CFG.focus;
       var n1 = Math.max(n - 1, 1);
-      var t = ease(scrollT, mo.easing);
-      var z = c.startZ - t * (n1 * mo.gap + mo.dollyExtra);
-      var weave = Math.sin(t * Math.PI * n1 * 0.35) * c.weave;
-      var rightBias = window.innerWidth < c.mobileBreakpoint ? c.rightBiasMobile : c.rightBias;
-      camTarget.set(c.startX + weave * 0.12 + pointer.x * c.pointerX, c.startY - 0.03 + pointer.y * c.pointerY, z);
+      var t = scrollT;
+      var z = fo.ahead - t * n1 * mo.gap;
+      var mobile = window.innerWidth < c.mobileBreakpoint;
+      var weave = mobile ? 0 : Math.sin(t * Math.PI * n1 * 0.35) * c.weave;
+      var px = mobile ? 0 : pointer.x * c.pointerX;
+      var py = mobile ? 0 : pointer.y * c.pointerY;
+      var rightBias = mobile ? c.rightBiasMobile : c.rightBias;
+      var camY = mobile ? c.startY + 0.55 : c.startY - 0.03;
+      var lookY = mobile ? c.lookY + 0.85 : c.lookY;
+      camTarget.set((mobile ? c.startX * 0.15 : c.startX) + weave * 0.12 + px, camY + py, z);
       var nearest = beatFromT(t);
-      lookTarget.set(rightBias, c.lookY, z - c.lookAhead);
-      camera.fov = c.fov;
+      lookTarget.set(mobile ? 0.15 : rightBias, lookY, z - c.lookAhead);
+      camera.fov = mobile ? Math.min(c.fov + 8, 52) : c.fov;
       camera.near = c.near;
       camera.far = c.far;
       camera.updateProjectionMatrix();
@@ -918,26 +983,30 @@
       scene.fog.color.setHex(hexNum(CFG.world.fogColor));
       renderer.setClearColor(hexNum(CFG.world.background), 1);
 
+      var currentFocus = 0;
       plates.forEach(function (p, i) {
         var dz = p.position.z - camera.position.z;
         var ahead = -dz;
         var focus = 1 - Math.min(1, Math.abs(ahead - fo.ahead) / fo.range);
+        if (i === nearest) currentFocus = focus;
         p.material.opacity = fo.opacityIdle + focus * fo.opacityGain;
         var grow = 1 + Math.max(0, 1 - Math.abs(ahead - fo.growAhead) / fo.growRange) * fo.growAmount;
+        if (mobile) grow *= 0.78;
         p.scale.setScalar(grow);
-        p.position.x = p.userData.baseX + (1 - focus) * fo.idleDriftX;
-        p.position.y = p.userData.baseY + Math.sin(clock.elapsedTime * 0.35 + i) * mo.plateFloat;
+        var restX = mobile ? p.userData.baseX * 0.22 : p.userData.baseX;
+        p.position.x = restX + (1 - focus) * fo.idleDriftX;
+        p.position.y = p.userData.baseY + (mobile ? 1.42 : 0) + Math.sin(clock.elapsedTime * 0.35 + i) * mo.plateFloat;
         p.rotation.y = fo.rotY - (1 - focus) * fo.rotYIdle;
       });
       shards.forEach(function (s) {
-        s.visible = CFG.shards.enabled;
+        s.visible = CFG.shards.enabled && !mobile;
         s.material.opacity = CFG.shards.opacity;
         s.position.x = CFG.shards.x;
         s.position.y = CFG.shards.y + Math.sin(clock.elapsedTime * 0.5 + s.userData.phase) * mo.shardFloat;
         s.rotation.z = Math.sin(clock.elapsedTime * 0.2 + s.userData.phase) * 0.08;
       });
       beans.forEach(function (m) {
-        m.visible = CFG.particles.enabled;
+        m.visible = CFG.particles.enabled && !mobile;
         m.rotation.y += m.userData.spin * dt;
         m.position.y = m.userData.baseY + Math.sin(clock.elapsedTime * m.userData.drift * 6 + m.position.z) * mo.beanBob;
       });
@@ -946,7 +1015,7 @@
         painted = nearest;
         paintCopy(nearest);
       }
-      setCopyHold(t);
+      syncCopy(t, currentFocus);
       renderer.render(scene, camera);
     }
 
@@ -971,8 +1040,71 @@
   function onScroll() {
     scrollT = scrollProgress();
     if (!world) paintBlend(scrollT);
+    if (!snapLock) {
+      clearTimeout(snapTimer);
+      snapTimer = setTimeout(snapNearest, 110);
+    }
     var hudBeat = $("#hud-beat");
     if (hudBeat) hudBeat.textContent = String(Math.max(0, painted)).padStart(2, "0") + " · t " + scrollT.toFixed(3);
+  }
+
+  function wireSnap() {
+    if (reducedNow()) return;
+    var last = Math.max(BEATS.length - 1, 0);
+    window.addEventListener(
+      "wheel",
+      function (e) {
+        if (!reelPlaying() || Math.abs(e.deltaY) < 8) return;
+        var i = beatFromT(scrollProgress());
+        if (e.deltaY > 0 && i >= last) return;
+        if (e.deltaY < 0 && i <= 0 && scrollProgress() <= 0.002) return;
+        e.preventDefault();
+        if (snapLock) return;
+        jumpToFrame(i + (e.deltaY > 0 ? 1 : -1));
+      },
+      { passive: false }
+    );
+    var touchY = null;
+    window.addEventListener(
+      "touchstart",
+      function (e) {
+        if (!reelPlaying() || !e.touches[0]) return;
+        touchY = e.touches[0].clientY;
+      },
+      { passive: true }
+    );
+    window.addEventListener(
+      "touchend",
+      function (e) {
+        if (touchY == null || !reelPlaying()) {
+          touchY = null;
+          return;
+        }
+        var y = e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientY : touchY;
+        var dy = touchY - y;
+        touchY = null;
+        if (Math.abs(dy) < 36) {
+          snapNearest();
+          return;
+        }
+        var i = beatFromT(scrollProgress());
+        if (dy > 0 && i >= last) return;
+        if (dy < 0 && i <= 0) return;
+        jumpToFrame(i + (dy > 0 ? 1 : -1));
+      },
+      { passive: true }
+    );
+    window.addEventListener("keydown", function (e) {
+      if (!reelPlaying()) return;
+      var next = e.key === "ArrowDown" || e.key === "PageDown" || e.key === " ";
+      var prev = e.key === "ArrowUp" || e.key === "PageUp";
+      if (!next && !prev) return;
+      var i = beatFromT(scrollProgress());
+      if (next && i >= last) return;
+      if (prev && i <= 0) return;
+      e.preventDefault();
+      jumpToFrame(i + (next ? 1 : -1));
+    });
   }
 
   var STRUCT = [
@@ -1078,6 +1210,7 @@
       if (pre) pre.classList.add("done");
       window.addEventListener("scroll", onScroll, { passive: true });
       onScroll();
+      wireSnap();
     });
   }
 
@@ -1085,7 +1218,7 @@
   else start();
 
   function start() {
-    var url = "bean-to-cup.walk.json?v=cup8";
+    var url = "bean-to-cup.walk.json?v=cup9";
     fetch(url)
       .then(function (r) { return r.ok ? r.json() : {}; })
       .then(function (j) {
