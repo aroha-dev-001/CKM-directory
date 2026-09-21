@@ -217,12 +217,12 @@
     }
   }
 
-  function placeCoffeeBeforeClose() {
+  function placeCoffeeBeforePopular() {
     if (PAGE !== "home") return;
     const coffee = document.getElementById("bean-to-cup");
-    const close = document.querySelector("main .close-band");
-    if (!coffee || !close) return;
-    if (close.previousElementSibling !== coffee) close.before(coffee);
+    const popular = document.getElementById("popular-places");
+    if (!coffee || !popular) return;
+    if (popular.previousElementSibling !== coffee) popular.before(coffee);
   }
 
   function initExploreAccordion() {
@@ -1014,7 +1014,7 @@
     initMotion();
     initPopularGallery();
     initHomeDrift();
-    placeCoffeeBeforeClose();
+    placeCoffeeBeforePopular();
     initExploreAccordion();
     initNumbers();
     wireBeanStory();

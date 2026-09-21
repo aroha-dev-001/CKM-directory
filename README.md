@@ -39,7 +39,7 @@ npx vercel --yes --prod
 
 | Page | What it is |
 | --- | --- |
-| `index.html` | Hero, map, Explore, DriftWall, popular carousel, **Bean to cup** section, Before you leave town |
+| `index.html` | Hero, map, Explore, DriftWall, **Bean to cup**, popular carousel, Before you leave town |
 | `bean-to-cup.html` | Baba Budan then the cup, sticky canvas sequence (00–14). One still at a time. Scroll maps to frame. No overlapping plates. Not a shop |
 | `food.html` | Food hub, Malnad kitchen plates (`?id=` for a dish story) |
 | `nature.html` | Nature hub, seasons, outdoor places, forest care, field photographs |

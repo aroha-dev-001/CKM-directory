@@ -746,6 +746,7 @@
           <div data-drift-wall></div>
         </div>
       </section>
+      ${coffeeOriginCard(f)}
       <section class="section pop-section reveal-on-scroll" id="popular-places">
         <div class="wrap">
           <div class="section-head">
@@ -762,7 +763,6 @@
           </div>
         </div>
       </section>
-      ${coffeeOriginCard(f)}
       <section class="section close-band reveal-on-scroll">
         <div class="wrap">
           <div class="section-head">
