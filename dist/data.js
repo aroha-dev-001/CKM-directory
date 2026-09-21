@@ -3189,6 +3189,14 @@ window.CKM = {
       "url": "https://commons.wikimedia.org/wiki/File:Kemmanagundi_Hill_Station_-_panoramio.jpg"
     },
     {
+      "local": "explore-nature.jpg",
+      "place": "Mullayanagiri",
+      "file": "Mullayanagiri peak.jpg",
+      "artist": "Anvesh1103",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Mullayanagiri_peak.jpg"
+    },
+    {
       "local": "explore-stay.jpg",
       "place": "Kemmangundi sunset",
       "file": "Picture shot during sunset @ Kemmangundi which depicts amazing beauty of nature.jpg",
@@ -3860,7 +3868,7 @@ window.CKM = {
     {
       "id": "food",
       "href": "food.html",
-      "image": "assets/food-akki-rotti.jpg",
+      "image": "assets/food-neer-dosa.jpg",
       "label": "Food",
       "labelKn": "ಆಹಾರ",
       "title": "Rice, leaf, and a cup from the hill",
@@ -3871,7 +3879,7 @@ window.CKM = {
     {
       "id": "nature",
       "href": "nature.html",
-      "image": "assets/kudremukh-np.jpg",
+      "image": "assets/explore-nature.jpg",
       "label": "Nature",
       "labelKn": "ಪ್ರಕೃತಿ",
       "title": "Ridges, water, and a living forest",
@@ -3893,7 +3901,7 @@ window.CKM = {
     {
       "id": "heritage",
       "href": "heritage.html",
-      "image": "assets/sringeri.jpg",
+      "image": "assets/deviramma-temple.jpg",
       "label": "Heritage",
       "labelKn": "ಪರಂಪರೆ",
       "title": "Stone, matha, and seven Mocha seeds",
@@ -3904,7 +3912,7 @@ window.CKM = {
     {
       "id": "tourism",
       "href": "tourism.html",
-      "image": "assets/mullayanagiri.jpg",
+      "image": "assets/kudremukh-np.jpg",
       "label": "Tourism",
       "labelKn": "ಪ್ರವಾಸೋದ್ಯಮ",
       "title": "How the hills were counted",
