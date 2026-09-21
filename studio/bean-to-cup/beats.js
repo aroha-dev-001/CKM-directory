@@ -1,4 +1,4 @@
-/* Sandbox stills + copy — production dist assets, not a live admin page */
+/* Sandbox stills + copy, production dist assets, not a live admin page */
 window.BTC_BEATS = [
     {
       id: "saint",
@@ -17,7 +17,7 @@ window.BTC_BEATS = [
         h: "ಬಾಬಾ ಬುದನ್, ಈ ಬೆಟ್ಟದ ಹೆಸರು",
         p1: "ಕಾಫಿ ಈ ಜಿಲ್ಲೆಗೆ ಕಪ್‌ನಿಂದ ಬರಲಿಲ್ಲ. ಸೂಫಿ ಸಂತನ ಕಥೆಯಿಂದ ಬಂತು: ಯೆಮೆನಿನ ಮೋಚಾದಿಂದ ಏಳು ಬೀಜ, ಚಂದ್ರ ದ್ರೋಣದ ಆಶ್ರಮದ ಅಂಗಳದಲ್ಲಿ ನೆಟ್ಟದು.",
         p2: "ವರ್ಷಗಳು ಒಪ್ಪುವುದಿಲ್ಲ. ಬೆಟ್ಟ ಒಪ್ಪುತ್ತದೆ. ಈ ಪುಟ ಅಂಗಡಿ ಅಲ್ಲ. ಎರಡು ಅಂಕ: ಮೊದಲು ಸಂತ, ನಂತರ ಬೆಳೆ.",
-        cap: "ಸಂಗಾತಿ ಚಿತ್ರ — ಬಾಬಾ ಬುದನ್, ಏಳು ಮೋಚಾ ಬೀಜ. ಇತಿಹಾಸದ ಭಾವಚಿತ್ರವಲ್ಲ.",
+        cap: "ಸಂಗಾತಿ ಚಿತ್ರ, ಬಾಬಾ ಬುದನ್, ಏಳು ಮೋಚಾ ಬೀಜ. ಇತಿಹಾಸದ ಭಾವಚಿತ್ರವಲ್ಲ.",
       },
     },
     {
@@ -28,16 +28,16 @@ window.BTC_BEATS = [
       en: {
         k: "01 · The plant",
         h: "A shrub that liked mist",
-        p1: "Before it was a cup on the Hassan bus, coffee was a red cherry in highland weather — a shrub that preferred cloud to open sun.",
+        p1: "Before it was a cup on the Hassan bus, coffee was a red cherry in highland weather, a shrub that preferred cloud to open sun.",
         p2: "What took root on Chandra Drona is still that same highland thing: shade-hungry, slow, and particular about rain.",
-        cap: "Companion still — wild arabica in highland mist. Imagined landscape, not a field survey of Ethiopia.",
+        cap: "Companion still, wild arabica in highland mist. Imagined landscape, not a field survey of Ethiopia.",
       },
       kn: {
         k: "೦೧ · ಗಿಡ",
         h: "ಮಂಜು ಇಷ್ಟಪಡುವ ಪೊದೆ",
         p1: "ಕಪ್ ಆಗುವ ಮೊದಲು ಕಾಫಿ ಕೆಂಪು ಹಣ್ಣು. ಮೋಡ ಇಷ್ಟ, ಬಿಸಿಲು ಅಲ್ಲ. ಆ ಗಿಡ ಈ ಘಟ್ಟಕ್ಕೆ ಬರುವ ಮೊದಲು ಬಹು ದೂರ ನಡೆದಿತ್ತು.",
         p2: "ಚಂದ್ರ ದ್ರೋಣದಲ್ಲಿ ಬೇರು ಬಿಟ್ಟದ್ದು ಇನ್ನೂ ಅದೇ ಗಿಡ: ನೆರಳು ಬೇಕು, ಮಳೆ ನಿಧಾನ, ಸಮಯ ಬೇಕು.",
-        cap: "ಸಂಗಾತಿ ಚಿತ್ರ — ಮಂಜಿನಲ್ಲಿ ಅರಬಿಕಾ. ಇಥಿಯೋಪಿಯಾ ಸಮೀಕ್ಷೆಯಲ್ಲ.",
+        cap: "ಸಂಗಾತಿ ಚಿತ್ರ, ಮಂಜಿನಲ್ಲಿ ಅರಬಿಕಾ. ಇಥಿಯೋಪಿಯಾ ಸಮೀಕ್ಷೆಯಲ್ಲ.",
       },
     },
     {
@@ -50,14 +50,14 @@ window.BTC_BEATS = [
         h: "The harbour that sold the cup",
         p1: "On the Yemeni shore, Mocha became the name people used when they meant coffee itself. The city sold the roasted drink freely enough. Live seed was another matter.",
         p2: "Keep the tree at home, and the world stays a customer. What left that harbour as cargo was meant to be drunk, not planted.",
-        cap: "Companion still — Mocha harbour, dhows, and sacks of cherry. Not a historical survey of the port.",
+        cap: "Companion still, Mocha harbour, dhows, and sacks of cherry. Not a historical survey of the port.",
       },
       kn: {
         k: "೦೨ · ಮೋಚಾ",
         h: "ಕಪ್ ಮಾರಿದ ಬಂದರು",
         p1: "ಯೆಮೆನ್ ತೀರದಲ್ಲಿ ಮೋಚಾ ಎಂದರೆ ಕಾಫಿ ಎಂದೇ ಆಯಿತು. ಹುರಿದ ಕುಡಿಯುವುದನ್ನು ಮಾರಿದರು. ಜೀವಂತ ಬೀಜ ಬೇರೆ ಮಾತು.",
         p2: "ಗಿಡ ಮನೆಯಲ್ಲಿ ಉಳಿದರೆ ಜಗತ್ತು ಗ್ರಾಹಕ. ಆ ಬಂದರಿನಿಂದ ಹೊರಟದ್ದು ಕುಡಿಯಲು, ನೆಡಲು ಅಲ್ಲ.",
-        cap: "ಸಂಗಾತಿ ಚಿತ್ರ — ಮೋಚಾ ಬಂದರು. ಐತಿಹಾಸಿಕ ಸಮೀಕ್ಷೆಯಲ್ಲ.",
+        cap: "ಸಂಗಾತಿ ಚಿತ್ರ, ಮೋಚಾ ಬಂದರು. ಐತಿಹಾಸಿಕ ಸಮೀಕ್ಷೆಯಲ್ಲ.",
       },
     },
     {
@@ -70,14 +70,14 @@ window.BTC_BEATS = [
         h: "A courtyard on this ridge",
         p1: "Then a Sufi from these hills is said to have come home with seven Mocha seeds and set them in the courtyard of his hermitage on Baba Budan Giri. Some tellings put that planting near 1600. Others nearer 1670.",
         p2: "The years argue. The ridge does not. It still carries his name, and the trees still like the same mist.",
-        cap: "Companion still — seven Mocha seeds in courtyard earth. Not a reconstruction of a dated planting.",
+        cap: "Companion still, seven Mocha seeds in courtyard earth. Not a reconstruction of a dated planting.",
       },
       kn: {
         k: "೦೩ · ಏಳು ಬೀಜ",
         h: "ಈ ಬೆಟ್ಟದ ಅಂಗಳ",
         p1: "ಈ ಬೆಟ್ಟದ ಸೂಫಿ ಏಳು ಮೋಚಾ ಬೀಜ ತಂದು ಬಾಬಾ ಬುದನ್ ಗಿರಿಯ ಆಶ್ರಮದ ಅಂಗಳದಲ್ಲಿ ನೆಟ್ಟನೆಂದು ಹೇಳುತ್ತಾರೆ. ಕೆಲವು ಕಥೆಗಳು ಸುಮಾರು ೧೬೦೦. ಮತ್ತೆ ಕೆಲವು ಹಜ್‌ನಿಂದ ೧೬೭೦ರ ಹತ್ತಿರ.",
         p2: "ವರ್ಷಗಳು ವಾದ. ಬೆಟ್ಟ ವಾದವಲ್ಲ. ಅದು ಇನ್ನೂ ಅವನ ಹೆಸರು ಹೊತ್ತಿದೆ. ಗಿಡಗಳು ಇನ್ನೂ ಅದೇ ಮಂಜು ಇಷ್ಟಪಡುತ್ತವೆ.",
-        cap: "ಸಂಗಾತಿ ಚಿತ್ರ — ಏಳು ಬೀಜ ನೆಡುವುದು. ದಿನಾಂಕದ ಪುನರ್ನಿರ್ಮಾಣವಲ್ಲ.",
+        cap: "ಸಂಗಾತಿ ಚಿತ್ರ, ಏಳು ಬೀಜ ನೆಡುವುದು. ದಿನಾಂಕದ ಪುನರ್ನಿರ್ಮಾಣವಲ್ಲ.",
       },
     },
     {
@@ -95,9 +95,9 @@ window.BTC_BEATS = [
       kn: {
         k: "೦೪ · ಹಜ್ ಕಥೆ",
         h: "ಬೆಟ್ಟ ಇನ್ನೂ ಹೇಳುವುದು",
-        p1: "ಬೀಜಗಳೊಂದಿಗೆ ನಡೆಯುವ ಕಥೆ ಕಳ್ಳಸಾಗಣೆಯದು: ಏಳು ಕಚ್ಚಾ ಬೀನ್, ಏಳು ಪವಿತ್ರ, ಗಡ್ಡದಲ್ಲಿ ಅಥವಾ ಬಟ್ಟೆಯಲ್ಲಿ — ಬಂದರು ಕಾಡು ಹೊರಡುವುದನ್ನು ನೋಡದಂತೆ.",
+        p1: "ಬೀಜಗಳೊಂದಿಗೆ ನಡೆಯುವ ಕಥೆ ಕಳ್ಳಸಾಗಣೆಯದು: ಏಳು ಕಚ್ಚಾ ಬೀನ್, ಏಳು ಪವಿತ್ರ, ಗಡ್ಡದಲ್ಲಿ ಅಥವಾ ಬಟ್ಟೆಯಲ್ಲಿ, ಬಂದರು ಕಾಡು ಹೊರಡುವುದನ್ನು ನೋಡದಂತೆ.",
         p2: "ಯಾವುದೇ ಹಡಗಿನ ಪುಸ್ತಕ ಇದನ್ನು ದೃಢಪಡಿಸುವುದಿಲ್ಲ. ಜಿಲ್ಲೆ ಹೇಳುತ್ತಲೇ ಇದೆ. ಬೆಟ್ಟ ನಂಬಿ. ಗಡ್ಡವನ್ನು ಕಥೆಯೆಂದು ಇರಿಸಿ.",
-        cap: "ಸಂಗಾತಿ ಚಿತ್ರ — ದೋಣಿ, ಬಟ್ಟೆಯ ಚೀಲ. ದಿನಾಂಕದ ಪಯಣವಲ್ಲ. ಕಥೆ.",
+        cap: "ಸಂಗಾತಿ ಚಿತ್ರ, ದೋಣಿ, ಬಟ್ಟೆಯ ಚೀಲ. ದಿನಾಂಕದ ಪಯಣವಲ್ಲ. ಕಥೆ.",
       },
     },
     {
@@ -108,16 +108,16 @@ window.BTC_BEATS = [
       en: {
         k: "05 · Chandra Drona",
         h: "A garden before it was a crop",
-        p1: "Those first plants did not become a landscape overnight. For a long time they were a curiosity in courtyard earth — a few trees behind a house, not yet the silver-oak rows on the Charmadi road.",
+        p1: "Those first plants did not become a landscape overnight. For a long time they were a curiosity in courtyard earth, a few trees behind a house, not yet the silver-oak rows on the Charmadi road.",
         p2: "Chandra Drona held a garden before it held an estate. The shrine is still on that ridge. The crop learned patience here.",
-        cap: "Companion still — a cave hermitage and seedling terraces. Imagined courtyard, not a measured plan of the shrine.",
+        cap: "Companion still, a cave hermitage and seedling terraces. Imagined courtyard, not a measured plan of the shrine.",
       },
       kn: {
         k: "೦೫ · ಚಂದ್ರ ದ್ರೋಣ",
         h: "ಬೆಳೆಗಿಂತ ಮೊದಲು ತೋಟ",
-        p1: "ಮೊದಲ ಗಿಡಗಳು ರಾತ್ರಿಯಲ್ಲಿ ಭೂದೃಶ್ಯವಾಗಲಿಲ್ಲ. ಬಹುಕಾಲ ಅಂಗಳದ ಕುತೂಹಲ — ಮನೆಯ ಹಿಂದೆ ಕೆಲವು ಮರ.",
+        p1: "ಮೊದಲ ಗಿಡಗಳು ರಾತ್ರಿಯಲ್ಲಿ ಭೂದೃಶ್ಯವಾಗಲಿಲ್ಲ. ಬಹುಕಾಲ ಅಂಗಳದ ಕುತೂಹಲ, ಮನೆಯ ಹಿಂದೆ ಕೆಲವು ಮರ.",
         p2: "ಚಂದ್ರ ದ್ರೋಣ ಮೊದಲು ತೋಟ ಹಿಡಿದಿತ್ತು, ಎಸ್ಟೇಟ್ ಅಲ್ಲ. ಗುಡಿ ಇನ್ನೂ ಆ ಬೆಟ್ಟದಲ್ಲಿದೆ.",
-        cap: "ಸಂಗಾತಿ ಚಿತ್ರ — ಗುಹೆ ಆಶ್ರಮ, ಸಸಿ. ದೇವಸ್ಥಾನದ ನಕ್ಷೆಯಲ್ಲ.",
+        cap: "ಸಂಗಾತಿ ಚಿತ್ರ, ಗುಹೆ ಆಶ್ರಮ, ಸಸಿ. ದೇವಸ್ಥಾನದ ನಕ್ಷೆಯಲ್ಲ.",
       },
     },
     {
@@ -129,15 +129,15 @@ window.BTC_BEATS = [
         k: "06 · Estate country",
         h: "When the forest learned rows",
         p1: "Rows came later. In the 1820s planters opened country beside this same ridge, and the crop walked on into Wayanad, the Shevaroys, the Nilgiris.",
-        p2: "What had been a hermitage tree became a hillside of labour — shade measured, paths named, a bungalow on the shoulder of the hill.",
-        cap: "Companion still — early shade rows and a ridge bungalow. Not a portrait of any working property.",
+        p2: "What had been a hermitage tree became a hillside of labour, shade measured, paths named, a bungalow on the shoulder of the hill.",
+        cap: "Companion still, early shade rows and a ridge bungalow. Not a portrait of any working property.",
       },
       kn: {
         k: "೦೬ · ಎಸ್ಟೇಟ್",
         h: "ಕಾಡು ಸಾಲು ಕಲಿತಾಗ",
         p1: "ಸಾಲುಗಳು ನಂತರ ಬಂದವು. ೧೮೨೦ರ ದಶಕದಲ್ಲಿ ಈ ಬೆಟ್ಟದ ಪಕ್ಕದಲ್ಲಿ ನಾಟಿ ಆರಂಭ.",
-        p2: "ಆಶ್ರಮದ ಮರ ಬೆಟ್ಟದ ಕೆಲಸವಾಯಿತು — ನೆರಳು ಅಳೆದು, ಹಾದಿ ಹೆಸರಿಸಿ, ಭುಜದ ಮೇಲೆ ಬಂಗಲೆ.",
-        cap: "ಸಂಗಾತಿ ಚಿತ್ರ — ನೆರಳಿನ ಸಾಲು, ಬಂಗಲೆ.",
+        p2: "ಆಶ್ರಮದ ಮರ ಬೆಟ್ಟದ ಕೆಲಸವಾಯಿತು, ನೆರಳು ಅಳೆದು, ಹಾದಿ ಹೆಸರಿಸಿ, ಭುಜದ ಮೇಲೆ ಬಂಗಲೆ.",
+        cap: "ಸಂಗಾತಿ ಚಿತ್ರ, ನೆರಳಿನ ಸಾಲು, ಬಂಗಲೆ.",
       },
     },
     {
@@ -150,14 +150,14 @@ window.BTC_BEATS = [
         h: "What you see from the bus",
         p1: "Look out between Mudigere and Balehonnur and you are looking at work: two roofs of shade, pepper on the trunks, arabica underneath. Karnataka still grows the largest share of the Indian crop.",
         p2: "In 1925 an experiment station opened near Balehonnur. The green you photograph from the window is someone's season.",
-        cap: "Companion still — silver-oak shade, pepper vine, and a working path. Not a photograph of CCRI.",
+        cap: "Companion still, silver-oak shade, pepper vine, and a working path. Not a photograph of CCRI.",
       },
       kn: {
         k: "೦೭ · ನೆರಳಿನ ಕೆಲಸ",
         h: "ಬಸ್ಸಿನಿಂದ ಕಾಣುವುದು",
         p1: "ಮೂಡಿಗೆರೆಯಿಂದ ಬಾಳೆಹೊನ್ನೂರಿನ ನಡುವೆ ನೋಡಿದರೆ ಕೆಲಸ ಕಾಣುತ್ತದೆ: ಎರಡು ನೆರಳು, ತೊಂಟೆಯಲ್ಲಿ ಮೆಣಸು, ಕೆಳಗೆ ಅರಬಿಕಾ.",
         p2: "೧೯೨೫ರಲ್ಲಿ ಈ ಜಿಲ್ಲೆಯ ಬಾಳೆಹೊನ್ನೂರಿನ ಹತ್ತಿರ ಪ್ರಯೋಗ ಕೇಂದ್ರ ತೆರೆಯಿತು.",
-        cap: "ಸಂಗಾತಿ ಚಿತ್ರ — ಬೆಳ್ಳಿ ಓಕ್, ಮೆಣಸು ಬಳ್ಳಿ.",
+        cap: "ಸಂಗಾತಿ ಚಿತ್ರ, ಬೆಳ್ಳಿ ಓಕ್, ಮೆಣಸು ಬಳ್ಳಿ.",
       },
     },
     {
@@ -170,14 +170,14 @@ window.BTC_BEATS = [
         h: "Walk as a guest",
         p1: "This page will not sell you a cupping, a bungalow, or a jeep through someone else's silver oak. If a planter opens a path, that is their door. Stay on it.",
         p2: "The seven seeds are a story people keep. The canopy is a living crop in a living forest. Drink the cup. Leave the rows as you found them.",
-        cap: "Companion still — a quiet path under coffee. This page does not sell a stay or a tour.",
+        cap: "Companion still, a quiet path under coffee. This page does not sell a stay or a tour.",
       },
       kn: {
         k: "೦೮ · ಅತಿಥಿ",
         h: "ಅತಿಥಿಯಂತೆ ನಡೆ",
         p1: "ಈ ಪುಟ ಕಪ್ಪಿಂಗ್, ಬಂಗಲೆ, ಅಥವಾ ಬೇರೆಯವರ ಬೆಳ್ಳಿ ಓಕ್‌ನಲ್ಲಿ ಜೀಪ್ ಮಾರುವುದಿಲ್ಲ.",
         p2: "ಏಳು ಬೀಜ ಜನ ಹೇಳುವ ಕಥೆ. ನೆರಳು ಜೀವಂತ ಬೆಳೆ. ಕಪ್ ಕುಡಿ. ಸಾಲುಗಳನ್ನು ಹಾಗೆಯೇ ಬಿಡು.",
-        cap: "ಸಂಗಾತಿ ಚಿತ್ರ — ನೆರಳಿನ ಹಾದಿ.",
+        cap: "ಸಂಗಾತಿ ಚಿತ್ರ, ನೆರಳಿನ ಹಾದಿ.",
       },
     },
     {
@@ -190,14 +190,14 @@ window.BTC_BEATS = [
         h: "A path the canopy keeps",
         p1: "The crop begins where the tar road stops. Arabica sits under silver oak. Mist still hangs in the valley. The path is wet from last night’s rain.",
         p2: "Chikkamagaluru coffee is a shade crop. The hill prefers cloud to open sun. This companion does not sell a tour of anyone’s estate.",
-        cap: "Shade-grown arabica at first light — silver oak, mist, a dirt line through the rows.",
+        cap: "Shade-grown arabica at first light, silver oak, mist, a dirt line through the rows.",
       },
       kn: {
         k: "೦೯ · ನೆರಳು",
         h: "ಮೊದಲ ಬೆಳಕಿನ ಹಾದಿ",
         p1: "ಬೆಳೆಯ ನಡಿಗೆ ರಸ್ತೆ ಮುಗಿದಲ್ಲಿ ಆರಂಭವಾಗುತ್ತದೆ. ಬೆಳ್ಳಿ ಓಕ್ ಕೆಳಗೆ ಅರಬಿಕಾ.",
         p2: "ಮಲೆನಾಡಿನ ಕಾಫಿ ಬಿಸಿಲಿನಲ್ಲಿ ಅಲ್ಲ, ಮಬ್ಬಿನಲ್ಲಿ ಬೆಳೆಯುತ್ತದೆ.",
-        cap: "ನೆರಳು ಬೆಳೆದ ಅರಬಿಕಾ — ಬೆಳಗಿನ ಹೊಗೆ, ಬೆಳ್ಳಿ ಓಕ್.",
+        cap: "ನೆರಳು ಬೆಳೆದ ಅರಬಿಕಾ, ಬೆಳಗಿನ ಹೊಗೆ, ಬೆಳ್ಳಿ ಓಕ್.",
       },
     },
     {
@@ -210,7 +210,7 @@ window.BTC_BEATS = [
         h: "The bean still dressed as fruit",
         p1: "Coffee is not a cup first. It is a red fruit in the leaf. The skin is sweet. Inside sit two seeds, pressed together like palms.",
         p2: "Pickers wait for that colour. Green cherries taste thin. This is not a recipe. It is the plant, still on the hill.",
-        cap: "Ripe arabica cherries on a living shrub — dew on the skin, green fruit still waiting.",
+        cap: "Ripe arabica cherries on a living shrub, dew on the skin, green fruit still waiting.",
       },
       kn: {
         k: "೧೦ · ಹಣ್ಣು",
@@ -228,9 +228,9 @@ window.BTC_BEATS = [
       en: {
         k: "11 · Seed",
         h: "Three names for one seed",
-        p1: "Strip the fruit and a pale husk remains. Dry that, and you hold a green bean. Cherry, parchment, green — three names, one journey.",
+        p1: "Strip the fruit and a pale husk remains. Dry that, and you hold a green bean. Cherry, parchment, green, three names, one journey.",
         p2: "Mills still do this work in the district. This page does not name a brand or a price.",
-        cap: "Cherry, parchment, green bean — one seed counted three ways on a mill table.",
+        cap: "Cherry, parchment, green bean, one seed counted three ways on a mill table.",
       },
       kn: {
         k: "೧೧ · ಬೀಜ",
@@ -249,8 +249,8 @@ window.BTC_BEATS = [
         k: "12 · Fire",
         h: "The drum that names the cup",
         p1: "A green bean has almost no smell. Fire draws the sugar out. Only then does the seed begin to sound like a cup.",
-        p2: "Roast is local taste, not a single law. What you see here is the drum — the turn from plant to the filter on a verandah.",
-        cap: "A roasting drum at work — steam, sugar browning, the smell that people call coffee.",
+        p2: "Roast is local taste, not a single law. What you see here is the drum, the turn from plant to the filter on a verandah.",
+        cap: "A roasting drum at work, steam, sugar browning, the smell that people call coffee.",
       },
       kn: {
         k: "೧೨ · ಬೆಂಕಿ",
@@ -270,7 +270,7 @@ window.BTC_BEATS = [
         h: "Two steel barrels, hot water",
         p1: "Malnad drinks it this way: grounds in the upper barrel, decoction collecting below. Steam is the clock.",
         p2: "This is house coffee, not a café list. The companion will not sell you a cup.",
-        cap: "South Indian filter on an estate table — grounds, hot water, the slow drip.",
+        cap: "South Indian filter on an estate table, grounds, hot water, the slow drip.",
       },
       kn: {
         k: "೧೩ · ಫಿಲ್ಟರ್",
@@ -290,7 +290,7 @@ window.BTC_BEATS = [
         h: "The davara, and the hill still there",
         p1: "Here the cup is a davara. Milk is a household choice. The hill is still in the window.",
         p2: "From seven Mocha seeds to this metal is one walk. Not a shop. The saint first. Then the crop.",
-        cap: "Decoction in a steel davara — the estate still in the frame, first light on the shrubs.",
+        cap: "Decoction in a steel davara, the estate still in the frame, first light on the shrubs.",
       },
       kn: {
         k: "೧೪ · ಕಪ್",

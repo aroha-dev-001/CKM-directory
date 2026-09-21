@@ -319,7 +319,7 @@
           tooltip.innerHTML = `
             <p class="map-tip-name">${escapeXml(MAP_LABEL[id] || taluk.name)}</p>
             <p class="map-tip-kn">${escapeXml(taluk.kannada || "")}</p>
-            <p class="map-tip-meta">${n} place${n === 1 ? "" : "s"} — click to open this taluk</p>
+            <p class="map-tip-meta">${n} place${n === 1 ? "" : "s"}, click to open this taluk</p>
             <p class="map-tip-blurb">${escapeXml(taluk.blurb || "")}</p>`;
           tooltip.hidden = false;
           const canvas = root.querySelector(".map-canvas");

@@ -3,20 +3,20 @@
 from pathlib import Path
 
 PAGES = [
-    ("index.html", "home", "Chikkamagaluru — a Western Ghats companion"),
-    ("places.html", "places", "Places to visit — Chikkamagaluru"),
-    ("popular.html", "popular", "Popular tourist places — Chikkamagaluru"),
-    ("map.html", "map", "District map — Chikkamagaluru"),
-    ("taluk.html", "taluk", "Taluk guide — Chikkamagaluru"),
-    ("stories.html", "stories", "Coffee, culture and seasons — Chikkamagaluru"),
-    ("coffee.html", "coffee", "Seven seeds from Mocha — Chikkamagaluru"),
-    ("food.html", "food", "Malnad kitchen — Chikkamagaluru"),
-    ("nature.html", "nature", "Nature — Chikkamagaluru"),
-    ("stay.html", "stay", "Hill air — Chikkamagaluru"),
-    ("heritage.html", "heritage", "Heritage — Chikkamagaluru"),
-    ("tourism.html", "tourism", "Tourism figures — Chikkamagaluru"),
-    ("plan.html", "plan", "Plan a trip — Chikkamagaluru"),
-    ("visit.html", "visit", "Visitor information — Chikkamagaluru"),
+    ("index.html", "home", "Chikkamagaluru, a Western Ghats companion"),
+    ("places.html", "places", "Places to visit · Chikkamagaluru"),
+    ("popular.html", "popular", "Popular tourist places · Chikkamagaluru"),
+    ("map.html", "map", "District map · Chikkamagaluru"),
+    ("taluk.html", "taluk", "Taluk guide · Chikkamagaluru"),
+    ("stories.html", "stories", "Coffee, culture and seasons · Chikkamagaluru"),
+    ("coffee.html", "coffee", "Seven seeds from Mocha · Chikkamagaluru"),
+    ("food.html", "food", "Malnad kitchen · Chikkamagaluru"),
+    ("nature.html", "nature", "Nature · Chikkamagaluru"),
+    ("stay.html", "stay", "Hill air · Chikkamagaluru"),
+    ("heritage.html", "heritage", "Heritage · Chikkamagaluru"),
+    ("tourism.html", "tourism", "Tourism figures · Chikkamagaluru"),
+    ("plan.html", "plan", "Plan a trip · Chikkamagaluru"),
+    ("visit.html", "visit", "Visitor information · Chikkamagaluru"),
 ]
 
 TEMPLATE = """<!DOCTYPE html>
@@ -88,15 +88,15 @@ TEMPLATE = """<!DOCTYPE html>
       <p class="wrap noscript">This companion needs JavaScript for the map and search.</p>
     </noscript>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-    <script src="data.js?v=sage20"></script>
-    <script src="statistics.js?v=sage1"></script>
-    <script src="numbers.js?v=sage4"></script>
-    <script src="sections.js?v=sage32"></script>
-    <script src="map.js?v=sage7"></script>
+    <script src="data.js?v=sage21"></script>
+    <script src="statistics.js?v=sage2"></script>
+    <script src="numbers.js?v=sage5"></script>
+    <script src="sections.js?v=sage33"></script>
+    <script src="map.js?v=sage8"></script>
     <script src="carousel.js?v=sage6"></script>
     <script src="drift-wall.js?v=sage8"></script>
     <script src="accordion-gallery.js?v=sage9"></script>
-    <script src="app.js?v=sage27"></script>
+    <script src="app.js?v=sage28"></script>
   </body>
 </html>
 """

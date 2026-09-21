@@ -1,4 +1,4 @@
-/* Roasted-bean pointer — fine pointers only. */
+/* Roasted-bean pointer, fine pointers only. */
 (function () {
   "use strict";
   if (window.matchMedia("(hover: none), (pointer: coarse)").matches) return;

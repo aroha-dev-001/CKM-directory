@@ -44,5 +44,5 @@ Do not merge this folder into the public companion `outputDirectory`.
 
 Use `/immersive-3d` (builds player + studio) or the two prompts:
 
-- `/immersive-3d-page` — public 3D walk only
-- `/immersive-3d-admin` — dedicated studio/admin only
+- `/immersive-3d-page`, public 3D walk only
+- `/immersive-3d-admin`, dedicated studio/admin only

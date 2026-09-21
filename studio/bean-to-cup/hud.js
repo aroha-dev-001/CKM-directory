@@ -1,4 +1,4 @@
-/* Admin HUD — sandbox only. */
+/* Admin HUD, sandbox only. */
 (function () {
   "use strict";
 

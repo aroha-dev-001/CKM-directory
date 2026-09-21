@@ -167,7 +167,7 @@
             <p>Recorded visits are destination entries, not necessarily unique travellers.</p>
           </div>
           ${metricCardsHtml()}
-          <p class="num-district-note">District totals are the published district figures (${esc(S.formatIndian(totals.y24.visits))} in 2024; ${esc(S.formatIndian(totals.y25.visits))} in 2025). The five destination rows below do not add up to those totals — other locations are included in the district count.</p>
+          <p class="num-district-note">District totals are the published district figures (${esc(S.formatIndian(totals.y24.visits))} in 2024; ${esc(S.formatIndian(totals.y25.visits))} in 2025). The five destination rows below do not add up to those totals, other locations are included in the district count.</p>
         </div>`
         : `<div class="wrap">
           <p class="kicker">Tourism</p>
@@ -180,7 +180,7 @@
             <p>Recorded visits are destination entries, not necessarily unique travellers.</p>
           </div>
           ${metricCardsHtml()}
-          <p class="num-district-note">District totals are the published district figures (${esc(S.formatIndian(totals.y24.visits))} in 2024; ${esc(S.formatIndian(totals.y25.visits))} in 2025). The five destination rows below do not add up to those totals — other locations are included in the district count.</p>
+          <p class="num-district-note">District totals are the published district figures (${esc(S.formatIndian(totals.y24.visits))} in 2024; ${esc(S.formatIndian(totals.y25.visits))} in 2025). The five destination rows below do not add up to those totals, other locations are included in the district count.</p>
         </div>`;
     return `
       <section class="num-section" id="chikkamagaluru-in-numbers" aria-label="Tourism statistics">
@@ -213,7 +213,7 @@
         <div class="wrap num-block">
           <p class="kicker">Travel through the seasons</p>
           <h3>The hills change every month</h3>
-          <p class="section-lead">Editorial notes from this companion’s seasonal chapter — not a rainfall graph, and not today’s weather.</p>
+          <p class="section-lead">Editorial notes from this companion’s seasonal chapter, not a rainfall graph, and not today’s weather.</p>
           <div class="num-months" role="tablist" aria-label="Month">${months}</div>
           <div class="num-season-panel" id="num-season-panel" role="tabpanel" data-season-panel aria-labelledby="num-month-1">
             ${seasonPanelHtml(1)}
@@ -223,7 +223,7 @@
         <div class="wrap num-block">
           <p class="kicker">Explore the district</p>
           <h3>Nine current taluks, one map.</h3>
-          <p class="section-lead">Catalogue counts below are from this guide’s published places. The nine-taluk choropleth lives on the homepage and the map page — it is not drawn twice here. Kalasa and Ajjampura were carved from Mudigere and Tarikere after older maps; the OSM boundaries used there are the current nine taluks, not a historical grouping.</p>
+          <p class="section-lead">Catalogue counts below are from this guide’s published places. The nine-taluk choropleth lives on the homepage and the map page, it is not drawn twice here. Kalasa and Ajjampura were carved from Mudigere and Tarikere after older maps; the OSM boundaries used there are the current nine taluks, not a historical grouping.</p>
           <p><a class="text-link t-learn" href="map.html">Open the district map</a></p>
           <div class="num-taluk-layout">
             <div class="num-taluk-list" role="group" aria-label="Taluks">${talukBtns}</div>

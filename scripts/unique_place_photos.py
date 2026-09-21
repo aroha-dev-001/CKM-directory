@@ -296,7 +296,7 @@ JOBS = {
     ),
 }
 
-# Places with no honest unique photo found — keep existing ONLY if not shared;
+# Places with no honest unique photo found, keep existing ONLY if not shared;
 # otherwise they are patched after jobs. Remaining shared temples handled below.
 
 

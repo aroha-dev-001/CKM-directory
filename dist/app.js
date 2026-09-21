@@ -315,7 +315,7 @@
       ${hoursBlock}
       <h3 class="kicker" style="margin-top:1.1rem">${t("visit_notes")}</h3>
       <p>${CKMSections.esc(place.visit)}</p>
-      <p class="visitor-disclaimer">Public notes only — not a ticket, permit, fee table or live gate status. Confirm on the official page before you go.</p>
+      <p class="visitor-disclaimer">Public notes only, not a ticket, permit, fee table or live gate status. Confirm on the official page before you go.</p>
       <div class="modal-actions">
         <a class="btn btn-dark" href="taluk.html?id=${encodeURIComponent(place.talukId || "")}#place-${encodeURIComponent(place.id)}">${t("open_map")}</a>
       </div>
@@ -362,8 +362,8 @@
     if (summary) {
       summary.textContent =
         places.length === 0
-          ? `${label} — no places in this companion yet. Open the taluk page for the boundary.`
-          : `${label} — ${places.length} place${places.length === 1 ? "" : "s"}. Click to open the taluk page.`;
+          ? `${label}, no places in this companion yet. Open the taluk page for the boundary.`
+          : `${label}, ${places.length} place${places.length === 1 ? "" : "s"}. Click to open the taluk page.`;
     }
     const metrics = document.getElementById("taluk-metrics");
     if (metrics && window.CKMStatistics) {
@@ -375,7 +375,7 @@
         .join(" · ");
       const featured = m.featured.map((p) => p.name).join(", ");
       const permit = m.permitCount ? ` ${m.permitCount} permit-noted.` : "";
-      metrics.innerHTML = `<p>${m.places.length} documented${cats ? ` — ${cats}` : ""}.${permit}</p>${
+      metrics.innerHTML = `<p>${m.places.length} documented${cats ? `, ${cats}` : ""}.${permit}</p>${
         featured ? `<p>Featured: ${featured}.</p>` : ""
       }`;
     }
@@ -936,7 +936,7 @@
       <p>${CKMSections.esc(item.hoursDetail || "")}</p>
       <p class="kicker" style="margin-top:0.9rem">Why people come</p>
       <p>${CKMSections.esc(item.why || "")}</p>
-      <p class="pop-source">Hours and access change. Confirm on <a href="${CKMSections.esc(src.url || "#")}" rel="noopener noreferrer">${CKMSections.esc(src.label || "the official page")}</a> — this companion does not list fees.</p>
+      <p class="pop-source">Hours and access change. Confirm on <a href="${CKMSections.esc(src.url || "#")}" rel="noopener noreferrer">${CKMSections.esc(src.label || "the official page")}</a>, this companion does not list fees.</p>
       <div class="pop-actions">
         <button class="btn btn-dark shine" type="button" data-open-place="${CKMSections.esc(item.id)}" data-magnetic>Open this place</button>
         <a class="btn btn-line t-learn" href="places.html?id=${CKMSections.esc(item.id)}">Go to places</a>
@@ -1019,7 +1019,7 @@
     filterPopular();
     if (PAGE === "taluk" && state.selectedTaluk) {
       const taluk = CKMMap.talukById(state.selectedTaluk);
-      if (taluk) document.title = `${taluk.listName || taluk.name} — Chikkamagaluru`;
+      if (taluk) document.title = `${taluk.listName || taluk.name} · Chikkamagaluru`;
     }
     if (PAGE === "taluk" && location.hash.startsWith("#place-")) {
       window.setTimeout(() => {

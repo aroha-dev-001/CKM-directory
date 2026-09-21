@@ -6,11 +6,11 @@ p = Path("/workspace/dist/bean-to-cup.html")
 t = p.read_text(encoding="utf-8")
 
 t = t.replace(
-    "<title>Bean to Cup — Chikkamagaluru</title>",
-    "<title>Baba Budan — a Kage walk — Chikkamagaluru</title>",
+    "<title>Bean to Cup · Chikkamagaluru</title>",
+    "<title>Baba Budan, a Kage walk · Chikkamagaluru</title>",
 )
 t = t.replace(
-    'content="Shade path, cherry, seed, roast, filter and cup — a six-still walk through Chikkamagaluru coffee, inside the live Three.js sanctuary from ThreeUI Kage."',
+    'content="Shade path, cherry, seed, roast, filter and cup, a six-still walk through Chikkamagaluru coffee, inside the live Three.js sanctuary from ThreeUI Kage."',
     'content="A 3D night walk through Baba Budan’s coffee story: seven Mocha seeds, Chandra Drona, then shade to davara. Live Three.js sanctuary. Not a shop."',
 )
 
@@ -40,7 +40,7 @@ t = t.replace(
 )
 
 t = t.replace(
-    """    <div class="eyebrow" data-rv="fade"><span class="dot"></span> Chapter 00 — From shade to the davara</div>
+    """    <div class="eyebrow" data-rv="fade"><span class="dot"></span> Chapter 00, From shade to the davara</div>
     <h1 class="display h-hero">
       <span class="mask-line"><span>From shade,</span></span>
       <span class="mask-line"><span>a living</span></span>
@@ -48,7 +48,7 @@ t = t.replace(
     </h1>
     <p class="hero-sub body" data-rv="up">A six-still walk through Chikkamagaluru coffee: path, cherry, seed,
       roast, filter, first sip. Not a shop. Not a booking.</p>""",
-    """    <div class="eyebrow" data-rv="fade"><span class="dot"></span> Chapter 00 — Baba Budan, then the cup</div>
+    """    <div class="eyebrow" data-rv="fade"><span class="dot"></span> Chapter 00, Baba Budan, then the cup</div>
     <h1 class="display h-hero">
       <span class="mask-line"><span>From seven</span></span>
       <span class="mask-line"><span>seeds, a</span></span>
@@ -62,7 +62,7 @@ t = t.replace(
     """      <div class="chip" data-chip="0" data-rv="up" data-cursor><span class="num">01</span>
         <span class="tx"><b>Shade</b><p>The estate path at first light, under silver oak and coffee.</p></span></div>
       <div class="chip" data-chip="1" data-rv="up" data-cursor><span class="num">02</span>
-        <span class="tx"><b>Cherry</b><p>Red fruit on a living shrub — the bean still dressed as a berry.</p></span></div>
+        <span class="tx"><b>Cherry</b><p>Red fruit on a living shrub, the bean still dressed as a berry.</p></span></div>
       <div class="chip" data-chip="2" data-rv="up" data-cursor><span class="num">03</span>
         <span class="tx"><b>Seed</b><p>Cherry, parchment, green bean: three names for one seed.</p></span></div>
       <div class="chip" data-chip="3" data-rv="up" data-cursor><span class="num">04</span>
@@ -78,8 +78,8 @@ t = t.replace(
 )
 
 t = t.replace(
-    '<span class="peek-cap"><b class="jp">ನೆರಳು</b><i>Shade — before the cherry</i></span>',
-    '<span class="peek-cap"><b class="jp">ಸಂತ</b><i>Baba Budan — before the crop</i></span>',
+    '<span class="peek-cap"><b class="jp">ನೆರಳು</b><i>Shade, before the cherry</i></span>',
+    '<span class="peek-cap"><b class="jp">ಸಂತ</b><i>Baba Budan, before the crop</i></span>',
 )
 t = t.replace('<div class="word-fb" aria-hidden="true">CUP</div>', '<div class="word-fb" aria-hidden="true">SEED</div>')
 t = t.replace("  const word = 'KAGE', gl = [];", "  const word = 'SEED', gl = [];")
@@ -140,7 +140,7 @@ t = t.replace(
 
 # Chapter I copy
 t = t.replace(
-    """    <span class="k"><b>01</b> — The shade path</span><span class="rule"></span><span class="k jp">ನೆರಳು</span>
+    """    <span class="k"><b>01</b>, The shade path</span><span class="rule"></span><span class="k jp">ನೆರಳು</span>
   </div>
   <div class="gate-grid">
     <h2 class="display h-sec" data-rv="up">Silver oak, red cherry, one path left open.</h2>
@@ -154,7 +154,7 @@ t = t.replace(
         hill to metal cup.</p>
       <a class="arrowlink" href="#pathways" data-rv="fade" data-cursor>
         <span>Follow the cherry</span>""",
-    """    <span class="k"><b>01</b> — The saint</span><span class="rule"></span><span class="k jp">ಸಂತ</span>
+    """    <span class="k"><b>01</b>, The saint</span><span class="rule"></span><span class="k jp">ಸಂತ</span>
   </div>
   <div class="gate-grid">
     <h2 class="display h-sec" data-rv="up">Seven Mocha seeds, one courtyard on this ridge.</h2>
@@ -162,7 +162,7 @@ t = t.replace(
       <p class="lead" data-rv="up">Coffee did not arrive here as a cup. It arrived as a story about a Sufi:
         Baba Budan, seven live seeds from Mocha, set in courtyard earth on Chandra Drona. The years disagree.
         The ridge does not.</p>
-      <p class="body" data-rv="up">The plates hanging in the hall are the stills — full frame, never cropped to
+      <p class="body" data-rv="up">The plates hanging in the hall are the stills, full frame, never cropped to
         fill. Hover one and it lifts, the way a considered object does. Scroll and the camera walks. This is
         not a shop. Treat the beard as lore.</p>
       <a class="arrowlink" href="#pathways" data-rv="fade" data-cursor>
@@ -170,7 +170,7 @@ t = t.replace(
 )
 
 t = t.replace(
-    """    <span class="k"><b>02</b> — Cherry, seed, fire</span><span class="rule"></span><span class="k jp">ಹಣ್ಣು</span>
+    """    <span class="k"><b>02</b>, Cherry, seed, fire</span><span class="rule"></span><span class="k jp">ಹಣ್ಣು</span>
   </div>
   <div class="cards" id="cards">
     <article class="card" data-rv="up" data-view="0" data-cursor>
@@ -198,7 +198,7 @@ t = t.replace(
       <div class="card-meta"><span>The drum</span><span>03 / 03</span></div>
     </article>
   </div>""",
-    """    <span class="k"><b>02</b> — The ridge</span><span class="rule"></span><span class="k jp">ಬೆಟ್ಟ</span>
+    """    <span class="k"><b>02</b>, The ridge</span><span class="rule"></span><span class="k jp">ಬೆಟ್ಟ</span>
   </div>
   <div class="cards" id="cards">
     <article class="card" data-rv="up" data-view="0" data-cursor>
@@ -232,19 +232,19 @@ t = t.replace(
 )
 
 t = t.replace(
-    """    <span class="k"><b>03</b> — Filter and fire</span><span class="rule"></span><span class="k jp">ಬೆಂಕಿ</span>
+    """    <span class="k"><b>03</b>, Filter and fire</span><span class="rule"></span><span class="k jp">ಬೆಂಕಿ</span>
   </div>
   <div class="cur-head">
     <h2 class="display h-sec" data-rv="up">Six stills. One seed. A metal cup.</h2>
     <p class="body-lg" data-rv="up">Each still is a walk, not a lecture. You arrive on the path, pick the
       cherry with your eyes, sit with the drum, and leave with the filter’s first bloom.</p>
   </div>""",
-    """    <span class="k"><b>03</b> — The crop</span><span class="rule"></span><span class="k jp">ಬೆಳೆ</span>
+    """    <span class="k"><b>03</b>, The crop</span><span class="rule"></span><span class="k jp">ಬೆಳೆ</span>
   </div>
   <div class="cur-head">
     <h2 class="display h-sec" data-rv="up">Fifteen beats. One walk. A metal cup.</h2>
-    <p class="body-lg" data-rv="up">Act I hangs in the fog as plates. Act II is the living crop — path, cherry,
-      seed, drum, filter, davara — shown contain, never stretched to fill the frame.</p>
+    <p class="body-lg" data-rv="up">Act I hangs in the fog as plates. Act II is the living crop, path, cherry,
+      seed, drum, filter, davara, shown contain, never stretched to fill the frame.</p>
   </div>""",
 )
 
@@ -266,7 +266,7 @@ t = t.replace(
 )
 t = t.replace(
     """      <h3>Three names<em class="jp">ಬೀಜ</em></h3>
-      <p>Cherry, parchment, green bean — one seed counted three ways.</p>
+      <p>Cherry, parchment, green bean, one seed counted three ways.</p>
       <span class="t">still 03</span><i class="bar"></i>""",
     """      <h3>Estate country<em class="jp">ಸಾಲು</em></h3>
       <p>When the forest learned rows, and the hermitage tree became labour.</p>
@@ -274,48 +274,48 @@ t = t.replace(
 )
 
 t = t.replace(
-    """  <div class="eyebrow" data-rv="fade">Chapter 04 — The cup</div>
+    """  <div class="eyebrow" data-rv="fade">Chapter 04, The cup</div>
   <h2 class="display" data-rv="up">The davara</h2>
   <p class="body-lg" data-rv="up">The path does not close behind you. Take the walk whenever the noise
-    gets loud — it is always the same hill, and never the same light in the cup.</p>
+    gets loud, it is always the same hill, and never the same light in the cup.</p>
   <div class="cup-stills" data-rv="up">
     <figure>
       <img src="assets/bean-to-cup/05-brew.webp" alt="South Indian filter coffee: hot water poured into a steel drip, ground coffee in a bowl on a wooden verandah table." width="1600" height="1000">
-      <figcaption>05 — Filter</figcaption>
+      <figcaption>05, Filter</figcaption>
     </figure>
     <figure>
       <img src="assets/bean-to-cup/06-cup.webp" alt="Steaming decoction in a steel davara on a estate verandah, coffee hills at sunrise beyond the rail." width="1600" height="1000">
-      <figcaption>06 — Cup</figcaption>
+      <figcaption>06, Cup</figcaption>
     </figure>
   </div>""",
-    """  <div class="eyebrow" data-rv="fade">Chapter 04 — The crop, then the cup</div>
+    """  <div class="eyebrow" data-rv="fade">Chapter 04, The crop, then the cup</div>
   <h2 class="display" data-rv="up">The davara</h2>
-  <p class="body-lg" data-rv="up">From shade to steel. Each still keeps its own ratio — contained in the frame,
+  <p class="body-lg" data-rv="up">From shade to steel. Each still keeps its own ratio, contained in the frame,
     never forced to cover. The hill is still in the window.</p>
   <div class="cup-stills" data-rv="up">
     <figure>
       <img src="assets/bean-to-cup/01-shade.webp" alt="Shade-grown arabica at first light." width="1600" height="1000">
-      <figcaption>09 — Shade</figcaption>
+      <figcaption>09, Shade</figcaption>
     </figure>
     <figure>
       <img src="assets/bean-to-cup/02-cherry.webp" alt="Ripe arabica cherries on a living shrub." width="1600" height="1000">
-      <figcaption>10 — Cherry</figcaption>
+      <figcaption>10, Cherry</figcaption>
     </figure>
     <figure>
       <img src="assets/bean-to-cup/03-seed.webp" alt="Cherry, parchment and green bean." width="1600" height="1000">
-      <figcaption>11 — Seed</figcaption>
+      <figcaption>11, Seed</figcaption>
     </figure>
     <figure>
       <img src="assets/bean-to-cup/04-roast.webp" alt="A roasting drum at work." width="1600" height="1000">
-      <figcaption>12 — Fire</figcaption>
+      <figcaption>12, Fire</figcaption>
     </figure>
     <figure>
       <img src="assets/bean-to-cup/05-brew.webp" alt="South Indian filter coffee on an estate table." width="1600" height="1000">
-      <figcaption>13 — Filter</figcaption>
+      <figcaption>13, Filter</figcaption>
     </figure>
     <figure>
       <img src="assets/bean-to-cup/06-cup.webp" alt="Steaming davara, coffee hills beyond the rail." width="1600" height="1000">
-      <figcaption>14 — Cup</figcaption>
+      <figcaption>14, Cup</figcaption>
     </figure>
   </div>""",
 )
@@ -324,7 +324,7 @@ t = t.replace(
     """      <p>A six-still walk from Chikkamagaluru shade to a steel davara. The Three.js sanctuary is the
         authored Kage landing page; the stills are this district’s bean-to-cup.</p>""",
     """      <p>A 3D night walk: Baba Budan’s seven seeds, then shade to davara. Live Three.js sanctuary
-        (Kage). Plates hang in the hall at their true ratio — no cover-crop, no cloth warp. Not a shop.</p>""",
+        (Kage). Plates hang in the hall at their true ratio, no cover-crop, no cloth warp. Not a shop.</p>""",
 )
 t = t.replace(
     """      <li><a href="#gate" data-cursor>The shade path</a></li>

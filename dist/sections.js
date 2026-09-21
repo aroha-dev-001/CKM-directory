@@ -224,7 +224,7 @@
             <p class="story-num">${num}</p>
             <p class="kicker">Malnad kitchen</p>
             <h2 id="foods-title">Rice, leaf, and a cup from the hill</h2>
-            <p class="section-lead">Six dishes the ghats still cook. Open a card for the full origin note on its own page. Photographs are companion stills — this page does not sell a meal.</p>
+            <p class="section-lead">Six dishes the ghats still cook. Open a card for the full origin note on its own page. Photographs are companion stills, this page does not sell a meal.</p>
             <div class="pop-grid food-grid">${foodCards}</div>
           </div>
         </section>`;
@@ -333,7 +333,7 @@
         (g) => `
         <figure class="gallery-item">
           <img src="${esc(g.image)}" alt="${esc(g.caption)}" width="1800" height="1200" loading="lazy" />
-          <figcaption>${esc(g.caption)} — ${esc(g.credit)}</figcaption>
+          <figcaption>${esc(g.caption)}, ${esc(g.credit)}</figcaption>
         </figure>`
       )
       .join("");
@@ -470,7 +470,7 @@
                 <strong>${esc(place.name)}</strong>
                 <span class="t-tt-wrap">
                   <span class="pop-hours t-tt-trigger">${esc(item.hours)}</span>
-                  <span class="t-tt" role="tooltip">Typical hours — confirm on the linked official page</span>
+                  <span class="t-tt" role="tooltip">Typical hours, confirm on the linked official page</span>
                 </span>
                 <span class="pop-why-line">${esc(item.why)}</span>
               </span>
@@ -483,7 +483,7 @@
               <p>${esc(item.hoursDetail)}</p>
               <p class="kicker" style="margin-top:0.9rem">Why people come</p>
               <p>${esc(item.why)}</p>
-              <p class="pop-source">Hours and access change. Confirm on <a href="${esc(item.hoursSource.url)}" rel="noopener noreferrer">${esc(item.hoursSource.label)}</a> — this companion does not list fees.</p>
+              <p class="pop-source">Hours and access change. Confirm on <a href="${esc(item.hoursSource.url)}" rel="noopener noreferrer">${esc(item.hoursSource.label)}</a>, this companion does not list fees.</p>
               <div class="pop-actions">
                 <button class="btn btn-dark shine" type="button" data-open-place="${esc(place.id)}" data-magnetic>Open this place</button>
                 <a class="btn btn-line t-learn" href="places.html?id=${esc(place.id)}">${learn("Go to places")}</a>
@@ -527,7 +527,7 @@
         const via = commons
           ? `${esc(c.license)}, via <a href="${esc(c.url)}" rel="noopener noreferrer">Wikimedia Commons</a>`
           : esc(c.license);
-        return `<p>${esc(c.place)} — ${esc(c.artist)} — ${via}</p>`;
+        return `<p>${esc(c.place)}, ${esc(c.artist)}, ${via}</p>`;
       })
       .join("");
     const talukOrder = ["chikkamagaluru", "tarikere", "kadur", "mudigere", "koppa", "nrpura", "sringeri", "kalasa", "ajjampura"];
@@ -598,7 +598,7 @@
             <div>
               <h2 class="kicker">${esc(f.tx("official"))}</h2>
               <ul>
-                <li><a href="${esc(f.official.district_en)}" rel="noopener noreferrer">chikkamagaluru.nic.in — tourism</a></li>
+                <li><a href="${esc(f.official.district_en)}" rel="noopener noreferrer">chikkamagaluru.nic.in, tourism</a></li>
                 <li><a href="${esc(f.official.district_kn)}" rel="noopener noreferrer">ಕನ್ನಡ ಪ್ರವಾಸೋದ್ಯಮ ಪುಟ</a></li>
                 <li><a href="${esc(f.official.karnataka_tourism)}" rel="noopener noreferrer">Karnataka Tourism</a></li>
                 <li><a href="${esc(f.official.forest)}" rel="noopener noreferrer">Karnataka Forest Department</a></li>
@@ -658,7 +658,7 @@
               <span><i>cloud line.</i></span>
             </h1>
             <p class="hero-kn" lang="kn">ಮೇಘರೇಖೆಯ ಮೇಲೆ</p>
-            <p class="lede">Good coffee, quieter journeys. A district companion for peaks, temples, forests and the working shade of Malnad — not a booking desk.</p>
+            <p class="lede">Good coffee, quieter journeys. A district companion for peaks, temples, forests and the working shade of Malnad, not a booking desk.</p>
             <div class="hero-actions">
               <a class="btn btn-light shine t-learn" href="places.html" data-magnetic>${learn("Explore all places")}</a>
               <a class="btn btn-ghost" href="map.html">Open the district map</a>
@@ -689,7 +689,7 @@
             <div class="district-copy">
               <p class="kicker">Explore the district</p>
               <h2>Nine taluks, endless experiences.</h2>
-              <p class="section-lead">From Mullayanagiri’s cloud line to the temples of Sringeri and the tiger forests of Bhadra — Chikkamagaluru is a district of contrasts. Explore by taluk to see what awaits you.</p>
+              <p class="section-lead">From Mullayanagiri’s cloud line to the temples of Sringeri and the tiger forests of Bhadra · Chikkamagaluru is a district of contrasts. Explore by taluk to see what awaits you.</p>
               <a class="btn btn-dark shine t-learn" data-map-cta href="map.html" data-magnetic>${learn("View district map")}</a>
             </div>
             <div class="district-map-stage">
@@ -704,7 +704,7 @@
               <ul class="taluk-index" id="taluk-index">${f.talukIndex}</ul>
               <p class="taluk-summary" id="taluk-summary">Click a taluk to open its places.</p>
               <div id="taluk-metrics" class="taluk-metrics" hidden></div>
-              <p class="taluk-footnote">Kalasa and Ajjampura were carved out of Mudigere and Tarikere after older maps were drawn. Each is shown here with its current OSM boundary. The map uses nine current administrative taluks — not a historical grouping.</p>
+              <p class="taluk-footnote">Kalasa and Ajjampura were carved out of Mudigere and Tarikere after older maps were drawn. Each is shown here with its current OSM boundary. The map uses nine current administrative taluks, not a historical grouping.</p>
             </aside>
           </div>
         </div>
@@ -728,7 +728,7 @@
           <p class="kicker explore-kicker">Welcome</p>
           <h2 id="explore-title">Explore Chikkamagaluru</h2>
           <p class="explore-wave" aria-hidden="true">∿</p>
-          <p class="section-lead explore-lead">Food, nature, hill air, heritage and tourism — five ways into a district companion. No rooms, no restaurants, no tickets.</p>
+          <p class="section-lead explore-lead">Food, nature, hill air, heritage and tourism, five ways into a district companion. No rooms, no restaurants, no tickets.</p>
         </div>
         <div class="explore-rail-wrap explore-accordion-wrap">
           <button class="explore-nav" type="button" data-explore-prev aria-label="Previous explore card">‹</button>
@@ -740,7 +740,7 @@
         <div class="wrap places-drift-intro">
           <p class="kicker">The wall</p>
           <h2 id="places-drift-title">Still drifting through the district.</h2>
-          <p class="section-lead">Click a photograph to pause the wall and flip it. Two or three lines of place notes are on the back — visitor hours live in Places.</p>
+          <p class="section-lead">Click a photograph to pause the wall and flip it. Two or three lines of place notes are on the back, visitor hours live in Places.</p>
         </div>
         <div class="places-drift-stage">
           <div data-drift-wall></div>
@@ -751,7 +751,7 @@
           <div class="section-head">
             <p class="kicker">Popular places</p>
             <h2>Open a card. See why it draws a crowd.</h2>
-            <p class="section-lead">Eight stops that show up first on visitor lists — typical hours from temple and district pages, not a live board. The full set lives on the popular page.</p>
+            <p class="section-lead">Eight stops that show up first on visitor lists, typical hours from temple and district pages, not a live board. The full set lives on the popular page.</p>
             <a class="text-link t-learn" href="popular.html">${learn("All popular places")}</a>
           </div>
           <div class="pop-carousel-layout">
@@ -788,7 +788,7 @@
         <div class="wrap">
           <p class="kicker" id="places-kicker">Places</p>
           <h1 id="places-title">Places worth the climb</h1>
-          <p class="section-lead" id="places-lead">Waterfalls, temples, dams, lakes, hill stations, peaks and forests — grouped the way you look for them. Nothing here is a live fee, permit or opening-hour notice.</p>
+          <p class="section-lead" id="places-lead">Waterfalls, temples, dams, lakes, hill stations, peaks and forests, grouped the way you look for them. Nothing here is a live fee, permit or opening-hour notice.</p>
           <p class="taluk-context" id="places-taluk-bar" hidden>
             <a href="places.html">All taluks</a>
             <a href="map.html" id="places-map-link">Back to the district map</a>
@@ -867,7 +867,7 @@
               <h2>${esc(place.name)}</h2>
               <p class="kn">${esc(place.kannada)}</p>
               <p class="popular-why">${esc(item.why || place.blurb)}</p>
-              <p class="popular-hours"><strong>${esc(item.hours || "Daylight")}</strong> — ${esc(item.hoursDetail || place.visit)}</p>
+              <p class="popular-hours"><strong>${esc(item.hours || "Daylight")}</strong>, ${esc(item.hoursDetail || place.visit)}</p>
               <p class="popular-meta">${km}${dur}<span>${esc(place.taluk)}</span></p>
               <div class="popular-chips">${chips}</div>
               <div class="popular-actions">
@@ -899,7 +899,7 @@
         <div class="wrap">
           <p class="kicker">Popular tourist places</p>
           <h1>What visitors actually queue for</h1>
-          <p class="section-lead">Thirty stops that keep showing up on Tripadvisor’s Chikkamagaluru Things to Do, on district-oriented place lists, and on typical 2-day hill loops. Copy here is this companion’s — not those sites’. Hours are published hints, not a live gate. No fees, rooms or packages.</p>
+          <p class="section-lead">Thirty stops that keep showing up on Tripadvisor’s Chikkamagaluru Things to Do, on district-oriented place lists, and on typical 2-day hill loops. Copy here is this companion’s, not those sites’. Hours are published hints, not a live gate. No fees, rooms or packages.</p>
           <p class="popular-count" data-popular-count>${(f.d.popularPlaces || []).length} popular places in the district</p>
         </div>
       </section>
@@ -940,7 +940,7 @@
             <div class="district-copy">
               <p class="kicker">Explore the district</p>
               <h1>Nine taluks, endless experiences.</h1>
-              <p class="section-lead">Sage fills follow how many places this companion holds in each taluk. Click a shape — or a name — to open that taluk’s page. Places are marked only there. Boundaries are OpenStreetMap reference, not a survey.</p>
+              <p class="section-lead">Sage fills follow how many places this companion holds in each taluk. Click a shape, or a name, to open that taluk’s page. Places are marked only there. Boundaries are OpenStreetMap reference, not a survey.</p>
               <a class="btn btn-dark shine t-learn" id="taluk-places-cta" href="places.html" data-magnetic>${learn("Browse all places")}</a>
             </div>
             <div class="district-map-stage">
@@ -973,7 +973,7 @@
       .join("");
     const why = extra
       ? `<p class="taluk-place-why">${esc(extra.why)}</p>
-         <p class="taluk-place-hours"><strong>${esc(extra.hours)}</strong> — ${esc(extra.hoursDetail)}</p>`
+         <p class="taluk-place-hours"><strong>${esc(extra.hours)}</strong>, ${esc(extra.hoursDetail)}</p>`
       : "";
     return `
       <article class="taluk-place" id="place-${esc(place.id)}">
@@ -1034,7 +1034,7 @@
           <p class="kn">${esc(taluk.kannada)}</p>
           <p class="section-lead">${esc(taluk.blurb)}</p>
           <div class="taluk-chips">${grouped}</div>
-          <p class="taluk-place-meta">${places.length} place${places.length === 1 ? "" : "s"} in this companion — descriptions from district tourism, temple and forest pages already on the public web. Not a complete gazetteer.</p>
+          <p class="taluk-place-meta">${places.length} place${places.length === 1 ? "" : "s"} in this companion, descriptions from district tourism, temple and forest pages already on the public web. Not a complete gazetteer.</p>
         </div>
       </section>
       <section class="district-explorer-section taluk-focus-section">
@@ -1057,7 +1057,7 @@
           <div class="section-head">
             <p class="kicker">Visitor notes</p>
             <h2>Every listed place in ${esc(label)}.</h2>
-            <p class="section-lead">Hours, approach and “why people stop” come from public pages — the district, Karnataka Forest Department, mathas — not from a booking desk. Confirm before you go.</p>
+            <p class="section-lead">Hours, approach and “why people stop” come from public pages, the district, Karnataka Forest Department, mathas, not from a booking desk. Confirm before you go.</p>
           </div>
           <div class="taluk-place-list">${articles}</div>
           ${empty}
@@ -1073,7 +1073,7 @@
         <div class="wrap">
           <p class="kicker">Stories</p>
           <h1>Coffee, culture, kitchen, care</h1>
-          <p class="section-lead">Separate readings of the district — seasons, coffee, stone, a Malnad kitchen, and the forest that is not a backdrop. Each chapter stands on its own.</p>
+          <p class="section-lead">Separate readings of the district, seasons, coffee, stone, a Malnad kitchen, and the forest that is not a backdrop. Each chapter stands on its own.</p>
           ${f.storyIndex}
         </div>
       </section>
@@ -1233,7 +1233,7 @@
         title: kn ? "ಬಾಬಾ ಬುದನ್, ಈ ಬೆಟ್ಟದ ಹೆಸರು" : "Baba Budan, the name on this ridge",
         image: "assets/bean-to-cup/story-00-baba-budan.webp",
         caption: kn
-          ? "ಸಂಗಾತಿ ಚಿತ್ರ — ಬಾಬಾ ಬುದನ್, ಏಳು ಮೋಚಾ ಬೀಜ. ಇತಿಹಾಸದ ಭಾವಚಿತ್ರವಲ್ಲ."
+          ? "ಸಂಗಾತಿ ಚಿತ್ರ, ಬಾಬಾ ಬುದನ್, ಏಳು ಮೋಚಾ ಬೀಜ. ಇತಿಹಾಸದ ಭಾವಚಿತ್ರವಲ್ಲ."
           : origin.saint?.caption || "Companion still of Baba Budan. No period portrait is known.",
         paras: kn
           ? [
@@ -1253,15 +1253,15 @@
         title: kn ? "ಮಂಜು ಇಷ್ಟಪಡುವ ಪೊದೆ" : "A shrub that liked mist",
         image: "assets/bean-to-cup/story-01-plant.webp",
         caption: kn
-          ? "ಸಂಗಾತಿ ಚಿತ್ರ — ಮಂಜಿನಲ್ಲಿ ಅರಬಿಕಾ. ಇಥಿಯೋಪಿಯಾ ಸಮೀಕ್ಷೆಯಲ್ಲ."
-          : "Companion still — wild arabica in highland mist. Imagined landscape, not a field survey of Ethiopia.",
+          ? "ಸಂಗಾತಿ ಚಿತ್ರ, ಮಂಜಿನಲ್ಲಿ ಅರಬಿಕಾ. ಇಥಿಯೋಪಿಯಾ ಸಮೀಕ್ಷೆಯಲ್ಲ."
+          : "Companion still, wild arabica in highland mist. Imagined landscape, not a field survey of Ethiopia.",
         paras: kn
           ? [
               "ಕಪ್ ಆಗುವ ಮೊದಲು ಕಾಫಿ ಕೆಂಪು ಹಣ್ಣು. ಮೋಡ ಇಷ್ಟ, ಬಿಸಿಲು ಅಲ್ಲ. ಆ ಗಿಡ ಈ ಘಟ್ಟಕ್ಕೆ ಬರುವ ಮೊದಲು ಬಹು ದೂರ ನಡೆದಿತ್ತು.",
               "ಚಂದ್ರ ದ್ರೋಣದಲ್ಲಿ ಬೇರು ಬಿಟ್ಟದ್ದು ಇನ್ನೂ ಅದೇ ಗಿಡ: ನೆರಳು ಬೇಕು, ಮಳೆ ನಿಧಾನ, ಸಮಯ ಬೇಕು.",
             ]
           : [
-              "Before it was a cup on the Hassan bus, coffee was a red cherry in highland weather — a shrub that preferred cloud to open sun. That plant walked a long way from Ethiopian slopes before it ever saw these ghats.",
+              "Before it was a cup on the Hassan bus, coffee was a red cherry in highland weather, a shrub that preferred cloud to open sun. That plant walked a long way from Ethiopian slopes before it ever saw these ghats.",
               "What took root on Chandra Drona is still that same highland thing: shade-hungry, slow, and particular about rain.",
             ],
       },
@@ -1273,8 +1273,8 @@
         title: kn ? "ಕಪ್ ಮಾರಿದ ಬಂದರು" : "The harbour that sold the cup",
         image: "assets/bean-to-cup/story-02-mocha.webp",
         caption: kn
-          ? "ಸಂಗಾತಿ ಚಿತ್ರ — ಮೋಚಾ ಬಂದರು. ಐತಿಹಾಸಿಕ ಸಮೀಕ್ಷೆಯಲ್ಲ."
-          : "Companion still — Mocha harbour, dhows, and sacks of cherry. Not a historical survey of the port.",
+          ? "ಸಂಗಾತಿ ಚಿತ್ರ, ಮೋಚಾ ಬಂದರು. ಐತಿಹಾಸಿಕ ಸಮೀಕ್ಷೆಯಲ್ಲ."
+          : "Companion still, Mocha harbour, dhows, and sacks of cherry. Not a historical survey of the port.",
         paras: kn
           ? [
               "ಯೆಮೆನ್ ತೀರದಲ್ಲಿ ಮೋಚಾ ಎಂದರೆ ಕಾಫಿ ಎಂದೇ ಆಯಿತು. ಹುರಿದ ಕುಡಿಯುವುದನ್ನು ಮಾರಿದರು. ಜೀವಂತ ಬೀಜ ಬೇರೆ ಮಾತು.",
@@ -1293,8 +1293,8 @@
         title: kn ? "ಈ ಬೆಟ್ಟದ ಅಂಗಳ" : "A courtyard on this ridge",
         image: "assets/bean-to-cup/story-03-seeds.webp",
         caption: kn
-          ? "ಸಂಗಾತಿ ಚಿತ್ರ — ಏಳು ಬೀಜ ನೆಡುವುದು. ದಿನಾಂಕದ ಪುನರ್ನಿರ್ಮಾಣವಲ್ಲ."
-          : "Companion still — seven Mocha seeds in courtyard earth. Not a reconstruction of a dated planting.",
+          ? "ಸಂಗಾತಿ ಚಿತ್ರ, ಏಳು ಬೀಜ ನೆಡುವುದು. ದಿನಾಂಕದ ಪುನರ್ನಿರ್ಮಾಣವಲ್ಲ."
+          : "Companion still, seven Mocha seeds in courtyard earth. Not a reconstruction of a dated planting.",
         paras: kn
           ? [
               "ಈ ಬೆಟ್ಟದ ಸೂಫಿ ಏಳು ಮೋಚಾ ಬೀಜ ತಂದು ಬಾಬಾ ಬುದನ್ ಗಿರಿಯ ಆಶ್ರಮದ ಅಂಗಳದಲ್ಲಿ ನೆಟ್ಟನೆಂದು ಹೇಳುತ್ತಾರೆ. ಕೆಲವು ಕಥೆಗಳು ಸುಮಾರು ೧೬೦೦. ಮತ್ತೆ ಕೆಲವು ಹಜ್‌ನಿಂದ ೧೬೭೦ರ ಹತ್ತಿರ.",
@@ -1313,15 +1313,15 @@
         title: kn ? "ಬೆಟ್ಟ ಇನ್ನೂ ಹೇಳುವುದು" : "What the hills still tell",
         image: "assets/bean-to-cup/story-04-voyage.webp",
         caption: kn
-          ? "ಸಂಗಾತಿ ಚಿತ್ರ — ದೋಣಿ, ಬಟ್ಟೆಯ ಚೀಲ. ದಿನಾಂಕದ ಪಯಣವಲ್ಲ. ಕಥೆ."
+          ? "ಸಂಗಾತಿ ಚಿತ್ರ, ದೋಣಿ, ಬಟ್ಟೆಯ ಚೀಲ. ದಿನಾಂಕದ ಪಯಣವಲ್ಲ. ಕಥೆ."
           : "Companion still of the voyage lore: a dhow, a cloth pouch, Mocha astern. Not a reconstruction of a dated crossing. Lore.",
         paras: kn
           ? [
-              "ಬೀಜಗಳೊಂದಿಗೆ ನಡೆಯುವ ಕಥೆ ಕಳ್ಳಸಾಗಣೆಯದು: ಏಳು ಕಚ್ಚಾ ಬೀನ್, ಏಳು ಪವಿತ್ರ, ಗಡ್ಡದಲ್ಲಿ ಅಥವಾ ಬಟ್ಟೆಯಲ್ಲಿ — ಬಂದರು ಕಾಡು ಹೊರಡುವುದನ್ನು ನೋಡದಂತೆ.",
+              "ಬೀಜಗಳೊಂದಿಗೆ ನಡೆಯುವ ಕಥೆ ಕಳ್ಳಸಾಗಣೆಯದು: ಏಳು ಕಚ್ಚಾ ಬೀನ್, ಏಳು ಪವಿತ್ರ, ಗಡ್ಡದಲ್ಲಿ ಅಥವಾ ಬಟ್ಟೆಯಲ್ಲಿ, ಬಂದರು ಕಾಡು ಹೊರಡುವುದನ್ನು ನೋಡದಂತೆ.",
               "ಯಾವುದೇ ಹಡಗಿನ ಪುಸ್ತಕ ಇದನ್ನು ದೃಢಪಡಿಸುವುದಿಲ್ಲ. ಜಿಲ್ಲೆ ಹೇಳುತ್ತಲೇ ಇದೆ. ಬೆಟ್ಟ ನಂಬಿ. ಗಡ್ಡವನ್ನು ಕಥೆಯೆಂದು ಇರಿಸಿ.",
             ]
           : [
-              "The story that travels with the seeds is a smuggler's story: seven raw beans, because seven is sacred, tucked away — in a beard, in the later tellings — so a port would not notice a future forest leaving in a pilgrim's clothes.",
+              "The story that travels with the seeds is a smuggler's story: seven raw beans, because seven is sacred, tucked away, in a beard, in the later tellings, so a port would not notice a future forest leaving in a pilgrim's clothes.",
               "No ship's book confirms it. The district tells it anyway, the way a family tells how the house was built. Believe the slope. Treat the beard as lore.",
             ],
       },
@@ -1333,15 +1333,15 @@
         title: kn ? "ಬೆಳೆಗಿಂತ ಮೊದಲು ತೋಟ" : "A garden before it was a crop",
         image: "assets/bean-to-cup/story-05-hermitage.webp",
         caption: kn
-          ? "ಸಂಗಾತಿ ಚಿತ್ರ — ಗುಹೆ ಆಶ್ರಮ, ಸಸಿ. ದೇವಸ್ಥಾನದ ನಕ್ಷೆಯಲ್ಲ."
-          : "Companion still — a cave hermitage and seedling terraces on Chandra Drona. Imagined courtyard, not a measured plan of the shrine.",
+          ? "ಸಂಗಾತಿ ಚಿತ್ರ, ಗುಹೆ ಆಶ್ರಮ, ಸಸಿ. ದೇವಸ್ಥಾನದ ನಕ್ಷೆಯಲ್ಲ."
+          : "Companion still, a cave hermitage and seedling terraces on Chandra Drona. Imagined courtyard, not a measured plan of the shrine.",
         paras: kn
           ? [
-              "ಮೊದಲ ಗಿಡಗಳು ರಾತ್ರಿಯಲ್ಲಿ ಭೂದೃಶ್ಯವಾಗಲಿಲ್ಲ. ಬಹುಕಾಲ ಅಂಗಳದ ಕುತೂಹಲ — ಮನೆಯ ಹಿಂದೆ ಕೆಲವು ಮರ, ಚಾರ್ಮಾಡಿ ರಸ್ತೆಯ ಬೆಳ್ಳಿ ಓಕ್ ಸಾಲಲ್ಲ.",
+              "ಮೊದಲ ಗಿಡಗಳು ರಾತ್ರಿಯಲ್ಲಿ ಭೂದೃಶ್ಯವಾಗಲಿಲ್ಲ. ಬಹುಕಾಲ ಅಂಗಳದ ಕುತೂಹಲ, ಮನೆಯ ಹಿಂದೆ ಕೆಲವು ಮರ, ಚಾರ್ಮಾಡಿ ರಸ್ತೆಯ ಬೆಳ್ಳಿ ಓಕ್ ಸಾಲಲ್ಲ.",
               "ಚಂದ್ರ ದ್ರೋಣ ಮೊದಲು ತೋಟ ಹಿಡಿದಿತ್ತು, ಎಸ್ಟೇಟ್ ಅಲ್ಲ. ಗುಡಿ ಇನ್ನೂ ಆ ಬೆಟ್ಟದಲ್ಲಿದೆ. ಬೆಳೆ ಇಲ್ಲಿ ತಾಳ್ಮೆ ಕಲಿತಿತು.",
             ]
           : [
-              "Those first plants did not become a landscape overnight. For a long time they were a curiosity in courtyard earth — a few trees behind a house, not yet the silver-oak rows you pass on the Charmadi road.",
+              "Those first plants did not become a landscape overnight. For a long time they were a curiosity in courtyard earth, a few trees behind a house, not yet the silver-oak rows you pass on the Charmadi road.",
               "Chandra Drona held a garden before it held an estate. The shrine is still on that ridge. The crop learned patience here.",
             ],
       },
@@ -1353,16 +1353,16 @@
         title: kn ? "ಕಾಡು ಸಾಲು ಕಲಿತಾಗ" : "When the forest learned rows",
         image: "assets/bean-to-cup/story-06-estate.webp",
         caption: kn
-          ? "ಸಂಗಾತಿ ಚಿತ್ರ — ನೆರಳಿನ ಸಾಲು, ಬಂಗಲೆ. ಯಾವುದೇ ಎಸ್ಟೇಟ್‌ನ ಭಾವಚಿತ್ರವಲ್ಲ."
-          : "Companion still — early shade rows and a ridge bungalow. Imagined estate country, not a portrait of any working property.",
+          ? "ಸಂಗಾತಿ ಚಿತ್ರ, ನೆರಳಿನ ಸಾಲು, ಬಂಗಲೆ. ಯಾವುದೇ ಎಸ್ಟೇಟ್‌ನ ಭಾವಚಿತ್ರವಲ್ಲ."
+          : "Companion still, early shade rows and a ridge bungalow. Imagined estate country, not a portrait of any working property.",
         paras: kn
           ? [
               "ಸಾಲುಗಳು ನಂತರ ಬಂದವು. ೧೮೨೦ರ ದಶಕದಲ್ಲಿ ಈ ಬೆಟ್ಟದ ಪಕ್ಕದಲ್ಲಿ ನಾಟಿ ಆರಂಭ. ಬೆಳೆ ವಯನಾಡು, ಶೆವರಾಯ್, ನೀಲಗಿರಿಗೆ ನಡೆಯಿತು.",
-              "ಆಶ್ರಮದ ಮರ ಬೆಟ್ಟದ ಕೆಲಸವಾಯಿತು — ನೆರಳು ಅಳೆದು, ಹಾದಿ ಹೆಸರಿಸಿ, ಭುಜದ ಮೇಲೆ ಬಂಗಲೆ.",
+              "ಆಶ್ರಮದ ಮರ ಬೆಟ್ಟದ ಕೆಲಸವಾಯಿತು, ನೆರಳು ಅಳೆದು, ಹಾದಿ ಹೆಸರಿಸಿ, ಭುಜದ ಮೇಲೆ ಬಂಗಲೆ.",
             ]
           : [
               "Rows came later, when the forested south was cut into property. In the 1820s planters opened country beside this same ridge, and the crop walked on into Wayanad, the Shevaroys, the Nilgiris.",
-              "What had been a hermitage tree became a hillside of labour — shade measured, paths named, a bungalow on the shoulder of the hill.",
+              "What had been a hermitage tree became a hillside of labour, shade measured, paths named, a bungalow on the shoulder of the hill.",
             ],
       },
       {
@@ -1373,8 +1373,8 @@
         title: kn ? "ಬಸ್ಸಿನಿಂದ ಕಾಣುವುದು" : "What you see from the bus",
         image: "assets/bean-to-cup/story-07-shade-work.webp",
         caption: kn
-          ? "ಸಂಗಾತಿ ಚಿತ್ರ — ಬೆಳ್ಳಿ ಓಕ್, ಮೆಣಸು ಬಳ್ಳಿ. ಸಿಎಂಆರ್‌ಐ ಭಾವಚಿತ್ರವಲ್ಲ."
-          : "Companion still — silver-oak shade, pepper vine, and a working path. Not a photograph of CCRI.",
+          ? "ಸಂಗಾತಿ ಚಿತ್ರ, ಬೆಳ್ಳಿ ಓಕ್, ಮೆಣಸು ಬಳ್ಳಿ. ಸಿಎಂಆರ್‌ಐ ಭಾವಚಿತ್ರವಲ್ಲ."
+          : "Companion still, silver-oak shade, pepper vine, and a working path. Not a photograph of CCRI.",
         paras: kn
           ? [
               "ಮೂಡಿಗೆರೆಯಿಂದ ಬಾಳೆಹೊನ್ನೂರಿನ ನಡುವೆ ನೋಡಿದರೆ ಕೆಲಸ ಕಾಣುತ್ತದೆ: ಎರಡು ನೆರಳು, ತೊಂಟೆಯಲ್ಲಿ ಮೆಣಸು, ಕೆಳಗೆ ಅರಬಿಕಾ. ಕರ್ನಾಟಕ ಇನ್ನೂ ಭಾರತದ ಬೆಳೆಯ ದೊಡ್ಡ ಪಾಲು ಬೆಳೆಯುತ್ತದೆ.",
@@ -1382,7 +1382,7 @@
             ]
           : [
               "Look out between Mudigere and Balehonnur and you are looking at work: two roofs of shade, pepper on the trunks, arabica underneath. Karnataka still grows the largest share of the Indian crop. Rust and stem borer later asked for tougher trees.",
-              "In 1925 an experiment station opened near Balehonnur, in this district — a house of trial plots that the canopy still leans on. The green you photograph from the window is someone's season.",
+              "In 1925 an experiment station opened near Balehonnur, in this district, a house of trial plots that the canopy still leans on. The green you photograph from the window is someone's season.",
             ],
       },
       {
@@ -1393,8 +1393,8 @@
         title: kn ? "ಅತಿಥಿಯಂತೆ ನಡೆ" : "Walk as a guest",
         image: "assets/bean-to-cup/story-08-guest.webp",
         caption: kn
-          ? "ಸಂಗಾತಿ ಚಿತ್ರ — ನೆರಳಿನ ಹಾದಿ. ಈ ಪುಟ ವಾಸ ಅಥವಾ ಪ್ರವಾಸ ಮಾರುವುದಿಲ್ಲ."
-          : "Companion still — a quiet path under coffee. This page does not sell a stay or a tour.",
+          ? "ಸಂಗಾತಿ ಚಿತ್ರ, ನೆರಳಿನ ಹಾದಿ. ಈ ಪುಟ ವಾಸ ಅಥವಾ ಪ್ರವಾಸ ಮಾರುವುದಿಲ್ಲ."
+          : "Companion still, a quiet path under coffee. This page does not sell a stay or a tour.",
         paras: kn
           ? [
               "ಈ ಪುಟ ಕಪ್ಪಿಂಗ್, ಬಂಗಲೆ, ಅಥವಾ ಬೇರೆಯವರ ಬೆಳ್ಳಿ ಓಕ್‌ನಲ್ಲಿ ಜೀಪ್ ಮಾರುವುದಿಲ್ಲ. ಯಾರಾದರೂ ಹಾದಿ ತೆರೆದರೆ ಅದು ಅವರ ಬಾಗಿಲು. ಅದರಲ್ಲೇ ಇರಿ.",
@@ -1413,12 +1413,12 @@
         title: kn ? "ಮೊದಲ ಬೆಳಕಿನ ಹಾದಿ" : "A path the canopy keeps",
         image: "assets/bean-to-cup/01-shade.webp",
         caption: kn
-          ? "ನೆರಳು ಬೆಳೆದ ಅರಬಿಕಾ — ಬೆಳಗಿನ ಹೊಗೆ, ಬೆಳ್ಳಿ ಓಕ್."
-          : "Shade-grown arabica at first light — silver oak, mist, a dirt line through the rows.",
+          ? "ನೆರಳು ಬೆಳೆದ ಅರಬಿಕಾ, ಬೆಳಗಿನ ಹೊಗೆ, ಬೆಳ್ಳಿ ಓಕ್."
+          : "Shade-grown arabica at first light, silver oak, mist, a dirt line through the rows.",
         paras: kn
           ? [
               "ಬೆಳೆಯ ನಡಿಗೆ ರಸ್ತೆ ಮುಗಿದಲ್ಲಿ ಆರಂಭವಾಗುತ್ತದೆ. ಬೆಳ್ಳಿ ಓಕ್ ಕೆಳಗೆ ಅರಬಿಕಾ, ಕಣಿವೆಯಲ್ಲಿ ಹಬೆ, ಹಾದಿಯಲ್ಲಿ ಒದ್ದೆ ಮಣ್ಣು.",
-              "ಈ ಪುಟ ಎಸ್ಟೇಟ್ ಮಾರಾಟ ಮಾಡುವುದಿಲ್ಲ. ನೆರಳು ಏಕೆ ಬೇಕು ಎಂಬುದನ್ನು ಮಾತ್ರ ಹೇಳುತ್ತದೆ — ಮಲೆನಾಡಿನ ಕಾಫಿ ಬಿಸಿಲಿನಲ್ಲಿ ಅಲ್ಲ, ಮಬ್ಬಿನಲ್ಲಿ ಬೆಳೆಯುತ್ತದೆ.",
+              "ಈ ಪುಟ ಎಸ್ಟೇಟ್ ಮಾರಾಟ ಮಾಡುವುದಿಲ್ಲ. ನೆರಳು ಏಕೆ ಬೇಕು ಎಂಬುದನ್ನು ಮಾತ್ರ ಹೇಳುತ್ತದೆ, ಮಲೆನಾಡಿನ ಕಾಫಿ ಬಿಸಿಲಿನಲ್ಲಿ ಅಲ್ಲ, ಮಬ್ಬಿನಲ್ಲಿ ಬೆಳೆಯುತ್ತದೆ.",
             ]
           : [
               "The crop begins where the tar road stops. Arabica sits under silver oak. Mist still hangs in the valley. The path is wet from last night’s rain.",
@@ -1434,11 +1434,11 @@
         image: "assets/bean-to-cup/02-cherry.webp",
         caption: kn
           ? "ಹಸಿರು ಕೊಂಬೆಯಲ್ಲಿ ಕೆಂಪು ಅರಬಿಕಾ ಹಣ್ಣು."
-          : "Ripe arabica cherries on a living shrub — dew on the skin, green fruit still waiting.",
+          : "Ripe arabica cherries on a living shrub, dew on the skin, green fruit still waiting.",
         paras: kn
           ? [
               "ಕಾಫಿ ಮೊದಲು ಕಪ್ ಅಲ್ಲ. ಅದು ಎಲೆಯ ನಡುವೆ ಕೆಂಪು ಹಣ್ಣು. ತೊಗಟೆ ಸಿಹಿ; ಒಳಗೆ ಎರಡು ಬೀಜ.",
-              "ಕೆಂಪಾದಾಗ ಕೀಳುತ್ತಾರೆ. ಹಸಿರು ಉಳಿದರೆ ರುಚಿ ಹುಳಿ. ಇದು ಅಡುಗೆ ಪುಸ್ತಕವಲ್ಲ — ಗಿಡದ ಮೇಲೆ ನೋಡುವ ಕಥೆ.",
+              "ಕೆಂಪಾದಾಗ ಕೀಳುತ್ತಾರೆ. ಹಸಿರು ಉಳಿದರೆ ರುಚಿ ಹುಳಿ. ಇದು ಅಡುಗೆ ಪುಸ್ತಕವಲ್ಲ, ಗಿಡದ ಮೇಲೆ ನೋಡುವ ಕಥೆ.",
             ]
           : [
               "Coffee is not a cup first. It is a red fruit in the leaf. The skin is sweet. Inside sit two seeds, pressed together like palms.",
@@ -1453,15 +1453,15 @@
         title: kn ? "ಮೂರು ಹೆಸರು, ಒಂದು ಬೀಜ" : "Three names for one seed",
         image: "assets/bean-to-cup/03-seed.webp",
         caption: kn
-          ? "ಹಣ್ಣು, ಪಾರ್ಚ್‌ಮೆಂಟ್, ಹಸಿರು ಬೀನ್ — ಒಂದೇ ಬೀಜದ ಮೂರು ರೂಪ."
-          : "Cherry, parchment, green bean — one seed counted three ways on a mill table.",
+          ? "ಹಣ್ಣು, ಪಾರ್ಚ್‌ಮೆಂಟ್, ಹಸಿರು ಬೀನ್, ಒಂದೇ ಬೀಜದ ಮೂರು ರೂಪ."
+          : "Cherry, parchment, green bean, one seed counted three ways on a mill table.",
         paras: kn
           ? [
               "ತೊಗಟೆ ತೆಗೆದರೆ ಒಳಗೆ ತಿಳಿ ಹೊದಿಕೆ. ಅದನ್ನು ಒಣಗಿಸಿದರೆ ಹಸಿರು ಬೀನ್. ಮೂರೂ ಒಂದೇ ಪ್ರಯಾಣ.",
               "ಗಿರಣಿ ಈ ಜಿಲ್ಲೆಯಲ್ಲಿ ಉಳಿದಿದೆ. ಈ ಪುಟ ಯಾವುದೇ ಬ್ರಾಂಡ್ ಮಾರುವುದಿಲ್ಲ. ಬೀಜ ಹೇಗೆ ಹೆಸರು ಬದಲಾಯಿಸುತ್ತದೆ ಎಂಬುದು ಮಾತ್ರ.",
             ]
           : [
-              "Strip the fruit and a pale husk remains. Dry that, and you hold a green bean. Cherry, parchment, green — three names, one journey.",
+              "Strip the fruit and a pale husk remains. Dry that, and you hold a green bean. Cherry, parchment, green, three names, one journey.",
               "Mills still do this work in the district. This page does not name a brand or a price. It only shows how the seed changes clothes before fire.",
             ],
       },
@@ -1474,15 +1474,15 @@
         image: "assets/bean-to-cup/04-roast.webp",
         caption: kn
           ? "ಹುರಿಯುವ ಡ್ರಮ್‌ನಲ್ಲಿ ಕಂದು ಬೀನ್, ಉಗಿ."
-          : "A roasting drum at work — steam, sugar browning, the smell that people call coffee.",
+          : "A roasting drum at work, steam, sugar browning, the smell that people call coffee.",
         paras: kn
           ? [
               "ಹಸಿರು ಬೀನ್‌ಗೆ ವಾಸನೆ ಇಲ್ಲ. ಬೆಂಕಿ ಸಿಹಿ ಹೊರತಂದಾಗಲೇ ಕಪ್ ಆರಂಭ.",
-              "ಹುರಿತದ ಮಟ್ಟ ಊರಿಗೆ, ಮನೆಗೆ ಬದಲಾಗುತ್ತದೆ. ಇಲ್ಲಿ ಫಿಲ್ಟರ್ ಕಾಫಿಗೆ ಹೊಂದುವ ಹುರಿತವನ್ನು ತೋರಿಸಿದೆ — ಮೆನು ಅಲ್ಲ.",
+              "ಹುರಿತದ ಮಟ್ಟ ಊರಿಗೆ, ಮನೆಗೆ ಬದಲಾಗುತ್ತದೆ. ಇಲ್ಲಿ ಫಿಲ್ಟರ್ ಕಾಫಿಗೆ ಹೊಂದುವ ಹುರಿತವನ್ನು ತೋರಿಸಿದೆ, ಮೆನು ಅಲ್ಲ.",
             ]
           : [
               "A green bean has almost no smell. Fire draws the sugar out. Only then does the seed begin to sound like a cup.",
-              "Roast is local taste, not a single law. What you see here is the drum — the turn from plant to the filter waiting on a verandah.",
+              "Roast is local taste, not a single law. What you see here is the drum, the turn from plant to the filter waiting on a verandah.",
             ],
       },
       {
@@ -1494,7 +1494,7 @@
         image: "assets/bean-to-cup/05-brew.webp",
         caption: kn
           ? "ಮಲೆನಾಡಿನ ಫಿಲ್ಟರ್: ನೀರು, ಪುಡಿ, ಮರದ ಮೇಜು."
-          : "South Indian filter on an estate table — grounds, hot water, the slow drip into the lower cup.",
+          : "South Indian filter on an estate table, grounds, hot water, the slow drip into the lower cup.",
         paras: kn
           ? [
               "ಮಲೆನಾಡು ಈ ರೀತಿ ಕುಡಿಯುತ್ತದೆ: ಮೇಲಿನ ಡಬ್ಬದಲ್ಲಿ ಪುಡಿ, ಕೆಳಗೆ ಡಿಕಾಕ್ಷನ್. ಆವಿಯೇ ಸಮಯ.",
@@ -1514,7 +1514,7 @@
         image: "assets/bean-to-cup/06-cup.webp",
         caption: kn
           ? "ಉಗಿ ಬರುವ ಡವರ, ಹಿಂದೆ ಕಾಫಿ ಬೆಟ್ಟ."
-          : "Decoction in a steel davara — the estate still in the frame, first light on the shrubs.",
+          : "Decoction in a steel davara, the estate still in the frame, first light on the shrubs.",
         paras: kn
           ? [
               "ಕಪ್ ಎಂದರೆ ಇಲ್ಲಿ ಡವರ. ಹಾಲು ಬೇಕಾದರೆ ಮನೆಯ ನಿಯಮ. ಬೆಟ್ಟ ಇನ್ನೂ ಕಿಟಕಿಯಲ್ಲಿದೆ.",
@@ -1566,7 +1566,7 @@
           <h1>${kn ? "ಏಳು ಬೀಜದಿಂದ, ಜೀವಂತ ಕಪ್." : "From seven seeds, a living cup."}</h1>
           <p class="section-lead">${kn
             ? "ಹದಿನೈದು ಬೀಟ್, ಒಂದು ಸರಣಿ. ಮೊದಲು ಸಂತ. ನಂತರ ಬೆಳೆ. ಪ್ರತಿ ಬೀಟ್‌ಗೆ ಒಂದು ಚಿತ್ರ. ಅಂಗಡಿ ಅಲ್ಲ. ಕಥೆಯನ್ನು ಕಥೆ ಎಂದು ಗುರುತಿಸಲಾಗಿದೆ."
-            : "Fifteen beats, one sequence. First the saint. Then the crop. One still per beat — coffee country, not a Kyoto hall. Not a shop. Lore is labelled lore."}</p>
+            : "Fifteen beats, one sequence. First the saint. Then the crop. One still per beat, coffee country, not a Kyoto hall. Not a shop. Lore is labelled lore."}</p>
           <nav class="story-act-nav" aria-label="${kn ? "ಅಂಕಗಳು" : "Acts"}">
             <a href="#act-origin"><span>I</span>${kn ? "ಸಂತ · ೦೦–೦೮" : "Saint · 00–08"}</a>
             <a href="#act-crop"><span>II</span>${kn ? "ಬೆಳೆ · ೦೯–೧೪" : "Crop · 09–14"}</a>
@@ -1588,7 +1588,7 @@
             <p class="kicker">${kn ? "ಅಂಕ ಎರಡು · ೦೯–೧೪" : "Act II · 09–14"}</p>
             <h2>${kn ? "ನೆರಳಿನಿಂದ ಡವರದವರೆಗೆ" : "From shade to the davara"}</h2>
             <p>${kn
-              ? "ಈಗ ಬೆಳೆ. ಆರು ನಿಜ ಚಿತ್ರಗಳು — ಹಾದಿ, ಹಣ್ಣು, ಬೀಜ, ಹುರಿತ, ಫಿಲ್ಟರ್, ಕಪ್. ಮೆನು ಅಲ್ಲ."
+              ? "ಈಗ ಬೆಳೆ. ಆರು ನಿಜ ಚಿತ್ರಗಳು, ಹಾದಿ, ಹಣ್ಣು, ಬೀಜ, ಹುರಿತ, ಫಿಲ್ಟರ್, ಕಪ್. ಮೆನು ಅಲ್ಲ."
               : "Now the crop. Six working stills, in order: path, cherry, seed, roast, filter, cup. Not a tasting menu."}</p>
           </header>
           <div class="story-steps">${cropCh.map((ch, i) => sceneHtml(ch, originCh.length + i)).join("")}</div>
@@ -1678,7 +1678,7 @@
         <div class="wrap food-story">
           <figure class="food-story-media">
             <img src="${esc(dish.image)}" alt="${esc(dish.name)}" width="1800" height="1200" />
-            <figcaption>Companion photograph — ${esc(dish.name)}. Not a restaurant listing.</figcaption>
+            <figcaption>Companion photograph, ${esc(dish.name)}. Not a restaurant listing.</figcaption>
           </figure>
           <div class="food-story-copy">
             <p class="kicker">The story</p>
@@ -1730,7 +1730,7 @@
           <div class="section-head">
             <p class="kicker">In the open</p>
             <h2>Water, ridge, and forest.</h2>
-            <p class="section-lead">The outdoor catalogue from this companion — grouped the way you look for them.</p>
+            <p class="section-lead">The outdoor catalogue from this companion, grouped the way you look for them.</p>
           </div>
           <div id="place-sections">${renderPlaceSections(lang, f.d.destinations, natureCats)}</div>
           <p><a class="text-link t-learn" href="places.html">${learn("All places")}</a></p>

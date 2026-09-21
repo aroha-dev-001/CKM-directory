@@ -445,7 +445,7 @@ p {
   transform: rotate(-45deg);
 }
 
-/* Hero — image always fills a controlled frame */
+/* Hero, image always fills a controlled frame */
 .hero {
   position: relative;
   min-height: 100svh;
@@ -2215,7 +2215,7 @@ body[data-page="coffee"] .origin-chapter p {
   line-height: 1;
 }
 
-/* Illustrated taluk map — sage green district explorer */
+/* Illustrated taluk map, sage green district explorer */
 .district-explorer-section {
   background: #f3f1e8;
   color: var(--ink);
@@ -3600,7 +3600,7 @@ body[data-page="coffee"] .origin-chapter p {
   margin-top: 0.4rem;
 }
 
-/* Toast — Transitions.dev open/close + Kinetics overshoot */
+/* Toast, Transitions.dev open/close + Kinetics overshoot */
 .toast {
   position: fixed;
   bottom: 1.15rem;
@@ -3653,7 +3653,7 @@ body[data-page="coffee"] .origin-chapter p {
   padding: 1rem 0 2rem;
 }
 
-/* Stash motion — Transitions.dev, Kinetics, UIverse, Sylva */
+/* Stash motion, Transitions.dev, Kinetics, UIverse, Sylva */
 .t-tabs {
   position: relative;
   display: inline-flex;
@@ -4457,7 +4457,7 @@ body[data-page="coffee"] .origin-chapter p {
   }
 }
 
-/* Explore Chikkamagaluru — Udupi-style photo rail */
+/* Explore Chikkamagaluru, Udupi-style photo rail */
 .explore-section {
   background: var(--cream);
   padding: clamp(2.4rem, 6vw, 4.4rem) 0 3.2rem;

@@ -1,4 +1,4 @@
-/* Production Bean to Cup knobs. Sandbox only — not loaded by dist/. */
+/* Production Bean to Cup knobs. Sandbox only, not loaded by dist/. */
 window.BTC_DEFAULTS = {
   world: {
     background: "#05070a",

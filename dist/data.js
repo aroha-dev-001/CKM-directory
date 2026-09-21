@@ -2,7 +2,7 @@ window.CKM = {
   "site": {
     "name": "Chikkamagaluru",
     "nameKn": "ಚಿಕ್ಕಮಗಳೂರು",
-    "title": "Chikkamagaluru — a Western Ghats companion",
+    "title": "Chikkamagaluru, a Western Ghats companion",
     "description": "An independent, static companion for discovering Chikkamagaluru district: peaks, waterfalls, temples, forests and seasons. Not a government site, not a booking service, and nothing here is downloadable.",
     "town": {
       "lat": 13.325246,
@@ -33,7 +33,7 @@ window.CKM = {
       "kn": "ಜಲಪಾತಗಳು",
       "count": 8,
       "image": "assets/hebbe-falls.jpg",
-      "lead": "Seasonal cascades — fullest after the monsoon, quieter in summer.",
+      "lead": "Seasonal cascades, fullest after the monsoon, quieter in summer.",
       "leadKn": "ಮಳೆಗಾಲದ ನಂತರ ತುಂಬುವ ಜಲಪಾತಗಳು."
     },
     {
@@ -87,7 +87,7 @@ window.CKM = {
       "kn": "ವನ್ಯಜೀವಿ",
       "count": 2,
       "image": "assets/kudremukh-np.jpg",
-      "lead": "Tiger reserve and national park — enter only with a forest permit.",
+      "lead": "Tiger reserve and national park, enter only with a forest permit.",
       "leadKn": "ಅನುಮತಿಯೊಂದಿಗೆ ಮಾತ್ರ ಅರಣ್ಯ."
     },
     {
@@ -105,7 +105,7 @@ window.CKM = {
       "kn": "ನೋಟದ ಸ್ಥಳಗಳು",
       "count": 3,
       "image": "assets/z-point.jpg",
-      "lead": "Road-head notches and ghat shelves — stop, look, keep moving with daylight.",
+      "lead": "Road-head notches and ghat shelves, stop, look, keep moving with daylight.",
       "leadKn": "ಘಟ್ಟದ ನೋಟಗಳು."
     },
     {
@@ -114,7 +114,7 @@ window.CKM = {
       "kn": "ಟ್ರೆಕ್‌ಗಳು",
       "count": 7,
       "image": "assets/ettina-bhuja.jpg",
-      "lead": "Walked ridges and grassland — permits and weather first, not a packaged hike sold here.",
+      "lead": "Walked ridges and grassland, permits and weather first, not a packaged hike sold here.",
       "leadKn": "ನಡೆದು ಹೋಗುವ ದಿಣ್ಣೆಗಳು."
     },
     {
@@ -232,8 +232,8 @@ window.CKM = {
       "lat": 13.2322,
       "lng": 75.3582,
       "image": "assets/kalasa-stream.jpg",
-      "blurb": "A Jain basadi in a Shaiva temple town — the other half of Kalasa's history.",
-      "summary": "A Jain basadi in a Shaiva temple town — the other half of Kalasa's history.",
+      "blurb": "A Jain basadi in a Shaiva temple town, the other half of Kalasa's history.",
+      "summary": "A Jain basadi in a Shaiva temple town, the other half of Kalasa's history.",
       "visit": "A Jain basadi at Kalasa. A working shrine; photography and hours follow the basadi, not a brochure.",
       "seasons": [
         "winter",
@@ -265,7 +265,7 @@ window.CKM = {
       "image": "assets/coffee-museum.jpg",
       "blurb": "The bean's journey, from Baba Budan to your cup",
       "summary": "The bean's journey, from Baba Budan to your cup",
-      "visit": "The Coffee Museum in Chikkamagaluru town, on the bean’s journey in this district. Opening hours belong to the museum / Coffee Board notices — confirm in town.",
+      "visit": "The Coffee Museum in Chikkamagaluru town, on the bean’s journey in this district. Opening hours belong to the museum / Coffee Board notices, confirm in town.",
       "seasons": [
         "winter",
         "post-monsoon"
@@ -325,9 +325,9 @@ window.CKM = {
       "lat": 13.093,
       "lng": 75.568,
       "image": "assets/kottigehara.jpg",
-      "blurb": "The junction town where the plateau ends and Charmadi begins — coffee, cardamom and the last fuel pump.",
-      "summary": "The junction town where the plateau ends and Charmadi begins — coffee, cardamom and the last fuel pump.",
-      "visit": "The plateau-edge junction where Charmadi begins — coffee, cardamom, and the last stretch before the ghat. A waypoint, not a ticketed sight.",
+      "blurb": "The junction town where the plateau ends and Charmadi begins, coffee, cardamom and the last fuel pump.",
+      "summary": "The junction town where the plateau ends and Charmadi begins, coffee, cardamom and the last fuel pump.",
+      "visit": "The plateau-edge junction where Charmadi begins, coffee, cardamom, and the last stretch before the ghat. A waypoint, not a ticketed sight.",
       "seasons": [
         "winter",
         "post-monsoon"
@@ -387,9 +387,9 @@ window.CKM = {
       "lat": 13.325,
       "lng": 75.792,
       "image": "assets/coffee-hills.jpg",
-      "blurb": "The working landscape that made this district famous — silver oak, pepper and arabica under forest shade.",
+      "blurb": "The working landscape that made this district famous, silver oak, pepper and arabica under forest shade.",
       "summary": "Chikkamagaluru’s identity is coffee. Traditional estates grow arabica and robusta under a canopy of silver oak, rosewood and native trees, often with pepper vines. This is a working agricultural landscape, not a park.",
-      "visit": "Estate walks, if offered, are private hospitality — this companion does not list or book stays. Look, do not trespass, and buy coffee from places that name the estate.",
+      "visit": "Estate walks, if offered, are private hospitality, this companion does not list or book stays. Look, do not trespass, and buy coffee from places that name the estate.",
       "seasons": [
         "winter",
         "post-monsoon"
@@ -415,8 +415,8 @@ window.CKM = {
       "lat": 13.59,
       "lng": 75.48,
       "image": "assets/simhanagadde.jpg",
-      "blurb": "The Jwalamalini atishaya kshetra — a Jain place of miracles, and the district's Jain centre.",
-      "summary": "The Jwalamalini atishaya kshetra — a Jain place of miracles, and the district's Jain centre.",
+      "blurb": "The Jwalamalini atishaya kshetra, a Jain place of miracles, and the district's Jain centre.",
+      "summary": "The Jwalamalini atishaya kshetra, a Jain place of miracles, and the district's Jain centre.",
       "visit": "A Jain kshetra in N.R. Pura country. Temple hours and any festival crowding are published by the kshetra, not by this companion.",
       "seasons": [
         "winter",
@@ -513,9 +513,9 @@ window.CKM = {
       "lat": 13.6108,
       "lng": 75.5117,
       "image": "assets/bhadra-river.jpg",
-      "blurb": "The upper reach of the Bhadra reservoir — coracles, islands, and the tiger reserve on the far bank.",
-      "summary": "The upper reach of the Bhadra reservoir — coracles, islands, and the tiger reserve on the far bank.",
-      "visit": "The upper Bhadra reservoir toward N.R. Pura — water, islands, and the tiger reserve on the far bank. Boats and any reservoir rules are local; this is not a ticket desk.",
+      "blurb": "The upper reach of the Bhadra reservoir, coracles, islands, and the tiger reserve on the far bank.",
+      "summary": "The upper reach of the Bhadra reservoir, coracles, islands, and the tiger reserve on the far bank.",
+      "visit": "The upper Bhadra reservoir toward N.R. Pura, water, islands, and the tiger reserve on the far bank. Boats and any reservoir rules are local; this is not a ticket desk.",
       "seasons": [
         "winter",
         "post-monsoon"
@@ -544,8 +544,8 @@ window.CKM = {
       "lat": 13.402,
       "lng": 75.735,
       "image": "assets/galikere.jpg",
-      "blurb": "A small hill tarn on the Baba Budangiri ridge — the windy lake, and usually empty.",
-      "summary": "A small hill tarn on the Baba Budangiri ridge — the windy lake, and usually empty.",
+      "blurb": "A small hill tarn on the Baba Budangiri ridge, the windy lake, and usually empty.",
+      "summary": "A small hill tarn on the Baba Budangiri ridge, the windy lake, and usually empty.",
       "visit": "A small tarn on the Baba Budangiri ridge, often windy and empty. Daylight, layers, and the same ridge-road cautions as the rest of Chandra Drona.",
       "seasons": [
         "winter",
@@ -610,7 +610,7 @@ window.CKM = {
       "lng": 75.7607,
       "elevation": "1,895 m",
       "image": "assets/baba-budangiri.jpg",
-      "blurb": "A shared shrine on a crescent ridge — and the hill that coffee lore in India begins with.",
+      "blurb": "A shared shrine on a crescent ridge, and the hill that coffee lore in India begins with.",
       "summary": "Also called Chandra Drona Parvatha, this range holds one of the highest mountain lines between the Himalayas and the Nilgiris. The peak takes its popular name from the Sufi saint Baba Budan. A cave shrine associated with both Dattatreya and Baba Budan sits on the ridge.",
       "visit": "The district site describes the range north of Chikkamagaluru town. Access, shrine timings and any crowd-management rules change; confirm with official notices rather than travel blogs.",
       "seasons": [
@@ -692,7 +692,7 @@ window.CKM = {
           "url": "https://chikkamagaluru.nic.in/en/tourism/"
         },
         {
-          "label": "Photograph — Bindiga estate road, Mallenahalli",
+          "label": "Photograph, Bindiga estate road, Mallenahalli",
           "url": "https://commons.wikimedia.org/wiki/File:DEVIRAMMA_TEMPLE.jpg"
         }
       ],
@@ -743,9 +743,9 @@ window.CKM = {
       "lat": 13.21,
       "lng": 75.19,
       "image": "assets/gangamoola.jpg",
-      "blurb": "One hill, three rivers — the Tunga, the Bhadra and the Netravathi all start here.",
-      "summary": "One hill, three rivers — the Tunga, the Bhadra and the Netravathi all start here.",
-      "visit": "Varaha Parvatha — the hill where the Tunga, Bhadra and Netravathi are said to rise. Inside Kudremukh country; enter only as the forest department currently allows.",
+      "blurb": "One hill, three rivers, the Tunga, the Bhadra and the Netravathi all start here.",
+      "summary": "One hill, three rivers, the Tunga, the Bhadra and the Netravathi all start here.",
+      "visit": "Varaha Parvatha, the hill where the Tunga, Bhadra and Netravathi are said to rise. Inside Kudremukh country; enter only as the forest department currently allows.",
       "seasons": [
         "winter",
         "post-monsoon"
@@ -776,7 +776,7 @@ window.CKM = {
       "elevation": "1,894 m",
       "image": "assets/kudremukh.jpg",
       "blurb": "The horse-face mountain that gives the national park its name.",
-      "summary": "Kudremukh — ‘horse face’ in Kannada — is a distinctive peak in the Western Ghats, about 95 kilometres southwest of Chikkamagaluru town. The district note places it at roughly 1,894 metres, chained to neighbouring hills by deep valleys.",
+      "summary": "Kudremukh, ‘horse face’ in Kannada, is a distinctive peak in the Western Ghats, about 95 kilometres southwest of Chikkamagaluru town. The district note places it at roughly 1,894 metres, chained to neighbouring hills by deep valleys.",
       "visit": "The peak lies inside Kudremukh National Park. Forest-department permission is generally required for treks. Do not treat informal trail notes as a permit. Check the Karnataka Forest Department before planning.",
       "seasons": [
         "winter",
@@ -848,7 +848,7 @@ window.CKM = {
       "image": "assets/seethalayyanagiri.jpg",
       "blurb": "The green shoulder below Mullayanagiri, with a Shiva shrine and a view over both valleys.",
       "summary": "The green shoulder below Mullayanagiri, with a Shiva shrine and a view over both valleys.",
-      "visit": "A Shiva shrine on the green shoulder below Mullayanagiri. The last stretch is walked. Confirm the road and weather before you start — this page does not run a gate.",
+      "visit": "A Shiva shrine on the green shoulder below Mullayanagiri. The last stretch is walked. Confirm the road and weather before you start, this page does not run a gate.",
       "seasons": [
         "winter",
         "post-monsoon"
@@ -943,7 +943,7 @@ window.CKM = {
       "image": "assets/horanadu.jpg",
       "blurb": "A forest-wrapped shrine to the goddess of food, in a fold of the ghats.",
       "summary": "Horanadu’s Annapoorneshwari temple sits in a valley embraced by hills. It is a major Malnad pilgrimage, known for annadana (temple meals) offered to visitors.",
-      "visit": "Ghat roads from Mudigere or Kalasa are winding. Temple meal times, dress codes and any online seva are published by the temple administration — use their notices, not third-party lists.",
+      "visit": "Ghat roads from Mudigere or Kalasa are winding. Temple meal times, dress codes and any online seva are published by the temple administration, use their notices, not third-party lists.",
       "seasons": [
         "winter",
         "post-monsoon"
@@ -1005,8 +1005,8 @@ window.CKM = {
       "lat": 13.3057,
       "lng": 75.7957,
       "image": "assets/hiremagalur-kodandarama.jpg",
-      "blurb": "The town temple where Sita stands on Rama's right — an arrangement you will not find elsewhere.",
-      "summary": "The town temple where Sita stands on Rama's right — an arrangement you will not find elsewhere.",
+      "blurb": "The town temple where Sita stands on Rama's right, an arrangement you will not find elsewhere.",
+      "summary": "The town temple where Sita stands on Rama's right, an arrangement you will not find elsewhere.",
       "visit": "The Kodandarama temple at Hiremagalur, just south of town. Dress and inner-sanctum rules are the temple’s. No fee is quoted here.",
       "seasons": [
         "winter",
@@ -1100,7 +1100,7 @@ window.CKM = {
       "image": "assets/balehonnur.jpg",
       "blurb": "The oldest of the five Veerashaiva Panchapeethas, on the bank of the Bhadra.",
       "summary": "The oldest of the five Veerashaiva Panchapeethas, on the bank of the Bhadra.",
-      "visit": "Rambhapuri Peetha at Balehonnur, on the Bhadra — one of the Veerashaiva panchapeethas. Temple timings are theirs to set.",
+      "visit": "Rambhapuri Peetha at Balehonnur, on the Bhadra, one of the Veerashaiva panchapeethas. Temple timings are theirs to set.",
       "seasons": [
         "winter",
         "post-monsoon"
@@ -1193,7 +1193,7 @@ window.CKM = {
       "image": "assets/sringeri.jpg",
       "blurb": "Adi Shankara’s southern matha on the Tunga, a centre of Advaita learning.",
       "summary": "Sringeri is home to the Dakṣiṇāmnāya Śrī Śāradā Pīṭham, traditionally founded by Ādi Śaṅkara. The Sharadamba temple stands on the Tunga, with the matha across the river.",
-      "visit": "This is a living religious centre. Dress modestly, follow matha notices for darshan, and treat published timings on the official Sringeri site as the source of truth — not this companion.",
+      "visit": "This is a living religious centre. Dress modestly, follow matha notices for darshan, and treat published timings on the official Sringeri site as the source of truth, not this companion.",
       "seasons": [
         "winter",
         "summer",
@@ -1230,7 +1230,7 @@ window.CKM = {
       "lng": 75.9972,
       "image": "assets/belavadi.jpg",
       "blurb": "A Hoysala trikuta temple of lathe-turned pillars, east of town toward Halebidu.",
-      "summary": "Belavadi village, about 29 kilometres from Chikkamagaluru, is known for the Veeranarayana temple — a Hoysala trikuta (three-shrine) construction with an open mantapa of lathe-turned pillars.",
+      "summary": "Belavadi village, about 29 kilometres from Chikkamagaluru, is known for the Veeranarayana temple, a Hoysala trikuta (three-shrine) construction with an open mantapa of lathe-turned pillars.",
       "visit": "Pairs well with a Halebidu / Belur heritage day, which lies just outside this district. Check daylight hours; village temples may close for puja.",
       "seasons": [
         "winter",
@@ -1294,8 +1294,8 @@ window.CKM = {
       "lat": 13.01,
       "lng": 75.53,
       "image": "assets/amedikallu.jpg",
-      "blurb": "The hard one on the Charmadi ridge — steeper than Ettina Bhuja, rockier at the top, and far quieter.",
-      "summary": "The hard one on the Charmadi ridge — steeper than Ettina Bhuja, rockier at the top, and far quieter.",
+      "blurb": "The hard one on the Charmadi ridge, steeper than Ettina Bhuja, rockier at the top, and far quieter.",
+      "summary": "The hard one on the Charmadi ridge, steeper than Ettina Bhuja, rockier at the top, and far quieter.",
       "visit": "A rock climb on the Charmadi side, steeper and quieter than Ettina Bhuja. Only in fair weather, with a local sense of the route. No fee is quoted here.",
       "seasons": [
         "winter",
@@ -1325,9 +1325,9 @@ window.CKM = {
       "lat": 13.1044,
       "lng": 75.4152,
       "image": "assets/bandaje-falls.jpg",
-      "blurb": "Two days from Sunkasale over Ballalarayana Durga and down past the falls to Ujire — the finest walk in these hills.",
-      "summary": "Two days from Sunkasale over Ballalarayana Durga and down past the falls to Ujire — the finest walk in these hills.",
-      "visit": "A long ridge walk linking Ballalarayana Durga toward the Bandaje falls country. Treat it as a serious trek: water, daylight, and local advice — not a jeep outing listed here.",
+      "blurb": "Two days from Sunkasale over Ballalarayana Durga and down past the falls to Ujire, the finest walk in these hills.",
+      "summary": "Two days from Sunkasale over Ballalarayana Durga and down past the falls to Ujire, the finest walk in these hills.",
+      "visit": "A long ridge walk linking Ballalarayana Durga toward the Bandaje falls country. Treat it as a serious trek: water, daylight, and local advice, not a jeep outing listed here.",
       "seasons": [
         "winter",
         "post-monsoon"
@@ -1387,8 +1387,8 @@ window.CKM = {
       "lat": 13.04,
       "lng": 75.52,
       "image": "assets/jenukallu-gudda.jpg",
-      "blurb": "Honey-rock hill — named for the wild hives on its cliffs, and they are still there.",
-      "summary": "Honey-rock hill — named for the wild hives on its cliffs, and they are still there.",
+      "blurb": "Honey-rock hill, named for the wild hives on its cliffs, and they are still there.",
+      "summary": "Honey-rock hill, named for the wild hives on its cliffs, and they are still there.",
       "visit": "Honey-rock hill on the Charmadi side, named for wild hives on the cliffs. A walk, not a drive. Stay off hive ledges.",
       "seasons": [
         "winter",
@@ -1449,9 +1449,9 @@ window.CKM = {
       "lat": 13.18,
       "lng": 75.3,
       "image": "assets/meruthi-gudda.jpg",
-      "blurb": "A half-day grassland climb outside the park core — the trek to do when the permits have gone.",
-      "summary": "A half-day grassland climb outside the park core — the trek to do when the permits have gone.",
-      "visit": "A half-day grassland climb outside the Kudremukh core. When park permits are gone, this is the walk people still ask about — still check weather and access on the ground.",
+      "blurb": "A half-day grassland climb outside the park core, the trek to do when the permits have gone.",
+      "summary": "A half-day grassland climb outside the park core, the trek to do when the permits have gone.",
+      "visit": "A half-day grassland climb outside the Kudremukh core. When park permits are gone, this is the walk people still ask about, still check weather and access on the ground.",
       "seasons": [
         "winter",
         "post-monsoon"
@@ -1513,7 +1513,7 @@ window.CKM = {
       "image": "assets/charmadi.jpg",
       "blurb": "A Western Ghats road that drops from Mudigere country toward Belthangady.",
       "summary": "Charmadi Ghat carries NH 173 between Chikkamagaluru district (Mudigere taluk) and Dakshina Kannada. It is one of the motorable saddles of this part of the ghats, beginning near Charmadi village.",
-      "visit": "Ghat driving needs patience, low beams in mist, and a full fuel tank. Landslides and closures occur in heavy monsoon — follow police and PWD notices, not memory.",
+      "visit": "Ghat driving needs patience, low beams in mist, and a full fuel tank. Landslides and closures occur in heavy monsoon, follow police and PWD notices, not memory.",
       "seasons": [
         "winter",
         "post-monsoon"
@@ -1543,8 +1543,8 @@ window.CKM = {
       "lat": 13.415,
       "lng": 75.748,
       "image": "assets/kavikal-gandi.jpg",
-      "blurb": "The horseshoe gorge on the Mullayanagiri–Baba Budangiri road — fifty steps up, and the whole range in front of you.",
-      "summary": "The horseshoe gorge on the Mullayanagiri–Baba Budangiri road — fifty steps up, and the whole range in front of you.",
+      "blurb": "The horseshoe gorge on the Mullayanagiri–Baba Budangiri road, fifty steps up, and the whole range in front of you.",
+      "summary": "The horseshoe gorge on the Mullayanagiri–Baba Budangiri road, fifty steps up, and the whole range in front of you.",
       "visit": "A horseshoe notch on the Mullayanagiri–Baba Budangiri road, often a short stop for the view. Park only where it is safe; the hairpins are narrow.",
       "seasons": [
         "winter",
@@ -1576,7 +1576,7 @@ window.CKM = {
       "image": "assets/z-point.jpg",
       "blurb": "A short walk from Kemmanagundi onto a knife-edge view of shola grassland.",
       "summary": "The district administration describes Z Point as roughly a ten-minute walk from Kemmanagundi, with an aerial view of Western Ghats shola grasslands. The path is exposed in places.",
-      "visit": "Wear shoes with grip; mist and wind can close the view without warning. There is no ticket information published here — treat this as a landscape walk, not a managed attraction with fixed hours.",
+      "visit": "Wear shoes with grip; mist and wind can close the view without warning. There is no ticket information published here, treat this as a landscape walk, not a managed attraction with fixed hours.",
       "seasons": [
         "winter",
         "post-monsoon"
@@ -1736,7 +1736,7 @@ window.CKM = {
       "image": "assets/kallathigiri.jpg",
       "blurb": "A roadside cascade and shrine on the Kemmanagundi approach.",
       "summary": "Kallathigiri (Kalhatti) Falls is a familiar stop on the Kemmanagundi road, with a Veerabhadra shrine associated with the cliff.",
-      "visit": "The road is narrow. Park considerately and watch for spray on the tarmac in monsoon. Shrine practices are local — dress and behave accordingly.",
+      "visit": "The road is narrow. Park considerately and watch for spray on the tarmac in monsoon. Shrine practices are local, dress and behave accordingly.",
       "seasons": [
         "monsoon",
         "post-monsoon",
@@ -1799,8 +1799,8 @@ window.CKM = {
       "lat": 13.5505,
       "lng": 75.7654,
       "image": "assets/shanti-falls.jpg",
-      "blurb": "A small fall on the Z Point path that almost nobody stops at — which is the whole point.",
-      "summary": "A small fall on the Z Point path that almost nobody stops at — which is the whole point.",
+      "blurb": "A small fall on the Z Point path that almost nobody stops at, which is the whole point.",
+      "summary": "A small fall on the Z Point path that almost nobody stops at, which is the whole point.",
       "visit": "A small fall on the Z Point path at Kemmanagundi. Daylight only. Garden and horticulture notices at Kemmanagundi are the practical source.",
       "seasons": [
         "winter",
@@ -1832,7 +1832,7 @@ window.CKM = {
       "image": "assets/sirimane-falls.jpg",
       "blurb": "A stepped fall in the Sringeri countryside, fullest after the rains.",
       "summary": "Sirimane Falls is a popular countryside waterfall near Sringeri, with a stepped cascade through wooded slopes.",
-      "visit": "Flow is seasonal. Stairs and rocks are slippery. Any entry arrangements are local and change — this page does not list a fee.",
+      "visit": "Flow is seasonal. Stairs and rocks are slippery. Any entry arrangements are local and change, this page does not list a fee.",
       "seasons": [
         "monsoon",
         "post-monsoon"
@@ -1935,7 +1935,7 @@ window.CKM = {
         "Temple circuits to Sringeri and Horanadu",
         "Estate landscapes after harvest"
       ],
-      "watch": "Nights are cold on the peaks. Carry a layer. Festival calendars belong to temples and the district site — not to this page."
+      "watch": "Nights are cold on the peaks. Carry a layer. Festival calendars belong to temples and the district site, not to this page."
     },
     {
       "id": "summer",
@@ -1955,7 +1955,7 @@ window.CKM = {
       "months": "June – September",
       "kn": "ಜೂನ್ – ಸೆಪ್ಟೆಂಬರ್",
       "title": "The ghats become water",
-      "text": "This is when Hebbe, Jhari, Sirimane and Kallathigiri are at their most theatrical — and when roads fail, leeches appear, and parks close. The Western Ghats are a landslide landscape. Beauty and hazard arrive together.",
+      "text": "This is when Hebbe, Jhari, Sirimane and Kallathigiri are at their most theatrical, and when roads fail, leeches appear, and parks close. The Western Ghats are a landslide landscape. Beauty and hazard arrive together.",
       "experiences": [
         "Waterfall country from safe, official viewpoints",
         "Sitting out a rain day with filter coffee in town",
@@ -1986,7 +1986,7 @@ window.CKM = {
       "paragraphs": [
         "People here still begin the crop with a courtyard. A Sufi of these hills, they say, came home from Mocha with seven live seeds and set them on Baba Budan Giri. One telling puts the year near 1600. Another walks him back from Hajj nearer 1670. The calendars disagree. The ridge does not.",
         "Mocha had sold the drink and tried to keep the tree. Lore tucks those seven beans in a beard so a harbour would not notice a forest leaving. Treat it as the story the district keeps, not as a shipping ledger. What everyone agrees on is the ground: Chandra Drona, above present-day Chikkamagaluru.",
-        "For a long time the plants were a garden, not a landscape. Rows came later, when the forested south was cut into estates and the crop walked on toward Wayanad and the Nilgiris. What you still see from a bus window is shade work — silver oak, pepper, arabica underneath — and a research house near Balehonnur that grew out of a 1925 experiment station.",
+        "For a long time the plants were a garden, not a landscape. Rows came later, when the forested south was cut into estates and the crop walked on toward Wayanad and the Nilgiris. What you still see from a bus window is shade work, silver oak, pepper, arabica underneath, and a research house near Balehonnur that grew out of a 1925 experiment station.",
         "This companion treats coffee as culture and ecology, not as a room to book. Walk an estate only where you are invited."
       ]
     },
@@ -1996,7 +1996,7 @@ window.CKM = {
       "title": "Hoysala stone, Malnad Kannada, a matha on the Tunga",
       "image": "assets/amruthapura.jpg",
       "paragraphs": [
-        "Chikkamagaluru’s east leans toward the Hoysala world: Amruthapura’s Amrutesvara temple of 1196 CE, Belavadi’s Veeranarayana trikuta, and the nearby orbit of Halebidu and Belur. The west and south fold into Malnad pilgrimage — Sringeri Sharada Peetham, Horanadu, Kalasa — where Sanskrit learning and Kannada village life share the same river terrace.",
+        "Chikkamagaluru’s east leans toward the Hoysala world: Amruthapura’s Amrutesvara temple of 1196 CE, Belavadi’s Veeranarayana trikuta, and the nearby orbit of Halebidu and Belur. The west and south fold into Malnad pilgrimage, Sringeri Sharada Peetham, Horanadu, Kalasa, where Sanskrit learning and Kannada village life share the same river terrace.",
         "Kannada is the language of the district. English is understood in town; it thins in the ghats. A greeting in Kannada is not decoration. It is how this place speaks to itself."
       ]
     },
@@ -2007,7 +2007,7 @@ window.CKM = {
       "image": "assets/food-akki-rotti.jpg",
       "paragraphs": [
         "Malnad cooking is rice-first: akki rotti on a hot tava, kadubu steamed in a jackfruit leaf, pathrode rolled from colocasia, a thin neer dosa, jackfruit when the trees fruit, and filter coffee from beans that grew under silver oak. Village kitchens also cook koli saaru and forest greens; those plates belong to homes, not to a tourism menu.",
-        "Temple towns such as Horanadu are known for annadana — a meal as offering — with timings set by the temple, not by a brochure. The dishes in the kitchen chapter are regional tradition. A hotel name in a photograph credit is not a recommendation, and this companion does not sell a table."
+        "Temple towns such as Horanadu are known for annadana, a meal as offering, with timings set by the temple, not by a brochure. The dishes in the kitchen chapter are regional tradition. A hotel name in a photograph credit is not a recommendation, and this companion does not sell a table."
       ]
     },
     {
@@ -2017,7 +2017,7 @@ window.CKM = {
       "image": "assets/kudremukh-np.jpg",
       "paragraphs": [
         "These hills sit in the Western Ghats, a UNESCO World Heritage biodiversity hotspot. Shola grassland is easy to scar and slow to heal. Stay on existing paths. Do not cut across meadows for a photograph. Pack every wrapper back to town.",
-        "Elephants, gaur and, in Bhadra, tigers use this district. Drive as if a large animal owns the next bend — because it might. Do not play loudspeakers on ridges. Do not light fires. Kudremukh and Bhadra are notified forests: permission is not a suggestion.",
+        "Elephants, gaur and, in Bhadra, tigers use this district. Drive as if a large animal owns the next bend, because it might. Do not play loudspeakers on ridges. Do not light fires. Kudremukh and Bhadra are notified forests: permission is not a suggestion.",
         "This is not an official government website. It does not inspect hotels, sell rooms, or take payments. For closures, fees and permits, use the district, forest and Karnataka Tourism pages linked throughout."
       ]
     }
@@ -2048,7 +2048,7 @@ window.CKM = {
       "kicker": "Two-stage cascade",
       "hours": "Jeep window often 09:00–15:00",
       "hoursDetail": "Cars stop before the forest stretch. Authorised jeeps from the Kemmanagundi side are the usual last miles. Confirm at the counter. No fee is quoted here.",
-      "why": "Dodda Hebbe and Chikka Hebbe drop through coffee and reserved forest below Kemmanagundi. Weekend itineraries pair it with the hill station. Access closes with rain, estate work or forest rules — ask on the ground.",
+      "why": "Dodda Hebbe and Chikka Hebbe drop through coffee and reserved forest below Kemmanagundi. Weekend itineraries pair it with the hill station. Access closes with rain, estate work or forest rules, ask on the ground.",
       "hoursSource": {
         "label": "Karnataka Forest Department",
         "url": "https://aranya.gov.in/"
@@ -2066,7 +2066,7 @@ window.CKM = {
       "kicker": "Coffee-country ridge",
       "hours": "Daylight on the ridge",
       "hoursDetail": "The cave shrine’s crowd rules and inner hours change with festivals. Use the ridge in daylight. Do not treat a blog’s sunrise slot as a published gate time.",
-      "why": "Chandra Drona — the hill the Coffee Board names for Baba Budan’s seven Mocha seeds, and a shared shrine to Datta Peetha. Tripadvisor and 2-day loops put it with Mullayanagiri because the same range holds both.",
+      "why": "Chandra Drona, the hill the Coffee Board names for Baba Budan’s seven Mocha seeds, and a shared shrine to Datta Peetha. Tripadvisor and 2-day loops put it with Mullayanagiri because the same range holds both.",
       "hoursSource": {
         "label": "District tourism",
         "url": "https://chikkamagaluru.nic.in/en/tourism/"
@@ -2102,7 +2102,7 @@ window.CKM = {
       "kicker": "Buttermilk Falls",
       "hours": "Daylight; fullest after monsoon",
       "hoursDetail": "A short walk from a jeep/estate track off the Mullayanagiri–Baba Budangiri side. Rocks are wet. Summer often reduces the sheet to a trickle.",
-      "why": "A white fall off granite, close to the high-ridge road, so it shows up on almost every 2-day sketch and on Tripadvisor’s waterfall list. Not a swimming-pool notice — seasonal water only.",
+      "why": "A white fall off granite, close to the high-ridge road, so it shows up on almost every 2-day sketch and on Tripadvisor’s waterfall list. Not a swimming-pool notice, seasonal water only.",
       "hoursSource": {
         "label": "District tourism",
         "url": "https://chikkamagaluru.nic.in/en/tourism/"
@@ -2137,7 +2137,7 @@ window.CKM = {
       "group": "peaks",
       "kicker": "Horse-face of the ghats",
       "hours": "Forest-permit daylight",
-      "hoursDetail": "Inside Kudremukh National Park. Treks run only when the forest department allows them. Confirm the current window at a park counter — not from a blog.",
+      "hoursDetail": "Inside Kudremukh National Park. Treks run only when the forest department allows them. Confirm the current window at a park counter, not from a blog.",
       "why": "The peak that gives the park its name. Tripadvisor ranks it with Mullayanagiri among mountain walks, but this one is a notified forest, not a town hill road.",
       "hoursSource": {
         "label": "Karnataka Forest Department",
@@ -2176,7 +2176,7 @@ window.CKM = {
       "hoursDetail": "Sharadamba Temple on ordinary days: 6:00 AM–2:00 PM and 4:00 PM–9:00 PM, with maha-mangalarati noted on the matha site. Camp and festival days move. sringeri.net is the authority.",
       "why": "Adi Shankara’s southern seat. Two-day itineraries stretch west for darshan; it is a living campus, not a viewpoint bolted onto a trek.",
       "hoursSource": {
-        "label": "Sringeri Sharada Peetham — temple timings",
+        "label": "Sringeri Sharada Peetham, temple timings",
         "url": "https://www.sringeri.net/pilgrim-info/temple-timings"
       },
       "listed": [
@@ -2209,7 +2209,7 @@ window.CKM = {
       "group": "hills",
       "kicker": "Kemmanagundi sunset walk",
       "hours": "Daylight; last light on the ridge",
-      "hoursDetail": "A few kilometres on foot from the hill station. Shanti Falls is a small stop on some descriptions of the same path. Return before dark — the track is unlit.",
+      "hoursDetail": "A few kilometres on foot from the hill station. Shanti Falls is a small stop on some descriptions of the same path. Return before dark, the track is unlit.",
       "why": "The sunset shelf above Kemmanagundi. Weekend write-ups name it next to Hebbe because both hang off the same hill day.",
       "hoursSource": {
         "label": "District tourism",
@@ -2244,7 +2244,7 @@ window.CKM = {
       "featured": false,
       "group": "waterfalls",
       "hours": "Often described as daylight, about 06:00–18:00",
-      "hoursDetail": "On the Baba Budangiri slopes. Visitor blogs copy a 6-to-6 window — treat it as a daylight hint, not a municipal board. Confirm locally.",
+      "hoursDetail": "On the Baba Budangiri slopes. Visitor blogs copy a 6-to-6 window, treat it as a daylight hint, not a municipal board. Confirm locally.",
       "kicker": "Sacred spray",
       "why": "A short cascade used as a pilgrimage stop on the same ridge as Baba Budan. Commonly bundled with the cave shrine on day-one hill loops.",
       "hoursSource": {
@@ -2366,7 +2366,7 @@ window.CKM = {
       "kicker": "Shoulder below Mullayanagiri",
       "hours": "Daylight; same hill road as the high peak",
       "hoursDetail": "A Shiva shrine and a view over both valleys. Often walked on the way back from Mullayanagiri. Road and weather still decide.",
-      "why": "Travel guides and 2-day blogs name it as the greener step under Karnataka’s high point — a stop, not a second summit day.",
+      "why": "Travel guides and 2-day blogs name it as the greener step under Karnataka’s high point, a stop, not a second summit day.",
       "hoursSource": {
         "label": "District tourism",
         "url": "https://chikkamagaluru.nic.in/en/tourism/"
@@ -2416,7 +2416,7 @@ window.CKM = {
       "kicker": "Town Rama shrine",
       "hours": "Temple hours as posted locally",
       "hoursDetail": "At Hiremagalur, just south of Chikkamagaluru town. Inner-sanctum and dress rules are the temple’s.",
-      "why": "A living Kodandarama shrine close to town — the stop 2-day plans use when they still have an evening in the headquarters.",
+      "why": "A living Kodandarama shrine close to town, the stop 2-day plans use when they still have an evening in the headquarters.",
       "hoursSource": {
         "label": "District tourism",
         "url": "https://chikkamagaluru.nic.in/en/tourism/"
@@ -2448,11 +2448,11 @@ window.CKM = {
       "featured": false,
       "group": "temples",
       "kicker": "Zodiac stone, Sringeri",
-      "hours": "Same campus as Sharadamba — use matha timings",
+      "hours": "Same campus as Sharadamba, use matha timings",
       "hoursDetail": "Fourteenth-century stone on the Tunga campus. Pillars associated with the solar months are the usual visitor note. The matha sets access.",
       "why": "The architecture stop beside the living shrine. Place lists keep it with Sringeri rather than as a separate day.",
       "hoursSource": {
-        "label": "Sringeri Sharada Peetham — temple timings",
+        "label": "Sringeri Sharada Peetham, temple timings",
         "url": "https://www.sringeri.net/pilgrim-info/temple-timings"
       },
       "listed": [
@@ -2515,7 +2515,7 @@ window.CKM = {
       "kicker": "Kudremukh grasslands water",
       "hours": "Daylight; park-edge country",
       "hoursDetail": "The old tailings dam, now still water under grassland. Access follows forest and local practice.",
-      "why": "A quiet sheet of water on Kudremukh lists — not a town lake, and not a sports reservoir.",
+      "why": "A quiet sheet of water on Kudremukh lists, not a town lake, and not a sports reservoir.",
       "hoursSource": {
         "label": "District tourism",
         "url": "https://chikkamagaluru.nic.in/en/tourism/"
@@ -2547,10 +2547,10 @@ window.CKM = {
     "title": "Seven seeds from Mocha",
     "lede": "A Sufi hermitage, a Yemeni port, and a district that still grows arabica in shade. The dates disagree. The slope does not.",
     "image": "assets/bean-to-cup/story-00-baba-budan.webp",
-    "caption": "Companion still — Baba Budan on Chandra Drona with seven cherries. No period portrait is known; this is not a historical likeness.",
+    "caption": "Companion still, Baba Budan on Chandra Drona with seven cherries. No period portrait is known; this is not a historical likeness.",
     "saint": {
       "image": "assets/bean-to-cup/story-00-baba-budan.webp",
-      "caption": "Companion still of Baba Budan, the Sufi remembered for bringing seven Mocha seeds to these hills. No period portrait is known — this is not a historical likeness."
+      "caption": "Companion still of Baba Budan, the Sufi remembered for bringing seven Mocha seeds to these hills. No period portrait is known, this is not a historical likeness."
     },
     "chapters": [
       {
@@ -2562,9 +2562,9 @@ window.CKM = {
         ],
         "kicker": "The plant",
         "title": "A shrub that liked mist",
-        "text": "Before it was a cup on the Hassan bus, coffee was a red cherry in highland weather — a shrub that preferred cloud to open sun. That plant walked a long way from Ethiopian slopes before it ever saw these ghats.\n\nWhat took root on Chandra Drona is still that same highland thing: shade-hungry, slow, and particular about rain.",
+        "text": "Before it was a cup on the Hassan bus, coffee was a red cherry in highland weather, a shrub that preferred cloud to open sun. That plant walked a long way from Ethiopian slopes before it ever saw these ghats.\n\nWhat took root on Chandra Drona is still that same highland thing: shade-hungry, slow, and particular about rain.",
         "image": "assets/bean-to-cup/story-01-plant.webp",
-        "caption": "Companion still — wild arabica in highland mist. Imagined landscape, not a field survey of Ethiopia."
+        "caption": "Companion still, wild arabica in highland mist. Imagined landscape, not a field survey of Ethiopia."
       },
       {
         "id": "origin-02",
@@ -2577,7 +2577,7 @@ window.CKM = {
         "title": "The harbour that sold the cup",
         "text": "On the Yemeni shore, Mocha became the name people used when they meant coffee itself. The city sold the roasted drink freely enough. Live seed was another matter.\n\nKeep the tree at home, and the world stays a customer. What left that harbour as cargo was meant to be drunk, not planted.",
         "image": "assets/bean-to-cup/story-02-mocha.webp",
-        "caption": "Companion still — Mocha harbour, dhows, and sacks of cherry. Not a historical survey of the port."
+        "caption": "Companion still, Mocha harbour, dhows, and sacks of cherry. Not a historical survey of the port."
       },
       {
         "id": "origin-03",
@@ -2590,7 +2590,7 @@ window.CKM = {
         "title": "A courtyard on this ridge",
         "text": "Then a Sufi from these hills is said to have come home with seven Mocha seeds and set them in the courtyard of his hermitage on Baba Budan Giri. Some tellings put that planting near 1600. Others walk him home from Hajj nearer 1670.\n\nThe years argue. The ridge does not. It still carries his name, and the trees still like the same mist.",
         "image": "assets/bean-to-cup/story-03-seeds.webp",
-        "caption": "Companion still — seven Mocha seeds in courtyard earth. No period portrait is known; this is not a reconstruction of a dated planting."
+        "caption": "Companion still, seven Mocha seeds in courtyard earth. No period portrait is known; this is not a reconstruction of a dated planting."
       },
       {
         "id": "origin-04",
@@ -2601,7 +2601,7 @@ window.CKM = {
         ],
         "kicker": "The Hajj lore",
         "title": "What the hills still tell",
-        "text": "The story that travels with the seeds is a smuggler's story: seven raw beans, because seven is sacred, tucked away — in a beard, in the later tellings — so a port would not notice a future forest leaving in a pilgrim's clothes.\n\nNo ship's book confirms it. The district tells it anyway, the way a family tells how the house was built. Believe the slope. Treat the beard as lore.",
+        "text": "The story that travels with the seeds is a smuggler's story: seven raw beans, because seven is sacred, tucked away, in a beard, in the later tellings, so a port would not notice a future forest leaving in a pilgrim's clothes.\n\nNo ship's book confirms it. The district tells it anyway, the way a family tells how the house was built. Believe the slope. Treat the beard as lore.",
         "image": "assets/bean-to-cup/story-04-voyage.webp",
         "caption": "Companion still of the voyage lore: a dhow, a cloth pouch, Mocha astern. Not a reconstruction of a dated crossing. Lore."
       },
@@ -2614,9 +2614,9 @@ window.CKM = {
         ],
         "kicker": "Chandra Drona",
         "title": "A garden before it was a crop",
-        "text": "Those first plants did not become a landscape overnight. For a long time they were a curiosity in courtyard earth — a few trees behind a house, not yet the silver-oak rows you pass on the Charmadi road.\n\nChandra Drona held a garden before it held an estate. The shrine is still on that ridge. The crop learned patience here.",
+        "text": "Those first plants did not become a landscape overnight. For a long time they were a curiosity in courtyard earth, a few trees behind a house, not yet the silver-oak rows you pass on the Charmadi road.\n\nChandra Drona held a garden before it held an estate. The shrine is still on that ridge. The crop learned patience here.",
         "image": "assets/bean-to-cup/story-05-hermitage.webp",
-        "caption": "Companion still — a cave hermitage and seedling terraces on Chandra Drona. Imagined courtyard, not a measured plan of the shrine."
+        "caption": "Companion still, a cave hermitage and seedling terraces on Chandra Drona. Imagined courtyard, not a measured plan of the shrine."
       },
       {
         "id": "origin-06",
@@ -2627,9 +2627,9 @@ window.CKM = {
         ],
         "kicker": "Estate country",
         "title": "When the forest learned rows",
-        "text": "Rows came later, when the forested south was cut into property. In the 1820s planters opened country beside this same ridge, and the crop walked on into Wayanad, the Shevaroys, the Nilgiris.\n\nWhat had been a hermitage tree became a hillside of labour — shade measured, paths named, a bungalow on the shoulder of the hill.",
+        "text": "Rows came later, when the forested south was cut into property. In the 1820s planters opened country beside this same ridge, and the crop walked on into Wayanad, the Shevaroys, the Nilgiris.\n\nWhat had been a hermitage tree became a hillside of labour, shade measured, paths named, a bungalow on the shoulder of the hill.",
         "image": "assets/bean-to-cup/story-06-estate.webp",
-        "caption": "Companion still — early shade rows and a ridge bungalow. Imagined estate country, not a portrait of any working property."
+        "caption": "Companion still, early shade rows and a ridge bungalow. Imagined estate country, not a portrait of any working property."
       },
       {
         "id": "origin-07",
@@ -2640,9 +2640,9 @@ window.CKM = {
         ],
         "kicker": "Shade work",
         "title": "What you see from the bus",
-        "text": "Look out between Mudigere and Balehonnur and you are looking at work: two roofs of shade, pepper on the trunks, arabica underneath. Karnataka still grows the largest share of the Indian crop. Rust and stem borer later asked for tougher trees.\n\nIn 1925 an experiment station opened near Balehonnur, in this district — a house of trial plots that the canopy still leans on. The green you photograph from the window is someone's season.",
+        "text": "Look out between Mudigere and Balehonnur and you are looking at work: two roofs of shade, pepper on the trunks, arabica underneath. Karnataka still grows the largest share of the Indian crop. Rust and stem borer later asked for tougher trees.\n\nIn 1925 an experiment station opened near Balehonnur, in this district, a house of trial plots that the canopy still leans on. The green you photograph from the window is someone's season.",
         "image": "assets/bean-to-cup/story-07-shade-work.webp",
-        "caption": "Companion still — silver-oak shade, pepper vine, and a working path. Not a photograph of CCRI."
+        "caption": "Companion still, silver-oak shade, pepper vine, and a working path. Not a photograph of CCRI."
       },
       {
         "id": "origin-08",
@@ -2655,24 +2655,24 @@ window.CKM = {
         "title": "Walk as a guest",
         "text": "This page will not sell you a cupping, a bungalow, or a jeep through someone else's silver oak. If a planter opens a path, that is their door. Stay on it.\n\nThe seven seeds are a story people keep. The canopy is a living crop in a living forest. Drink the cup. Leave the rows as you found them.",
         "image": "assets/bean-to-cup/story-08-guest.webp",
-        "caption": "Companion still — a quiet path under coffee. This page does not sell a stay or a tour."
+        "caption": "Companion still, a quiet path under coffee. This page does not sell a stay or a tour."
       }
     ],
     "sources": [
       {
-        "label": "Coffee Board of India — About",
+        "label": "Coffee Board of India, About",
         "url": "https://coffeeboard.gov.in/aboutus.aspx"
       },
       {
-        "label": "Wikipedia — Baba Budan",
+        "label": "Wikipedia, Baba Budan",
         "url": "https://en.wikipedia.org/wiki/Baba_Budan"
       },
       {
-        "label": "Wikipedia — Coffee production in India",
+        "label": "Wikipedia, Coffee production in India",
         "url": "https://en.wikipedia.org/wiki/Coffee_production_in_India"
       },
       {
-        "label": "NDTV — seven beans from Yemen (lore feature)",
+        "label": "NDTV, seven beans from Yemen (lore feature)",
         "url": "https://www.ndtv.com/lifestyle/how-a-sufi-saint-smuggled-7-beans-to-karnataka-and-gave-india-its-own-coffee-11402455"
       }
     ]
@@ -2684,9 +2684,9 @@ window.CKM = {
       "kannada": "ಅಕ್ಕಿ ರೊಟ್ಟಿ",
       "kicker": "Rice bread",
       "image": "assets/food-akki-rotti.jpg",
-      "story": "Akki means rice. The dough is rice flour worked with chopped onion, green chilli, cumin and often coconut, then patted onto a hot tava until the edges crisp. Wikipedia places it in Karnataka — especially the wet-hill kitchens of Malnad and Kodagu — everyday breakfast from the grain that grows in these valleys, cooked without wheat.",
+      "story": "Akki means rice. The dough is rice flour worked with chopped onion, green chilli, cumin and often coconut, then patted onto a hot tava until the edges crisp. Wikipedia places it in Karnataka, especially the wet-hill kitchens of Malnad and Kodagu, everyday breakfast from the grain that grows in these valleys, cooked without wheat.",
       "source": {
-        "label": "Wikipedia — Akki roti",
+        "label": "Wikipedia, Akki roti",
         "url": "https://en.wikipedia.org/wiki/Akki_roti"
       }
     },
@@ -2696,9 +2696,9 @@ window.CKM = {
       "kannada": "ಫಿಲ್ಟರ್ ಕಾಫಿ",
       "kicker": "Kaapi",
       "image": "assets/food-filter-coffee.jpg",
-      "story": "South Indian filter coffee is decoction from a metal percolator, mixed with boiled milk and often a little sugar — hot, strong, and poured until it froths. Chikkamagaluru is where the Indian crop’s origin story is planted; the cup in town is that shade-grown bean made drinkable. The davara-tumbler ritual is cafe craft from the south, not a brand.",
+      "story": "South Indian filter coffee is decoction from a metal percolator, mixed with boiled milk and often a little sugar, hot, strong, and poured until it froths. Chikkamagaluru is where the Indian crop’s origin story is planted; the cup in town is that shade-grown bean made drinkable. The davara-tumbler ritual is cafe craft from the south, not a brand.",
       "source": {
-        "label": "Wikipedia — Indian filter coffee",
+        "label": "Wikipedia, Indian filter coffee",
         "url": "https://en.wikipedia.org/wiki/Indian_filter_coffee"
       }
     },
@@ -2708,9 +2708,9 @@ window.CKM = {
       "kannada": "ಪತ್ರೋಡೆ",
       "kicker": "Colocasia roll",
       "image": "assets/food-pathrode.jpg",
-      "story": "Colocasia leaves — kesuve in Kannada, chevu in Tulu — are smeared with a rice-coconut-tamarind spice paste, rolled, and steamed. Wikipedia lists the dish across India (patrode, patra, alu vadi) and names Karnataka’s patrodé. In Malnad it is a monsoon leaf plate. The leaves must be cooked; raw taro stings.",
+      "story": "Colocasia leaves, kesuve in Kannada, chevu in Tulu, are smeared with a rice-coconut-tamarind spice paste, rolled, and steamed. Wikipedia lists the dish across India (patrode, patra, alu vadi) and names Karnataka’s patrodé. In Malnad it is a monsoon leaf plate. The leaves must be cooked; raw taro stings.",
       "source": {
-        "label": "Wikipedia — Patrode",
+        "label": "Wikipedia, Patrode",
         "url": "https://en.wikipedia.org/wiki/Patrode"
       }
     },
@@ -2720,9 +2720,9 @@ window.CKM = {
       "kannada": "ಕೊಟ್ಟೆ ಕಡುಬು",
       "kicker": "Leaf-cup steam",
       "image": "assets/food-kadubu.jpg",
-      "story": "Kadubu are steamed rice cakes. Wikipedia’s idli page notes kotte kadubu — batter steamed in jackfruit leaves — in Karnataka, the leaf cup perfuming the rice. Malnad and Tulu Nadu share the method: savoury at breakfast, or sweet with coconut and jaggery. The leaf-cup is the story, not a restaurant listing.",
+      "story": "Kadubu are steamed rice cakes. Wikipedia’s idli page notes kotte kadubu, batter steamed in jackfruit leaves, in Karnataka, the leaf cup perfuming the rice. Malnad and Tulu Nadu share the method: savoury at breakfast, or sweet with coconut and jaggery. The leaf-cup is the story, not a restaurant listing.",
       "source": {
-        "label": "Wikipedia — Idli (kotte kadubu)",
+        "label": "Wikipedia, Idli (kotte kadubu)",
         "url": "https://en.wikipedia.org/wiki/Idli"
       }
     },
@@ -2734,7 +2734,7 @@ window.CKM = {
       "image": "assets/food-neer-dosa.jpg",
       "story": "Neer means water. The batter is rice ground thin, not fermented like a regular dosa, then spread pale on a tava until it laces. Wikipedia calls it a Tulu Nadu delicacy; Karnataka cuisine notes it as common in Mangalore and Malenadu. In these hills it arrives with coconut chutney, or with a chicken curry from a home kitchen.",
       "source": {
-        "label": "Wikipedia — Neer dosa",
+        "label": "Wikipedia, Neer dosa",
         "url": "https://en.wikipedia.org/wiki/Neer_dosa"
       }
     },
@@ -2744,9 +2744,9 @@ window.CKM = {
       "kannada": "ಹಲಸಿನ ಚಿಪ್ಸ್",
       "kicker": "Halasina season",
       "image": "assets/food-jackfruit-chips.jpg",
-      "story": "Jackfruit is native to the Indian Western Ghats and fruits hard in Malnad. Unripe bulbs are sliced and fried into chips — a tin in the pantry when the trees are heavy. Kitchens here also steam and curry the fruit; the chips are what travel. This is orchard food, not a packaged souvenir story.",
+      "story": "Jackfruit is native to the Indian Western Ghats and fruits hard in Malnad. Unripe bulbs are sliced and fried into chips, a tin in the pantry when the trees are heavy. Kitchens here also steam and curry the fruit; the chips are what travel. This is orchard food, not a packaged souvenir story.",
       "source": {
-        "label": "Wikipedia — Jackfruit",
+        "label": "Wikipedia, Jackfruit",
         "url": "https://en.wikipedia.org/wiki/Jackfruit"
       }
     }
@@ -2761,7 +2761,7 @@ window.CKM = {
         },
         {
           "title": "By rail",
-          "text": "Chikkamagaluru has a railway station with passenger services connecting via Kadur. Many travellers still alight at Kadur or Birur and continue by bus or taxi. Check current Indian Railways timetables — this page does not list train numbers as if they were fixed."
+          "text": "Chikkamagaluru has a railway station with passenger services connecting via Kadur. Many travellers still alight at Kadur or Birur and continue by bus or taxi. Check current Indian Railways timetables, this page does not list train numbers as if they were fixed."
         },
         {
           "title": "By air",
@@ -2812,7 +2812,7 @@ window.CKM = {
         },
         {
           "title": "District helplines",
-          "text": "The Chikkamagaluru district administration publishes helpline and directory pages. Use them for current police, hospital and disaster-management contacts — numbers change."
+          "text": "The Chikkamagaluru district administration publishes helpline and directory pages. Use them for current police, hospital and disaster-management contacts, numbers change."
         },
         {
           "title": "On the road",
@@ -3676,7 +3676,7 @@ window.CKM = {
       "name": "N.R. Pura",
       "kannada": "ನರಸಿಂಹರಾಜಪುರ",
       "count": 3,
-      "blurb": "Narasimharajapura — river country between Koppa and the Bhadra forests.",
+      "blurb": "Narasimharajapura, river country between Koppa and the Bhadra forests.",
       "listName": "Narasimharajapura",
       "mapLabel": "N.R. Pura"
     },
@@ -3694,7 +3694,7 @@ window.CKM = {
       "name": "Kadur",
       "kannada": "ಕಡೂರು",
       "count": 3,
-      "blurb": "The drier east — Ayyanakere’s open water and Deccan light.",
+      "blurb": "The drier east, Ayyanakere’s open water and Deccan light.",
       "listName": "Kadur",
       "mapLabel": "Kadur"
     },
@@ -3744,7 +3744,7 @@ window.CKM = {
         "kalasa",
         "belavadi"
       ],
-      "text": "Sringeri on the Tunga, Horanadu and Kalasa through the Mudigere ghats, Belavadi’s Hoysala stone on the way east. Dress codes and darshan times belong to the mathas — not to this page."
+      "text": "Sringeri on the Tunga, Horanadu and Kalasa through the Mudigere ghats, Belavadi’s Hoysala stone on the way east. Dress codes and darshan times belong to the mathas, not to this page."
     },
     {
       "id": "forest-edge",
@@ -3766,7 +3766,7 @@ window.CKM = {
     "kicker": "About Chikkamagaluru",
     "image": "assets/coffee-hills.jpg",
     "paragraphs": [
-      "Chikkamagaluru is the headquarters of the district of the same name in Karnataka. The town sits on the foothills of the Chandra Drona / Baba Budan Giri range of the Western Ghats — the range that holds Mullayanagiri, the highest peak in the state.",
+      "Chikkamagaluru is the headquarters of the district of the same name in Karnataka. The town sits on the foothills of the Chandra Drona / Baba Budan Giri range of the Western Ghats, the range that holds Mullayanagiri, the highest peak in the state.",
       "The district is known for shade-grown coffee, shola grassland, Hoysala temples toward the east, and living mathas at Sringeri and Horanadu. Kannada is the language of the place. This companion is an independent reference. It is not the district administration, and it does not sell rooms."
     ]
   },
@@ -3781,7 +3781,7 @@ window.CKM = {
     },
     {
       "q": "Do I need a permit?",
-      "a": "Treks and visits inside Kudremukh National Park and Bhadra Tiger Reserve generally require permission from the Karnataka Forest Department. Rules, fees and closures change. Confirm on aranya.gov.in or the local forest office — never from a blog quote on this page."
+      "a": "Treks and visits inside Kudremukh National Park and Bhadra Tiger Reserve generally require permission from the Karnataka Forest Department. Rules, fees and closures change. Confirm on aranya.gov.in or the local forest office, never from a blog quote on this page."
     },
     {
       "q": "When is the best time to visit?",
@@ -3824,13 +3824,13 @@ window.CKM = {
       "Do not play music at viewpoints."
     ]
   },
-  "mapNote": "Kalasa and Ajjampura were carved from Mudigere and Tarikere. This illustrated map uses current OpenStreetMap taluk polygons, for orientation only — not a survey.",
+  "mapNote": "Kalasa and Ajjampura were carved from Mudigere and Tarikere. This illustrated map uses current OpenStreetMap taluk polygons, for orientation only, not a survey.",
   "nearbyPlaces": [
     {
       "id": "belur-chennakeshava",
       "name": "Chennakeshava Temple, Belur",
       "district": "Hassan district",
-      "blurb": "Hoysala stone at Belur, often tagged onto a Chikkamagaluru weekend. It is not inside this district — about 25 km toward Hassan. Temple hours and ASI notices are theirs.",
+      "blurb": "Hoysala stone at Belur, often tagged onto a Chikkamagaluru weekend. It is not inside this district, about 25 km toward Hassan. Temple hours and ASI notices are theirs.",
       "url": "https://karnatakatourism.org/"
     },
     {
@@ -3857,7 +3857,7 @@ window.CKM = {
       "labelKn": "ಆಹಾರ",
       "title": "Rice, leaf, and a cup from the hill",
       "titleKn": "ಅಕ್ಕಿ, ಎಲೆ, ಬೆಟ್ಟದ ಕಾಫಿ",
-      "lede": "Akki rotti, pathrode, kadubu, neer dosa, jackfruit chips and filter coffee — kitchen tradition, not a restaurant list.",
+      "lede": "Akki rotti, pathrode, kadubu, neer dosa, jackfruit chips and filter coffee, kitchen tradition, not a restaurant list.",
       "ledeKn": "ಮಲೆನಾಡಿನ ಅಡುಗೆ: ಅಕ್ಕಿ ರೊಟ್ಟಿ, ಪಥ್ರೋಡೆ, ಕಡುಬು, ನೀರ್ ದೋಸೆ. ಉಪಾಹಾರ ಮನೆ ಪಟ್ಟಿಯಲ್ಲ."
     },
     {
@@ -3878,7 +3878,7 @@ window.CKM = {
       "label": "Stays",
       "labelKn": "ಗಿರಿಧಾಮ",
       "title": "Hill air, not a room list",
-      "titleKn": "ಗಿರಿಧಾಮದ ಗಾಳಿ — ಕೊಠಡಿ ಪಟ್ಟಿಯಲ್ಲ",
+      "titleKn": "ಗಿರಿಧಾಮದ ಗಾಳಿ, ಕೊಠಡಿ ಪಟ್ಟಿಯಲ್ಲ",
       "lede": "Kemmanagundi’s garden hills, visitor notes, and a private trip sketch. This companion does not sell a room.",
       "ledeKn": "ಕೆಮ್ಮಣ್ಣುಗುಂಡಿ, ಭೇಟಿ ಟಿಪ್ಪಣಿ, ಖಾಸಗಿ ಯೋಜನೆ. ಈ ತಾಣ ಕೊಠಡಿ ಮಾರಾಟ ಮಾಡುವುದಿಲ್ಲ."
     },
@@ -3901,7 +3901,7 @@ window.CKM = {
       "labelKn": "ಪ್ರವಾಸೋದ್ಯಮ",
       "title": "How the hills were counted",
       "titleKn": "ಬೆಟ್ಟಗಳನ್ನು ಹೇಗೆ ಎಣಿಸಿದರು",
-      "lede": "Published destination visits for 2024 and 2025 — recorded entries, not unique travellers.",
+      "lede": "Published destination visits for 2024 and 2025, recorded entries, not unique travellers.",
       "ledeKn": "೨೦೨೪–೨೦೨೫ರ ದಾಖಲಿತ ಭೇಟಿಗಳು. ಪ್ರತ್ಯೇಕ ಪ್ರವಾಸಿಗರ ಸಂಖ್ಯೆಯಲ್ಲ."
     }
   ]

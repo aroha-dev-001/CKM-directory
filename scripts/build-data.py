@@ -79,7 +79,7 @@ destinations = [
         "lng": 75.763,
         "elevation": "1,895 m",
         "image": "assets/baba-budangiri.jpg",
-        "blurb": "A shared shrine on a crescent ridge — and the hill that coffee lore in India begins with.",
+        "blurb": "A shared shrine on a crescent ridge, and the hill that coffee lore in India begins with.",
         "summary": "Also called Chandra Drona Parvatha, this range holds one of the highest mountain lines between the Himalayas and the Nilgiris. The peak takes its popular name from the Sufi saint Baba Budan. A cave shrine associated with both Dattatreya and Baba Budan sits on the ridge.",
         "visit": "The district site describes the range north of Chikkamagaluru town. Access, shrine timings and any crowd-management rules change; confirm with official notices rather than travel blogs.",
         "seasons": ["winter", "post-monsoon"],
@@ -118,7 +118,7 @@ destinations = [
         "image": "assets/z-point.jpg",
         "blurb": "A short walk from Kemmanagundi onto a knife-edge view of shola grassland.",
         "summary": "The district administration describes Z Point as roughly a ten-minute walk from Kemmanagundi, with an aerial view of Western Ghats shola grasslands. The path is exposed in places.",
-        "visit": "Wear shoes with grip; mist and wind can close the view without warning. There is no ticket information published here — treat this as a landscape walk, not a managed attraction with fixed hours.",
+        "visit": "Wear shoes with grip; mist and wind can close the view without warning. There is no ticket information published here, treat this as a landscape walk, not a managed attraction with fixed hours.",
         "seasons": ["winter", "post-monsoon"],
         "tags": ["viewpoint", "short-walk"],
         "sources": [
@@ -136,7 +136,7 @@ destinations = [
         "elevation": "1,894 m",
         "image": "assets/kudremukh.jpg",
         "blurb": "The horse-face mountain that gives the national park its name.",
-        "summary": "Kudremukh — ‘horse face’ in Kannada — is a distinctive peak in the Western Ghats, about 95 kilometres southwest of Chikkamagaluru town. The district note places it at roughly 1,894 metres, chained to neighbouring hills by deep valleys.",
+        "summary": "Kudremukh, ‘horse face’ in Kannada, is a distinctive peak in the Western Ghats, about 95 kilometres southwest of Chikkamagaluru town. The district note places it at roughly 1,894 metres, chained to neighbouring hills by deep valleys.",
         "visit": "The peak lies inside Kudremukh National Park. Forest-department permission is generally required for treks. Do not treat informal trail notes as a permit. Check the Karnataka Forest Department before planning.",
         "seasons": ["winter", "post-monsoon"],
         "tags": ["trek", "wildlife", "permit"],
@@ -246,7 +246,7 @@ destinations = [
         "image": "assets/kallathigiri.jpg",
         "blurb": "A roadside cascade and shrine on the Kemmanagundi approach.",
         "summary": "Kallathigiri (Kalhatti) Falls is a familiar stop on the Kemmanagundi road, with a Veerabhadra shrine associated with the cliff.",
-        "visit": "The road is narrow. Park considerately and watch for spray on the tarmac in monsoon. Shrine practices are local — dress and behave accordingly.",
+        "visit": "The road is narrow. Park considerately and watch for spray on the tarmac in monsoon. Shrine practices are local, dress and behave accordingly.",
         "seasons": ["monsoon", "post-monsoon", "winter"],
         "tags": ["waterfall", "shrine"],
         "sources": [
@@ -282,7 +282,7 @@ destinations = [
         "image": "assets/sirimane-falls.jpg",
         "blurb": "A stepped fall in the Sringeri countryside, fullest after the rains.",
         "summary": "Sirimane Falls is a popular countryside waterfall near Sringeri, with a stepped cascade through wooded slopes.",
-        "visit": "Flow is seasonal. Stairs and rocks are slippery. Any entry arrangements are local and change — this page does not list a fee.",
+        "visit": "Flow is seasonal. Stairs and rocks are slippery. Any entry arrangements are local and change, this page does not list a fee.",
         "seasons": ["monsoon", "post-monsoon"],
         "tags": ["waterfall"],
         "sources": [
@@ -409,7 +409,7 @@ destinations = [
         "image": "assets/sringeri.jpg",
         "blurb": "Adi Shankara’s southern matha on the Tunga, a centre of Advaita learning.",
         "summary": "Sringeri is home to the Dakṣiṇāmnāya Śrī Śāradā Pīṭham, traditionally founded by Ādi Śaṅkara. The Sharadamba temple stands on the Tunga, with the matha across the river.",
-        "visit": "This is a living religious centre. Dress modestly, follow matha notices for darshan, and treat published timings on the official Sringeri site as the source of truth — not this companion.",
+        "visit": "This is a living religious centre. Dress modestly, follow matha notices for darshan, and treat published timings on the official Sringeri site as the source of truth, not this companion.",
         "seasons": ["winter", "summer", "post-monsoon"],
         "tags": ["temple", "heritage", "tunga"],
         "sources": [
@@ -446,7 +446,7 @@ destinations = [
         "image": "assets/horanadu.jpg",
         "blurb": "A forest-wrapped shrine to the goddess of food, in a fold of the ghats.",
         "summary": "Horanadu’s Annapoorneshwari temple sits in a valley embraced by hills. It is a major Malnad pilgrimage, known for annadana (temple meals) offered to visitors.",
-        "visit": "Ghat roads from Mudigere or Kalasa are winding. Temple meal times, dress codes and any online seva are published by the temple administration — use their notices, not third-party lists.",
+        "visit": "Ghat roads from Mudigere or Kalasa are winding. Temple meal times, dress codes and any online seva are published by the temple administration, use their notices, not third-party lists.",
         "seasons": ["winter", "post-monsoon"],
         "tags": ["temple", "pilgrimage"],
         "sources": [
@@ -499,7 +499,7 @@ destinations = [
         "lng": 75.997893,
         "image": "assets/belavadi.jpg",
         "blurb": "A Hoysala trikuta temple of lathe-turned pillars, east of town toward Halebidu.",
-        "summary": "Belavadi village, about 29 kilometres from Chikkamagaluru, is known for the Veeranarayana temple — a Hoysala trikuta (three-shrine) construction with an open mantapa of lathe-turned pillars.",
+        "summary": "Belavadi village, about 29 kilometres from Chikkamagaluru, is known for the Veeranarayana temple, a Hoysala trikuta (three-shrine) construction with an open mantapa of lathe-turned pillars.",
         "visit": "Pairs well with a Halebidu / Belur heritage day, which lies just outside this district. Check daylight hours; village temples may close for puja.",
         "seasons": ["winter", "summer", "post-monsoon"],
         "tags": ["hoysala", "architecture"],
@@ -518,7 +518,7 @@ destinations = [
         "image": "assets/charmadi.jpg",
         "blurb": "A Western Ghats road that drops from Mudigere country toward Belthangady.",
         "summary": "Charmadi Ghat carries NH 173 between Chikkamagaluru district (Mudigere taluk) and Dakshina Kannada. It is one of the motorable saddles of this part of the ghats, beginning near Charmadi village.",
-        "visit": "Ghat driving needs patience, low beams in mist, and a full fuel tank. Landslides and closures occur in heavy monsoon — follow police and PWD notices, not memory.",
+        "visit": "Ghat driving needs patience, low beams in mist, and a full fuel tank. Landslides and closures occur in heavy monsoon, follow police and PWD notices, not memory.",
         "seasons": ["winter", "post-monsoon"],
         "tags": ["ghat", "drive"],
         "sources": [
@@ -534,9 +534,9 @@ destinations = [
         "lat": 13.325,
         "lng": 75.792,
         "image": "assets/coffee-hills.jpg",
-        "blurb": "The working landscape that made this district famous — silver oak, pepper and arabica under forest shade.",
+        "blurb": "The working landscape that made this district famous, silver oak, pepper and arabica under forest shade.",
         "summary": "Chikkamagaluru’s identity is coffee. Traditional estates grow arabica and robusta under a canopy of silver oak, rosewood and native trees, often with pepper vines. This is a working agricultural landscape, not a park.",
-        "visit": "Estate walks, if offered, are private hospitality — this companion does not list or book stays. Look, do not trespass, and buy coffee from places that name the estate.",
+        "visit": "Estate walks, if offered, are private hospitality, this companion does not list or book stays. Look, do not trespass, and buy coffee from places that name the estate.",
         "seasons": ["winter", "post-monsoon"],
         "tags": ["coffee", "landscape"],
         "sources": [
@@ -565,7 +565,7 @@ seasons = [
         "title": "Clear ridges, harvest air",
         "text": "This is the classic visiting window for viewpoints: cooler nights, clearer mornings on Mullayanagiri and Kemmanagundi, and the coffee harvest in many estates. Forests are generally more walkable than in the monsoon, but mist still arrives without warning.",
         "experiences": ["Sunrise walks on the Baba Budan Giri range", "Temple circuits to Sringeri and Horanadu", "Estate landscapes after harvest"],
-        "watch": "Nights are cold on the peaks. Carry a layer. Festival calendars belong to temples and the district site — not to this page.",
+        "watch": "Nights are cold on the peaks. Carry a layer. Festival calendars belong to temples and the district site, not to this page.",
     },
     {
         "id": "summer",
@@ -581,7 +581,7 @@ seasons = [
         "months": "June – September",
         "kn": "ಜೂನ್ – ಸೆಪ್ಟೆಂಬರ್",
         "title": "The ghats become water",
-        "text": "This is when Hebbe, Jhari, Sirimane and Kallathigiri are at their most theatrical — and when roads fail, leeches appear, and parks close. The Western Ghats are a landslide landscape. Beauty and hazard arrive together.",
+        "text": "This is when Hebbe, Jhari, Sirimane and Kallathigiri are at their most theatrical, and when roads fail, leeches appear, and parks close. The Western Ghats are a landslide landscape. Beauty and hazard arrive together.",
         "experiences": ["Waterfall country from safe, official viewpoints", "Sitting out a rain day with filter coffee in town", "Watching mist move across Hirekolale"],
         "watch": "Do not treat a viral jeep video as an open road. Follow PWD, police and forest closures. Fuel up before remote loops.",
     },
@@ -604,7 +604,7 @@ stories = [
         "image": "assets/coffee-shade.jpg",
         "paragraphs": [
             "Local tradition holds that the Sufi saint Baba Budan carried seven raw coffee seeds from Mocha, in present-day Yemen, and planted them in these hills. Whether every detail of the legend can be proved, the agricultural fact is stubborn: this district became the heart of Indian arabica, grown in the shade of silver oak and native canopy rather than in open sun.",
-            "What you see from a ridge is not wilderness alone. It is a polyculture — coffee, pepper, sometimes cardamom — stitched into shola and grassland. The work is seasonal, the labour skilled, and the landscape older than the cafés that made the name famous.",
+            "What you see from a ridge is not wilderness alone. It is a polyculture, coffee, pepper, sometimes cardamom, stitched into shola and grassland. The work is seasonal, the labour skilled, and the landscape older than the cafés that made the name famous.",
             "This companion treats coffee as culture and ecology, not as a room to book. If an estate opens a walk, that is their hospitality. Walk where you are invited.",
         ],
     },
@@ -614,7 +614,7 @@ stories = [
         "title": "Hoysala stone, Malnad Kannada, a matha on the Tunga",
         "image": "assets/amruthapura.jpg",
         "paragraphs": [
-            "Chikkamagaluru’s east leans toward the Hoysala world: Amruthapura’s Amrutesvara temple of 1196 CE, Belavadi’s Veeranarayana trikuta, and the nearby orbit of Halebidu and Belur. The west and south fold into Malnad pilgrimage — Sringeri Sharada Peetham, Horanadu, Kalasa — where Sanskrit learning and Kannada village life share the same river terrace.",
+            "Chikkamagaluru’s east leans toward the Hoysala world: Amruthapura’s Amrutesvara temple of 1196 CE, Belavadi’s Veeranarayana trikuta, and the nearby orbit of Halebidu and Belur. The west and south fold into Malnad pilgrimage, Sringeri Sharada Peetham, Horanadu, Kalasa, where Sanskrit learning and Kannada village life share the same river terrace.",
             "Kannada is the language of the district. English is understood in town; it thins in the ghats. A greeting in Kannada is not decoration. It is how this place speaks to itself.",
         ],
     },
@@ -624,7 +624,7 @@ stories = [
         "title": "Akki, koli, and a cup that still tastes of the hill",
         "image": "assets/coffee-estate.jpg",
         "paragraphs": [
-            "Malnad cooking is rice-first: akki rotti, kadubu, forest greens, pork or koli (chicken) in village kitchens, fish where the Bhadra and Tunga allow. Temple towns such as Horanadu are known for annadana — a meal as offering — with timings set by the temple, not by a tourism brochure.",
+            "Malnad cooking is rice-first: akki rotti, kadubu, forest greens, pork or koli (chicken) in village kitchens, fish where the Bhadra and Tunga allow. Temple towns such as Horanadu are known for annadana, a meal as offering, with timings set by the temple, not by a tourism brochure.",
             "Filter coffee here is not a brand story. It is boiled milk, a dark decoction, and beans that grew under trees you can still see from the bus window. Ask where the beans were picked. That is the only authenticity test that matters.",
         ],
     },
@@ -635,7 +635,7 @@ stories = [
         "image": "assets/kudremukh-np.jpg",
         "paragraphs": [
             "These hills sit in the Western Ghats, a UNESCO World Heritage biodiversity hotspot. Shola grassland is easy to scar and slow to heal. Stay on existing paths. Do not cut across meadows for a photograph. Pack every wrapper back to town.",
-            "Elephants, gaur and, in Bhadra, tigers use this district. Drive as if a large animal owns the next bend — because it might. Do not play loudspeakers on ridges. Do not light fires. Kudremukh and Bhadra are notified forests: permission is not a suggestion.",
+            "Elephants, gaur and, in Bhadra, tigers use this district. Drive as if a large animal owns the next bend, because it might. Do not play loudspeakers on ridges. Do not light fires. Kudremukh and Bhadra are notified forests: permission is not a suggestion.",
             "This is not an official government website. It does not inspect hotels, sell rooms, or take payments. For closures, fees and permits, use the district, forest and Karnataka Tourism pages linked throughout.",
         ],
     },
@@ -646,7 +646,7 @@ essentials = {
         "title": "How to arrive",
         "items": [
             {"title": "By road", "text": "Chikkamagaluru town sits in the coffee foothills of the Chandra Drona range. Bengaluru is a long ghat-and-maidan drive (often quoted around five and a half hours via Hassan or Kadur). Mysuru and Mangaluru also have regular buses. Treat any hour-count as weather-dependent."},
-            {"title": "By rail", "text": "Chikkamagaluru has a railway station with passenger services connecting via Kadur. Many travellers still alight at Kadur or Birur and continue by bus or taxi. Check current Indian Railways timetables — this page does not list train numbers as if they were fixed."},
+            {"title": "By rail", "text": "Chikkamagaluru has a railway station with passenger services connecting via Kadur. Many travellers still alight at Kadur or Birur and continue by bus or taxi. Check current Indian Railways timetables, this page does not list train numbers as if they were fixed."},
             {"title": "By air", "text": "Mangaluru International Airport is the usual coastal gateway; Bengaluru for the plateau. There is no district airport implied here."},
         ],
     },
@@ -670,7 +670,7 @@ essentials = {
         "title": "Help and emergency",
         "items": [
             {"title": "National emergency number", "text": "Dial 112 in India for police, fire and ambulance coordination."},
-            {"title": "District helplines", "text": "The Chikkamagaluru district administration publishes helpline and directory pages. Use them for current police, hospital and disaster-management contacts — numbers change."},
+            {"title": "District helplines", "text": "The Chikkamagaluru district administration publishes helpline and directory pages. Use them for current police, hospital and disaster-management contacts, numbers change."},
             {"title": "On the road", "text": "Wikivoyage and local advice agree on a few unglamorous points: fill the tank before remote loops, watch for elephants, and do not enter flooded fords in the monsoon."},
         ],
     },
@@ -796,7 +796,7 @@ data = {
     "site": {
         "name": "Chikkamagaluru",
         "nameKn": "ಚಿಕ್ಕಮಗಳೂರು",
-        "title": "Chikkamagaluru — a Western Ghats companion",
+        "title": "Chikkamagaluru, a Western Ghats companion",
         "description": "An independent, static companion for discovering Chikkamagaluru district: peaks, waterfalls, temples, forests, seasons and a private itinerary. Not a government site and not a booking service.",
         "town": {"lat": 13.325246, "lng": 75.792399, "name": "Chikkamagaluru town"},
     },

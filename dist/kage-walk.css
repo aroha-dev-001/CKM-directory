@@ -104,8 +104,8 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 .nav{
   /* Width comes from --vw, not from right:0. A fixed element resolves its
      inset against the initial containing block, and the page's own horizontal
-     overflow makes that block wider than the screen — 437 against a 390 phone,
-     860 against a 768 tablet — which carried the burger off the right edge.
+     overflow makes that block wider than the screen, 437 against a 390 phone,
+     860 against a 768 tablet, which carried the burger off the right edge.
      --vw is the layout viewport, written on every resize. */
   position:fixed; top:0; left:0; width:var(--vw, 100%); height:var(--nav-h); z-index:50;
   display:flex; align-items:center; gap:24px; padding:0 var(--pad);
@@ -113,7 +113,7 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 }
 /* The sticky wash sits on its own layer rather than on the bar. A
    backdrop-filter promotes its element to the containing block for any
-   position:fixed descendant, and the bar holds the mobile menu sheet — put the
+   position:fixed descendant, and the bar holds the mobile menu sheet, put the
    blur here and the sheet was measured against an 84px bar instead of the
    frame, for as long as the blur took to fade. */
 .nav::before{
@@ -223,7 +223,7 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
   /* A chapter's scrim is there to hold its own copy off the sanctuary, and it
      is inset -22% so its edges never land as a seam. That overshoot, plus the
      section's top padding, means it was washing most of a screen of scene
-     above the chapter — the frame stayed masked long after the hero had let
+     above the chapter, the frame stayed masked long after the hero had let
      go of it. The mask takes the top of it back off: nothing at the very top,
      full strength by the time the chapter's own first line arrives. */
   -webkit-mask-image:linear-gradient(transparent, #000 44%);
@@ -240,7 +240,7 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 .sec-head .k b{ color:var(--vermilion); font-weight:500; }
 .rule{ flex:1 1 auto; height:1px; background:var(--line-soft); }
 
-/* — chapter I: the gate */
+/* chapter I: the gate */
 .gate-grid{ display:grid; grid-template-columns:minmax(0,1.02fr) minmax(0,1fr); gap:clamp(28px,5vw,90px); align-items:start; }
 .gate-grid h2{ max-width:11ch; }
 .gate-copy{ padding-top:6px; }
@@ -258,13 +258,13 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 .gate-stats div b{ display:block; font-size:clamp(22px,2.1vw,32px); font-weight:300; letter-spacing:-.02em; }
 .gate-stats div span{ font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
 
-/* — chapter II: pathways cards */
+/* chapter II: pathways cards */
 .cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.4vw,22px); align-items:start; }
 .card{ position:relative; cursor:pointer; }
 .card:nth-child(1){ transform:translateY(0); }
 .card:nth-child(2){ transform:translateY(clamp(26px,5vw,74px)); }
 .card:nth-child(3){ transform:translateY(clamp(52px,10vw,148px)); }
-/* the frame is a hole punched in the page — the scene is rendered straight
+/* the frame is a hole punched in the page, the scene is rendered straight
    into this rectangle with a scissored viewport, so each card is a live
    window onto a different corner of the sanctuary */
 .card-fr{
@@ -299,8 +299,8 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 .on-cloth::after{ display:none; }
 
 /* ------------------------------------------------- the lights in the stills
-   The three plates each have one source in them — two blood moons and a lit
-   stone lantern — and they are the only warm thing in an otherwise cold set of
+   The three plates each have one source in them, two blood moons and a lit
+   stone lantern, and they are the only warm thing in an otherwise cold set of
    images. A glow laid over each one, screened so it adds light rather than
    painting over it, is enough to make a flat still look like it is burning.
 
@@ -309,8 +309,8 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
    a loop within a couple of seconds; two beating against each other do not
    come back around inside the time anyone looks at a card.
 
-   The moon and the lantern are not the same event. A flame gutters — short,
-   irregular, deep — so the lantern's track is written unevenly by hand. A moon
+   The moon and the lantern are not the same event. A flame gutters, short,
+   irregular, deep, so the lantern's track is written unevenly by hand. A moon
    only breathes through moving air, so the moons get a slow, shallow swell and
    nothing more. Giving them both a flicker is what makes this kind of thing
    look like a novelty; the difference is the whole effect. */
@@ -371,7 +371,7 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 .card-meta{ display:flex; justify-content:space-between; margin-top:12px;
   font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
 
-/* — chapter III: curriculum */
+/* chapter III: curriculum */
 .cur-head{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.72fr); gap:clamp(28px,5vw,90px); align-items:end; margin-bottom:clamp(34px,6vh,72px); }
 .cur-head h2{ max-width:13ch; }
 .cur{ border-top:1px solid var(--line-soft); }
@@ -397,7 +397,7 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
   transform:scaleX(0); transform-origin:left; transition:transform .7s var(--ease-out); }
 .les:hover .bar{ transform:scaleX(1); }
 
-/* — chapter IV: eternity */
+/* chapter IV: eternity */
 .fin{ min-height:100svh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; }
 .fin .eyebrow{ margin-bottom:26px; }
 .fin h2{ font-size:clamp(38px,7.4vw,124px); line-height:.94; letter-spacing:-.03em; text-transform:uppercase; }
@@ -428,7 +428,7 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 .cta:hover i{ transform:none; }
 .cta:hover svg path{ stroke:#05070a; }
 
-/* — footer */
+/* footer */
 .foot{ position:relative; padding:clamp(50px,8vh,96px) var(--pad) clamp(26px,4vh,40px);
   border-top:1px solid var(--line-soft); }
 .foot-grid,.foot-base{ position:relative; }
@@ -492,7 +492,7 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
      once the bar went sticky and started hiding on scroll the open panel was
      measured against the bar instead of the viewport: 146px tall, dragged off
      the top, with the page showing through beside it. Neither may apply while
-     the sheet is open — it covers the frame, so there is nothing left to blur. */
+     the sheet is open, it covers the frame, so there is nothing left to blur. */
   /* A hide transform still promotes the bar, so drop it the instant the sheet
      opens. Without transition:none it eases out over .55s and the sheet spends
      that whole time measured against the bar. */
@@ -512,18 +512,18 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
   .hero-cue{ display:none; }
 }
 /* ================================================== section layouts (B set)
-   The six sections ship their B compositions — hero split, story spread,
+   The six sections ship their B compositions, hero split, story spread,
    gardens mosaic, chapter atlas, gallery closing, manifesto footer. They are
    keyed off stable body data attributes so the rules above keep reading as
    the plain grammar of the page and every B override stays in one block.   */
 
-/* — hero B · split: an editorial reading column holds the left, a compact
+/* hero B · split: an editorial reading column holds the left, a compact
      numbered index sits under it, and the live scene window becomes a low,
      right-hand counterweight. The scene itself remains untouched.
 
      The column carried a 90° scrim over the left three-quarters of the frame.
      It has gone: the sanctuary is already near-black behind the reading, and
-     measured against it the copy loses almost nothing without it — the
+     measured against it the copy loses almost nothing without it, the
      headline 15.98:1 to 15.47:1, the standfirst 7.94:1 to 7.75:1, the index
      16.11:1 to 16.08:1, all far past what either needs. It was darkening the
      approach, the gate and the lower steps to buy half a point of contrast
@@ -544,7 +544,7 @@ body[data-layout-hero="b"] .peek{
   left:auto; right:var(--pad); top:auto; bottom:clamp(38px,7vh,96px);
 }
 body[data-layout-hero="b"] .peek-cap b.jp{ font-size:clamp(20px,2.2vw,34px); letter-spacing:.18em; }
-/* The Japanese title reads down the right edge, hung under the navigation —
+/* The Japanese title reads down the right edge, hung under the navigation , 
    the one mark on that side of the frame now that the romanization has gone. */
 body[data-layout-hero="b"] .hero-side{
   left:auto; right:var(--pad); top:calc(var(--nav-h) + clamp(14px,3vh,42px));
@@ -555,7 +555,7 @@ body[data-layout-hero="b"] .hero-side .v{
   font-size:clamp(30px,3.2vw,54px); letter-spacing:.12em; color:rgba(223,231,224,.62);
 }
 
-/* — story B · spread: the title crosses two columns, the reading column is
+/* story B · spread: the title crosses two columns, the reading column is
      held to the right, and the figures become a ruled band. */
 body[data-layout-story="b"] .gate-grid{
   grid-template-columns:minmax(120px,.38fr) minmax(0,1.08fr) minmax(280px,.88fr);
@@ -567,7 +567,7 @@ body[data-layout-story="b"] .gate-stats{ display:grid; grid-template-columns:rep
 body[data-layout-story="b"] .gate-stats div{ min-height:108px; padding:18px; border-left:1px solid var(--line-soft); }
 body[data-layout-story="b"] .gate-stats div:last-child{ border-right:1px solid var(--line-soft); }
 
-/* — gardens B · mosaic: one immersive live window beside two stacked ones.
+/* gardens B · mosaic: one immersive live window beside two stacked ones.
      The cards stretch to their rows and the frames flex, so the two small
      viewports meet the tall one exactly instead of drifting apart. */
 body[data-layout-gallery="b"] .cards{
@@ -581,7 +581,7 @@ body[data-layout-gallery="b"] .card:first-child{ grid-row:1 / 3; }
 body[data-layout-gallery="b"] .card:first-child .card-fr{ flex:0 0 auto; height:min(72vh,760px); }
 body[data-layout-gallery="b"] .card:not(:first-child) .card-fr{ min-height:200px; }
 
-/* — chapters B · atlas: a two-then-three plate grid instead of a syllabus.
+/* chapters B · atlas: a two-then-three plate grid instead of a syllabus.
      Number and title sit at the top of each plate, the running time drops to
      the foot of it. */
 body[data-layout-curriculum="b"] .cur-head{ grid-template-columns:minmax(0,.72fr) minmax(0,1.2fr); align-items:start; }
@@ -601,7 +601,7 @@ body[data-layout-curriculum="b"] .les h3{ font-size:clamp(20px,2vw,30px); }
 body[data-layout-curriculum="b"] .les p{ display:block; max-width:34ch; }
 body[data-layout-curriculum="b"] .les .t{ text-align:left; margin-top:auto; }
 
-/* — closing B · gallery: the title hangs vertically on the right while the
+/* closing B · gallery: the title hangs vertically on the right while the
      chapter mark, the last line and the call to action run down the left. */
 body[data-layout-closing="b"] .fin{
   display:grid; grid-template-columns:minmax(260px,.7fr) minmax(0,1.3fr); grid-template-rows:auto auto auto;
@@ -616,7 +616,7 @@ body[data-layout-closing="b"] .fin h2{
 body[data-layout-closing="b"] .fin p{ grid-column:1; grid-row:2; margin:0; }
 body[data-layout-closing="b"] .fin .cta{ grid-column:1; grid-row:3; justify-self:start; margin-top:4px; }
 
-/* — footer B · manifesto: the statement leads, the navigation becomes a
+/* footer B · manifesto: the statement leads, the navigation becomes a
      compact ruled index beneath it. */
 body[data-layout-footer="b"] .foot-grid{ grid-template-columns:repeat(3,1fr); }
 body[data-layout-footer="b"] .foot-brand{
@@ -640,14 +640,14 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
    itself is untouched, this is only the garden that grows in front of it.
 
    The cut-outs are the nearest plane on the page, so they sit in front of the
-   reading rather than behind it. Inside .page — itself z-index:10, above the
+   reading rather than behind it. Inside .page, itself z-index:10, above the
    #gl canvas at 0:
      -1   .sec::before / .foot::before   the section scrims
       2   headings, copy, links, cards, stats, CTA
       3   .fg                            the cut-outs: aria-hidden, inert
    .page caps everything it holds at tier 10, which is under the fixed
    furniture (rail 45, nav 50), so the chapter's live near plane is moved out
-   to #fg-sky at 52 — over the layout and the navigation both, and still under
+   to #fg-sky at 52, over the layout and the navigation both, and still under
    the passes that treat the frame as one image: vignette 55, grain 60,
    cursor 80.
 
@@ -656,7 +656,7 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
    inert and invisible: a near plane that scrolls with the page reads as
    wallpaper printed on the document rather than as something standing between
    the camera and the scene, so there is no second, section-owned appearance.
-   Every piece is therefore placed from the bottom edge of that fixed plane —
+   Every piece is therefore placed from the bottom edge of that fixed plane , 
    left/right and bottom, never top.
 
    The entrance is driven by the chapter, not by the scroll observer: each
@@ -672,13 +672,13 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
 }
 /* Nothing inside a section may widen the document. The foreground cut-outs and
    the cloth canvases are placed to hang past the frame edges on purpose, and as
-   ordinary in-flow descendants they dragged the page box out with them — 194px
+   ordinary in-flow descendants they dragged the page box out with them, 194px
    past a 1440 frame. Clip the horizontal axis at the section, which is exactly
    viewport-wide, so each overhang is cut precisely where it leaves the screen.
    `clip` pairs with `visible` without coercing it, so no scroll container is
    created and every bit of vertical bleed survives. */
 .sec, .foot{ overflow-x:clip; overflow-y:visible; }
-/* the host for whichever chapter currently owns the near plane — no box of
+/* the host for whichever chapter currently owns the near plane, no box of
    its own, since every stage it holds is position:fixed to the viewport */
 #fg-sky{
   position:fixed; left:0; top:0; width:0; height:0;
@@ -729,45 +729,45 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
    Every piece is anchored from the bottom of that plane, which is the bottom
    of the viewport. The cut-outs in png/ are trimmed flush to their own lowest
    opaque row, so a negative bottom here is a real amount of artwork buried off
-   the foot of the frame, not slack in the file — the ground-sitting pieces
+   the foot of the frame, not slack in the file, the ground-sitting pieces
    carry enough of it that their base line never lifts off the edge. */
 
-/* — I · the gate: the wall runs along the lower-left frame, a pine holds the
+/* I · the gate: the wall runs along the lower-left frame, a pine holds the
      far edge, and one bank of grass closes the foot of the chapter */
 /* Wall against the left edge, pine against the right: the chapter is framed
    by the two of them with the court open between.
 
-   left:0, not a negative offset — the plate is trimmed to its own artwork, so
+   left:0, not a negative offset, the plate is trimmed to its own artwork, so
    pulling it off-frame cuts the gate itself rather than trimming empty margin.
    Its left edge sits on the viewport's. */
 [data-fg="gate"] .fg-wall  { left:0; bottom:-30px; width:clamp(430px,47vw,780px); }
 [data-fg="gate"] .fg-pine  { right:-4%; bottom:-46px; width:clamp(190px,21vw,370px); }
 [data-fg="gate"] .fg-grass { left:3%;   bottom:-150px; width:clamp(420px,60vw,1050px); }
 
-/* — II · still gardens: sakura and maple sweep in from the two lower corners
+/* II · still gardens: sakura and maple sweep in from the two lower corners
      and carry their whole length, a lit lantern and a low bush hold the edges */
 [data-fg="pathways"] .fg-sakura { left:-6%;  bottom:-86px;  width:clamp(430px,50vw,880px); }
 [data-fg="pathways"] .fg-leaves { right:-6%; bottom:-62px;  width:clamp(330px,38vw,670px); }
 [data-fg="pathways"] .fg-lantern{ left:-1%;  bottom:-96px;  width:clamp(120px,13vw,215px); }
 [data-fg="pathways"] .fg-bush   { right:-4%; bottom:-38px;  width:clamp(250px,30vw,530px); }
-/* the lantern is the one lit object in the library — it keeps its ember */
+/* the lantern is the one lit object in the library, it keeps its ember */
 [data-fg="pathways"] .fg-lantern > img{ filter:saturate(.96) brightness(1); }
 [data-fg="pathways"] .fg-leaves > img{ transform-origin:100% 40%; }
 
-/* — III · sacred craft: basalt and a low wall fragment bracket the atlas and
+/* III · sacred craft: basalt and a low wall fragment bracket the atlas and
      a stand of grass ties them together, all three below the plate grid */
 [data-fg="lessons"] .fg-wall   { right:-8%; bottom:-78px; width:clamp(390px,50vw,870px); }
 [data-fg="lessons"] .fg-stones { left:-4%;  bottom:-48px; width:clamp(250px,30vw,530px); }
 [data-fg="lessons"] .fg-grass  { left:24%;  bottom:-84px; width:clamp(280px,33vw,580px); }
 
-/* — IV · afterlight: a far hill closes the horizon, the shrine ruins stand at
+/* IV · afterlight: a far hill closes the horizon, the shrine ruins stand at
      the left of it, grass banks the right, one branch hangs into the corner */
 [data-fg="eternity"] .fg-hill   { left:-8%; width:min(150vh,116%); bottom:calc(-1 * min(20vh,15.5vw)); }
 [data-fg="eternity"] .fg-ruins  { left:-5%;  bottom:-32px; width:clamp(240px,28vw,500px); }
 [data-fg="eternity"] .fg-grass  { right:-7%; bottom:-60px; width:clamp(300px,37vw,670px); }
 [data-fg="eternity"] .fg-sakura { left:-15%; bottom:-70px; width:clamp(280px,33vw,580px); }
 
-/* — colophon: one restrained planting along the lower edge, nothing above it */
+/* colophon: one restrained planting along the lower edge, nothing above it */
 [data-fg="foot"] .fg-bush   { left:-6%;  bottom:-110px; width:clamp(230px,28vw,480px); }
 [data-fg="foot"] .fg-grass  { right:-5%; bottom:-98px;  width:clamp(255px,30vw,530px); }
 [data-fg="foot"] .fg-stones { left:36%;  bottom:-104px; width:clamp(190px,22vw,370px); }
@@ -823,7 +823,7 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
   body[data-layout-hero="b"] .chapters{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px 14px; }
   body[data-layout-hero="b"] .chip{ flex-direction:row; gap:14px; }
   /* Same shape of bug: the layout selector outranks the plain single-column
-     rule, so the heading kept a 37% column while its words are set at 30px —
+     rule, so the heading kept a 37% column while its words are set at 30px , 
      "CHAPTERS." alone is wider than that, and it spilled over the paragraph. */
   body[data-layout-curriculum="b"] .cur-head{ grid-template-columns:1fr; gap:18px; align-items:start; }
   body[data-layout-hero="b"] .chip .num{ font-size:clamp(26px,8vw,36px); }
@@ -879,7 +879,7 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
   .mask-line > span,.word{ opacity:1 !important; transform:none !important; }
 }
 
-/* coffee stills as the hall — never Kyoto plates */
+/* coffee stills as the hall, never Kyoto plates */
 #story-bg{
   position:fixed; inset:0; z-index:0; pointer-events:none; background:#05070a;
 }

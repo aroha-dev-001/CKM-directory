@@ -81,7 +81,7 @@
         "November–February is the classic visiting window for viewpoints: cooler nights, clearer mornings on Mullayanagiri and Kemmanagundi, and coffee harvest in many estates.",
       suitableCategoryIds: ["peaks", "viewpoints", "hill-station", "temples"],
       recommendedPlaceIds: ["mullayanagiri", "baba-budangiri", "kemmanagundi"],
-      considerations: "Nights are cold on the peaks. Festival calendars belong to temples and the district site — not to this page.",
+      considerations: "Nights are cold on the peaks. Festival calendars belong to temples and the district site, not to this page.",
       packingNote: "Carry a warm layer for ridge mornings. Mist can still close a view without warning.",
       sourceUrl: "stories.html#seasons",
       sourceYear: null,
@@ -104,7 +104,7 @@
     monsoon: {
       seasonName: "Monsoon landscapes, possible restrictions",
       shortDescription:
-        "June–September is when the ghats become water — falls at their most theatrical, and when roads fail, leeches appear, and parks close.",
+        "June–September is when the ghats become water, falls at their most theatrical, and when roads fail, leeches appear, and parks close.",
       suitableCategoryIds: ["waterfalls", "lakes", "hill-station"],
       recommendedPlaceIds: ["hebbe-falls", "jhari-falls", "hirekolale"],
       considerations:

@@ -40,14 +40,14 @@ npx vercel --yes --prod
 | Page | What it is |
 | --- | --- |
 | `index.html` | Hero, map, Explore, DriftWall, popular carousel, **Bean to cup** section, Before you leave town |
-| `bean-to-cup.html` | Baba Budan then the cup — sticky canvas sequence (00–14). One still at a time. Scroll maps to frame. No overlapping plates. Not a shop |
-| `food.html` | Food hub — Malnad kitchen plates (`?id=` for a dish story) |
-| `nature.html` | Nature hub — seasons, outdoor places, forest care, field photographs |
-| `stay.html` | Hill air — Kemmanagundi, trip sketches, visitor notes. **Not** a booking or homestay list |
-| `heritage.html` | Heritage hub — temples, forts, coffee country |
+| `bean-to-cup.html` | Baba Budan then the cup, sticky canvas sequence (00–14). One still at a time. Scroll maps to frame. No overlapping plates. Not a shop |
+| `food.html` | Food hub, Malnad kitchen plates (`?id=` for a dish story) |
+| `nature.html` | Nature hub, seasons, outdoor places, forest care, field photographs |
+| `stay.html` | Hill air, Kemmanagundi, trip sketches, visitor notes. **Not** a booking or homestay list |
+| `heritage.html` | Heritage hub, temples, forts, coffee country |
 | `places.html` | Destinations grouped under waterfalls, temples, dams, lakes, hill stations, peaks, wildlife, treks, forts and coffee country |
 | `popular.html` | Dedicated popular-tourist page: 30 in-district stops that recur on Tripadvisor Things to Do, district place lists and typical 2-day loops |
-| `map.html` | Light green choropleth of the nine taluks only — no place pins |
+| `map.html` | Light green choropleth of the nine taluks only, no place pins |
 | `taluk.html` | Dedicated taluk page (`?id=`) with a closer map, every listed sight, and public visitor notes |
 | `stories.html` | Separate chapters: seasons, coffee, culture, food, Malnad kitchen dishes, responsible travel, photographs |
 | `coffee.html` | Full coffee-origin story: eight illustrated scenes from Mocha to shade canopy |
@@ -56,7 +56,7 @@ npx vercel --yes --prod
 
 ## What is in the companion
 
-- Illustrated green taluk map (SVG from OpenStreetMap polygons — not a tile map). The district overview shows **only the nine taluks**. Click a taluk to open `taluk.html`, where that taluk’s tourist places are marked and described from public sources.
+- Illustrated green taluk map (SVG from OpenStreetMap polygons, not a tile map). The district overview shows **only the nine taluks**. Click a taluk to open `taluk.html`, where that taluk’s tourist places are marked and described from public sources.
 - Destination detail modal
 - Kannada labels and official `.nic.in` / forest / KSRTC links
 - Reduced-motion and keyboard support
@@ -87,7 +87,7 @@ Photographs are Wikimedia Commons and Creative Commons Flickr stills, cover-crop
 | `dist/accordion-gallery.js` | Explore AccordionGallery (React Bits port) |
 | `dist/assets/` | Photographs and `taluks.geojson` |
 
-`scripts/write_pages.py` regenerates the HTML shells. `scripts/fetch_images.py` re-downloads selected Commons originals. `scripts/build-data.py` can rebuild `data.js` from Python records — the live site reads `dist/data.js` directly.
+`scripts/write_pages.py` regenerates the HTML shells. `scripts/fetch_images.py` re-downloads selected Commons originals. `scripts/build-data.py` can rebuild `data.js` from Python records, the live site reads `dist/data.js` directly.
 
 Motion and polish are copied from tools in the Cyatra Stash (`https://stash-cyatra.vercel.app/`): **Transitions.dev** (tabs, toast, modal, accordion, badge, number pop, tooltips, learn-more chevrons), **Kinetics** (spring overshoot, magnetic buttons, shine sweep), **UIverse** (copy-paste CSS controls), and **Sylva** (forest-and-gold editorial direction). React-only libraries from the stash were skipped so the site stays static HTML.
 
@@ -113,4 +113,4 @@ Dedicated admin (local, no Cloudflare):
 python3 studio/serve.py
 ```
 
-`http://127.0.0.1:43192/studio/bean-to-cup/` — see `studio/README.md`. For a permanent client admin URL, run `python3 studio/build_static.py` and deploy `studio/dist-site` as a **separate** password-protected site.
+`http://127.0.0.1:43192/studio/bean-to-cup/`, see `studio/README.md`. For a permanent client admin URL, run `python3 studio/build_static.py` and deploy `studio/dist-site` as a **separate** password-protected site.
