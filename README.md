@@ -60,7 +60,7 @@ npx vercel --yes --prod
 - Destination detail modal
 - Kannada labels and official `.nic.in` / forest / KSRTC links
 - Reduced-motion and keyboard support
-- WebMCP tool (`search_destinations`) when the browser exposes `document.modelContext` or `navigator.modelContext`
+- **Ask Chikku** (`chikku.js`): a page-mascot tiger docked at the bottom-right. The head follows the pointer; a poke blinks, then opens a chat. Answers come from this companion’s places, seasons, food and visitor notes. Off-topic questions are refused. Not a live LLM and not a booking desk. Tiger sheets are MIT page-mascot / koboyo.
 - Motion from the Cyatra Stash (Transitions.dev, Kinetics, UIverse, Sylva): sliding tabs, toasts, modals, accordion cards, magnetic buttons
 - Homepage popular places use a React Bits **Carousel** (ported to vanilla JS + GSAP): eight featured stops, autoplay with pause on hover, swipe and dots. Hours sit beside the card on desktop and under it on phones.
 - Explore Chikkamagaluru uses a React Bits **AccordionGallery** (vanilla JS + GSAP): five theme panels expand on hover, keyboard and tap. The open panel keeps the Food / Nature-style caption and **View more** link; side arrows step through the row.
@@ -82,6 +82,8 @@ Photographs are Wikimedia Commons and Creative Commons Flickr stills, cover-crop
 | `dist/sections.js` | HTML rendering |
 | `dist/map.js` | SVG nine-taluk choropleth; place pins only on a taluk page |
 | `dist/app.js` | Search, modal, Explore accordion, WebMCP |
+| `dist/chikku.js` / `dist/chikku.css` | Ask Chikku tiger mascot + district-only Q&A |
+| `dist/assets/mascots/` | Tiger direction and reaction sprite sheets (page-mascot) |
 | `dist/carousel.js` | Homepage popular carousel (React Bits port) |
 | `dist/drift-wall.js` | Homepage DriftWall (React Bits port) |
 | `dist/accordion-gallery.js` | Explore AccordionGallery (React Bits port) |

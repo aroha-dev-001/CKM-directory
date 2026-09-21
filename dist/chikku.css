@@ -1,0 +1,296 @@
+/* Ask Chikku, page-mascot tiger docked bottom-right */
+.chikku {
+  --chikku-ink: #0c1f13;
+  --chikku-paper: #f6f1e6;
+  --chikku-forest: #1f3d2a;
+  --chikku-line: rgba(12, 31, 19, 0.14);
+  position: fixed;
+  z-index: 70;
+  right: max(0.7rem, env(safe-area-inset-right));
+  bottom: max(0.7rem, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.55rem;
+  width: min(22.5rem, calc(100vw - 1.4rem));
+  pointer-events: none;
+  font-family: "Instrument Sans", "Inter", sans-serif;
+}
+
+.chikku * {
+  box-sizing: border-box;
+}
+
+.chikku-panel {
+  pointer-events: auto;
+  width: 100%;
+  max-height: min(32rem, calc(100svh - 8.5rem));
+  display: flex;
+  flex-direction: column;
+  background: var(--chikku-paper);
+  color: var(--chikku-ink);
+  border: 1px solid var(--chikku-line);
+  border-radius: 1.15rem;
+  box-shadow: 0 18px 50px rgba(12, 31, 19, 0.18);
+  overflow: hidden;
+}
+
+.chikku-panel[hidden] {
+  display: none !important;
+}
+
+.chikku-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.85rem 0.95rem 0.7rem;
+  border-bottom: 1px solid var(--chikku-line);
+}
+
+.chikku-head h2 {
+  margin: 0;
+  font-family: Fraunces, Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.chikku-head p {
+  margin: 0.15rem 0 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #5a6b5e;
+}
+
+.chikku-x {
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--chikku-ink);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.chikku-x:hover {
+  background: rgba(12, 31, 19, 0.06);
+}
+
+.chikku-log {
+  flex: 1;
+  overflow: auto;
+  padding: 0.85rem 0.95rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.chikku-msg {
+  max-width: 92%;
+  padding: 0.65rem 0.8rem;
+  border-radius: 0.85rem;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.chikku-msg p {
+  margin: 0 0 0.45rem;
+}
+
+.chikku-msg p:last-child {
+  margin-bottom: 0;
+}
+
+.chikku-msg a {
+  color: var(--chikku-forest);
+  font-weight: 600;
+}
+
+.chikku-msg.is-bot {
+  align-self: flex-start;
+  background: #e7eee6;
+}
+
+.chikku-msg.is-user {
+  align-self: flex-end;
+  background: var(--chikku-forest);
+  color: #f6f1e6;
+}
+
+.chikku-msg.is-refuse {
+  background: #efe6d4;
+}
+
+.chikku-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  padding: 0 0.95rem 0.55rem;
+}
+
+.chikku-chip {
+  pointer-events: auto;
+  border: 1px solid var(--chikku-line);
+  background: #fff;
+  color: var(--chikku-ink);
+  border-radius: 999px;
+  padding: 0.28rem 0.7rem;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.chikku-chip:hover {
+  border-color: var(--chikku-forest);
+}
+
+.chikku-form {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.55rem 0.7rem 0.7rem;
+  border-top: 1px solid var(--chikku-line);
+  background: #fff;
+}
+
+.chikku-form input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--chikku-line);
+  border-radius: 999px;
+  padding: 0.55rem 0.85rem;
+  font: inherit;
+  font-size: 0.92rem;
+  background: var(--chikku-paper);
+}
+
+.chikku-form button[type="submit"] {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.55rem 0.9rem;
+  background: var(--chikku-forest);
+  color: #f6f1e6;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.chikku-dock {
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.45rem;
+  align-self: flex-end;
+}
+
+.chikku-tag {
+  margin: 0 0 0.55rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  background: var(--chikku-forest);
+  color: #f6f1e6;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  box-shadow: 0 8px 20px rgba(12, 31, 19, 0.2);
+}
+
+.chikku.is-open .chikku-tag {
+  display: none;
+}
+
+.chikku-mascot {
+  position: relative;
+  width: 108px;
+  height: 108px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  filter: drop-shadow(0 10px 18px rgba(12, 31, 19, 0.28));
+}
+
+.chikku-squash {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 78%;
+}
+
+.chikku-sheet {
+  position: absolute;
+  inset: 0;
+  background-size: 300% 300%;
+  background-repeat: no-repeat;
+  transition: opacity 0.12s linear;
+}
+
+.chikku-sheet.is-dir {
+  background-image: url("assets/mascots/tiger-directions.webp");
+}
+
+.chikku-sheet.is-react {
+  background-image: url("assets/mascots/tiger-reactions.webp");
+  opacity: 0;
+}
+
+.chikku-sheet.is-react.is-on {
+  opacity: 1;
+}
+
+.chikku-sheet.is-dir.is-off {
+  opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .chikku-mascot {
+    animation: chikku-idle 3.6s ease-in-out infinite;
+  }
+}
+
+@keyframes chikku-idle {
+  0%,
+  100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@media (max-width: 720px) {
+  .chikku-mascot {
+    width: 88px;
+    height: 88px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chikku-mascot {
+    animation: none;
+  }
+}
+
+body.is-locked .chikku-panel,
+body.is-locked .chikku-form,
+body.is-locked .chikku-chip {
+  background: #12151a;
+  color: #dfe7e0;
+  border-color: rgba(223, 231, 224, 0.12);
+}
+
+body.is-locked .chikku-form input,
+body.is-locked .chikku-msg.is-bot {
+  background: #1a1e24;
+  color: #dfe7e0;
+}
+
+body.is-locked .chikku-head p,
+body.is-locked .chikku-msg.is-refuse {
+  color: #9aa59c;
+}
+
+body.is-locked .chikku-msg.is-refuse {
+  background: #241c16;
+}
