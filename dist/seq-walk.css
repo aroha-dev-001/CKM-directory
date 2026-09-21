@@ -264,8 +264,8 @@ html.walk-snap .close{
   .walk-title{
     display:block;
     position:absolute;z-index:3;left:var(--pad);right:var(--pad);
-    top:calc(var(--nav-h) + 6px);
-    margin:0;pointer-events:none;
+    top:calc(var(--nav-h) + 8px);
+    margin:0;padding:0 0 18px;pointer-events:none;
   }
   .walk-title span{
     display:block;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);

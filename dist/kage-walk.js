@@ -534,6 +534,12 @@
     return beat[pack()] || beat.en;
   }
 
+  function viewSize() {
+    var el = canvas;
+    var w = (el && el.clientWidth) || window.innerWidth;
+    var h = (el && el.clientHeight) || window.innerHeight;
+    return { w: Math.max(1, w), h: Math.max(1, h) };
+  }
   function isMobile() {
     return window.innerWidth < (CFG.camera && CFG.camera.mobileBreakpoint ? CFG.camera.mobileBreakpoint : 820);
   }
@@ -757,9 +763,9 @@
     ctx.fillRect(0, 0, w, h);
     if (isMobile()) {
       var navH = Math.round(Math.min(h * 0.12, Math.max(72, h * 0.08)));
-      var titleH = Math.round(h * 0.1);
+      var titleH = Math.round(h * 0.2);
       var photoH = Math.round(w * (9 / 16));
-      drawContainBox(frames[i0], 0, navH + titleH, w, photoH, vis);
+      drawContainBox(frames[i0], 0, navH + titleH + 12, w, photoH, vis);
     } else {
       ctx.save();
       ctx.translate(Math.round(w * CFG.plates.fallbackShift), 0);
@@ -944,14 +950,15 @@
     var cam = CFG.camera;
     var mot = CFG.motion;
     var plt = CFG.plates;
+    var vs0 = viewSize();
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile() ? 2.5 : CFG.world.pixelRatioCap));
-    renderer.setSize(window.innerWidth, window.innerHeight, false);
+    renderer.setSize(vs0.w, vs0.h, false);
     renderer.setClearColor(hexNum(CFG.world.background), 1);
     renderer.outputEncoding = THREE.sRGBEncoding;
 
     var scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(hexNum(CFG.world.fogColor), CFG.world.fogDensity);
-    var camera = new THREE.PerspectiveCamera(cam.fov, window.innerWidth / window.innerHeight, cam.near, cam.far);
+    var camera = new THREE.PerspectiveCamera(cam.fov, vs0.w / vs0.h, cam.near, cam.far);
     camera.position.set(isMobile() ? 0 : cam.startX, isMobile() ? 0 : cam.startY, cam.startZ);
 
     var n = BEATS.length;
@@ -1045,10 +1052,11 @@
     var alive = true;
 
     function resize() {
-      camera.aspect = window.innerWidth / window.innerHeight;
+      var vs = viewSize();
+      camera.aspect = vs.w / vs.h;
       camera.updateProjectionMatrix();
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile() ? 2.5 : CFG.world.pixelRatioCap));
-      renderer.setSize(window.innerWidth, window.innerHeight, false);
+      renderer.setSize(vs.w, vs.h, false);
     }
 
     function tick() {
@@ -1063,12 +1071,13 @@
       var z = fo.ahead - t * n1 * mo.gap;
       var mobile = window.innerWidth < c.mobileBreakpoint;
       var dist = fo.ahead;
-      var navFrac = Math.min(0.12, Math.max(0.08, 76 / Math.max(window.innerHeight, 1)));
+      var vs = viewSize();
+      var navFrac = Math.min(0.12, Math.max(0.08, 76 / vs.h));
       var copyFrac = 0.34;
-      var vFovDeg = mobile ? c.fov : c.fov;
+      var vFovDeg = c.fov;
       var vFov = (vFovDeg * Math.PI) / 180;
       var visH = 2 * Math.tan(vFov / 2) * dist;
-      var visW = visH * (window.innerWidth / Math.max(window.innerHeight, 1));
+      var visW = visH * (vs.w / vs.h);
       var weave = mobile ? 0 : Math.sin(t * Math.PI * n1 * 0.35) * c.weave;
       var px = mobile ? 0 : pointer.x * c.pointerX;
       var py = mobile ? 0 : pointer.y * c.pointerY;
@@ -1079,8 +1088,9 @@
       if (mobile) {
         sx = visW / plateW;
         var plateWorldH = plateH * sx;
-        var titleFrac = 0.1;
-        var plateTop = visH / 2 - (navFrac + titleFrac) * visH;
+        var titleFrac = 0.2;
+        var gapFrac = 0.025;
+        var plateTop = visH / 2 - (navFrac + titleFrac + gapFrac) * visH;
         liftY = plateTop - plateWorldH / 2;
       }
       var camY = mobile ? 0 : c.startY - 0.03;
@@ -1386,7 +1396,7 @@
     resetToTop();
     holdTop(400);
     boot();
-    var url = "bean-to-cup.walk.json?v=cup21";
+    var url = "bean-to-cup.walk.json?v=cup22";
     var ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
     var timed = setTimeout(function () {
       if (ctrl) ctrl.abort();
