@@ -507,6 +507,7 @@
   function applyChrome() {
     var w = CFG.world;
     var rail = CFG.copyRail;
+    var vig = $("#vignette");
     document.documentElement.style.setProperty("--ink", w.background);
     document.body.style.background = w.background;
     layoutSnaps();
@@ -758,7 +759,19 @@
 
   function preload() {
     var done = 0;
+    var settled = false;
     return new Promise(function (resolve) {
+      function finish() {
+        if (settled) return;
+        settled = true;
+        resolve();
+      }
+      var timer = setTimeout(finish, 8000);
+      if (!BEATS.length) {
+        clearTimeout(timer);
+        finish();
+        return;
+      }
       BEATS.forEach(function (beat, i) {
         var img = new Image();
         img.decoding = "async";
@@ -766,7 +779,10 @@
           frames[i] = img;
           done += 1;
           setProgress(8 + (done / BEATS.length) * 88);
-          if (done === BEATS.length) resolve();
+          if (done === BEATS.length) {
+            clearTimeout(timer);
+            finish();
+          }
         };
         img.src = beat.src;
       });
@@ -848,9 +864,9 @@
     try {
       renderer = new THREE.WebGLRenderer({
         canvas: canvas,
-        antialias: true,
+        antialias: !isMobile(),
         alpha: false,
-        powerPreference: "high-performance",
+        powerPreference: isMobile() ? "low-power" : "high-performance",
       });
     } catch (err) {
       return null;
@@ -858,7 +874,7 @@
     var cam = CFG.camera;
     var mot = CFG.motion;
     var plt = CFG.plates;
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile() ? 2.5 : CFG.world.pixelRatioCap));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile() ? 1.5 : CFG.world.pixelRatioCap));
     renderer.setSize(window.innerWidth, window.innerHeight, false);
     renderer.setClearColor(hexNum(CFG.world.background), 1);
     renderer.outputEncoding = THREE.sRGBEncoding;
@@ -1188,6 +1204,35 @@
     }
   }
 
+  function unlock() {
+    document.body.classList.remove("is-locked");
+    var pre = $("#pre");
+    if (pre) pre.classList.add("done");
+  }
+
+  var entered = false;
+  function enterWorld() {
+    if (entered) return;
+    entered = true;
+    try {
+      world = reducedNow() || CFG.debug.force2d ? null : initWorld();
+    } catch (err) {
+      world = null;
+    }
+    if (!world && canvas) {
+      try {
+        ctx = canvas.getContext("2d", { alpha: false });
+        size2d();
+      } catch (err2) {
+        ctx = null;
+      }
+    }
+    paintCopy(0);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    wireSnap();
+  }
+
   function boot() {
     canvas = $("#seq");
     applyChrome();
@@ -1195,6 +1240,7 @@
     wireNav();
     fillLongread();
     applyUi();
+    setProgress(4);
     $("[data-lang-toggle]") &&
       $("[data-lang-toggle]").addEventListener("click", function () {
         lang = lang === "kn" ? "en" : "kn";
@@ -1221,35 +1267,41 @@
       { passive: true }
     );
 
-    preload().then(function () {
-      world = reducedNow() || CFG.debug.force2d ? null : initWorld();
-      if (!world && canvas) {
-        ctx = canvas.getContext("2d", { alpha: false });
-        size2d();
-      }
-      paintCopy(0);
-      document.body.classList.remove("is-locked");
-      var pre = $("#pre");
-      if (pre) pre.classList.add("done");
-      window.addEventListener("scroll", onScroll, { passive: true });
-      onScroll();
-      wireSnap();
-    });
+    preload()
+      .then(function () {
+        setProgress(100);
+        unlock();
+        enterWorld();
+      })
+      .catch(function () {
+        setProgress(100);
+        unlock();
+        enterWorld();
+      });
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
   else start();
 
   function start() {
-    var url = "bean-to-cup.walk.json?v=cup10";
-    fetch(url)
-      .then(function (r) { return r.ok ? r.json() : {}; })
+    CFG = clone(WALK_DEFAULTS);
+    boot();
+    var url = "bean-to-cup.walk.json?v=cup11";
+    var ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
+    var timed = setTimeout(function () {
+      if (ctrl) ctrl.abort();
+    }, 4000);
+    var opts = ctrl ? { signal: ctrl.signal } : {};
+    fetch(url, opts)
+      .then(function (r) {
+        return r.ok ? r.json() : {};
+      })
       .then(function (j) {
-        CFG = deepMerge(clone(WALK_DEFAULTS), j || {});
+        clearTimeout(timed);
+        if (j && typeof j === "object") applyConfig(j, { rebuild: !!world });
       })
       .catch(function () {
-        CFG = clone(WALK_DEFAULTS);
-      })
-      .then(boot);
+        clearTimeout(timed);
+      });
   }
 })();
