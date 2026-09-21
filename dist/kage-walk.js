@@ -723,9 +723,10 @@
     ctx.fillRect(0, 0, w, h);
     if (isMobile()) {
       var navH = Math.round(Math.min(h * 0.13, Math.max(72, h * 0.09)));
-      var copyH = Math.round(h * 0.36);
-      var bandH = Math.max(1, h - navH - copyH);
-      drawContainBox(frames[i0], 0, navH, w, bandH, vis);
+      var photoH = Math.round(w * (9 / 16));
+      var copyTop = Math.round(h * 0.64);
+      if (navH + photoH > copyTop) photoH = Math.max(1, copyTop - navH);
+      drawContainBox(frames[i0], 0, navH, w, photoH, vis);
     } else {
       ctx.save();
       ctx.translate(Math.round(w * CFG.plates.fallbackShift), 0);
@@ -741,13 +742,15 @@
 
   function size2d() {
     if (!canvas || world) return;
-    var dpr = Math.min(window.devicePixelRatio || 1, CFG.world.pixelRatioCap);
+    var dpr = Math.min(window.devicePixelRatio || 1, isMobile() ? 2.5 : CFG.world.pixelRatioCap);
     var w = window.innerWidth;
     var h = window.innerHeight;
     canvas.width = Math.round(w * dpr);
     canvas.height = Math.round(h * dpr);
     canvas.style.width = w + "px";
     canvas.style.height = h + "px";
+    ctx.imageSmoothingEnabled = true;
+    if (ctx.imageSmoothingQuality) ctx.imageSmoothingQuality = "high";
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     paintBlend(scrollT);
   }
@@ -881,8 +884,15 @@
     window.addEventListener("resize", function () {
       document.documentElement.style.setProperty("--vw", window.innerWidth + "px");
       applyChrome();
-      if (world && world.resize) world.resize();
-      else size2d();
+      if (isMobile()) {
+        if (world) disposeWorld();
+        if (canvas && !ctx) ctx = canvas.getContext("2d", { alpha: false });
+        size2d();
+      } else if (world && world.resize) {
+        world.resize();
+      } else {
+        rebuildNow();
+      }
     });
   }
 
@@ -893,14 +903,14 @@
   }
 
   function initWorld() {
-    if (reducedNow() || CFG.debug.force2d || typeof THREE === "undefined") return null;
+    if (reducedNow() || CFG.debug.force2d || isMobile() || typeof THREE === "undefined") return null;
     var renderer;
     try {
       renderer = new THREE.WebGLRenderer({
         canvas: canvas,
-        antialias: !isMobile(),
+        antialias: true,
         alpha: false,
-        powerPreference: isMobile() ? "low-power" : "high-performance",
+        powerPreference: "high-performance",
       });
     } catch (err) {
       return null;
@@ -908,7 +918,7 @@
     var cam = CFG.camera;
     var mot = CFG.motion;
     var plt = CFG.plates;
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile() ? 1.5 : CFG.world.pixelRatioCap));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, CFG.world.pixelRatioCap));
     renderer.setSize(window.innerWidth, window.innerHeight, false);
     renderer.setClearColor(hexNum(CFG.world.background), 1);
     renderer.outputEncoding = THREE.sRGBEncoding;
@@ -1005,7 +1015,7 @@
     function resize() {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile() ? 1.5 : CFG.world.pixelRatioCap));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, CFG.world.pixelRatioCap));
       renderer.setSize(window.innerWidth, window.innerHeight, false);
     }
 
@@ -1331,7 +1341,7 @@
   function start() {
     CFG = clone(WALK_DEFAULTS);
     boot();
-    var url = "bean-to-cup.walk.json?v=cup14";
+    var url = "bean-to-cup.walk.json?v=cup15";
     var ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
     var timed = setTimeout(function () {
       if (ctrl) ctrl.abort();
