@@ -44,8 +44,14 @@
     let firstRun = true;
     let mediaSize = 320;
     let tl = null;
+    let io = null;
+    const stackQuery = global.matchMedia ? global.matchMedia("(max-width: 720px)") : { matches: false, addEventListener() {}, removeEventListener() {} };
 
-    root.className = `accordion-gallery${vertical ? " accordion-gallery--vertical" : ""}${options.className ? ` ${options.className}` : ""}`;
+    function isStack() {
+      return !!stackQuery.matches;
+    }
+
+    root.className = `accordion-gallery${vertical ? " accordion-gallery--vertical" : ""}${isStack() ? " accordion-gallery--stack" : ""}${options.className ? ` ${options.className}` : ""}`;
     root.style.setProperty("--ag-accent", accentColor);
     root.style.setProperty("--ag-overlay", overlayColor);
     root.style.setProperty("--ag-text", textColor);
@@ -92,57 +98,83 @@
 
     function applyLayout(animate) {
       const gsap = gsapLib();
+      const stack = isStack();
       const r = Math.min(Math.max(expandRatio, 0.2), 0.9);
       const grow = count > 1 ? (r * (count - 1)) / (1 - r) : 1;
       const dur = animate && !prefersReduced ? duration : 0;
       tl?.kill();
       if (gsap) tl = gsap.timeline();
+      root.classList.toggle("accordion-gallery--stack", stack);
 
       panels.forEach((panel, i) => {
         const isActive = i === active;
         panel.classList.toggle("ag-panel--active", isActive);
         if (isActive) panel.setAttribute("aria-current", "true");
         else panel.removeAttribute("aria-current");
-        const rot = isActive ? 0 : i < active ? tilt : -tilt;
+        const rot = stack ? 0 : isActive ? 0 : i < active ? tilt : -tilt;
         const rotProp = vertical ? { rotateX: -rot } : { rotateY: rot };
         const media = medias[i];
         const copy = copies[i];
         const drift = Math.max(-1.5, Math.min(1.5, active - i));
-        const shift = drift * parallax * mediaSize * 0.06;
+        const shift = stack ? 0 : drift * parallax * mediaSize * 0.06;
         const gray = grayscale ? (isActive ? 0 : 1) : 0;
-        const dim = isActive ? 0.12 : 0.42;
+        const dim = stack ? (isActive ? 0.18 : 0.32) : isActive ? 0.12 : 0.42;
 
         if (gsap && tl) {
-          tl.to(panel, { flexGrow: isActive ? grow : 1, ...rotProp, "--ag-dim": dim, duration: dur, ease }, 0);
-          if (media) {
-            tl.to(
-              media,
-              {
-                xPercent: -50,
-                yPercent: -50,
-                x: vertical ? 0 : isActive ? 0 : shift,
-                y: vertical ? (isActive ? 0 : shift) : 0,
-                "--ag-gray": gray,
-                duration: dur,
-                ease,
-              },
-              0
-            );
-          }
-          if (showLabels && copy) {
-            if (isActive) {
-              tl.to(copy, { opacity: 1, y: 0, duration: dur, ease, stagger: prefersReduced ? 0 : stagger }, 0);
-            } else {
-              tl.to(copy, { opacity: 0, y: 10, duration: dur * 0.55, ease }, 0);
+          if (stack) {
+            tl.to(panel, { flexGrow: 0, rotateX: 0, rotateY: 0, "--ag-dim": dim, duration: dur, ease }, 0);
+            if (media) {
+              tl.to(
+                media,
+                {
+                  xPercent: 0,
+                  yPercent: 0,
+                  x: 0,
+                  y: 0,
+                  scale: isActive ? 1.06 : 1,
+                  "--ag-gray": gray,
+                  duration: dur,
+                  ease,
+                },
+                0
+              );
+            }
+            if (showLabels && copy) {
+              tl.to(copy, { opacity: 1, y: 0, duration: dur, ease }, 0);
+            }
+          } else {
+            tl.to(panel, { flexGrow: isActive ? grow : 1, ...rotProp, "--ag-dim": dim, duration: dur, ease }, 0);
+            if (media) {
+              tl.to(
+                media,
+                {
+                  xPercent: -50,
+                  yPercent: -50,
+                  x: vertical ? 0 : isActive ? 0 : shift,
+                  y: vertical ? (isActive ? 0 : shift) : 0,
+                  scale: 1,
+                  "--ag-gray": gray,
+                  duration: dur,
+                  ease,
+                },
+                0
+              );
+            }
+            if (showLabels && copy) {
+              if (isActive) {
+                tl.to(copy, { opacity: 1, y: 0, duration: dur, ease, stagger: prefersReduced ? 0 : stagger }, 0);
+              } else {
+                tl.to(copy, { opacity: 0, y: 10, duration: dur * 0.55, ease }, 0);
+              }
             }
           }
         } else {
-          panel.style.flexGrow = String(isActive ? grow : 1);
+          panel.style.flexGrow = stack ? "0" : String(isActive ? grow : 1);
           panel.style.setProperty("--ag-dim", String(dim));
           if (media) media.style.setProperty("--ag-gray", String(gray));
           if (copy) {
-            copy.style.opacity = isActive ? "1" : "0";
-            copy.style.transform = isActive ? "none" : "translateY(10px)";
+            copy.style.opacity = stack || isActive ? "1" : "0";
+            copy.style.transform = stack || isActive ? "none" : "translateY(10px)";
           }
         }
       });
@@ -157,11 +189,20 @@
     }
 
     function measure() {
+      const stack = isStack();
+      root.classList.toggle("accordion-gallery--stack", stack);
+      if (stack) {
+        root.style.height = "auto";
+        root.style.setProperty("--ag-media-size", "100%");
+        applyLayout(!firstRun);
+        return;
+      }
       const rect = root.getBoundingClientRect();
       const total = vertical ? rect.height : rect.width;
       const usable = Math.max(total - gap * (count - 1), 120);
       const size = Math.max(140, usable * Math.min(Math.max(expandRatio, 0.2), 0.9) * 1.22);
       mediaSize = size;
+      root.style.height = vertical ? `${Math.round(height * 1.6)}px` : `${height}px`;
       root.style.setProperty("--ag-media-size", `${size}px`);
       applyLayout(!firstRun);
     }
@@ -172,7 +213,7 @@
       });
       panel.addEventListener("focus", () => setActive(i));
       panel.addEventListener("click", (e) => {
-        if (i !== active) {
+        if (!isStack() && i !== active) {
           e.preventDefault();
           setActive(i);
         }
@@ -194,6 +235,33 @@
     firstRun = false;
     options.onChange?.(active, items[active]);
 
+    if (typeof IntersectionObserver !== "undefined") {
+      const ratios = new Map();
+      io = new IntersectionObserver(
+        (entries) => {
+          if (!isStack()) return;
+          entries.forEach((entry) => {
+            ratios.set(entry.target, entry.intersectionRatio);
+          });
+          let best = active;
+          let bestRatio = 0;
+          ratios.forEach((ratio, el) => {
+            if (ratio > bestRatio) {
+              bestRatio = ratio;
+              best = Number(el.getAttribute("data-ag-index"));
+            }
+          });
+          if (bestRatio >= 0.45 && !Number.isNaN(best)) setActive(best);
+        },
+        { threshold: [0.35, 0.5, 0.65, 0.8], rootMargin: "-12% 0px -12% 0px" }
+      );
+      panels.forEach((panel) => io.observe(panel));
+    }
+
+    const onStackChange = () => measure();
+    if (stackQuery.addEventListener) stackQuery.addEventListener("change", onStackChange);
+    else if (stackQuery.addListener) stackQuery.addListener(onStackChange);
+
     return {
       setActive,
       next() {
@@ -205,6 +273,9 @@
       destroy() {
         tl?.kill();
         ro.disconnect();
+        if (io) io.disconnect();
+        if (stackQuery.removeEventListener) stackQuery.removeEventListener("change", onStackChange);
+        else if (stackQuery.removeListener) stackQuery.removeListener(onStackChange);
       },
     };
   }
