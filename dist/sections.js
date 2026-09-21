@@ -644,20 +644,32 @@
   function renderHome(lang) {
     const f = fragments(lang);
     return `
-      <section class="hero" aria-labelledby="hero-title">
+      <section class="hero hero--video" aria-labelledby="hero-title">
         <div class="hero-media" aria-hidden="true">
-          <img src="assets/hero.jpg" alt="" width="2400" height="1350" fetchpriority="high" />
+          <video
+            class="hero-video"
+            poster="assets/hero.jpg"
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            disablepictureinpicture
+            autoplay
+          >
+            <source src="assets/hero.mp4" type="video/mp4" />
+          </video>
+          <img class="hero-fallback" src="assets/hero.jpg" alt="" width="2400" height="1350" fetchpriority="high" />
         </div>
         <div class="hero-scrim"></div>
-        <p class="hero-ghost" aria-hidden="true">CHIKKAMAGALURU</p>
+        <p class="hero-ghost" aria-hidden="true">LAND OF COFFEE</p>
         <div class="hero-bottom">
           <div class="hero-copy">
             <p class="eyebrow shimmer">Chikkamagaluru · Karnataka</p>
             <h1 id="hero-title" class="reveal-lines">
-              <span><i>Above the</i></span>
-              <span><i>cloud line.</i></span>
+              <span><i>Visit Chikkamagaluru</i></span>
+              <span><i>Land of Coffee</i></span>
             </h1>
-            <p class="hero-kn" lang="kn">ಮೇಘರೇಖೆಯ ಮೇಲೆ</p>
+            <p class="hero-kn" lang="kn">ಕಾಫಿ ನಾಡು</p>
             <p class="lede">Good coffee, quieter journeys. A district companion for peaks, temples, forests and the working shade of Malnad, not a booking desk.</p>
             <div class="hero-actions">
               <a class="btn btn-light shine t-learn" href="places.html" data-magnetic>${learn("Explore all places")}</a>

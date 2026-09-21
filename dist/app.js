@@ -217,6 +217,35 @@
     }
   }
 
+  function initHeroVideo() {
+    if (PAGE !== "home") return;
+    const hero = document.querySelector(".hero--video");
+    const video = hero && hero.querySelector(".hero-video");
+    if (!hero || !video) return;
+    const play = () => {
+      const run = video.play();
+      if (run && typeof run.then === "function") {
+        run.then(() => hero.classList.add("is-playing")).catch(() => hero.classList.remove("is-playing"));
+      }
+    };
+    const stop = () => {
+      video.pause();
+      hero.classList.remove("is-playing");
+    };
+    video.addEventListener("playing", () => hero.classList.add("is-playing"));
+    video.addEventListener("error", stop);
+    video.querySelector("source")?.addEventListener("error", stop);
+    if (prefersReduced()) {
+      stop();
+      return;
+    }
+    play();
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) video.pause();
+      else if (!prefersReduced()) play();
+    });
+  }
+
   function placeCoffeeBeforePopular() {
     if (PAGE !== "home") return;
     const coffee = document.getElementById("bean-to-cup");
@@ -1011,6 +1040,7 @@
     renderPlaces();
     initDistrictMap();
     bindUi();
+    initHeroVideo();
     initMotion();
     initPopularGallery();
     initHomeDrift();
