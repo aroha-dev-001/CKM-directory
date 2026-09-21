@@ -67,6 +67,8 @@
     const grayscale = Boolean(options.grayscale);
     const overlayColor = options.overlayColor || "#0c1f13";
     const scale = options.scale ?? 1.18;
+    const shiftX = Number.isFinite(options.shiftX) ? options.shiftX : 0;
+    const originX = options.originX ?? "50%";
     const onOpenPlace = typeof options.onOpenPlace === "function" ? options.onOpenPlace : null;
 
     let reduced = prefersReducedMotion();
@@ -111,9 +113,9 @@
     let raf = null;
     let plane = null;
     let press = null;
-    let panX = 0;
+    let panX = shiftX;
     let panY = 0;
-    let panTargetX = 0;
+    let panTargetX = shiftX;
     let panTargetY = 0;
 
     root.className = ["drift-wall", reduced ? "drift-wall--reduced" : "", options.className || ""].filter(Boolean).join(" ");
@@ -128,6 +130,7 @@
     root.style.setProperty("--dw-overlay", overlayColor);
     root.style.setProperty("--dw-overlay-opacity", overlayColor === "transparent" ? "0" : "0.42");
     root.style.setProperty("--dw-edge", `${Math.max(0, (1 - fade) * 100)}%`);
+    root.style.setProperty("--dw-origin-x", String(originX));
     root.setAttribute("role", "group");
     root.setAttribute("aria-label", "Drifting wall of places. Click a still to pause and read.");
 
@@ -211,13 +214,13 @@
 
     function aimFlippedCard() {
       if (!flippedPlace) {
-        panTargetX = 0;
+        panTargetX = shiftX;
         panTargetY = 0;
         return;
       }
       const mid = (columns - 1) / 2;
       const col = Number.isFinite(hoveredCol) ? hoveredCol : 0;
-      panTargetX = (mid - col) * tileWidth * 0.82;
+      panTargetX = shiftX + (mid - col) * tileWidth * 0.82;
       panTargetY = 0;
     }
 
@@ -359,7 +362,7 @@
       pausedByFlip = false;
       hoveredCol = -1;
       activeId = null;
-      panTargetX = 0;
+      panTargetX = shiftX;
       panTargetY = 0;
       syncTileState();
     }

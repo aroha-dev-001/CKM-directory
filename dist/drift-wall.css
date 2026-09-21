@@ -4,7 +4,7 @@
   height: 100%;
   overflow: hidden;
   perspective: var(--dw-perspective, 1200px);
-  perspective-origin: 50% 36%;
+  perspective-origin: var(--dw-origin-x, 50%) 36%;
   --dw-tile-w: 200px;
   --dw-tile-h: 132px;
   --dw-gap: 18px;
@@ -17,11 +17,11 @@
   --dw-edge: 92%;
   -webkit-mask-image:
     linear-gradient(to bottom, transparent 0%, #000 7%, #000 93%, transparent 100%),
-    linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%);
+    linear-gradient(to right, #000 0%, #000 96%, transparent 100%);
   -webkit-mask-composite: source-in;
   mask-image:
     linear-gradient(to bottom, transparent 0%, #000 7%, #000 93%, transparent 100%),
-    linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%);
+    linear-gradient(to right, #000 0%, #000 96%, transparent 100%);
   mask-composite: intersect;
 }
 
