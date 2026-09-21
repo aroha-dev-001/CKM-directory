@@ -1,40 +1,32 @@
 ---
 name: immersive-3d
-description: Scaffold or tune a standalone scroll-driven 3D immersive walk. Use when building a new corridor of stills, a walk.config.json, a parameter HUD, or camera/fog/plate/copy-rail controls. Never attach to an unrelated existing app.
+description: Scaffold a public 3D immersive walk plus a dedicated studio/admin. Use for /immersive-3d, walk.config.json, or client 3D corridors. Public player has no HUD. Studio is a separate host.
 ---
 
-# Immersive 3D walk
+# Immersive 3D
 
-Read `walk.config.schema.json` in this skill folder before writing config. The agent prompt at `~/.cursor/agents/immersive-3d.md` is the product contract.
+Read `walk.config.schema.json` if present. Follow `~/.cursor/agents/immersive-3d.md`.
 
-## Isolation
+## Split
 
-New folder or repo only. Do not patch a host marketing site, design system, or deploy project unless the user names it.
+| Surface | Path | HUD |
+| --- | --- | --- |
+| Public player | `index.html` or `dist/` | No. Fetches `walk.config.json`. |
+| Studio | `studio/` | Yes. Import/export the same JSON. |
 
-## Files to create
+Publish: studio Export → replace player JSON → deploy player. Deploy studio separately (`studio/build_static.py`) with password protection. Not a trycloudflare URL.
 
-- `walk.config.json` — all knobs; matches the schema
-- `index.html` — sticky `#reel`, spacer, copy rail, canvas, HUD root
-- `walk.css` — rail vs stage layout; HUD panel
-- `walk.js` — preload → WebGL corridor (Three.js r149+ from a vendored or CDN build) or 2D fallback
-- `hud.js` — generates controls from config keys; export/import JSON
-- `README.md` — run locally (`python3 -m http.server` or Vite on an uncommon port)
+## Player
 
-## Layout
+Sticky canvas, Three.js plates, copy rail, preload then WebGL, 2D fallback, reduced motion.
 
-Desktop: copy rail on `copyRail.side` (default left), plates at `plates.baseX` on the other side. Mobile: rail as bottom gradient, `baseXMobile` / `rightBiasMobile`. Focus changes opacity and a small idle drift only — never multiply `baseX` toward 0.
+## Studio
 
-## HUD
-
-Toggle `H`. One control per schema leaf. Group by World, Camera, Plates, Shards, Copy rail, Motion, Theme, A11y. Beats editor: list with still URL, titles, body, lore, z, hold. Export downloads `walk.config.json`.
-
-## Motion
-
-`t = clamp(scroll / (scrollHeight - viewport))`. Apply `motion.easing`. Beat focus uses `focusSharpness` and `focusWidth`. Spacer height = `world.scrollHeightVh`.
+One control per config leaf. `H` toggles. Groups: World, Camera, Motion, Focus, Plates, Shards, Particles, Copy, Nav, A11y.
 
 ## Don't
 
-- Slide decks (full-viewport swap with no z travel)
-- Stacked overlapping copy cards
-- 2D context then WebGL on the same canvas
-- Hardcoded colors or camera numbers outside JSON
+- HUD on the public site
+- Hardcoded camera numbers
+- 2D then WebGL on the same canvas
+- Nesting in an unrelated app

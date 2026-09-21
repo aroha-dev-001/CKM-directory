@@ -1,3 +1,8 @@
-Invoke the **immersive-3d** subagent (`~/.cursor/agents/immersive-3d.md`) and follow `~/.cursor/skills/immersive-3d/SKILL.md`.
+Invoke the **immersive-3d** subagent.
 
-Build or tune a standalone 3D immersive walk with `walk.config.json` and a live Parameter HUD. Do not attach the work to an unrelated existing app.
+Build a standalone 3D immersive **public player** and a **dedicated studio/admin** in the same project.
+
+- Player: no HUD; loads `walk.config.json`.
+- Studio: full parameter panel, import/export JSON, local `serve.py`, optional static build for a separate password-protected host.
+- Do not treat a temporary Cloudflare URL as the admin product.
+- Do not attach to an unrelated existing app.

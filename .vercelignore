@@ -2,3 +2,5 @@ scripts/__pycache__/
 agent-tools/
 .github/
 sandbox/
+studio/
+studio/dist-site/

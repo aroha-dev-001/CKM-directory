@@ -99,12 +99,20 @@ Destination notes are reference text: live fees, permits, event dates and closur
 
 Accommodation booking belongs to the tourism department and is out of scope here. Use the district tourism links on the page for current official information.
 
-## Sandbox admin (not production)
+## Walk config and studio (not on the public HUD)
 
-The public Bean to cup page has **no** admin HUD. Motion, camera, plates, copy rail, and navigation are tunable only in the local sandbox:
+The public Bean to cup page has **no** admin panel. It loads `dist/bean-to-cup.walk.json`. To ship settings you tuned in the studio:
 
 ```bash
-python3 sandbox/serve.py
+python3 scripts/apply_walk_json.py ~/Downloads/bean-to-cup.walk.json
 ```
 
-Open `http://127.0.0.1:43191/sandbox/bean-to-cup/`. Press **H** for the panel. Export JSON when a setting should later move into production. See `sandbox/README.md`.
+Then deploy `dist/` only.
+
+Dedicated admin (local, no Cloudflare):
+
+```bash
+python3 studio/serve.py
+```
+
+`http://127.0.0.1:43192/studio/bean-to-cup/` — see `studio/README.md`. For a permanent client admin URL, run `python3 studio/build_static.py` and deploy `studio/dist-site` as a **separate** password-protected site.

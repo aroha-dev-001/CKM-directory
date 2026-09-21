@@ -2,3 +2,4 @@ scripts/__pycache__/
 agent-tools/
 .vercel
 .env*
+studio/dist-site/

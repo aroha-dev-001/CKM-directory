@@ -3,17 +3,19 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Baba Budan, then the cup — Chikkamagaluru</title>
-    <meta
-      name="description"
-      content="How coffee reached Chikkamagaluru: Baba Budan’s seven Mocha seeds, shade planting, cherry, roast, filter, davara. Scroll the walk. Not a shop."
-    />
+    <title>Sandbox — Bean to cup admin</title>
+    <meta name="robots" content="noindex" />
     <meta name="theme-color" content="#05070a" />
-    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="secret-pathways-assets/fonts.css" />
-    <link rel="stylesheet" href="seq-walk.css?v=cup6" />
+    <link rel="icon" href="/dist/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/dist/secret-pathways-assets/fonts.css" />
+    <link rel="stylesheet" href="/dist/seq-walk.css?v=cup6" />
+    <link rel="stylesheet" href="hud.css" />
   </head>
   <body class="is-locked">
+    <div class="sandbox-banner">
+      <b>Studio admin</b>
+      <span>Not the live site. Export JSON or Write to dist, then deploy dist/.</span>
+    </div>
     <a class="skip" href="#reel">Skip to story</a>
 
     <div id="pre" aria-live="polite">
@@ -25,30 +27,26 @@
             <path d="M16 10c2-4 8-5 11-1" stroke="#e0231c" stroke-width="1.2"/>
           </svg>
         </div>
-        <p class="pre-jp">ಚಿಕ್ಕಮಗಳೂರು</p>
+        <p class="pre-jp">SANDBOX</p>
         <div class="pre-bar"><i id="pre-bar"></i></div>
-        <div class="pre-meta"><span data-i="pre.l">Seven seeds</span><b id="pre-num">000</b><span data-i="pre.r">One cup</span></div>
+        <div class="pre-meta"><span>Admin walk</span><b id="pre-num">000</b><span>Not production</span></div>
       </div>
     </div>
 
     <div id="grain" aria-hidden="true"></div>
     <div id="vignette" aria-hidden="true"></div>
+    <div id="hud-root"></div>
 
-    <header class="nav">
-      <a class="brand" href="index.html">
+    <header class="nav" style="top:32px">
+      <a class="brand" href="/dist/index.html">
         <svg viewBox="0 0 34 34" fill="none" aria-hidden="true">
           <circle cx="17" cy="17" r="16" stroke="currentColor" stroke-width="1"/>
           <path d="M11 21c2-8 10-10 13-4" stroke="#e0231c" stroke-width="1.2"/>
         </svg>
-        <span class="brand-tx"><b>Chikkamagaluru</b><i>ಚಿಕ್ಕಮಗಳೂರು</i></span>
+        <span class="brand-tx"><b>Sandbox</b><i>Bean to cup</i></span>
       </a>
       <nav class="nav-links" aria-label="Primary">
-        <a class="nav-link" href="index.html" data-i="nav.home">Home</a>
-        <a class="nav-link" href="index.html#explore-chikmagaluru" data-i="nav.explore">Explore</a>
-        <a class="nav-link" href="places.html" data-i="nav.places">Places</a>
-        <a class="nav-link" href="stories.html" data-i="nav.stories">Stories</a>
-        <a class="nav-link on" href="bean-to-cup.html" data-i="nav.here">Bean to cup</a>
-        <a class="nav-link" href="plan.html" data-i="nav.plan">Plan</a>
+        <span class="nav-link on">Immersive</span>
         <button class="nav-lang" type="button" data-lang-toggle aria-pressed="false">ಕನ್ನಡ</button>
       </nav>
       <button class="nav-burger" type="button" aria-expanded="false" aria-label="Open menu"><i></i><i></i></button>
@@ -99,53 +97,15 @@
     <section class="longread" id="longread"></section>
 
     <section class="close" id="close">
-      <p class="eyebrow" data-i="close.k">Close</p>
-      <h2 data-i="close.h">Drink. Leave the rows.</h2>
-      <p data-i="close.p">From seven Mocha seeds to a davara is one walk. This page is not a shop. Believe the slope. Treat the beard as lore.</p>
-      <div class="cta-row">
-        <a class="cta" href="index.html"><i></i><span data-i="cta.home">Back to the companion</span></a>
-        <a class="cta" href="places.html?id=baba-budangiri"><i></i><span data-i="cta.baba">Baba Budangiri</span></a>
-      </div>
+      <p class="eyebrow">Sandbox</p>
+      <h2>Tune here. Ship later.</h2>
+      <p>Export JSON from the admin panel when the feel is right. The public Bean to cup page does not load this HUD.</p>
     </section>
 
-    <footer class="foot">
-      <div class="foot-grid">
-        <div class="foot-brand">
-          <h4>Chikkamagaluru</h4>
-          <p data-i="foot.note">Independent companion. Not a government site. Not a booking service.</p>
-        </div>
-        <div>
-          <h4>Walk</h4>
-          <ul>
-            <li><a href="bean-to-cup.html">Bean to cup</a></li>
-            <li><a href="coffee.html">Coffee chapter</a></li>
-            <li><a href="stories.html">Stories</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4>Sources</h4>
-          <ul>
-            <li><a href="https://coffeeboard.gov.in/" rel="noopener noreferrer">Coffee Board of India</a></li>
-            <li><a href="https://en.wikipedia.org/wiki/Baba_Budan" rel="noopener noreferrer">Baba Budan</a></li>
-            <li><a href="https://en.wikipedia.org/wiki/Indian_coffee" rel="noopener noreferrer">Indian coffee</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4>Companion</h4>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="plan.html">Plan</a></li>
-            <li><a href="visit.html">Visit</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="foot-base">
-        <span>Bean to cup · 00–14</span>
-        <span>Not for sale</span>
-      </div>
-    </footer>
-
-    <script src="secret-pathways-assets/three.min.js"></script>
-    <script src="kage-walk.js?v=cup7"></script>
+    <script src="/dist/secret-pathways-assets/three.min.js"></script>
+    <script src="beats.js"></script>
+    <script src="defaults.js"></script>
+    <script src="hud.js"></script>
+    <script src="sandbox-walk.js"></script>
   </body>
 </html>
