@@ -101,71 +101,66 @@
       const r = Math.min(Math.max(expandRatio, 0.2), 0.9);
       const grow = count > 1 ? (r * (count - 1)) / (1 - r) : 1;
       const dur = animate && !prefersReduced ? duration : 0;
+      root.classList.toggle("accordion-gallery--stack", stack);
+
+      if (stack) {
+        applyStackHeights();
+        panels.forEach((panel, i) => {
+          const isActive = i === active;
+          panel.classList.toggle("ag-panel--active", isActive);
+          if (isActive) panel.setAttribute("aria-current", "true");
+          else panel.removeAttribute("aria-current");
+          panel.style.flexGrow = "0";
+          panel.style.transform = "none";
+          panel.style.setProperty("--ag-dim", isActive ? "0.12" : "0.42");
+          const copy = copies[i];
+          if (copy) {
+            copy.style.opacity = isActive ? "1" : "0";
+            copy.style.transform = isActive ? "none" : "translateY(8px)";
+          }
+        });
+        return;
+      }
+
       tl?.kill();
       if (gsap) tl = gsap.timeline();
-      root.classList.toggle("accordion-gallery--stack", stack);
 
       panels.forEach((panel, i) => {
         const isActive = i === active;
         panel.classList.toggle("ag-panel--active", isActive);
         if (isActive) panel.setAttribute("aria-current", "true");
         else panel.removeAttribute("aria-current");
-        const rot = stack ? 0 : isActive ? 0 : i < active ? tilt : -tilt;
+        const rot = isActive ? 0 : i < active ? tilt : -tilt;
         const rotProp = vertical ? { rotateX: -rot } : { rotateY: rot };
         const media = medias[i];
         const copy = copies[i];
         const drift = Math.max(-1.5, Math.min(1.5, active - i));
-        const shift = stack ? 0 : drift * parallax * mediaSize * 0.06;
+        const shift = drift * parallax * mediaSize * 0.06;
         const gray = grayscale ? (isActive ? 0 : 1) : 0;
         const dim = isActive ? 0.12 : 0.42;
-        const panelGrow = stack ? 0 : isActive ? grow : 1;
-
-        if (stack) {
-          panel.style.height = "";
-          panel.style.flexGrow = "0";
-          panel.style.transform = "none";
-        }
+        const panelGrow = isActive ? grow : 1;
 
         if (gsap && tl) {
           tl.to(
             panel,
-            stack
-              ? { rotateX: 0, rotateY: 0, "--ag-dim": dim, duration: dur, ease }
-              : { flexGrow: panelGrow, ...rotProp, "--ag-dim": dim, duration: dur, ease },
+            { flexGrow: panelGrow, ...rotProp, "--ag-dim": dim, duration: dur, ease },
             0
           );
           if (media) {
-            if (stack) {
-              tl.to(
-                media,
-                {
-                  xPercent: 0,
-                  yPercent: 0,
-                  x: 0,
-                  y: 0,
-                  scale: 1,
-                  "--ag-gray": gray,
-                  duration: dur,
-                  ease,
-                },
-                0
-              );
-            } else {
-              tl.to(
-                media,
-                {
-                  xPercent: -50,
-                  yPercent: -50,
-                  x: vertical ? 0 : isActive ? 0 : shift,
-                  y: vertical ? (isActive ? 0 : shift) : 0,
-                  scale: 1,
-                  "--ag-gray": gray,
-                  duration: dur,
-                  ease,
-                },
-                0
-              );
-            }
+            tl.to(
+              media,
+              {
+                xPercent: -50,
+                yPercent: -50,
+                x: vertical ? 0 : isActive ? 0 : shift,
+                y: vertical ? (isActive ? 0 : shift) : 0,
+                scale: 1,
+                "--ag-gray": gray,
+                duration: dur,
+                ease,
+              },
+              0
+            );
           }
           if (showLabels && copy) {
             if (isActive) {
@@ -175,7 +170,7 @@
             }
           }
         } else {
-          if (!stack) panel.style.flexGrow = String(panelGrow);
+          panel.style.flexGrow = String(panelGrow);
           panel.style.setProperty("--ag-dim", String(dim));
           if (media) media.style.setProperty("--ag-gray", String(gray));
           if (copy) {
@@ -204,20 +199,32 @@
       return { top: 0, height: window.innerHeight || 800 };
     }
 
-    function activationLine() {
+    function pickStackIndex() {
       const box = viewBox();
-      return box.top + Math.max(64, Math.round(box.height * 0.12));
+      const line = box.top + box.height * 0.22;
+      let best = 0;
+      panels.forEach((panel, i) => {
+        if (panel.getBoundingClientRect().top <= line) best = i;
+      });
+      const chosen = panels[best].getBoundingClientRect();
+      if (chosen.bottom < line + 48 && best < count - 1) {
+        const next = panels[best + 1].getBoundingClientRect();
+        if (next.top < box.top + box.height * 0.78) best += 1;
+      }
+      return best;
     }
 
-    function setOpenHeight() {
-      if (!isStack()) {
-        root.style.removeProperty("--ag-open-h");
-        return;
-      }
+    function applyStackHeights() {
       const box = viewBox();
-      const topInset = activationLine() - box.top;
-      const open = Math.max(240, Math.round(box.height - topInset - 12));
+      const compact = 76;
+      const open = Math.max(280, Math.round(Math.min(box.height * 0.64, box.height - 96)));
       root.style.setProperty("--ag-open-h", `${open}px`);
+      root.style.setProperty("--ag-compact-h", `${compact}px`);
+      panels.forEach((panel, i) => {
+        panel.style.height = `${i === active ? open : compact}px`;
+        panel.style.minHeight = "0";
+        panel.style.maxHeight = "none";
+      });
     }
 
     function measure() {
@@ -233,12 +240,13 @@
         root.style.position = "";
         root.style.top = "";
         root.style.setProperty("--ag-media-size", "100%");
-        setOpenHeight();
-        applyLayout(!firstRun);
+        applyLayout(false);
         return;
       }
       panels.forEach((panel) => {
         panel.style.height = "";
+        panel.style.minHeight = "";
+        panel.style.maxHeight = "";
       });
       const rect = root.getBoundingClientRect();
       const total = vertical ? rect.height : rect.width;
@@ -252,13 +260,7 @@
 
     function syncFromScroll() {
       if (!isStack()) return;
-      setOpenHeight();
-      const line = activationLine();
-      let best = 0;
-      panels.forEach((panel, i) => {
-        if (panel.getBoundingClientRect().top <= line) best = i;
-      });
-      setActive(best);
+      setActive(pickStackIndex());
     }
 
     panels.forEach((panel, i) => {
@@ -283,7 +285,13 @@
       });
     });
 
-    const ro = new ResizeObserver(measure);
+    const ro = new ResizeObserver((entries) => {
+      const w = entries[0] && entries[0].contentRect ? entries[0].contentRect.width : root.clientWidth;
+      if (Math.abs(w - lastWidth) < 8 && isStack()) return;
+      lastWidth = w;
+      measure();
+    });
+    let lastWidth = root.clientWidth;
     ro.observe(root);
     measure();
     firstRun = false;
@@ -299,11 +307,6 @@
       });
     }
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("touchmove", onScroll, { passive: true });
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener("scroll", onScroll, { passive: true });
-      window.visualViewport.addEventListener("resize", onScroll, { passive: true });
-    }
     syncFromScroll();
 
     const onStackChange = () => measure();
@@ -322,11 +325,6 @@
         tl?.kill();
         ro.disconnect();
         window.removeEventListener("scroll", onScroll);
-        window.removeEventListener("touchmove", onScroll);
-        if (window.visualViewport) {
-          window.visualViewport.removeEventListener("scroll", onScroll);
-          window.visualViewport.removeEventListener("resize", onScroll);
-        }
         const wrap = pinWrap();
         if (wrap) {
           wrap.style.minHeight = "";
