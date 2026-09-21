@@ -111,6 +111,10 @@
     let raf = null;
     let plane = null;
     let press = null;
+    let panX = 0;
+    let panY = 0;
+    let panTargetX = 0;
+    let panTargetY = 0;
 
     root.className = ["drift-wall", reduced ? "drift-wall--reduced" : "", options.className || ""].filter(Boolean).join(" ");
     root.style.setProperty("--dw-tile-w", `${tileWidth}px`);
@@ -197,10 +201,24 @@
 
     function applyPlaneTransform(px, py) {
       if (!plane) return;
+      const yaw = pausedByFlip ? turn * 0.15 : turn;
+      const pitch = pausedByFlip ? tilt * 0.35 : tilt;
       plane.style.transform =
-        `translate(-50%, -46%) scale(${scale}) ` +
-        `rotateX(${tilt + py}deg) rotateY(${turn + px}deg) rotateZ(${roll}deg) ` +
+        `translate(-50%, -46%) translate(${panX.toFixed(1)}px, ${panY.toFixed(1)}px) scale(${scale}) ` +
+        `rotateX(${pitch + py}deg) rotateY(${yaw + px}deg) rotateZ(${roll}deg) ` +
         `translateZ(${-depth}px)`;
+    }
+
+    function aimFlippedCard() {
+      if (!flippedPlace) {
+        panTargetX = 0;
+        panTargetY = 0;
+        return;
+      }
+      const mid = (columns - 1) / 2;
+      const col = Number.isFinite(hoveredCol) ? hoveredCol : 0;
+      panTargetX = (mid - col) * tileWidth * 0.82;
+      panTargetY = 0;
     }
 
     function syncTileState() {
@@ -224,7 +242,14 @@
       const damp = 1 - Math.exp(-dt / 0.12);
       pointerDamped.x += (targetX - pointerDamped.x) * damp;
       pointerDamped.y += (targetY - pointerDamped.y) * damp;
-      applyPlaneTransform(pointerDamped.x, pointerDamped.y);
+      if (pausedByFlip) {
+        pointerDamped.x += (0 - pointerDamped.x) * damp;
+        pointerDamped.y += (0 - pointerDamped.y) * damp;
+      }
+      aimFlippedCard();
+      panX += (panTargetX - panX) * (1 - Math.exp(-dt / 0.18));
+      panY += (panTargetY - panY) * (1 - Math.exp(-dt / 0.18));
+      applyPlaneTransform(pausedByFlip ? 0 : pointerDamped.x, pausedByFlip ? 0 : pointerDamped.y);
 
       if (!reduced) {
         for (let c = 0; c < trackEls.length; c += 1) {
@@ -334,6 +359,8 @@
       pausedByFlip = false;
       hoveredCol = -1;
       activeId = null;
+      panTargetX = 0;
+      panTargetY = 0;
       syncTileState();
     }
 

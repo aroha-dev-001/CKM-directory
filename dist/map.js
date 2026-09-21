@@ -19,7 +19,7 @@
     ajjampura: [76.07, 13.80],
   };
   const MAP_LABEL = {
-    chikkamagaluru: "Chikmagalur",
+    chikkamagaluru: "Chikkamagaluru",
     tarikere: "Tarikere",
     kadur: "Kadur",
     mudigere: "Mudigere",
@@ -30,7 +30,7 @@
     ajjampura: "Ajjampura",
   };
   const LABEL_SIZE = {
-    chikkamagaluru: 22,
+    chikkamagaluru: 14,
     tarikere: 18,
     kadur: 18,
     mudigere: 18,
@@ -183,7 +183,8 @@
   }
 
   function splitLabel(text) {
-    if (text === "NR Pura") return ["NR Pura"];
+    if (text === "Chikkamagaluru") return ["Chikkamagaluru"];
+    if (text === "NR Pura" || text === "N.R. Pura") return ["N.R. Pura"];
     if (text.length <= 10 || !text.includes(" ")) return [text];
     const parts = text.split(" ");
     if (parts.length === 2) return parts;

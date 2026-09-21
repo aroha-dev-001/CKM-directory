@@ -256,8 +256,8 @@ window.CKM = {
     },
     {
       "id": "coffee-museum",
-      "name": "Coffee Museum, Chikmagalur",
-      "kannada": "Coffee Museum, Chikmagalur",
+      "name": "Coffee Museum, Chikkamagaluru",
+      "kannada": "Coffee Museum, Chikkamagaluru",
       "category": "heritage",
       "taluk": "Chikkamagaluru",
       "lat": 13.3161,
@@ -2330,7 +2330,7 @@ window.CKM = {
       "kicker": "Shoulder below Mullayanagiri",
       "hours": "Daylight; same hill road as the high peak",
       "hoursDetail": "A Shiva shrine and a view over both valleys. Often walked on the way back from Mullayanagiri. Road and weather still decide.",
-      "why": "Travel Chikmagalur and 2-day blogs name it as the greener step under Karnataka’s high point — a stop, not a second summit day.",
+      "why": "Travel guides and 2-day blogs name it as the greener step under Karnataka’s high point — a stop, not a second summit day.",
       "hoursSource": {
         "label": "District tourism",
         "url": "https://chikkamagaluru.nic.in/en/tourism/"
@@ -3597,8 +3597,8 @@ window.CKM = {
       "kannada": "ಚಿಕ್ಕಮಗಳೂರು",
       "count": 14,
       "blurb": "Town, Mullayanagiri, Baba Budangiri and the coffee hills above the cloud line.",
-      "listName": "Chikmagalur",
-      "mapLabel": "Chikmagalur"
+      "listName": "Chikkamagaluru",
+      "mapLabel": "Chikkamagaluru"
     },
     {
       "id": "mudigere",
@@ -3722,7 +3722,7 @@ window.CKM = {
     "kicker": "About Chikkamagaluru",
     "image": "assets/coffee-hills.jpg",
     "paragraphs": [
-      "Chikkamagaluru (also spelled Chikmagalur) is the headquarters of the district of the same name in Karnataka. The town sits on the foothills of the Chandra Drona / Baba Budan Giri range of the Western Ghats — the range that holds Mullayanagiri, the highest peak in the state.",
+      "Chikkamagaluru is the headquarters of the district of the same name in Karnataka. The town sits on the foothills of the Chandra Drona / Baba Budan Giri range of the Western Ghats — the range that holds Mullayanagiri, the highest peak in the state.",
       "The district is known for shade-grown coffee, shola grassland, Hoysala temples toward the east, and living mathas at Sringeri and Horanadu. Kannada is the language of the place. This companion is an independent reference. It is not the district administration, and it does not sell rooms."
     ]
   },

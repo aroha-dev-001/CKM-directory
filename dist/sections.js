@@ -899,7 +899,7 @@
         <div class="wrap">
           <p class="kicker">Popular tourist places</p>
           <h1>What visitors actually queue for</h1>
-          <p class="section-lead">Thirty stops that keep showing up on Tripadvisor’s Chikmagalur Things to Do, on district-oriented place lists, and on typical 2-day hill loops. Copy here is this companion’s — not those sites’. Hours are published hints, not a live gate. No fees, rooms or packages.</p>
+          <p class="section-lead">Thirty stops that keep showing up on Tripadvisor’s Chikkamagaluru Things to Do, on district-oriented place lists, and on typical 2-day hill loops. Copy here is this companion’s — not those sites’. Hours are published hints, not a live gate. No fees, rooms or packages.</p>
           <p class="popular-count" data-popular-count>${(f.d.popularPlaces || []).length} popular places in the district</p>
         </div>
       </section>

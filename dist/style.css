@@ -4176,8 +4176,10 @@ body[data-page="coffee"] .origin-chapter p {
   .footer-grid,
   .credit-list,
   .district-explorer,
+  .district-explorer-page .district-explorer,
   .place-section-head {
     grid-template-columns: 1fr;
+    gap: 1.6rem;
   }
 
   .taluk-place,
@@ -4203,7 +4205,46 @@ body[data-page="coffee"] .origin-chapter p {
 
   .district-copy h1,
   .district-copy h2 {
+    max-width: none;
+    font-size: clamp(1.85rem, 7.4vw, 2.55rem);
+    line-height: 1.12;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+
+  .district-copy,
+  .district-index,
+  .district-map-stage {
+    width: 100%;
     max-width: 100%;
+  }
+
+  .district-map-stage {
+    min-height: 0;
+    order: 2;
+  }
+
+  .district-index {
+    order: 3;
+  }
+
+  .taluk-index-row {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+  }
+
+  .taluk-index-dots {
+    display: none;
+  }
+
+  .taluk-index-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .choropleth-svg .taluk-name {
+    font-size: 12px;
   }
 
   .taluk-index-go {
