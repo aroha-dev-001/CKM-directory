@@ -573,7 +573,7 @@
     var dots = $(".seq-dots");
     if (dots) dots.style.display = isMobile() || !rail.dotsVisible ? "none" : "";
     var chips = $(".chips");
-    if (chips) chips.style.display = rail.chipsVisible ? "" : "none";
+    if (chips) chips.style.display = isMobile() || !rail.chipsVisible ? "none" : "";
     document.body.classList.toggle("is-2d", !!CFG.debug.force2d || reducedNow());
     document.documentElement.classList.toggle("walk-snap", allowSnap && !reducedNow());
   }
@@ -754,7 +754,8 @@
     if (isMobile()) {
       var navH = Math.round(Math.min(h * 0.12, Math.max(72, h * 0.08)));
       var photoH = Math.round(w * (9 / 16));
-      drawContainBox(frames[i0], 0, navH, w, photoH, vis);
+      var y = Math.max(8, navH - Math.round(h * 0.02));
+      drawContainBox(frames[i0], 0, y, w, photoH, vis);
     } else {
       ctx.save();
       ctx.translate(Math.round(w * CFG.plates.fallbackShift), 0);
@@ -1069,7 +1070,7 @@
         sx = visW / plateW;
         var plateWorldH = plateH * sx;
         var navBot = visH / 2 - navFrac * visH;
-        liftY = navBot - plateWorldH / 2 - visH * 0.012;
+        liftY = navBot - plateWorldH / 2 + visH * 0.07;
       }
       var camY = mobile ? liftY : c.startY - 0.03;
       var lookY = mobile ? liftY : c.lookY;
@@ -1099,12 +1100,12 @@
         p.material.opacity = mobile
           ? Math.max(0.18, fo.opacityIdle * 0.7) + focus * fo.opacityGain
           : fo.opacityIdle + focus * fo.opacityGain;
-        var grow = 1 + Math.max(0, 1 - Math.abs(ahead - fo.growAhead) / fo.growRange) * (mobile ? fo.growAmount * 0.35 : fo.growAmount);
+        var grow = 1 + Math.max(0, 1 - Math.abs(ahead - fo.growAhead) / fo.growRange) * (mobile ? 0 : fo.growAmount);
         p.scale.set(sx * grow, sx * grow, 1);
-        var restX = mobile ? visW * 0.04 : p.userData.baseX;
-        p.position.x = restX + (1 - focus) * fo.idleDriftX * (mobile ? 0.35 : 1);
-        p.position.y = (mobile ? liftY : p.userData.baseY) + Math.sin(clock.elapsedTime * 0.35 + i) * mo.plateFloat * (mobile ? 0.45 : 1);
-        p.rotation.y = (mobile ? fo.rotY * 0.85 : fo.rotY) - (1 - focus) * fo.rotYIdle;
+        var restX = mobile ? visW * 0.02 : p.userData.baseX;
+        p.position.x = restX + (1 - focus) * fo.idleDriftX * (mobile ? 0.25 : 1);
+        p.position.y = (mobile ? liftY : p.userData.baseY) + Math.sin(clock.elapsedTime * 0.35 + i) * mo.plateFloat * (mobile ? 0.25 : 1);
+        p.rotation.y = (mobile ? fo.rotY * 0.4 : fo.rotY) - (1 - focus) * (mobile ? fo.rotYIdle * 0.4 : fo.rotYIdle);
       });
       shards.forEach(function (s) {
         s.visible = CFG.shards.enabled && !mobile;
@@ -1356,11 +1357,21 @@
   else start();
 
   function start() {
+    window.addEventListener(
+      "scroll",
+      function () {
+        if (Date.now() < pinTopUntil) resetToTop();
+      },
+      { capture: true, passive: true }
+    );
+    window.addEventListener("pageshow", function () {
+      holdTop(700);
+    });
     CFG = clone(WALK_DEFAULTS);
     resetToTop();
     holdTop(400);
     boot();
-    var url = "bean-to-cup.walk.json?v=cup18";
+    var url = "bean-to-cup.walk.json?v=cup19";
     var ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
     var timed = setTimeout(function () {
       if (ctrl) ctrl.abort();
