@@ -3630,11 +3630,11 @@ window.CKM = {
     },
     {
       "local": "balehonnur.jpg",
-      "place": "Country between Sringeri and Balehonnur",
-      "file": "Tea plantation between Sringeri and Balehonnur.jpg",
-      "artist": "b sarangi",
-      "license": "CC BY 2.0",
-      "url": "https://commons.wikimedia.org/wiki/File:Tea_plantation_between_Sringeri_and_Balehonnur.jpg"
+      "place": "Rambhapuri Peetha, Balehonnur",
+      "file": "companion still of the Veerabhadra matha on the Bhadra",
+      "artist": "Companion frame",
+      "license": "Made for this companion",
+      "url": "https://www.rambhapuripeetha.org/"
     },
     {
       "local": "kalasa-stream.jpg",

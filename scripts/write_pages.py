@@ -88,7 +88,7 @@ TEMPLATE = """<!DOCTYPE html>
       <p class="wrap noscript">This companion needs JavaScript for the map and search.</p>
     </noscript>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-    <script src="data.js?v=sage23"></script>
+    <script src="data.js?v=sage24"></script>
     <script src="statistics.js?v=sage2"></script>
     <script src="numbers.js?v=sage5"></script>
     <script src="sections.js?v=sage38"></script>

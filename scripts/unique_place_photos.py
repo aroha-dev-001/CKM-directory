@@ -248,14 +248,14 @@ JOBS = {
     ),
     "balehonnur-rambhapuri-peetha": (
         "balehonnur.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/5/5c/Tea_plantation_between_Sringeri_and_Balehonnur.jpg",
-        "center",
+        "LOCAL",
+        "upper",
         {
-            "place": "Country between Sringeri and Balehonnur",
-            "file": "Tea plantation between Sringeri and Balehonnur.jpg",
-            "artist": "b sarangi",
-            "license": "CC BY 2.0",
-            "url": "https://commons.wikimedia.org/wiki/File:Tea_plantation_between_Sringeri_and_Balehonnur.jpg",
+            "place": "Rambhapuri Peetha, Balehonnur",
+            "file": "companion still of the Veerabhadra matha on the Bhadra",
+            "artist": "Companion frame",
+            "license": "Made for this companion",
+            "url": "https://www.rambhapuripeetha.org/",
         },
     ),
     "sarva-siddhi-ganapathi-samse": (
@@ -360,6 +360,9 @@ def main() -> None:
         dest = OUT / name
         print("fetch", dest_id, name, flush=True)
         try:
+            if url == "LOCAL":
+                print("  skip local companion still", flush=True)
+                continue
             if url.startswith("https://live.staticflickr.com"):
                 src = url
             else:
