@@ -69,6 +69,7 @@
     const q = new URLSearchParams(location.search);
     if (PAGE === "places") {
       state.jumpTo = q.get("category") || "";
+      if (state.jumpTo) state.filter = state.jumpTo;
       state.taluk = q.get("taluk") || "all";
       state.query = q.get("q") || "";
       const id = q.get("id");
@@ -86,15 +87,105 @@
     }
   }
 
+  const SEARCH_STOP = new Set(["the", "a", "an", "of", "in", "on", "at", "to", "from", "and", "or", "for", "with"]);
+  const SEARCH_INTENT = {
+    hill: ["hill-station", "peaks", "viewpoints"],
+    mountain: ["peaks"],
+    peak: ["peaks"],
+    summit: ["peaks"],
+    ridge: ["peaks", "treks"],
+    waterfall: ["waterfalls"],
+    fall: ["waterfalls"],
+    cascade: ["waterfalls"],
+    temple: ["temples"],
+    shrine: ["temples"],
+    matha: ["temples"],
+    lake: ["lakes"],
+    kere: ["lakes"],
+    dam: ["dams"],
+    reservoir: ["dams"],
+    forest: ["wildlife"],
+    wildlife: ["wildlife"],
+    park: ["wildlife"],
+    tiger: ["wildlife"],
+    trek: ["treks"],
+    hike: ["treks"],
+    trail: ["treks"],
+    fort: ["forts"],
+    coffee: ["heritage"],
+    ghat: ["heritage", "viewpoints"],
+    viewpoint: ["viewpoints", "peaks"],
+    station: ["hill-station"],
+  };
+
+  function foldText(value) {
+    return String(value || "")
+      .toLowerCase()
+      .replace(/[’']/g, "")
+      .replace(/[^a-z0-9\u0c80-\u0cff]+/g, " ")
+      .trim();
+  }
+
+  function stemWord(word) {
+    if (word.length <= 3) return word;
+    if (word.endsWith("ies") && word.length > 4) return `${word.slice(0, -3)}y`;
+    if (word.endsWith("sses")) return word.slice(0, -2);
+    if (word.endsWith("s") && !word.endsWith("ss")) return word.slice(0, -1);
+    return word;
+  }
+
+  function queryTokens(value) {
+    return foldText(value)
+      .split(/\s+/)
+      .filter((word) => word && !SEARCH_STOP.has(word))
+      .map(stemWord);
+  }
+
+  function categoryLabel(id) {
+    const cat = (CKM.categories || []).find((item) => item.id === id);
+    return cat ? `${cat.label} ${cat.kn || ""}` : id;
+  }
+
+  function intentCategories(token) {
+    const ids = new Set(SEARCH_INTENT[token] || []);
+    (CKM.categories || []).forEach((cat) => {
+      if (cat.id === "all") return;
+      const hay = queryTokens(`${cat.id.replace(/-/g, " ")} ${cat.label}`);
+      if (hay.includes(token)) ids.add(cat.id);
+    });
+    return ids;
+  }
+
+  function placeHaystack(place) {
+    return foldText(
+      [
+        place.name,
+        place.kannada,
+        place.taluk,
+        place.talukId,
+        String(place.id || "").replace(/-/g, " "),
+        place.category,
+        categoryLabel(place.category),
+        ...(place.tags || []),
+      ].join(" ")
+    );
+  }
+
+  function placeMatchesQuery(place, query) {
+    const tokens = queryTokens(query);
+    if (!tokens.length) return true;
+    const hay = placeHaystack(place);
+    const hayTokens = queryTokens(hay);
+    return tokens.every((token) => {
+      if (hay.includes(token) || hayTokens.includes(token)) return true;
+      return intentCategories(token).has(place.category);
+    });
+  }
+
   function matches(place) {
     if (state.filter !== "all" && place.category !== state.filter) return false;
     if (state.taluk !== "all" && place.talukId !== state.taluk && place.taluk !== state.taluk) return false;
-    const q = state.query.trim().toLowerCase();
-    if (!q) return true;
-    const blob = [place.name, place.kannada, place.taluk, place.category, place.blurb, ...(place.tags || [])]
-      .join(" ")
-      .toLowerCase();
-    return blob.includes(q);
+    return placeMatchesQuery(place, state.query);
   }
 
   function renderPlaces() {
@@ -107,6 +198,14 @@
     root.innerHTML = CKMSections.renderPlaceSections(state.lang, list);
     if (count) count.textContent = String(list.length);
     if (empty) empty.hidden = list.length > 0;
+    const searching = Boolean(state.query.trim());
+    document.querySelectorAll("[data-jump-category]").forEach((link) => {
+      const id = link.getAttribute("data-jump-category");
+      const has = list.some((place) => place.category === id);
+      const on = state.filter === id || (searching && state.filter === "all" && has);
+      link.classList.toggle("is-active", on);
+      link.hidden = searching && !has;
+    });
     renderTalukContext();
   }
 
@@ -474,9 +573,15 @@
       document.querySelector("[data-popular-group][aria-selected='true']")?.getAttribute("data-popular-group") || "all";
     let n = 0;
     stack.querySelectorAll("[data-popular-card]").forEach((card) => {
-      const g = card.getAttribute("data-popular-group");
+      const g = card.getAttribute("data-popular-group") || "";
       const name = (card.getAttribute("data-name") || "").toLowerCase();
-      const show = (group === "all" || g === group) && (!q || name.includes(q));
+      const hay = `${name} ${g.replace(/-/g, " ")}`;
+      const show = (group === "all" || g === group) && (!q || hay.includes(q) || placeMatchesQuery({
+        name,
+        category: g,
+        id: "",
+        tags: [g],
+      }, q));
       card.hidden = !show;
       card.classList.toggle("is-alt", show && n % 2 === 1);
       if (show) n += 1;
@@ -809,6 +914,19 @@
         }
         return;
       }
+      const talukFilter = event.target.closest("[data-taluk]");
+      if (talukFilter) {
+        event.preventDefault();
+        state.taluk = talukFilter.getAttribute("data-taluk");
+        if (talukFilter.classList.contains("t-tab")) selectTab(talukFilter);
+        document.querySelectorAll("[data-taluk]").forEach((btn) => {
+          const on = btn === talukFilter;
+          btn.setAttribute("aria-pressed", on ? "true" : "false");
+          btn.setAttribute("aria-selected", on ? "true" : "false");
+        });
+        renderPlaces();
+        return;
+      }
       const tab = event.target.closest(".t-tab");
       if (tab && tab.closest("[data-tabs]")) {
         selectTab(tab);
@@ -822,21 +940,14 @@
       }
       const jump = event.target.closest("[data-jump-category]");
       if (jump) {
+        event.preventDefault();
         const id = jump.getAttribute("data-jump-category");
+        state.filter = state.filter === id ? "all" : id;
+        renderPlaces();
         const section = document.getElementById(`section-${id}`);
         if (section) {
-          event.preventDefault();
           section.scrollIntoView({ behavior: prefersReduced() ? "auto" : "smooth", block: "start" });
         }
-        return;
-      }
-      const talukFilter = event.target.closest("[data-taluk]");
-      if (talukFilter) {
-        state.taluk = talukFilter.getAttribute("data-taluk");
-        document.querySelectorAll("[data-taluk]").forEach((btn) => {
-          btn.setAttribute("aria-pressed", btn === talukFilter ? "true" : "false");
-        });
-        renderPlaces();
         return;
       }
       const selectTaluk = event.target.closest("[data-select-taluk]");
@@ -926,9 +1037,7 @@
       },
       execute: async ({ query }) => {
         const q = String(query || "").toLowerCase();
-        const hits = CKM.destinations.filter((p) =>
-          [p.name, p.kannada, p.taluk, p.category, p.blurb].join(" ").toLowerCase().includes(q)
-        );
+        const hits = CKM.destinations.filter((p) => placeMatchesQuery(p, q));
         return envelope(JSON.stringify(hits.map((p) => ({ id: p.id, name: p.name, taluk: p.taluk, category: p.category })), null, 2));
       },
     });

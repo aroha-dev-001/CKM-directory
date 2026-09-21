@@ -96,7 +96,7 @@ TEMPLATE = """<!DOCTYPE html>
     <script src="carousel.js?v=sage6"></script>
     <script src="drift-wall.js?v=sage9"></script>
     <script src="accordion-gallery.js?v=sage9"></script>
-    <script src="app.js?v=sage31"></script>
+    <script src="app.js?v=sage32"></script>
   </body>
 </html>
 """
