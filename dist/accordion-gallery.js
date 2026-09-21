@@ -44,6 +44,8 @@
     let firstRun = true;
     let mediaSize = 320;
     let tl = null;
+    let stackLock = false;
+    let stackLockTimer = 0;
     const stackQuery = global.matchMedia ? global.matchMedia("(max-width: 720px)") : { matches: false, addEventListener() {}, removeEventListener() {} };
 
     function isStack() {
@@ -118,19 +120,20 @@
         const shift = stack ? 0 : drift * parallax * mediaSize * 0.06;
         const gray = grayscale ? (isActive ? 0 : 1) : 0;
         const dim = isActive ? 0.12 : 0.42;
-        const stackGrow = count > 1 ? (0.7 * (count - 1)) / 0.3 : 1;
-        const panelGrow = stack ? (isActive ? stackGrow : 1) : isActive ? grow : 1;
+        const panelGrow = stack ? 0 : isActive ? grow : 1;
+
+        if (stack) {
+          panel.style.height = "";
+          panel.style.flexGrow = "0";
+          panel.style.transform = "none";
+        }
 
         if (gsap && tl) {
           tl.to(
             panel,
-            {
-              flexGrow: panelGrow,
-              ...(stack ? { rotateX: 0, rotateY: 0 } : rotProp),
-              "--ag-dim": dim,
-              duration: dur,
-              ease,
-            },
+            stack
+              ? { rotateX: 0, rotateY: 0, "--ag-dim": dim, duration: dur, ease }
+              : { flexGrow: panelGrow, ...rotProp, "--ag-dim": dim, duration: dur, ease },
             0
           );
           if (media) {
@@ -174,7 +177,7 @@
             }
           }
         } else {
-          panel.style.flexGrow = String(panelGrow);
+          if (!stack) panel.style.flexGrow = String(panelGrow);
           panel.style.setProperty("--ag-dim", String(dim));
           if (media) media.style.setProperty("--ag-gray", String(gray));
           if (copy) {
@@ -190,6 +193,13 @@
       if (next === active && !firstRun) return;
       active = next;
       applyLayout(!firstRun);
+      if (isStack() && !firstRun && !prefersReduced) {
+        stackLock = true;
+        window.clearTimeout(stackLockTimer);
+        stackLockTimer = window.setTimeout(() => {
+          stackLock = false;
+        }, duration * 1000 + 50);
+      }
       options.onChange?.(active, items[active]);
     }
 
@@ -201,16 +211,21 @@
       const stack = isStack();
       const wrap = pinWrap();
       root.classList.toggle("accordion-gallery--stack", stack);
-      if (wrap) wrap.classList.toggle("explore-accordion-wrap--pin", stack);
+      if (wrap) {
+        wrap.classList.remove("explore-accordion-wrap--pin");
+        wrap.style.minHeight = "";
+      }
       if (stack) {
-        const h = Math.round(Math.min(window.innerHeight * 0.78, 640));
-        root.style.height = `${h}px`;
+        root.style.height = "auto";
+        root.style.position = "";
+        root.style.top = "";
         root.style.setProperty("--ag-media-size", "100%");
-        if (wrap) wrap.style.minHeight = `${Math.round(count * h * 0.92)}px`;
         applyLayout(!firstRun);
         return;
       }
-      if (wrap) wrap.style.minHeight = "";
+      panels.forEach((panel) => {
+        panel.style.height = "";
+      });
       const rect = root.getBoundingClientRect();
       const total = vertical ? rect.height : rect.width;
       const usable = Math.max(total - gap * (count - 1), 120);
@@ -222,15 +237,27 @@
     }
 
     function syncFromScroll() {
-      if (!isStack()) return;
-      const wrap = pinWrap();
-      if (!wrap) return;
-      const stickyTop = 72;
-      const traveled = stickyTop - wrap.getBoundingClientRect().top;
-      const maxTravel = Math.max(wrap.offsetHeight - root.offsetHeight, 1);
-      const t = Math.min(1, Math.max(0, traveled / maxTravel));
-      const i = Math.min(count - 1, Math.round(t * (count - 1)));
-      setActive(i);
+      if (!isStack() || stackLock) return;
+      const mid = window.innerHeight * 0.42;
+      let best = active;
+      let bestDist = Infinity;
+      panels.forEach((panel, i) => {
+        const r = panel.getBoundingClientRect();
+        if (r.bottom < 48 || r.top > window.innerHeight - 48) return;
+        const center = (r.top + r.bottom) / 2;
+        const dist = Math.abs(center - mid);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = i;
+        }
+      });
+      if (best === active) return;
+      const cur = panels[active]?.getBoundingClientRect();
+      if (cur) {
+        const curDist = Math.abs((cur.top + cur.bottom) / 2 - mid);
+        if (curDist - bestDist < 56) return;
+      }
+      setActive(best);
     }
 
     panels.forEach((panel, i) => {
@@ -287,6 +314,7 @@
       },
       destroy() {
         tl?.kill();
+        window.clearTimeout(stackLockTimer);
         ro.disconnect();
         window.removeEventListener("scroll", onScroll);
         const wrap = pinWrap();

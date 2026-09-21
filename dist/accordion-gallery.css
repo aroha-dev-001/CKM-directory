@@ -177,28 +177,40 @@
   .explore-accordion-wrap .explore-nav {
     display: none;
   }
-  .explore-accordion-wrap--pin {
-    display: block;
-    position: relative;
+  .explore-section.reveal-on-scroll {
+    transform: none;
   }
   .accordion-gallery--stack {
-    position: sticky;
-    top: 4.6rem;
+    position: relative;
+    top: auto;
     z-index: 2;
     flex-direction: column;
     perspective: none;
-    height: min(78svh, 40rem) !important;
+    height: auto !important;
     gap: 10px;
   }
   .accordion-gallery--stack .ag-panel {
-    flex: 1 1 0;
+    flex: 0 0 auto !important;
     width: 100%;
-    min-height: 3.4rem;
-    height: auto;
+    height: 4.75rem;
+    min-height: 4.75rem;
+    max-height: 4.75rem;
     transform: none !important;
+    overflow: hidden;
+    will-change: height, max-height;
+    transition:
+      height 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+      min-height 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+      max-height 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .accordion-gallery--stack .ag-panel--active {
-    min-height: 12rem;
+    height: min(68svh, 32rem);
+    min-height: min(68svh, 32rem);
+    max-height: min(68svh, 32rem);
+  }
+  .accordion-gallery--stack .ag-panel:not(.ag-panel--active) .ag-panel__copy {
+    opacity: 0 !important;
+    pointer-events: none;
   }
   .accordion-gallery--stack .ag-panel__media {
     top: 0 !important;
@@ -245,5 +257,8 @@
   .ag-panel,
   .ag-panel__media {
     will-change: auto;
+  }
+  .accordion-gallery--stack .ag-panel {
+    transition: none;
   }
 }
