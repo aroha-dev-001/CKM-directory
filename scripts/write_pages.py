@@ -10,7 +10,6 @@ PAGES = [
     ("taluk.html", "taluk", "Taluk guide — Chikkamagaluru"),
     ("stories.html", "stories", "Coffee, culture and seasons — Chikkamagaluru"),
     ("coffee.html", "coffee", "Seven seeds from Mocha — Chikkamagaluru"),
-    ("bean-to-cup.html", "beantocup", "Baba Budan, then the cup — Chikkamagaluru"),
     ("food.html", "food", "Malnad kitchen — Chikkamagaluru"),
     ("nature.html", "nature", "Nature — Chikkamagaluru"),
     ("stay.html", "stay", "Hill air — Chikkamagaluru"),

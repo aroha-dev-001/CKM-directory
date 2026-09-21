@@ -6,80 +6,345 @@
     <title>Baba Budan, then the cup — Chikkamagaluru</title>
     <meta
       name="description"
-      content="An independent companion for discovering Chikkamagaluru: peaks, waterfalls, temples, forests, seasons and a private itinerary. Not a government site. Not a booking service."
+      content="How coffee reached Chikkamagaluru: Baba Budan’s seven Mocha seeds, shade planting on Chandra Drona, and the walk from cherry to davara. Not a shop."
     />
-    <meta name="theme-color" content="#0c1f13" />
+    <meta name="theme-color" content="#05070a" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;700&family=Outfit:wght@400&family=JetBrains+Mono:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css?v=sage27" />
-    <link rel="stylesheet" href="carousel.css?v=sage6" />
-    <link rel="stylesheet" href="drift-wall.css?v=sage6" />
-    <link rel="stylesheet" href="accordion-gallery.css?v=sage1" />
+    <link rel="stylesheet" href="secret-pathways-assets/fonts.css" />
+    <link rel="stylesheet" href="kage-walk.css?v=cup3" />
   </head>
-  <body data-page="beantocup">
-    <a class="skip" href="#main">Skip to content</a>
-    <header class="site-header" id="top">
-      <div class="header-inner">
-        <a class="wordmark" href="index.html">
-          <span class="wordmark-en">Chikkamagaluru</span>
-          <span class="wordmark-kn">ಚಿಕ್ಕಮಗಳೂರು</span>
-        </a>
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
-          <span class="nav-toggle-bars" aria-hidden="true"></span>
-          <span class="sr-only">Open menu</span>
-        </button>
-        <nav class="site-nav" id="site-nav" aria-label="Primary">
-          <a href="index.html" data-nav="home" data-i18n="nav_home">Home</a>
-          <a href="index.html#explore-chikmagaluru" data-nav="explore" data-i18n="nav_explore">Explore</a>
-          <a href="places.html" data-nav="places" data-i18n="nav_places">Places</a>
-          <a href="popular.html" data-nav="popular" data-i18n="nav_popular">Popular</a>
-          <a href="map.html" data-nav="map" data-i18n="nav_map">Map</a>
-          <a href="stories.html" data-nav="stories" data-i18n="nav_stories">Stories</a>
-          <a href="bean-to-cup.html" data-nav="beantocup">Bean to cup</a>
-          <a href="plan.html" data-nav="plan" data-i18n="nav_plan">Plan</a>
-          <a href="visit.html" data-nav="visit" data-i18n="nav_visit">Visit</a>
-        </nav>
-        <div class="header-tools">
-          <button class="lang-toggle" type="button" data-lang-toggle>ಕನ್ನಡ</button>
-          <a class="header-trip" href="plan.html">Trip
-            <span class="t-badge" data-open="true">
-              <span class="t-badge-dot t-digit-group" data-trip-count>0</span>
-            </span>
-          </a>
-        </div>
-      </div>
-    </header>
+  <body class="is-locked">
+    <a class="skip" href="#hero">Skip to story</a>
 
-    <main id="main" class="page-enter"></main>
-
-    <div class="modal" id="place-modal" hidden>
-      <div class="modal-backdrop" data-close-modal></div>
-      <div class="modal-panel t-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
-        <button class="icon-close" type="button" data-close-modal aria-label="Close">×</button>
-        <div class="modal-media">
-          <img id="modal-image" alt="" width="1800" height="1200" />
+    <div id="pre" aria-live="polite">
+      <div class="pre-in">
+        <div class="pre-mark" aria-hidden="true">
+          <svg viewBox="0 0 44 44" fill="none">
+            <ellipse cx="22" cy="24" rx="11" ry="14" stroke="#dfe7e0" stroke-width="1.2"/>
+            <path d="M33 20c4 1 6 5 4 9s-7 5-9 3" stroke="#dfe7e0" stroke-width="1.2"/>
+            <path d="M16 10c2-4 8-5 11-1" stroke="#e0231c" stroke-width="1.2"/>
+          </svg>
         </div>
-        <div class="modal-body" id="modal-body"></div>
+        <p class="pre-jp" data-i="pre.jp">ಚಿಕ್ಕಮಗಳೂರು</p>
+        <div class="pre-bar"><i id="pre-bar"></i></div>
+        <div class="pre-meta"><span data-i="pre.l">Seven seeds</span><b id="pre-num">000</b><span data-i="pre.r">One cup</span></div>
       </div>
     </div>
-    <div class="toast t-toast" id="toast" role="status" aria-live="polite"></div>
-    <noscript>
-      <p class="wrap noscript">This companion needs JavaScript for the map, itinerary and search.</p>
-    </noscript>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-    <script src="data.js?v=sage18"></script>
-    <script src="statistics.js?v=sage1"></script>
-    <script src="numbers.js?v=sage4"></script>
-    <script src="sections.js?v=sage29"></script>
-    <script src="map.js?v=sage6"></script>
-    <script src="carousel.js?v=sage6"></script>
-    <script src="drift-wall.js?v=sage6"></script>
-    <script src="accordion-gallery.js?v=sage1"></script>
-    <script src="app.js?v=sage25"></script>
+
+    <div id="story-bg" aria-hidden="true"></div>
+    <canvas id="gl" aria-hidden="true"></canvas>
+    <div id="grain" aria-hidden="true"></div>
+    <div id="vignette" aria-hidden="true"></div>
+    <div class="cur-dot" aria-hidden="true"></div>
+
+    <header class="nav" data-layout-hero="b">
+      <a class="brand" href="index.html">
+        <svg viewBox="0 0 34 34" fill="none" aria-hidden="true">
+          <circle cx="17" cy="17" r="16" stroke="currentColor" stroke-width="1"/>
+          <path d="M11 21c2-8 10-10 13-4" stroke="#e0231c" stroke-width="1.2"/>
+        </svg>
+        <span class="brand-tx"><b>Chikkamagaluru</b><i>ಚಿಕ್ಕಮಗಳೂರು</i></span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a class="nav-link" href="index.html"><span data-i="nav.home">Home</span><span class="alt" data-i="nav.home">Home</span></a>
+        <a class="nav-link" href="index.html#explore-chikmagaluru"><span data-i="nav.explore">Explore</span><span class="alt" data-i="nav.explore">Explore</span></a>
+        <a class="nav-link" href="places.html"><span data-i="nav.places">Places</span><span class="alt" data-i="nav.places">Places</span></a>
+        <a class="nav-link" href="stories.html"><span data-i="nav.stories">Stories</span><span class="alt" data-i="nav.stories">Stories</span></a>
+        <a class="nav-link on" href="bean-to-cup.html"><span data-i="nav.here">Bean to cup</span><span class="alt" data-i="nav.here">Bean to cup</span></a>
+        <a class="nav-link" href="plan.html"><span data-i="nav.plan">Plan</span><span class="alt" data-i="nav.plan">Plan</span></a>
+        <button class="nav-lang" type="button" data-lang-toggle aria-pressed="false">ಕನ್ನಡ</button>
+      </nav>
+      <button class="nav-burger" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+        <i></i><i></i>
+      </button>
+    </header>
+
+    <nav class="rail" aria-label="Story beats">
+      <button type="button" class="on" data-jump="#hero" aria-label="Opening"><i></i></button>
+      <button type="button" data-jump="#act-origin" aria-label="Origin"><i></i></button>
+      <button type="button" data-jump="#bean-seeds" aria-label="Seven seeds"><i></i></button>
+      <button type="button" data-jump="#act-crop" aria-label="The crop"><i></i></button>
+      <button type="button" data-jump="#bean-cup" aria-label="The cup"><i></i></button>
+    </nav>
+
+    <main class="page">
+      <section class="hero" id="hero" data-cam="0">
+        <div class="hero-top">
+          <p class="eyebrow" data-rv="fade"><span class="dot"></span><span data-i="hero.kicker">How coffee reached these hills</span></p>
+          <h1 class="display h-hero" data-rv="up" data-i="hero.title">Baba Budan, then the cup</h1>
+          <p class="hero-sub body-lg" data-rv="up" data-i="hero.sub">Seven seeds from Mocha, a courtyard on Chandra Drona, shade rows, and a davara at first light. Two acts: the saint, then the crop. Not a shop.</p>
+        </div>
+        <div class="hero-spacer"></div>
+        <a class="peek" href="#act-crop" data-jump="#act-crop">
+          <span class="peek-fr"></span>
+          <span class="peek-play" aria-hidden="true">
+            <svg viewBox="0 0 46 46" fill="none"><circle cx="23" cy="23" r="22" stroke="#dfe7e0" stroke-opacity=".5"/><path d="M19 15l14 8-14 8V15z" fill="#dfe7e0"/></svg>
+          </span>
+          <span class="peek-cap"><b data-i="peek.b">Shade path</b><i data-i="peek.i">09</i></span>
+        </a>
+        <div class="hero-foot">
+          <div class="hero-cue"><span data-i="hero.cue">Scroll</span><span class="track"><i></i></span></div>
+          <div class="chapters chapters-story">
+            <button class="chip on" type="button" data-jump="#act-origin">
+              <span class="num">I</span>
+              <span class="tx"><b data-i="chip.i.b">Origin</b><p data-i="chip.i.p">The saint’s ridge</p></span>
+            </button>
+            <button class="chip" type="button" data-jump="#bean-seeds">
+              <span class="num">II</span>
+              <span class="tx"><b data-i="chip.ii.b">Seeds</b><p data-i="chip.ii.p">Seven from Mocha</p></span>
+            </button>
+            <button class="chip" type="button" data-jump="#act-crop">
+              <span class="num">III</span>
+              <span class="tx"><b data-i="chip.iii.b">Shade</b><p data-i="chip.iii.p">The living crop</p></span>
+            </button>
+            <button class="chip" type="button" data-jump="#bean-cup">
+              <span class="num">IV</span>
+              <span class="tx"><b data-i="chip.iv.b">Cup</b><p data-i="chip.iv.p">The davara</p></span>
+            </button>
+          </div>
+        </div>
+        <div class="hero-side" aria-hidden="true"><span class="v">BEAN TO CUP</span></div>
+      </section>
+
+      <section class="sec act-band" id="act-origin" data-cam="1">
+        <div class="sec-head"><span class="k"><b>01</b> · <span data-i="act1.k">Act one</span></span><span class="rule"></span></div>
+        <h2 class="display h-sec" data-rv="up" data-i="act1.h">How the bean came to this ridge</h2>
+      </section>
+
+      <section class="sec beat" id="bean-saint" data-cam="1">
+        <div class="gate-grid">
+          <h2 class="display h-sec" data-rv="up" data-i="c00.h">Baba Budan, the name on this ridge</h2>
+          <div class="gate-copy" data-rv="up">
+            <p class="eyebrow" data-i="c00.k">00 · The saint</p>
+            <p class="lead" data-i="c00.p1">Coffee did not arrive in this district as a cup. It arrived as a story about a Sufi: seven Mocha seeds, carried home and set in courtyard earth on Chandra Drona.</p>
+            <p class="body" data-i="c00.p2">The years disagree. The ridge does not. This page is not a shop. Two acts: first the saint, then the crop as it is still grown and drunk here.</p>
+            <p class="cap" data-i="c00.cap">Companion still of Baba Budan. No period portrait is known.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec beat is-right" id="bean-plant" data-cam="2">
+        <div class="gate-grid">
+          <h2 class="display h-sec" data-rv="up" data-i="c01.h">A shrub that liked mist</h2>
+          <div class="gate-copy" data-rv="up">
+            <p class="eyebrow" data-i="c01.k">01 · The plant</p>
+            <p class="lead" data-i="c01.p1">Before it was a cup on the Hassan bus, coffee was a red cherry in highland weather — a shrub that preferred cloud to open sun. That plant walked a long way from Ethiopian slopes before it ever saw these ghats.</p>
+            <p class="body" data-i="c01.p2">What took root on Chandra Drona is still that same highland thing: shade-hungry, slow, and particular about rain.</p>
+            <p class="cap" data-i="c01.cap">Companion still — wild arabica in highland mist. Imagined landscape, not a field survey of Ethiopia.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec beat" id="bean-mocha" data-cam="3">
+        <div class="gate-grid">
+          <h2 class="display h-sec" data-rv="up" data-i="c02.h">The harbour that sold the cup</h2>
+          <div class="gate-copy" data-rv="up">
+            <p class="eyebrow" data-i="c02.k">02 · Mocha</p>
+            <p class="lead" data-i="c02.p1">On the Yemeni shore, Mocha became the name people used when they meant coffee itself. The city sold the roasted drink freely enough. Live seed was another matter.</p>
+            <p class="body" data-i="c02.p2">Keep the tree at home, and the world stays a customer. What left that harbour as cargo was meant to be drunk, not planted.</p>
+            <p class="cap" data-i="c02.cap">Companion still — Mocha harbour, dhows, and sacks of cherry. Not a historical survey of the port.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec beat is-right" id="bean-seeds" data-cam="4">
+        <div class="gate-grid">
+          <h2 class="display h-sec" data-rv="up" data-i="c03.h">A courtyard on this ridge</h2>
+          <div class="gate-copy" data-rv="up">
+            <p class="eyebrow" data-i="c03.k">03 · Seven seeds</p>
+            <p class="lead" data-i="c03.p1">Then a Sufi from these hills is said to have come home with seven Mocha seeds and set them in the courtyard of his hermitage on Baba Budan Giri. Some tellings put that planting near 1600. Others walk him home from Hajj nearer 1670.</p>
+            <p class="body" data-i="c03.p2">The years argue. The ridge does not. It still carries his name, and the trees still like the same mist.</p>
+            <p class="cap" data-i="c03.cap">Companion still — seven Mocha seeds in courtyard earth. Not a reconstruction of a dated planting.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec beat" id="bean-voyage" data-cam="5">
+        <div class="gate-grid">
+          <h2 class="display h-sec" data-rv="up" data-i="c04.h">What the hills still tell</h2>
+          <div class="gate-copy" data-rv="up">
+            <p class="eyebrow"><span data-i="c04.k">04 · The Hajj lore</span><span class="lore">Lore</span></p>
+            <p class="lead" data-i="c04.p1">The story that travels with the seeds is a smuggler's story: seven raw beans, because seven is sacred, tucked away — in a beard, in the later tellings — so a port would not notice a future forest leaving in a pilgrim's clothes.</p>
+            <p class="body" data-i="c04.p2">No ship's book confirms it. The district tells it anyway, the way a family tells how the house was built. Believe the slope. Treat the beard as lore.</p>
+            <p class="cap" data-i="c04.cap">Companion still of the voyage lore: a dhow, a cloth pouch, Mocha astern. Not a reconstruction of a dated crossing. Lore.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec beat is-right" id="bean-hermitage" data-cam="6">
+        <div class="gate-grid">
+          <h2 class="display h-sec" data-rv="up" data-i="c05.h">A garden before it was a crop</h2>
+          <div class="gate-copy" data-rv="up">
+            <p class="eyebrow" data-i="c05.k">05 · Chandra Drona</p>
+            <p class="lead" data-i="c05.p1">Those first plants did not become a landscape overnight. For a long time they were a curiosity in courtyard earth — a few trees behind a house, not yet the silver-oak rows you pass on the Charmadi road.</p>
+            <p class="body" data-i="c05.p2">Chandra Drona held a garden before it held an estate. The shrine is still on that ridge. The crop learned patience here.</p>
+            <p class="cap" data-i="c05.cap">Companion still — a cave hermitage and seedling terraces on Chandra Drona. Imagined courtyard, not a measured plan of the shrine.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec beat" id="bean-estate" data-cam="7">
+        <div class="gate-grid">
+          <h2 class="display h-sec" data-rv="up" data-i="c06.h">When the forest learned rows</h2>
+          <div class="gate-copy" data-rv="up">
+            <p class="eyebrow" data-i="c06.k">06 · Estate country</p>
+            <p class="lead" data-i="c06.p1">Rows came later, when the forested south was cut into property. In the 1820s planters opened country beside this same ridge, and the crop walked on into Wayanad, the Shevaroys, the Nilgiris.</p>
+            <p class="body" data-i="c06.p2">What had been a hermitage tree became a hillside of labour — shade measured, paths named, a bungalow on the shoulder of the hill.</p>
+            <p class="cap" data-i="c06.cap">Companion still — early shade rows and a ridge bungalow. Imagined estate country, not a portrait of any working property.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec beat is-right" id="bean-shade-work" data-cam="8">
+        <div class="gate-grid">
+          <h2 class="display h-sec" data-rv="up" data-i="c07.h">What you see from the bus</h2>
+          <div class="gate-copy" data-rv="up">
+            <p class="eyebrow" data-i="c07.k">07 · Shade work</p>
+            <p class="lead" data-i="c07.p1">Look out between Mudigere and Balehonnur and you are looking at work: two roofs of shade, pepper on the trunks, arabica underneath. Karnataka still grows the largest share of the Indian crop. Rust and stem borer later asked for tougher trees.</p>
+            <p class="body" data-i="c07.p2">In 1925 an experiment station opened near Balehonnur, in this district — a house of trial plots that the canopy still leans on. The green you photograph from the window is someone's season.</p>
+            <p class="cap" data-i="c07.cap">Companion still — silver-oak shade, pepper vine, and a working path. Not a photograph of CCRI.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec beat" id="bean-guest" data-cam="9">
+        <div class="gate-grid">
+          <h2 class="display h-sec" data-rv="up" data-i="c08.h">Walk as a guest</h2>
+          <div class="gate-copy" data-rv="up">
+            <p class="eyebrow" data-i="c08.k">08 · This companion</p>
+            <p class="lead" data-i="c08.p1">This page will not sell you a cupping, a bungalow, or a jeep through someone else's silver oak. If a planter opens a path, that is their door. Stay on it.</p>
+            <p class="body" data-i="c08.p2">The seven seeds are a story people keep. The canopy is a living crop in a living forest. Drink the cup. Leave the rows as you found them.</p>
+            <p class="cap" data-i="c08.cap">Companion still — a quiet path under coffee. This page does not sell a stay or a tour.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec act-band" id="act-crop" data-cam="10">
+        <div class="sec-head"><span class="k"><b>02</b> · <span data-i="act2.k">Act two</span></span><span class="rule"></span></div>
+        <h2 class="display h-sec" data-rv="up" data-i="act2.h">From shade to the davara</h2>
+      </section>
+
+      <section class="sec beat is-right" id="bean-shade" data-cam="10">
+        <div class="gate-grid">
+          <h2 class="display h-sec" data-rv="up" data-i="c09.h">A path the canopy keeps</h2>
+          <div class="gate-copy" data-rv="up">
+            <p class="eyebrow" data-i="c09.k">09 · Shade</p>
+            <p class="lead" data-i="c09.p1">The crop begins where the tar road stops. Arabica sits under silver oak. Mist still hangs in the valley. The path is wet from last night’s rain.</p>
+            <p class="body" data-i="c09.p2">This companion does not sell a tour of anyone’s estate. It only shows why the canopy matters: Chikkamagaluru coffee is a shade crop. The hill prefers cloud to open sun.</p>
+            <p class="cap" data-i="c09.cap">Shade-grown arabica at first light — silver oak, mist, a dirt line through the rows.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec beat" id="bean-cherry" data-cam="11">
+        <div class="gate-grid">
+          <h2 class="display h-sec" data-rv="up" data-i="c10.h">The bean still dressed as fruit</h2>
+          <div class="gate-copy" data-rv="up">
+            <p class="eyebrow" data-i="c10.k">10 · Cherry</p>
+            <p class="lead" data-i="c10.p1">Coffee is not a cup first. It is a red fruit in the leaf. The skin is sweet. Inside sit two seeds, pressed together like palms.</p>
+            <p class="body" data-i="c10.p2">Pickers wait for that colour. Green cherries taste thin. This is not a recipe. It is the plant, still on the hill, before anyone names a roast.</p>
+            <p class="cap" data-i="c10.cap">Ripe arabica cherries on a living shrub — dew on the skin, green fruit still waiting.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec beat is-right" id="bean-seed" data-cam="12">
+        <div class="gate-grid">
+          <h2 class="display h-sec" data-rv="up" data-i="c11.h">Three names for one seed</h2>
+          <div class="gate-copy" data-rv="up">
+            <p class="eyebrow" data-i="c11.k">11 · Seed</p>
+            <p class="lead" data-i="c11.p1">Strip the fruit and a pale husk remains. Dry that, and you hold a green bean. Cherry, parchment, green — three names, one journey.</p>
+            <p class="body" data-i="c11.p2">Mills still do this work in the district. This page does not name a brand or a price. It only shows how the seed changes clothes before fire.</p>
+            <p class="cap" data-i="c11.cap">Cherry, parchment, green bean — one seed counted three ways on a mill table.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec beat" id="bean-roast" data-cam="13">
+        <div class="gate-grid">
+          <h2 class="display h-sec" data-rv="up" data-i="c12.h">The drum that names the cup</h2>
+          <div class="gate-copy" data-rv="up">
+            <p class="eyebrow" data-i="c12.k">12 · Fire</p>
+            <p class="lead" data-i="c12.p1">A green bean has almost no smell. Fire draws the sugar out. Only then does the seed begin to sound like a cup.</p>
+            <p class="body" data-i="c12.p2">Roast is local taste, not a single law. What you see here is the drum — the turn from plant to the filter waiting on a verandah.</p>
+            <p class="cap" data-i="c12.cap">A roasting drum at work — steam, sugar browning, the smell that people call coffee.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec beat is-right" id="bean-brew" data-cam="14">
+        <div class="gate-grid">
+          <h2 class="display h-sec" data-rv="up" data-i="c13.h">Two steel barrels, hot water</h2>
+          <div class="gate-copy" data-rv="up">
+            <p class="eyebrow" data-i="c13.k">13 · Filter</p>
+            <p class="lead" data-i="c13.p1">Malnad drinks it this way: grounds in the upper barrel, decoction collecting below. Steam is the clock.</p>
+            <p class="body" data-i="c13.p2">This is house coffee, not a café list. The companion will not sell you a cup. It only shows the metal, the wood, and the wait.</p>
+            <p class="cap" data-i="c13.cap">South Indian filter on an estate table — grounds, hot water, the slow drip into the lower cup.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec beat" id="bean-cup" data-cam="15">
+        <div class="gate-grid">
+          <h2 class="display h-sec" data-rv="up" data-i="c14.h">The davara, and the hill still there</h2>
+          <div class="gate-copy" data-rv="up">
+            <p class="eyebrow" data-i="c14.k">14 · Cup</p>
+            <p class="lead" data-i="c14.p1">Here the cup is a davara. Milk is a household choice. The hill is still in the window.</p>
+            <p class="body" data-i="c14.p2">From seven Mocha seeds to this metal is one walk. Not a shop. The saint first. Then the crop.</p>
+            <p class="cap" data-i="c14.cap">Decoction in a steel davara — the estate still in the frame, first light on the shrubs.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec fin" id="close" data-cam="16">
+        <p class="eyebrow" data-rv="fade" data-i="fin.k">Close</p>
+        <h2 class="display" data-rv="up" data-i="fin.h">Drink. Leave the rows.</h2>
+        <p class="body-lg" data-rv="up" data-i="fin.p">From seven Mocha seeds to a davara is one walk. This page is not a shop. Believe the slope. Treat the beard as lore.</p>
+        <p>
+          <a class="cta" href="index.html"><i></i><span data-i="cta.home">Back to the companion</span></a>
+          <a class="cta" href="places.html?id=baba-budangiri" style="margin-left:12px"><i></i><span data-i="cta.baba">Baba Budangiri</span></a>
+        </p>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <h4>Chikkamagaluru</h4>
+          <p data-i="foot.note">Independent companion. Not a government site. Not a booking service.</p>
+        </div>
+        <div>
+          <h4>Walk</h4>
+          <ul>
+            <li><a href="#act-origin">Origin 00–08</a></li>
+            <li><a href="#act-crop">Crop 09–14</a></li>
+            <li><a href="coffee.html">Coffee chapter</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Sources</h4>
+          <ul>
+            <li><a href="https://coffeeboard.gov.in/" rel="noopener noreferrer">Coffee Board of India</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Baba_Budan" rel="noopener noreferrer">Baba Budan</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Indian_coffee" rel="noopener noreferrer">Indian coffee</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Companion</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="plan.html">Plan</a></li>
+            <li><a href="visit.html">Visit</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-base">
+        <span>Bean to cup · 00–14</span>
+        <span>Not for sale</span>
+      </div>
+    </footer>
+
+    <script src="secret-pathways-assets/three.min.js"></script>
+    <script src="kage-walk.js?v=cup3"></script>
   </body>
 </html>
