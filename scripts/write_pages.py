@@ -10,6 +10,7 @@ PAGES = [
     ("taluk.html", "taluk", "Taluk guide — Chikkamagaluru"),
     ("stories.html", "stories", "Coffee, culture and seasons — Chikkamagaluru"),
     ("coffee.html", "coffee", "Seven seeds from Mocha — Chikkamagaluru"),
+    ("bean-to-cup.html", "beantocup", "Baba Budan, then the cup — Chikkamagaluru"),
     ("food.html", "food", "Malnad kitchen — Chikkamagaluru"),
     ("nature.html", "nature", "Nature — Chikkamagaluru"),
     ("stay.html", "stay", "Hill air — Chikkamagaluru"),
@@ -37,7 +38,7 @@ TEMPLATE = """<!DOCTYPE html>
       href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;700&family=Outfit:wght@400&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css?v=sage24" />
+    <link rel="stylesheet" href="style.css?v=sage26" />
     <link rel="stylesheet" href="carousel.css?v=sage6" />
     <link rel="stylesheet" href="drift-wall.css?v=sage6" />
     <link rel="stylesheet" href="accordion-gallery.css?v=sage1" />
@@ -93,15 +94,15 @@ TEMPLATE = """<!DOCTYPE html>
       <p class="wrap noscript">This companion needs JavaScript for the map, itinerary and search.</p>
     </noscript>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-    <script src="data.js?v=sage17"></script>
+    <script src="data.js?v=sage18"></script>
     <script src="statistics.js?v=sage1"></script>
     <script src="numbers.js?v=sage4"></script>
-    <script src="sections.js?v=sage26"></script>
+    <script src="sections.js?v=sage28"></script>
     <script src="map.js?v=sage6"></script>
     <script src="carousel.js?v=sage6"></script>
     <script src="drift-wall.js?v=sage6"></script>
     <script src="accordion-gallery.js?v=sage1"></script>
-    <script src="app.js?v=sage23"></script>
+    <script src="app.js?v=sage24"></script>
   </body>
 </html>
 """

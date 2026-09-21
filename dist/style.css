@@ -863,6 +863,78 @@ a.food-card-link:hover {
   }
 }
 
+.story-act-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.35rem;
+}
+.story-act-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 2.6rem;
+  padding: 0.3rem 1.05rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  text-decoration: none;
+  background: #fff;
+  color: inherit;
+  font-weight: 500;
+}
+.story-act-nav a span {
+  font-family: var(--serif);
+  color: var(--gold-dim);
+  letter-spacing: 0.14em;
+  font-size: 0.78rem;
+}
+.story-act-nav a:hover,
+.story-act-nav a:focus-visible {
+  border-color: var(--forest);
+}
+.story-act-head {
+  margin: clamp(2.2rem, 5.5vw, 3.6rem) 0 1.55rem;
+  padding-bottom: 1.05rem;
+  border-bottom: 1px solid var(--line);
+  scroll-margin-top: calc(var(--header) + 1rem);
+}
+.bean-longread .story-act-head:first-of-type {
+  margin-top: 0.4rem;
+}
+.story-act-head h2 {
+  margin: 0.15rem 0 0.45rem;
+  font-size: clamp(1.65rem, 3.2vw, 2.35rem);
+}
+.story-act-head p {
+  color: var(--muted);
+  max-width: 40rem;
+  margin: 0;
+  line-height: 1.6;
+}
+.lore-chip {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.48rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--gold) 50%, var(--line));
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  vertical-align: 0.08em;
+  font-family: var(--sans, inherit);
+}
+body[data-page="beantocup"] .page-hero h1 {
+  max-width: 18ch;
+}
+body[data-page="beantocup"] .story-index {
+  max-width: 54rem;
+}
+body[data-page="beantocup"] .origin-scene-media img {
+  object-fit: cover;
+  aspect-ratio: 16 / 9;
+}
+
 .coffee-origin--home .story-entry-card {
   background: #fff;
   border: 1px solid color-mix(in srgb, var(--ink) 7%, transparent);

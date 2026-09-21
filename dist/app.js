@@ -82,6 +82,8 @@
       const pageKey =
         PAGE === "coffee"
           ? "stories"
+          : PAGE === "beantocup"
+            ? "beantocup"
           : PAGE === "food" || PAGE === "nature" || PAGE === "stay" || PAGE === "heritage" || PAGE === "tourism"
             ? "explore"
             : PAGE === "taluk"

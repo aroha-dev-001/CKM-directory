@@ -2510,11 +2510,11 @@ window.CKM = {
     "kicker": "How coffee reached these hills",
     "title": "Seven seeds from Mocha",
     "lede": "A Sufi hermitage, a Yemeni port, and a district that still grows arabica in shade. The dates disagree. The slope does not.",
-    "image": "assets/coffee-seven-seeds.jpg",
-    "caption": "Companion illustration — Mocha harbour, seven cherries, Chandra Drona. Not a historical survey, and not a portrait.",
+    "image": "assets/bean-to-cup/story-00-baba-budan.webp",
+    "caption": "Companion still — Baba Budan on Chandra Drona with seven cherries. No period portrait is known; this is not a historical likeness.",
     "saint": {
-      "image": "assets/baba-budan-saint.jpg",
-      "caption": "Companion illustration of Baba Budan, the Sufi remembered for bringing seven Mocha seeds to these hills. No period portrait is known — this is not a historical likeness."
+      "image": "assets/bean-to-cup/story-00-baba-budan.webp",
+      "caption": "Companion still of Baba Budan, the Sufi remembered for bringing seven Mocha seeds to these hills. No period portrait is known — this is not a historical likeness."
     },
     "chapters": [
       {
@@ -2527,8 +2527,8 @@ window.CKM = {
         "kicker": "The plant",
         "title": "A shrub that liked mist",
         "text": "Before it was a cup on the Hassan bus, coffee was a red cherry in highland weather — a shrub that preferred cloud to open sun. That plant walked a long way from Ethiopian slopes before it ever saw these ghats.\n\nWhat took root on Chandra Drona is still that same highland thing: shade-hungry, slow, and particular about rain.",
-        "image": "assets/coffee-highlands.jpg",
-        "caption": "Companion illustration — wild arabica in highland mist. Imagined landscape, not a field survey of Ethiopia."
+        "image": "assets/bean-to-cup/story-01-plant.webp",
+        "caption": "Companion still — wild arabica in highland mist. Imagined landscape, not a field survey of Ethiopia."
       },
       {
         "id": "origin-02",
@@ -2540,8 +2540,8 @@ window.CKM = {
         "kicker": "Mocha",
         "title": "The harbour that sold the cup",
         "text": "On the Yemeni shore, Mocha became the name people used when they meant coffee itself. The city sold the roasted drink freely enough. Live seed was another matter.\n\nKeep the tree at home, and the world stays a customer. What left that harbour as cargo was meant to be drunk, not planted.",
-        "image": "assets/coffee-mocha.jpg",
-        "caption": "Companion illustration — Mocha harbour, dhows, and sacks of cherry. Not a historical survey of the port."
+        "image": "assets/bean-to-cup/story-02-mocha.webp",
+        "caption": "Companion still — Mocha harbour, dhows, and sacks of cherry. Not a historical survey of the port."
       },
       {
         "id": "origin-03",
@@ -2553,8 +2553,8 @@ window.CKM = {
         "kicker": "Seven seeds",
         "title": "A courtyard on this ridge",
         "text": "Then a Sufi from these hills is said to have come home with seven Mocha seeds and set them in the courtyard of his hermitage on Baba Budan Giri. Some tellings put that planting near 1600. Others walk him home from Hajj nearer 1670.\n\nThe years argue. The ridge does not. It still carries his name, and the trees still like the same mist.",
-        "image": "assets/baba-budan-saint.jpg",
-        "caption": "Companion illustration of Baba Budan with seven cherries. No period portrait is known — this is not a historical likeness."
+        "image": "assets/bean-to-cup/story-03-seeds.webp",
+        "caption": "Companion still — seven Mocha seeds in courtyard earth. No period portrait is known; this is not a reconstruction of a dated planting."
       },
       {
         "id": "origin-04",
@@ -2566,8 +2566,8 @@ window.CKM = {
         "kicker": "The Hajj lore",
         "title": "What the hills still tell",
         "text": "The story that travels with the seeds is a smuggler's story: seven raw beans, because seven is sacred, tucked away — in a beard, in the later tellings — so a port would not notice a future forest leaving in a pilgrim's clothes.\n\nNo ship's book confirms it. The district tells it anyway, the way a family tells how the house was built. Believe the slope. Treat the beard as lore.",
-        "image": "assets/coffee-voyage.jpg",
-        "caption": "Companion illustration of the voyage lore: a dhow, a cloth pouch, Mocha astern. Not a reconstruction of a dated crossing."
+        "image": "assets/bean-to-cup/story-04-voyage.webp",
+        "caption": "Companion still of the voyage lore: a dhow, a cloth pouch, Mocha astern. Not a reconstruction of a dated crossing. Lore."
       },
       {
         "id": "origin-05",
@@ -2579,8 +2579,8 @@ window.CKM = {
         "kicker": "Chandra Drona",
         "title": "A garden before it was a crop",
         "text": "Those first plants did not become a landscape overnight. For a long time they were a curiosity in courtyard earth — a few trees behind a house, not yet the silver-oak rows you pass on the Charmadi road.\n\nChandra Drona held a garden before it held an estate. The shrine is still on that ridge. The crop learned patience here.",
-        "image": "assets/coffee-hermitage.jpg",
-        "caption": "Companion illustration — a cave hermitage and seedling terraces on Chandra Drona. Imagined courtyard, not a measured plan of the shrine."
+        "image": "assets/bean-to-cup/story-05-hermitage.webp",
+        "caption": "Companion still — a cave hermitage and seedling terraces on Chandra Drona. Imagined courtyard, not a measured plan of the shrine."
       },
       {
         "id": "origin-06",
@@ -2592,8 +2592,8 @@ window.CKM = {
         "kicker": "Estate country",
         "title": "When the forest learned rows",
         "text": "Rows came later, when the forested south was cut into property. In the 1820s planters opened country beside this same ridge, and the crop walked on into Wayanad, the Shevaroys, the Nilgiris.\n\nWhat had been a hermitage tree became a hillside of labour — shade measured, paths named, a bungalow on the shoulder of the hill.",
-        "image": "assets/coffee-estates.jpg",
-        "caption": "Companion illustration — early shade rows and a ridge bungalow. Imagined estate country, not a portrait of Cannon or any working property."
+        "image": "assets/bean-to-cup/story-06-estate.webp",
+        "caption": "Companion still — early shade rows and a ridge bungalow. Imagined estate country, not a portrait of any working property."
       },
       {
         "id": "origin-07",
@@ -2605,8 +2605,8 @@ window.CKM = {
         "kicker": "Shade work",
         "title": "What you see from the bus",
         "text": "Look out between Mudigere and Balehonnur and you are looking at work: two roofs of shade, pepper on the trunks, arabica underneath. Karnataka still grows the largest share of the Indian crop. Rust and stem borer later asked for tougher trees.\n\nIn 1925 an experiment station opened near Balehonnur, in this district — a house of trial plots that the canopy still leans on. The green you photograph from the window is someone's season.",
-        "image": "assets/coffee-shade-work.jpg",
-        "caption": "Companion illustration — silver-oak shade, pepper vine, and a tiled research bungalow. Not a photograph of CCRI."
+        "image": "assets/bean-to-cup/story-07-shade-work.webp",
+        "caption": "Companion still — silver-oak shade, pepper vine, and a working path. Not a photograph of CCRI."
       },
       {
         "id": "origin-08",
@@ -2618,8 +2618,8 @@ window.CKM = {
         "kicker": "This companion",
         "title": "Walk as a guest",
         "text": "This page will not sell you a cupping, a bungalow, or a jeep through someone else's silver oak. If a planter opens a path, that is their door. Stay on it.\n\nThe seven seeds are a story people keep. The canopy is a living crop in a living forest. Drink the cup. Leave the rows as you found them.",
-        "image": "assets/coffee-canopy-path.jpg",
-        "caption": "Companion illustration — a quiet path under coffee. This page does not sell a stay or a tour."
+        "image": "assets/bean-to-cup/story-08-guest.webp",
+        "caption": "Companion still — a quiet path under coffee. This page does not sell a stay or a tour."
       }
     ],
     "sources": [

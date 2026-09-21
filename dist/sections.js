@@ -41,16 +41,16 @@
         <div class="wrap">
           <div class="section-head">
             <p class="kicker">Bean to cup</p>
-            <h2 id="bean-to-cup-title">From shade, a living cup.</h2>
-            <p class="section-lead">Six stills through Chikkamagaluru coffee — path, cherry, seed, roast, filter, davara. Not a shop. Not a booking.</p>
+            <h2 id="bean-to-cup-title">Baba Budan, then the cup.</h2>
+            <p class="section-lead">Two acts on one walk: the saint who brought seven Mocha seeds, then shade, cherry, roast, filter, davara. Not a shop. Not a booking. Lore is labelled lore.</p>
           </div>
           <div class="bean-stills" aria-hidden="false">
-            <a href="bean-to-cup.html#gate"><img src="assets/bean-to-cup/01-shade.webp" alt="Shade path through a coffee estate at first light" width="1600" height="1000" /></a>
-            <a href="bean-to-cup.html#pathways"><img src="assets/bean-to-cup/02-cherry.webp" alt="Red coffee cherries on a living shrub" width="1600" height="1000" /></a>
-            <a href="bean-to-cup.html#pathways"><img src="assets/bean-to-cup/03-seed.webp" alt="Cherry, parchment and green beans" width="1600" height="1000" /></a>
-            <a href="bean-to-cup.html#pathways"><img src="assets/bean-to-cup/04-roast.webp" alt="Coffee beans in a roasting drum" width="1600" height="1000" /></a>
-            <a href="bean-to-cup.html#eternity"><img src="assets/bean-to-cup/05-brew.webp" alt="South Indian filter coffee pour" width="1600" height="1000" /></a>
-            <a href="bean-to-cup.html#eternity"><img src="assets/bean-to-cup/06-cup.webp" alt="Steaming davara on an estate verandah" width="1600" height="1000" /></a>
+            <a href="bean-to-cup.html#act-origin"><img src="assets/bean-to-cup/story-00-baba-budan.webp" alt="Baba Budan on a misty coffee ridge with seven cherries" width="1600" height="900" /></a>
+            <a href="bean-to-cup.html#bean-plant"><img src="assets/bean-to-cup/story-01-plant.webp" alt="Arabica cherries in highland mist" width="1600" height="900" /></a>
+            <a href="bean-to-cup.html#bean-seeds"><img src="assets/bean-to-cup/story-03-seeds.webp" alt="Seven coffee seeds being planted" width="1600" height="900" /></a>
+            <a href="bean-to-cup.html#bean-shade"><img src="assets/bean-to-cup/01-shade.webp" alt="Shade path through a coffee estate at first light" width="1600" height="1000" /></a>
+            <a href="bean-to-cup.html#bean-cherry"><img src="assets/bean-to-cup/02-cherry.webp" alt="Red coffee cherries on a living shrub" width="1600" height="1000" /></a>
+            <a href="bean-to-cup.html#bean-cup"><img src="assets/bean-to-cup/06-cup.webp" alt="Steaming davara on an estate verandah" width="1600" height="1000" /></a>
           </div>
           <a class="story-entry-card tilt-card shine-card" href="bean-to-cup.html" data-tilt>
             <span class="media">
@@ -60,7 +60,7 @@
               <span class="kicker">${esc(origin.kicker)}</span>
               <h2 id="origin-title">${esc(origin.title)}</h2>
               <p>${esc(origin.lede)}</p>
-              <span class="text-link t-learn">${learn("Walk bean to cup")}</span>
+              <span class="text-link t-learn">${learn("Open the full story")}</span>
             </span>
           </a>
         </div>
@@ -1226,7 +1226,7 @@
           <p class="kicker">${esc(origin.kicker || "How coffee reached these hills")}</p>
           <h1>${esc(origin.title || "Seven seeds from Mocha")}</h1>
           <p class="section-lead">${esc(origin.lede || "")}</p>
-          <p><a class="text-link t-learn" href="bean-to-cup.html">${learn("Walk bean to cup")}</a>
+          <p><a class="text-link t-learn" href="bean-to-cup.html">${learn("Open Baba Budan, then the cup")}</a>
           <a class="text-link t-learn" href="heritage.html">${learn("Back to heritage")}</a></p>
         </div>
       </section>
@@ -1240,6 +1240,385 @@
           <p class="section-lead" style="margin-top:2rem">The ridge that holds his shrine is still walked as Baba Budangiri / Datta Peetha. Hours and crowd rules belong to the shrine, not to this page.</p>
           <p><a class="btn btn-dark shine t-learn" href="places.html?id=baba-budangiri" data-magnetic>${learn("Open Baba Budangiri")}</a>
              <a class="btn btn-line" href="stories.html#story-coffee">Coffee chapter on Stories</a></p>
+        </div>
+      </section>
+      ${footer(f)}`;
+  }
+
+  function renderBeanToCupPage(lang) {
+    const f = fragments(lang);
+    const kn = lang === "kn";
+    const origin = f.origin || {};
+    const chapters = [
+      {
+        act: "origin",
+        id: "saint",
+        lore: false,
+        kicker: kn ? "೦೦ · ಸಂತ" : "00 · The saint",
+        title: kn ? "ಬಾಬಾ ಬುದನ್, ಈ ಬೆಟ್ಟದ ಹೆಸರು" : "Baba Budan, the name on this ridge",
+        image: "assets/bean-to-cup/story-00-baba-budan.webp",
+        caption: kn
+          ? "ಸಂಗಾತಿ ಚಿತ್ರ — ಬಾಬಾ ಬುದನ್, ಏಳು ಮೋಚಾ ಬೀಜ. ಇತಿಹಾಸದ ಭಾವಚಿತ್ರವಲ್ಲ."
+          : origin.saint?.caption || "Companion still of Baba Budan. No period portrait is known.",
+        paras: kn
+          ? [
+              "ಕಾಫಿ ಈ ಜಿಲ್ಲೆಗೆ ಕಪ್‌ನಿಂದ ಬರಲಿಲ್ಲ. ಸೂಫಿ ಸಂತನ ಕಥೆಯಿಂದ ಬಂತು: ಯೆಮೆನಿನ ಮೋಚಾದಿಂದ ಏಳು ಬೀಜ, ಚಂದ್ರ ದ್ರೋಣದ ಆಶ್ರಮದ ಅಂಗಳದಲ್ಲಿ ನೆಟ್ಟದು.",
+              "ವರ್ಷಗಳು ಒಪ್ಪುವುದಿಲ್ಲ. ಬೆಟ್ಟ ಒಪ್ಪುತ್ತದೆ. ಈ ಪುಟ ಅಂಗಡಿ ಅಲ್ಲ. ಎರಡು ಅಂಕ: ಮೊದಲು ಸಂತ, ನಂತರ ಬೆಳೆ.",
+            ]
+          : [
+              "Coffee did not arrive in this district as a cup. It arrived as a story about a Sufi: seven Mocha seeds, carried home and set in courtyard earth on Chandra Drona.",
+              "The years disagree. The ridge does not. This page is not a shop. Two acts: first the saint, then the crop as it is still grown and drunk here.",
+            ],
+      },
+      {
+        act: "origin",
+        id: "plant",
+        lore: false,
+        kicker: kn ? "೦೧ · ಗಿಡ" : "01 · The plant",
+        title: kn ? "ಮಂಜು ಇಷ್ಟಪಡುವ ಪೊದೆ" : "A shrub that liked mist",
+        image: "assets/bean-to-cup/story-01-plant.webp",
+        caption: kn
+          ? "ಸಂಗಾತಿ ಚಿತ್ರ — ಮಂಜಿನಲ್ಲಿ ಅರಬಿಕಾ. ಇಥಿಯೋಪಿಯಾ ಸಮೀಕ್ಷೆಯಲ್ಲ."
+          : "Companion still — wild arabica in highland mist. Imagined landscape, not a field survey of Ethiopia.",
+        paras: kn
+          ? [
+              "ಕಪ್ ಆಗುವ ಮೊದಲು ಕಾಫಿ ಕೆಂಪು ಹಣ್ಣು. ಮೋಡ ಇಷ್ಟ, ಬಿಸಿಲು ಅಲ್ಲ. ಆ ಗಿಡ ಈ ಘಟ್ಟಕ್ಕೆ ಬರುವ ಮೊದಲು ಬಹು ದೂರ ನಡೆದಿತ್ತು.",
+              "ಚಂದ್ರ ದ್ರೋಣದಲ್ಲಿ ಬೇರು ಬಿಟ್ಟದ್ದು ಇನ್ನೂ ಅದೇ ಗಿಡ: ನೆರಳು ಬೇಕು, ಮಳೆ ನಿಧಾನ, ಸಮಯ ಬೇಕು.",
+            ]
+          : [
+              "Before it was a cup on the Hassan bus, coffee was a red cherry in highland weather — a shrub that preferred cloud to open sun. That plant walked a long way from Ethiopian slopes before it ever saw these ghats.",
+              "What took root on Chandra Drona is still that same highland thing: shade-hungry, slow, and particular about rain.",
+            ],
+      },
+      {
+        act: "origin",
+        id: "mocha",
+        lore: false,
+        kicker: kn ? "೦೨ · ಮೋಚಾ" : "02 · Mocha",
+        title: kn ? "ಕಪ್ ಮಾರಿದ ಬಂದರು" : "The harbour that sold the cup",
+        image: "assets/bean-to-cup/story-02-mocha.webp",
+        caption: kn
+          ? "ಸಂಗಾತಿ ಚಿತ್ರ — ಮೋಚಾ ಬಂದರು. ಐತಿಹಾಸಿಕ ಸಮೀಕ್ಷೆಯಲ್ಲ."
+          : "Companion still — Mocha harbour, dhows, and sacks of cherry. Not a historical survey of the port.",
+        paras: kn
+          ? [
+              "ಯೆಮೆನ್ ತೀರದಲ್ಲಿ ಮೋಚಾ ಎಂದರೆ ಕಾಫಿ ಎಂದೇ ಆಯಿತು. ಹುರಿದ ಕುಡಿಯುವುದನ್ನು ಮಾರಿದರು. ಜೀವಂತ ಬೀಜ ಬೇರೆ ಮಾತು.",
+              "ಗಿಡ ಮನೆಯಲ್ಲಿ ಉಳಿದರೆ ಜಗತ್ತು ಗ್ರಾಹಕ. ಆ ಬಂದರಿನಿಂದ ಹೊರಟದ್ದು ಕುಡಿಯಲು, ನೆಡಲು ಅಲ್ಲ.",
+            ]
+          : [
+              "On the Yemeni shore, Mocha became the name people used when they meant coffee itself. The city sold the roasted drink freely enough. Live seed was another matter.",
+              "Keep the tree at home, and the world stays a customer. What left that harbour as cargo was meant to be drunk, not planted.",
+            ],
+      },
+      {
+        act: "origin",
+        id: "seeds",
+        lore: false,
+        kicker: kn ? "೦೩ · ಏಳು ಬೀಜ" : "03 · Seven seeds",
+        title: kn ? "ಈ ಬೆಟ್ಟದ ಅಂಗಳ" : "A courtyard on this ridge",
+        image: "assets/bean-to-cup/story-03-seeds.webp",
+        caption: kn
+          ? "ಸಂಗಾತಿ ಚಿತ್ರ — ಏಳು ಬೀಜ ನೆಡುವುದು. ದಿನಾಂಕದ ಪುನರ್ನಿರ್ಮಾಣವಲ್ಲ."
+          : "Companion still — seven Mocha seeds in courtyard earth. Not a reconstruction of a dated planting.",
+        paras: kn
+          ? [
+              "ಈ ಬೆಟ್ಟದ ಸೂಫಿ ಏಳು ಮೋಚಾ ಬೀಜ ತಂದು ಬಾಬಾ ಬುದನ್ ಗಿರಿಯ ಆಶ್ರಮದ ಅಂಗಳದಲ್ಲಿ ನೆಟ್ಟನೆಂದು ಹೇಳುತ್ತಾರೆ. ಕೆಲವು ಕಥೆಗಳು ಸುಮಾರು ೧೬೦೦. ಮತ್ತೆ ಕೆಲವು ಹಜ್‌ನಿಂದ ೧೬೭೦ರ ಹತ್ತಿರ.",
+              "ವರ್ಷಗಳು ವಾದ. ಬೆಟ್ಟ ವಾದವಲ್ಲ. ಅದು ಇನ್ನೂ ಅವನ ಹೆಸರು ಹೊತ್ತಿದೆ. ಗಿಡಗಳು ಇನ್ನೂ ಅದೇ ಮಂಜು ಇಷ್ಟಪಡುತ್ತವೆ.",
+            ]
+          : [
+              "Then a Sufi from these hills is said to have come home with seven Mocha seeds and set them in the courtyard of his hermitage on Baba Budan Giri. Some tellings put that planting near 1600. Others walk him home from Hajj nearer 1670.",
+              "The years argue. The ridge does not. It still carries his name, and the trees still like the same mist.",
+            ],
+      },
+      {
+        act: "origin",
+        id: "voyage",
+        lore: true,
+        kicker: kn ? "೦೪ · ಹಜ್ ಕಥೆ" : "04 · The Hajj lore",
+        title: kn ? "ಬೆಟ್ಟ ಇನ್ನೂ ಹೇಳುವುದು" : "What the hills still tell",
+        image: "assets/bean-to-cup/story-04-voyage.webp",
+        caption: kn
+          ? "ಸಂಗಾತಿ ಚಿತ್ರ — ದೋಣಿ, ಬಟ್ಟೆಯ ಚೀಲ. ದಿನಾಂಕದ ಪಯಣವಲ್ಲ. ಕಥೆ."
+          : "Companion still of the voyage lore: a dhow, a cloth pouch, Mocha astern. Not a reconstruction of a dated crossing. Lore.",
+        paras: kn
+          ? [
+              "ಬೀಜಗಳೊಂದಿಗೆ ನಡೆಯುವ ಕಥೆ ಕಳ್ಳಸಾಗಣೆಯದು: ಏಳು ಕಚ್ಚಾ ಬೀನ್, ಏಳು ಪವಿತ್ರ, ಗಡ್ಡದಲ್ಲಿ ಅಥವಾ ಬಟ್ಟೆಯಲ್ಲಿ — ಬಂದರು ಕಾಡು ಹೊರಡುವುದನ್ನು ನೋಡದಂತೆ.",
+              "ಯಾವುದೇ ಹಡಗಿನ ಪುಸ್ತಕ ಇದನ್ನು ದೃಢಪಡಿಸುವುದಿಲ್ಲ. ಜಿಲ್ಲೆ ಹೇಳುತ್ತಲೇ ಇದೆ. ಬೆಟ್ಟ ನಂಬಿ. ಗಡ್ಡವನ್ನು ಕಥೆಯೆಂದು ಇರಿಸಿ.",
+            ]
+          : [
+              "The story that travels with the seeds is a smuggler's story: seven raw beans, because seven is sacred, tucked away — in a beard, in the later tellings — so a port would not notice a future forest leaving in a pilgrim's clothes.",
+              "No ship's book confirms it. The district tells it anyway, the way a family tells how the house was built. Believe the slope. Treat the beard as lore.",
+            ],
+      },
+      {
+        act: "origin",
+        id: "hermitage",
+        lore: false,
+        kicker: kn ? "೦೫ · ಚಂದ್ರ ದ್ರೋಣ" : "05 · Chandra Drona",
+        title: kn ? "ಬೆಳೆಗಿಂತ ಮೊದಲು ತೋಟ" : "A garden before it was a crop",
+        image: "assets/bean-to-cup/story-05-hermitage.webp",
+        caption: kn
+          ? "ಸಂಗಾತಿ ಚಿತ್ರ — ಗುಹೆ ಆಶ್ರಮ, ಸಸಿ. ದೇವಸ್ಥಾನದ ನಕ್ಷೆಯಲ್ಲ."
+          : "Companion still — a cave hermitage and seedling terraces on Chandra Drona. Imagined courtyard, not a measured plan of the shrine.",
+        paras: kn
+          ? [
+              "ಮೊದಲ ಗಿಡಗಳು ರಾತ್ರಿಯಲ್ಲಿ ಭೂದೃಶ್ಯವಾಗಲಿಲ್ಲ. ಬಹುಕಾಲ ಅಂಗಳದ ಕುತೂಹಲ — ಮನೆಯ ಹಿಂದೆ ಕೆಲವು ಮರ, ಚಾರ್ಮಾಡಿ ರಸ್ತೆಯ ಬೆಳ್ಳಿ ಓಕ್ ಸಾಲಲ್ಲ.",
+              "ಚಂದ್ರ ದ್ರೋಣ ಮೊದಲು ತೋಟ ಹಿಡಿದಿತ್ತು, ಎಸ್ಟೇಟ್ ಅಲ್ಲ. ಗುಡಿ ಇನ್ನೂ ಆ ಬೆಟ್ಟದಲ್ಲಿದೆ. ಬೆಳೆ ಇಲ್ಲಿ ತಾಳ್ಮೆ ಕಲಿತಿತು.",
+            ]
+          : [
+              "Those first plants did not become a landscape overnight. For a long time they were a curiosity in courtyard earth — a few trees behind a house, not yet the silver-oak rows you pass on the Charmadi road.",
+              "Chandra Drona held a garden before it held an estate. The shrine is still on that ridge. The crop learned patience here.",
+            ],
+      },
+      {
+        act: "origin",
+        id: "estate",
+        lore: false,
+        kicker: kn ? "೦೬ · ಎಸ್ಟೇಟ್" : "06 · Estate country",
+        title: kn ? "ಕಾಡು ಸಾಲು ಕಲಿತಾಗ" : "When the forest learned rows",
+        image: "assets/bean-to-cup/story-06-estate.webp",
+        caption: kn
+          ? "ಸಂಗಾತಿ ಚಿತ್ರ — ನೆರಳಿನ ಸಾಲು, ಬಂಗಲೆ. ಯಾವುದೇ ಎಸ್ಟೇಟ್‌ನ ಭಾವಚಿತ್ರವಲ್ಲ."
+          : "Companion still — early shade rows and a ridge bungalow. Imagined estate country, not a portrait of any working property.",
+        paras: kn
+          ? [
+              "ಸಾಲುಗಳು ನಂತರ ಬಂದವು. ೧೮೨೦ರ ದಶಕದಲ್ಲಿ ಈ ಬೆಟ್ಟದ ಪಕ್ಕದಲ್ಲಿ ನಾಟಿ ಆರಂಭ. ಬೆಳೆ ವಯನಾಡು, ಶೆವರಾಯ್, ನೀಲಗಿರಿಗೆ ನಡೆಯಿತು.",
+              "ಆಶ್ರಮದ ಮರ ಬೆಟ್ಟದ ಕೆಲಸವಾಯಿತು — ನೆರಳು ಅಳೆದು, ಹಾದಿ ಹೆಸರಿಸಿ, ಭುಜದ ಮೇಲೆ ಬಂಗಲೆ.",
+            ]
+          : [
+              "Rows came later, when the forested south was cut into property. In the 1820s planters opened country beside this same ridge, and the crop walked on into Wayanad, the Shevaroys, the Nilgiris.",
+              "What had been a hermitage tree became a hillside of labour — shade measured, paths named, a bungalow on the shoulder of the hill.",
+            ],
+      },
+      {
+        act: "origin",
+        id: "shade-work",
+        lore: false,
+        kicker: kn ? "೦೭ · ನೆರಳಿನ ಕೆಲಸ" : "07 · Shade work",
+        title: kn ? "ಬಸ್ಸಿನಿಂದ ಕಾಣುವುದು" : "What you see from the bus",
+        image: "assets/bean-to-cup/story-07-shade-work.webp",
+        caption: kn
+          ? "ಸಂಗಾತಿ ಚಿತ್ರ — ಬೆಳ್ಳಿ ಓಕ್, ಮೆಣಸು ಬಳ್ಳಿ. ಸಿಎಂಆರ್‌ಐ ಭಾವಚಿತ್ರವಲ್ಲ."
+          : "Companion still — silver-oak shade, pepper vine, and a working path. Not a photograph of CCRI.",
+        paras: kn
+          ? [
+              "ಮೂಡಿಗೆರೆಯಿಂದ ಬಾಳೆಹೊನ್ನೂರಿನ ನಡುವೆ ನೋಡಿದರೆ ಕೆಲಸ ಕಾಣುತ್ತದೆ: ಎರಡು ನೆರಳು, ತೊಂಟೆಯಲ್ಲಿ ಮೆಣಸು, ಕೆಳಗೆ ಅರಬಿಕಾ. ಕರ್ನಾಟಕ ಇನ್ನೂ ಭಾರತದ ಬೆಳೆಯ ದೊಡ್ಡ ಪಾಲು ಬೆಳೆಯುತ್ತದೆ.",
+              "೧೯೨೫ರಲ್ಲಿ ಈ ಜಿಲ್ಲೆಯ ಬಾಳೆಹೊನ್ನೂರಿನ ಹತ್ತಿರ ಪ್ರಯೋಗ ಕೇಂದ್ರ ತೆರೆಯಿತು. ಕಿಟಕಿಯಿಂದ ನೀವು ಚಿತ್ರಿಸುವ ಹಸಿರು ಯಾರೋ ಒಬ್ಬರ ಋತು.",
+            ]
+          : [
+              "Look out between Mudigere and Balehonnur and you are looking at work: two roofs of shade, pepper on the trunks, arabica underneath. Karnataka still grows the largest share of the Indian crop. Rust and stem borer later asked for tougher trees.",
+              "In 1925 an experiment station opened near Balehonnur, in this district — a house of trial plots that the canopy still leans on. The green you photograph from the window is someone's season.",
+            ],
+      },
+      {
+        act: "origin",
+        id: "guest",
+        lore: false,
+        kicker: kn ? "೦೮ · ಅತಿಥಿ" : "08 · This companion",
+        title: kn ? "ಅತಿಥಿಯಂತೆ ನಡೆ" : "Walk as a guest",
+        image: "assets/bean-to-cup/story-08-guest.webp",
+        caption: kn
+          ? "ಸಂಗಾತಿ ಚಿತ್ರ — ನೆರಳಿನ ಹಾದಿ. ಈ ಪುಟ ವಾಸ ಅಥವಾ ಪ್ರವಾಸ ಮಾರುವುದಿಲ್ಲ."
+          : "Companion still — a quiet path under coffee. This page does not sell a stay or a tour.",
+        paras: kn
+          ? [
+              "ಈ ಪುಟ ಕಪ್ಪಿಂಗ್, ಬಂಗಲೆ, ಅಥವಾ ಬೇರೆಯವರ ಬೆಳ್ಳಿ ಓಕ್‌ನಲ್ಲಿ ಜೀಪ್ ಮಾರುವುದಿಲ್ಲ. ಯಾರಾದರೂ ಹಾದಿ ತೆರೆದರೆ ಅದು ಅವರ ಬಾಗಿಲು. ಅದರಲ್ಲೇ ಇರಿ.",
+              "ಏಳು ಬೀಜ ಜನ ಹೇಳುವ ಕಥೆ. ನೆರಳು ಜೀವಂತ ಕಾಡಿನಲ್ಲಿ ಜೀವಂತ ಬೆಳೆ. ಕಪ್ ಕುಡಿ. ಸಾಲುಗಳನ್ನು ಹಾಗೆಯೇ ಬಿಡು.",
+            ]
+          : [
+              "This page will not sell you a cupping, a bungalow, or a jeep through someone else's silver oak. If a planter opens a path, that is their door. Stay on it.",
+              "The seven seeds are a story people keep. The canopy is a living crop in a living forest. Drink the cup. Leave the rows as you found them.",
+            ],
+      },
+      {
+        act: "crop",
+        id: "shade",
+        lore: false,
+        kicker: kn ? "೦೯ · ನೆರಳು" : "09 · Shade",
+        title: kn ? "ಮೊದಲ ಬೆಳಕಿನ ಹಾದಿ" : "A path the canopy keeps",
+        image: "assets/bean-to-cup/01-shade.webp",
+        caption: kn
+          ? "ನೆರಳು ಬೆಳೆದ ಅರಬಿಕಾ — ಬೆಳಗಿನ ಹೊಗೆ, ಬೆಳ್ಳಿ ಓಕ್."
+          : "Shade-grown arabica at first light — silver oak, mist, a dirt line through the rows.",
+        paras: kn
+          ? [
+              "ಬೆಳೆಯ ನಡಿಗೆ ರಸ್ತೆ ಮುಗಿದಲ್ಲಿ ಆರಂಭವಾಗುತ್ತದೆ. ಬೆಳ್ಳಿ ಓಕ್ ಕೆಳಗೆ ಅರಬಿಕಾ, ಕಣಿವೆಯಲ್ಲಿ ಹಬೆ, ಹಾದಿಯಲ್ಲಿ ಒದ್ದೆ ಮಣ್ಣು.",
+              "ಈ ಪುಟ ಎಸ್ಟೇಟ್ ಮಾರಾಟ ಮಾಡುವುದಿಲ್ಲ. ನೆರಳು ಏಕೆ ಬೇಕು ಎಂಬುದನ್ನು ಮಾತ್ರ ಹೇಳುತ್ತದೆ — ಮಲೆನಾಡಿನ ಕಾಫಿ ಬಿಸಿಲಿನಲ್ಲಿ ಅಲ್ಲ, ಮಬ್ಬಿನಲ್ಲಿ ಬೆಳೆಯುತ್ತದೆ.",
+            ]
+          : [
+              "The crop begins where the tar road stops. Arabica sits under silver oak. Mist still hangs in the valley. The path is wet from last night’s rain.",
+              "This companion does not sell a tour of anyone’s estate. It only shows why the canopy matters: Chikkamagaluru coffee is a shade crop. The hill prefers cloud to open sun.",
+            ],
+      },
+      {
+        act: "crop",
+        id: "cherry",
+        lore: false,
+        kicker: kn ? "೧೦ · ಹಣ್ಣು" : "10 · Cherry",
+        title: kn ? "ಕೆಂಪು ಹಣ್ಣಿನಲ್ಲಿ ಬೀಜ" : "The bean still dressed as fruit",
+        image: "assets/bean-to-cup/02-cherry.webp",
+        caption: kn
+          ? "ಹಸಿರು ಕೊಂಬೆಯಲ್ಲಿ ಕೆಂಪು ಅರಬಿಕಾ ಹಣ್ಣು."
+          : "Ripe arabica cherries on a living shrub — dew on the skin, green fruit still waiting.",
+        paras: kn
+          ? [
+              "ಕಾಫಿ ಮೊದಲು ಕಪ್ ಅಲ್ಲ. ಅದು ಎಲೆಯ ನಡುವೆ ಕೆಂಪು ಹಣ್ಣು. ತೊಗಟೆ ಸಿಹಿ; ಒಳಗೆ ಎರಡು ಬೀಜ.",
+              "ಕೆಂಪಾದಾಗ ಕೀಳುತ್ತಾರೆ. ಹಸಿರು ಉಳಿದರೆ ರುಚಿ ಹುಳಿ. ಇದು ಅಡುಗೆ ಪುಸ್ತಕವಲ್ಲ — ಗಿಡದ ಮೇಲೆ ನೋಡುವ ಕಥೆ.",
+            ]
+          : [
+              "Coffee is not a cup first. It is a red fruit in the leaf. The skin is sweet. Inside sit two seeds, pressed together like palms.",
+              "Pickers wait for that colour. Green cherries taste thin. This is not a recipe. It is the plant, still on the hill, before anyone names a roast.",
+            ],
+      },
+      {
+        act: "crop",
+        id: "seed",
+        lore: false,
+        kicker: kn ? "೧೧ · ಬೀಜ" : "11 · Seed",
+        title: kn ? "ಮೂರು ಹೆಸರು, ಒಂದು ಬೀಜ" : "Three names for one seed",
+        image: "assets/bean-to-cup/03-seed.webp",
+        caption: kn
+          ? "ಹಣ್ಣು, ಪಾರ್ಚ್‌ಮೆಂಟ್, ಹಸಿರು ಬೀನ್ — ಒಂದೇ ಬೀಜದ ಮೂರು ರೂಪ."
+          : "Cherry, parchment, green bean — one seed counted three ways on a mill table.",
+        paras: kn
+          ? [
+              "ತೊಗಟೆ ತೆಗೆದರೆ ಒಳಗೆ ತಿಳಿ ಹೊದಿಕೆ. ಅದನ್ನು ಒಣಗಿಸಿದರೆ ಹಸಿರು ಬೀನ್. ಮೂರೂ ಒಂದೇ ಪ್ರಯಾಣ.",
+              "ಗಿರಣಿ ಈ ಜಿಲ್ಲೆಯಲ್ಲಿ ಉಳಿದಿದೆ. ಈ ಪುಟ ಯಾವುದೇ ಬ್ರಾಂಡ್ ಮಾರುವುದಿಲ್ಲ. ಬೀಜ ಹೇಗೆ ಹೆಸರು ಬದಲಾಯಿಸುತ್ತದೆ ಎಂಬುದು ಮಾತ್ರ.",
+            ]
+          : [
+              "Strip the fruit and a pale husk remains. Dry that, and you hold a green bean. Cherry, parchment, green — three names, one journey.",
+              "Mills still do this work in the district. This page does not name a brand or a price. It only shows how the seed changes clothes before fire.",
+            ],
+      },
+      {
+        act: "crop",
+        id: "roast",
+        lore: false,
+        kicker: kn ? "೧೨ · ಬೆಂಕಿ" : "12 · Fire",
+        title: kn ? "ಡ್ರಮ್‌ನಲ್ಲಿ ಬೆಳಗು" : "The drum that names the cup",
+        image: "assets/bean-to-cup/04-roast.webp",
+        caption: kn
+          ? "ಹುರಿಯುವ ಡ್ರಮ್‌ನಲ್ಲಿ ಕಂದು ಬೀನ್, ಉಗಿ."
+          : "A roasting drum at work — steam, sugar browning, the smell that people call coffee.",
+        paras: kn
+          ? [
+              "ಹಸಿರು ಬೀನ್‌ಗೆ ವಾಸನೆ ಇಲ್ಲ. ಬೆಂಕಿ ಸಿಹಿ ಹೊರತಂದಾಗಲೇ ಕಪ್ ಆರಂಭ.",
+              "ಹುರಿತದ ಮಟ್ಟ ಊರಿಗೆ, ಮನೆಗೆ ಬದಲಾಗುತ್ತದೆ. ಇಲ್ಲಿ ಫಿಲ್ಟರ್ ಕಾಫಿಗೆ ಹೊಂದುವ ಹುರಿತವನ್ನು ತೋರಿಸಿದೆ — ಮೆನು ಅಲ್ಲ.",
+            ]
+          : [
+              "A green bean has almost no smell. Fire draws the sugar out. Only then does the seed begin to sound like a cup.",
+              "Roast is local taste, not a single law. What you see here is the drum — the turn from plant to the filter waiting on a verandah.",
+            ],
+      },
+      {
+        act: "crop",
+        id: "brew",
+        lore: false,
+        kicker: kn ? "೧೩ · ಫಿಲ್ಟರ್" : "13 · Filter",
+        title: kn ? "ಎರಡು ಉಕ್ಕಿನ ಬಾರೆಲ್" : "Two steel barrels, hot water",
+        image: "assets/bean-to-cup/05-brew.webp",
+        caption: kn
+          ? "ಮಲೆನಾಡಿನ ಫಿಲ್ಟರ್: ನೀರು, ಪುಡಿ, ಮರದ ಮೇಜು."
+          : "South Indian filter on an estate table — grounds, hot water, the slow drip into the lower cup.",
+        paras: kn
+          ? [
+              "ಮಲೆನಾಡು ಈ ರೀತಿ ಕುಡಿಯುತ್ತದೆ: ಮೇಲಿನ ಡಬ್ಬದಲ್ಲಿ ಪುಡಿ, ಕೆಳಗೆ ಡಿಕಾಕ್ಷನ್. ಆವಿಯೇ ಸಮಯ.",
+              "ಕೆಫೆ ಪಟ್ಟಿ ಅಲ್ಲ. ಮನೆಯ ಕಾಫಿ. ಈ ತಾಣ ಯಾವುದೇ ಕೋಪವನ್ನು ಮಾರುವುದಿಲ್ಲ.",
+            ]
+          : [
+              "Malnad drinks it this way: grounds in the upper barrel, decoction collecting below. Steam is the clock.",
+              "This is house coffee, not a café list. The companion will not sell you a cup. It only shows the metal, the wood, and the wait.",
+            ],
+      },
+      {
+        act: "crop",
+        id: "cup",
+        lore: false,
+        kicker: kn ? "೧೪ · ಕಪ್" : "14 · Cup",
+        title: kn ? "ಡವರದಲ್ಲಿ ಬೆಳಗು" : "The davara, and the hill still there",
+        image: "assets/bean-to-cup/06-cup.webp",
+        caption: kn
+          ? "ಉಗಿ ಬರುವ ಡವರ, ಹಿಂದೆ ಕಾಫಿ ಬೆಟ್ಟ."
+          : "Decoction in a steel davara — the estate still in the frame, first light on the shrubs.",
+        paras: kn
+          ? [
+              "ಕಪ್ ಎಂದರೆ ಇಲ್ಲಿ ಡವರ. ಹಾಲು ಬೇಕಾದರೆ ಮನೆಯ ನಿಯಮ. ಬೆಟ್ಟ ಇನ್ನೂ ಕಿಟಕಿಯಲ್ಲಿದೆ.",
+              "ಏಳು ಬೀಜದಿಂದ ಈ ಲೋಹದ ಕಪ್‌ವರೆಗೆ ಒಂದೇ ನಡಿಗೆ. ಅಂಗಡಿ ಅಲ್ಲ. ಕಥೆ, ನಂತರ ಬೆಳೆ.",
+            ]
+          : [
+              "Here the cup is a davara. Milk is a household choice. The hill is still in the window.",
+              "From seven Mocha seeds to this metal is one walk. Not a shop. The saint first. Then the crop.",
+            ],
+      },
+    ];
+    const sceneHtml = (ch, i) => {
+      const paras = ch.paras.map((p) => `<p>${esc(p)}</p>`).join("");
+      const flip = i % 2 === 1 ? " is-flip" : "";
+      const lore = ch.lore ? `<span class="lore-chip">${kn ? "ಕಥೆ" : "Lore"}</span>` : "";
+      return `
+          <article class="origin-scene${flip}" id="bean-${esc(ch.id)}">
+            <figure class="origin-scene-media">
+              <img src="${esc(ch.image)}" alt="${esc(ch.caption)}" width="1600" height="900" decoding="async" ${i < 2 ? "" : 'loading="lazy"'} />
+              <figcaption>${esc(ch.caption)}</figcaption>
+            </figure>
+            <div class="origin-chapter">
+              <p class="kicker origin-kicker">${esc(ch.kicker)}${lore ? " " + lore : ""}</p>
+              <h3>${esc(ch.title)}</h3>
+              ${paras}
+            </div>
+          </article>`;
+    };
+    const originCh = chapters.filter((c) => c.act === "origin");
+    const cropCh = chapters.filter((c) => c.act === "crop");
+    const jump = chapters
+      .map((ch, i) => `<a class="story-index-link" href="#bean-${esc(ch.id)}"><span>${String(i).padStart(2, "0")}</span>${esc(ch.title)}</a>`)
+      .join("");
+    const sources = (origin.sources || [])
+      .map((src) => `<li><a href="${esc(src.url)}" rel="noopener noreferrer">${esc(src.label)}</a></li>`)
+      .join("");
+    return `
+      <section class="page-hero bean-hero">
+        <div class="wrap">
+          <p class="kicker">${kn ? "ಬಾಬಾ ಬುದನ್ · ಬೀನ್ ಟು ಕಪ್" : "Baba Budan · Bean to cup"}</p>
+          <h1>${kn ? "ಏಳು ಬೀಜದಿಂದ, ಜೀವಂತ ಕಪ್." : "From seven seeds, a living cup."}</h1>
+          <p class="section-lead">${kn
+            ? "ಎರಡು ಅಂಕ, ಒಂದು ನಡಿಗೆ. ಮೊದಲು ಚಂದ್ರ ದ್ರೋಣದ ಸಂತ. ನಂತರ ನೆರಳು, ಹಣ್ಣು, ಬೀಜ, ಡ್ರಮ್, ಫಿಲ್ಟರ್, ಡವರ. ಅಂಗಡಿ ಅಲ್ಲ. ಬುಕಿಂಗ್ ಅಲ್ಲ. ಕಥೆಯನ್ನು ಕಥೆ ಎಂದು ಗುರುತಿಸಲಾಗಿದೆ."
+            : "Two acts, one walk. First the saint on Chandra Drona. Then shade, cherry, seed, drum, filter, davara. Not a shop. Not a booking. Lore is labelled lore."}</p>
+          <nav class="story-act-nav" aria-label="${kn ? "ಅಂಕಗಳು" : "Acts"}">
+            <a href="#act-origin"><span>I</span>${kn ? "ಸಂತ" : "The saint"}</a>
+            <a href="#act-crop"><span>II</span>${kn ? "ಬೆಳೆ" : "The crop"}</a>
+          </nav>
+          <nav class="story-index" aria-label="${kn ? "ಅಧ್ಯಾಯಗಳು" : "Chapters"}">${jump}</nav>
+        </div>
+      </section>
+      <section class="story-longread coffee-longread bean-longread">
+        <div class="wrap">
+          <header class="story-act-head" id="act-origin">
+            <p class="kicker">${kn ? "ಅಂಕ ಒಂದು" : "Act I"}</p>
+            <h2>${kn ? "ಸಂತ, ಬಂದರು, ಬೆಟ್ಟ" : "The saint, the harbour, the ridge"}</h2>
+            <p>${kn
+              ? "ಏಳು ಮೋಚಾ ಬೀಜ ಈ ಬೆಟ್ಟಕ್ಕೆ ಹೇಗೆ ಬಂತು ಎಂಬುದು ಜಿಲ್ಲೆ ಹೇಳುವ ಕಥೆ. ದಿನಾಂಕಗಳು ಭಿನ್ನ. ಬೆಟ್ಟ ಒಂದೇ."
+              : "How seven Mocha seeds reached this ridge is the story the district keeps. The dates disagree. The slope does not."}</p>
+          </header>
+          <div class="origin-scenes">${originCh.map((ch, i) => sceneHtml(ch, i)).join("")}</div>
+          <header class="story-act-head" id="act-crop">
+            <p class="kicker">${kn ? "ಅಂಕ ಎರಡು" : "Act II"}</p>
+            <h2>${kn ? "ನೆರಳಿನಿಂದ ಡವರದವರೆಗೆ" : "From shade to the davara"}</h2>
+            <p>${kn
+              ? "ಈಗ ಬೆಳೆ. ಆರು ನಿಜ ಚಿತ್ರಗಳು — ಹಾದಿ, ಹಣ್ಣು, ಬೀಜ, ಹುರಿತ, ಫಿಲ್ಟರ್, ಕಪ್. ಮೆನು ಅಲ್ಲ."
+              : "Now the crop. Six stills from working hills — path, cherry, seed, roast, filter, cup. Not a tasting menu."}</p>
+          </header>
+          <div class="origin-scenes">${cropCh.map((ch, i) => sceneHtml(ch, originCh.length + i)).join("")}</div>
+          <div class="origin-sources">
+            <p class="kicker">${kn ? "ಆಕರಗಳು" : "Sources"}</p>
+            <ul>${sources}</ul>
+          </div>
+          <p class="section-lead" style="margin-top:2.2rem">${kn
+            ? "ಶುಲ್ಕ, ಎಸ್ಟೇಟ್ ಭೇಟಿ, ಕಪ್ಪಿಂಗ್ ಯಾರು ಬಾಗಿಲು ತೆರೆಯುತ್ತಾರೋ ಅವರದು. ಅವರೊಂದಿಗೆ ಖಚಿತಪಡಿಸಿ. ಈ ಸಂಗಾತಿ ಮಾತು ಮತ್ತು ಚಿತ್ರ ಮಾತ್ರ ಇಡುತ್ತದೆ. ಗುಡಿಯ ಸಮಯ ಗುಡಿಯದು."
+            : "Fees, estate visits and cupping desks belong to the people who open their gates. Confirm with them. This companion only keeps the walk in words and photographs. Hours and crowd rules at the shrine belong to the shrine."}</p>
+          <p><a class="btn btn-dark shine t-learn" href="places.html?id=baba-budangiri" data-magnetic>${learn(kn ? "ಬಾಬಾ ಬುದನ್‌ಗಿರಿ ತೆರೆಯಿರಿ" : "Open Baba Budangiri")}</a>
+             <a class="btn btn-line" href="index.html#bean-to-cup">${kn ? "ಮುಖಪುಟದ ವಿಭಾಗಕ್ಕೆ" : "Back to the homepage section"}</a>
+             <a class="btn btn-line" href="coffee.html">${kn ? "ಮೋಚಾ ಪುಟ" : "Mocha chapter"}</a></p>
         </div>
       </section>
       ${footer(f)}`;
@@ -1539,6 +1918,7 @@
       taluk: renderTalukPage,
       stories: renderStoriesPage,
       coffee: renderCoffeePage,
+      beantocup: renderBeanToCupPage,
       food: renderFoodPage,
       nature: renderNaturePage,
       heritage: renderHeritagePage,
