@@ -4610,7 +4610,6 @@ body[data-page="coffee"] .origin-chapter p {
   width: 100%;
   overflow: hidden;
   isolation: isolate;
-  contain: paint;
 }
 @media (max-width: 720px) {
   .places-drift-stage {

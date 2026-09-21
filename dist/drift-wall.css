@@ -41,6 +41,11 @@
   position: relative;
   width: calc(var(--dw-tile-w) + var(--dw-gap));
   transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.drift-wall__col .drift-wall__tile {
+  pointer-events: auto;
 }
 
 .drift-wall__track {
@@ -62,6 +67,8 @@
   padding: 0;
   background: transparent;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   font: inherit;
   color: inherit;
   text-align: left;

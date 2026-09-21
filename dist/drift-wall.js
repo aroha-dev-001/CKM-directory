@@ -110,6 +110,7 @@
     let lastTs = null;
     let raf = null;
     let plane = null;
+    let press = null;
 
     root.className = ["drift-wall", reduced ? "drift-wall--reduced" : "", options.className || ""].filter(Boolean).join(" ");
     root.style.setProperty("--dw-tile-w", `${tileWidth}px`);
@@ -229,7 +230,7 @@
         for (let c = 0; c < trackEls.length; c += 1) {
           const meta = columnMeta[c];
           if (!meta) continue;
-          const paused = pausedByFlip || (wallHovered && pauseOnHover);
+          const paused = pausedByFlip || Boolean(press) || (wallHovered && pauseOnHover);
           const factor = paused ? 0 : 1;
           const target = baseVelocities[c] * factor;
           if (pausedByFlip) {
@@ -261,16 +262,66 @@
       raf = global.requestAnimationFrame(animate);
     }
 
+    function tileAtPoint(x, y) {
+      const tiles = root.querySelectorAll(".drift-wall__tile");
+      let best = null;
+      let bestDist = Infinity;
+      tiles.forEach((tile) => {
+        const r = tile.getBoundingClientRect();
+        if (r.width < 8 || r.height < 8) return;
+        const pad = 10;
+        const inside = x >= r.left - pad && x <= r.right + pad && y >= r.top - pad && y <= r.bottom + pad;
+        const cx = (r.left + r.right) / 2;
+        const cy = (r.top + r.bottom) / 2;
+        const dist = (x - cx) * (x - cx) + (y - cy) * (y - cy);
+        if (inside && dist < bestDist) {
+          bestDist = dist;
+          best = tile;
+        }
+      });
+      if (best) return best;
+      tiles.forEach((tile) => {
+        const r = tile.getBoundingClientRect();
+        const cx = (r.left + r.right) / 2;
+        const cy = (r.top + r.bottom) / 2;
+        const dist = (x - cx) * (x - cx) + (y - cy) * (y - cy);
+        if (dist < bestDist && dist < 110 * 110) {
+          bestDist = dist;
+          best = tile;
+        }
+      });
+      return best;
+    }
+
+    function flipTile(tile) {
+      if (!tile || !root.contains(tile)) return;
+      const placeId = tile.getAttribute("data-place-id") || tile.getAttribute("data-tile-id");
+      if (!placeId) return;
+      if (flippedPlace === placeId) {
+        clearFlip();
+        return;
+      }
+      flippedPlace = placeId;
+      pausedByFlip = true;
+      activeId = tile.getAttribute("data-tile-id");
+      hoveredCol = Number(tile.getAttribute("data-col"));
+      syncTileState();
+    }
+
     function onPointerMove(e) {
       const rect = root.getBoundingClientRect();
       if (parallax > 0 && !reduced) {
         pointer.x = (e.clientX - rect.left) / rect.width - 0.5;
         pointer.y = (e.clientY - rect.top) / rect.height - 0.5;
       }
+      if (press) {
+        const dx = e.clientX - press.x;
+        const dy = e.clientY - press.y;
+        if (dx * dx + dy * dy > 144) press.moved = true;
+      }
       if (pausedByFlip) return;
-      const hit = document.elementFromPoint(e.clientX, e.clientY);
-      const tile = hit && hit.closest ? hit.closest("[data-tile-id]") : null;
-      if (!tile || !root.contains(tile)) return;
+      const tile = tileAtPoint(e.clientX, e.clientY);
+      if (!tile) return;
       const id = tile.getAttribute("data-tile-id");
       if (id === activeId) return;
       activeId = id;
@@ -286,31 +337,40 @@
       syncTileState();
     }
 
+    function onPointerDown(e) {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      press = { x: e.clientX, y: e.clientY, moved: false, tile: tileAtPoint(e.clientX, e.clientY) };
+    }
+
+    function onPointerUp(e) {
+      const start = press;
+      press = null;
+      if (destroyed || !start || start.moved) return;
+      const openHit = document.elementFromPoint(e.clientX, e.clientY);
+      const open = openHit && openHit.closest ? openHit.closest("[data-open-place]") : null;
+      if (open && root.contains(open)) {
+        const placeId = open.getAttribute("data-open-place");
+        if (placeId && onOpenPlace) onOpenPlace(placeId);
+        return;
+      }
+      const tile = tileAtPoint(e.clientX, e.clientY) || start.tile;
+      if (!tile || !root.contains(tile)) {
+        if (pausedByFlip) clearFlip();
+        return;
+      }
+      flipTile(tile);
+    }
+
     function onClick(e) {
       const open = e.target.closest("[data-open-place]");
       if (open && root.contains(open)) {
         e.preventDefault();
         e.stopPropagation();
-        const placeId = open.getAttribute("data-open-place");
-        if (placeId && onOpenPlace) onOpenPlace(placeId);
         return;
       }
-      const tile = e.target.closest("[data-tile-id]");
-      if (!tile || !root.contains(tile)) {
-        if (pausedByFlip) clearFlip();
-        return;
+      if (e.target.closest("[data-tile-id]") && root.contains(e.target)) {
+        e.preventDefault();
       }
-      e.preventDefault();
-      const placeId = tile.getAttribute("data-place-id");
-      if (flippedPlace === placeId) {
-        clearFlip();
-        return;
-      }
-      flippedPlace = placeId;
-      pausedByFlip = true;
-      activeId = tile.getAttribute("data-tile-id");
-      hoveredCol = Number(tile.getAttribute("data-col"));
-      syncTileState();
     }
 
     function onKey(e) {
@@ -334,6 +394,10 @@
       }
     }
 
+    function onPointerCancel() {
+      press = null;
+    }
+
     const mq = global.matchMedia("(prefers-reduced-motion: reduce)");
     const onMq = (event) => {
       reduced = event.matches;
@@ -341,6 +405,9 @@
     };
 
     root.addEventListener("pointermove", onPointerMove);
+    root.addEventListener("pointerdown", onPointerDown);
+    global.addEventListener("pointerup", onPointerUp);
+    root.addEventListener("pointercancel", onPointerCancel);
     root.addEventListener("pointerenter", onPointerEnter);
     root.addEventListener("pointerleave", onPointerLeave);
     root.addEventListener("click", onClick);
@@ -356,6 +423,9 @@
         destroyed = true;
         if (raf) global.cancelAnimationFrame(raf);
         root.removeEventListener("pointermove", onPointerMove);
+        root.removeEventListener("pointerdown", onPointerDown);
+        global.removeEventListener("pointerup", onPointerUp);
+        root.removeEventListener("pointercancel", onPointerCancel);
         root.removeEventListener("pointerenter", onPointerEnter);
         root.removeEventListener("pointerleave", onPointerLeave);
         root.removeEventListener("click", onClick);
