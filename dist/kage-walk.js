@@ -722,10 +722,8 @@
     ctx.fillStyle = CFG.world.background;
     ctx.fillRect(0, 0, w, h);
     if (isMobile()) {
-      var navH = Math.round(Math.min(h * 0.13, Math.max(72, h * 0.09)));
+      var navH = Math.round(Math.min(h * 0.12, Math.max(72, h * 0.08)));
       var photoH = Math.round(w * (9 / 16));
-      var copyTop = Math.round(h * 0.64);
-      if (navH + photoH > copyTop) photoH = Math.max(1, copyTop - navH);
       drawContainBox(frames[i0], 0, navH, w, photoH, vis);
     } else {
       ctx.save();
@@ -1024,66 +1022,69 @@
       var z = fo.ahead - t * n1 * mo.gap;
       var mobile = window.innerWidth < c.mobileBreakpoint;
       var dist = fo.ahead;
-      var navFrac = Math.min(0.13, Math.max(0.09, 76 / Math.max(window.innerHeight, 1)));
-      var copyFrac = 0.36;
-      var vFovDeg = mobile ? Math.max(c.fov, 42) : c.fov;
+      var navFrac = Math.min(0.12, Math.max(0.08, 76 / Math.max(window.innerHeight, 1)));
+      var copyFrac = 0.34;
+      var vFovDeg = mobile ? c.fov : c.fov;
       var vFov = (vFovDeg * Math.PI) / 180;
       var visH = 2 * Math.tan(vFov / 2) * dist;
       var visW = visH * (window.innerWidth / Math.max(window.innerHeight, 1));
-      var weave = Math.sin(t * Math.PI * n1 * 0.35) * (mobile ? c.weave * 0.5 : c.weave);
+      var weave = Math.sin(t * Math.PI * n1 * 0.35) * (mobile ? c.weave * 0.4 : c.weave);
       var px = mobile ? 0 : pointer.x * c.pointerX;
       var py = mobile ? 0 : pointer.y * c.pointerY;
-      var rightBias = mobile ? (c.rightBiasMobile != null ? c.rightBiasMobile : 0.55) : c.rightBias;
-      var liftY = mobile ? visH * (copyFrac - navFrac) / 2 : 0;
+      var plateW = plt.width;
+      var plateH = plateW * (9 / 16);
+      var sx = 1;
+      var liftY = 0;
+      if (mobile) {
+        sx = visW / plateW;
+        var plateWorldH = plateH * sx;
+        var navBot = visH / 2 - navFrac * visH;
+        liftY = navBot - plateWorldH / 2 - visH * 0.012;
+      }
       var camY = mobile ? liftY : c.startY - 0.03;
       var lookY = mobile ? liftY : c.lookY;
-      camTarget.set((mobile ? c.startX * 0.28 : c.startX) + weave * 0.12 + px, camY + py, z);
+      var rightBias = mobile ? visW * 0.08 : c.rightBias;
+      camTarget.set((mobile ? visW * 0.02 : c.startX) + weave * 0.12 + px, camY + py, z);
       var nearest = beatFromT(t);
       lookTarget.set(rightBias, lookY, z - dist);
       camera.fov = vFovDeg;
       camera.near = c.near;
       camera.far = c.far;
       camera.updateProjectionMatrix();
-      var lerpPow = mobile ? Math.min(c.lerpPower, 0.002) : c.lerpPower;
+      var lerpPow = c.lerpPower;
       camera.position.lerp(camTarget, 1 - Math.pow(lerpPow, dt));
       look.lerp(lookTarget, 1 - Math.pow(lerpPow, dt));
       camera.lookAt(look);
-      scene.fog.density = CFG.world.fogDensity;
+      scene.fog.density = mobile ? Math.min(CFG.world.fogDensity, 0.016) : CFG.world.fogDensity;
       scene.fog.color.setHex(hexNum(CFG.world.fogColor));
       renderer.setClearColor(hexNum(CFG.world.background), 1);
 
       var currentFocus = 0;
-      var plateW = plt.width;
-      var plateH = plateW * (9 / 16);
-      var sx = 1;
-      floor.visible = true;
-      if (mobile) {
-        var bandH = visH * Math.max(0.42, 1 - navFrac - copyFrac);
-        var bandW = visW * 0.92;
-        sx = Math.min(bandW / plateW, bandH / plateH);
-      }
+      floor.visible = !mobile;
       plates.forEach(function (p, i) {
         var dz = p.position.z - camera.position.z;
         var ahead = -dz;
         var focus = 1 - Math.min(1, Math.abs(ahead - fo.ahead) / fo.range);
         if (i === nearest) currentFocus = focus;
-        p.material.opacity = fo.opacityIdle + focus * fo.opacityGain;
-        var grow = 1 + Math.max(0, 1 - Math.abs(ahead - fo.growAhead) / fo.growRange) * fo.growAmount;
+        p.material.opacity = mobile
+          ? Math.max(0.18, fo.opacityIdle * 0.7) + focus * fo.opacityGain
+          : fo.opacityIdle + focus * fo.opacityGain;
+        var grow = 1 + Math.max(0, 1 - Math.abs(ahead - fo.growAhead) / fo.growRange) * (mobile ? fo.growAmount * 0.35 : fo.growAmount);
         p.scale.set(sx * grow, sx * grow, 1);
-        var restX = mobile ? p.userData.baseX * 0.22 : p.userData.baseX;
-        p.position.x = restX + (1 - focus) * fo.idleDriftX * (mobile ? 0.45 : 1);
-        p.position.y = (mobile ? liftY : p.userData.baseY) + Math.sin(clock.elapsedTime * 0.35 + i) * mo.plateFloat;
-        p.rotation.y = (mobile ? fo.rotY * 0.65 : fo.rotY) - (1 - focus) * fo.rotYIdle;
+        var restX = mobile ? visW * 0.04 : p.userData.baseX;
+        p.position.x = restX + (1 - focus) * fo.idleDriftX * (mobile ? 0.35 : 1);
+        p.position.y = (mobile ? liftY : p.userData.baseY) + Math.sin(clock.elapsedTime * 0.35 + i) * mo.plateFloat * (mobile ? 0.45 : 1);
+        p.rotation.y = (mobile ? fo.rotY * 0.85 : fo.rotY) - (1 - focus) * fo.rotYIdle;
       });
       shards.forEach(function (s) {
-        s.visible = CFG.shards.enabled;
-        s.material.opacity = mobile ? CFG.shards.opacity * 0.55 : CFG.shards.opacity;
-        s.position.x = mobile ? CFG.shards.x * 0.35 : CFG.shards.x;
-        s.position.y = (mobile ? liftY + 0.55 : CFG.shards.y) + Math.sin(clock.elapsedTime * 0.5 + s.userData.phase) * mo.shardFloat;
+        s.visible = CFG.shards.enabled && !mobile;
+        s.material.opacity = CFG.shards.opacity;
+        s.position.x = CFG.shards.x;
+        s.position.y = CFG.shards.y + Math.sin(clock.elapsedTime * 0.5 + s.userData.phase) * mo.shardFloat;
         s.rotation.z = Math.sin(clock.elapsedTime * 0.2 + s.userData.phase) * 0.08;
       });
       beans.forEach(function (m) {
-        m.visible = CFG.particles.enabled;
+        m.visible = CFG.particles.enabled && !mobile;
         m.rotation.y += m.userData.spin * dt;
         m.position.y = m.userData.baseY + Math.sin(clock.elapsedTime * m.userData.drift * 6 + m.position.z) * mo.beanBob;
       });
@@ -1325,7 +1326,7 @@
   function start() {
     CFG = clone(WALK_DEFAULTS);
     boot();
-    var url = "bean-to-cup.walk.json?v=cup16";
+    var url = "bean-to-cup.walk.json?v=cup17";
     var ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
     var timed = setTimeout(function () {
       if (ctrl) ctrl.abort();
