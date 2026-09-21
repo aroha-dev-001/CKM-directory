@@ -323,6 +323,8 @@
       "foot.note": "Independent companion. Not a government site. Not a booking service.",
       "pre.l": "Seven seeds",
       "pre.r": "One cup",
+      "page.k": "The walk",
+      "page.h": "Bean to cup",
       actI: "Act I · Origin",
       actII: "Act II · Crop",
     },
@@ -343,6 +345,8 @@
       "foot.note": "ಸ್ವತಂತ್ರ ಸಂಗಾತಿ. ಸರ್ಕಾರಿ ತಾಣವಲ್ಲ. ಬುಕಿಂಗ್ ಅಲ್ಲ.",
       "pre.l": "ಏಳು ಬೀಜ",
       "pre.r": "ಒಂದು ಕಪ್",
+      "page.k": "ನಡಿಗೆ",
+      "page.h": "ಬೀನ್ ಟು ಕಪ್",
       actI: "ಅಂಕ ೦೧ · ಮೂಲ",
       actII: "ಅಂಕ ೦೨ · ಬೆಳೆ",
     },
@@ -753,9 +757,9 @@
     ctx.fillRect(0, 0, w, h);
     if (isMobile()) {
       var navH = Math.round(Math.min(h * 0.12, Math.max(72, h * 0.08)));
+      var titleH = Math.round(h * 0.1);
       var photoH = Math.round(w * (9 / 16));
-      var y = Math.max(8, navH - Math.round(h * 0.02));
-      drawContainBox(frames[i0], 0, y, w, photoH, vis);
+      drawContainBox(frames[i0], 0, navH + titleH, w, photoH, vis);
     } else {
       ctx.save();
       ctx.translate(Math.round(w * CFG.plates.fallbackShift), 0);
@@ -1069,11 +1073,12 @@
       if (mobile) {
         sx = visW / plateW;
         var plateWorldH = plateH * sx;
-        var navBot = visH / 2 - navFrac * visH;
-        liftY = navBot - plateWorldH / 2 + visH * 0.07;
+        var titleFrac = 0.1;
+        var plateTop = visH / 2 - (navFrac + titleFrac) * visH;
+        liftY = plateTop - plateWorldH / 2;
       }
-      var camY = mobile ? liftY : c.startY - 0.03;
-      var lookY = mobile ? liftY : c.lookY;
+      var camY = mobile ? 0 : c.startY - 0.03;
+      var lookY = mobile ? liftY * 0.28 : c.lookY;
       var rightBias = mobile ? visW * 0.08 : c.rightBias;
       camTarget.set((mobile ? visW * 0.02 : c.startX) + weave * 0.12 + px, camY + py, z);
       var nearest = beatFromT(t);
@@ -1371,7 +1376,7 @@
     resetToTop();
     holdTop(400);
     boot();
-    var url = "bean-to-cup.walk.json?v=cup19";
+    var url = "bean-to-cup.walk.json?v=cup20";
     var ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
     var timed = setTimeout(function () {
       if (ctrl) ctrl.abort();
