@@ -656,7 +656,7 @@
             disablepictureinpicture
             autoplay
           >
-            <source src="assets/hero.mp4" type="video/mp4" />
+            <source src="assets/hero.mp4?v=hero1" type="video/mp4" />
           </video>
           <img class="hero-fallback" src="assets/hero.jpg" alt="" width="2400" height="1350" fetchpriority="high" />
         </div>
