@@ -1553,15 +1553,16 @@
     ];
     const sceneHtml = (ch, i) => {
       const paras = ch.paras.map((p) => `<p>${esc(p)}</p>`).join("");
-      const flip = i % 2 === 1 ? " is-flip" : "";
       const lore = ch.lore ? `<span class="lore-chip">${kn ? "ಕಥೆ" : "Lore"}</span>` : "";
+      const n = String(i).padStart(2, "0");
       return `
-          <article class="origin-scene${flip}" id="bean-${esc(ch.id)}">
-            <figure class="origin-scene-media">
+          <article class="story-step" id="bean-${esc(ch.id)}" data-story-step="${n}">
+            <p class="story-step-num" aria-hidden="true">${n}</p>
+            <figure class="story-step-media">
               <img src="${esc(ch.image)}" alt="${esc(ch.caption)}" width="1600" height="900" decoding="async" ${i < 2 ? "" : 'loading="lazy"'} />
               <figcaption>${esc(ch.caption)}</figcaption>
             </figure>
-            <div class="origin-chapter">
+            <div class="story-step-copy">
               <p class="kicker origin-kicker">${esc(ch.kicker)}${lore ? " " + lore : ""}</p>
               <h3>${esc(ch.title)}</h3>
               ${paras}
@@ -1570,8 +1571,15 @@
     };
     const originCh = chapters.filter((c) => c.act === "origin");
     const cropCh = chapters.filter((c) => c.act === "crop");
-    const jump = chapters
-      .map((ch, i) => `<a class="story-index-link" href="#bean-${esc(ch.id)}"><span>${String(i).padStart(2, "0")}</span>${esc(ch.title)}</a>`)
+    const film = chapters
+      .map((ch, i) => {
+        const n = String(i).padStart(2, "0");
+        const label = (ch.kicker || "").split("·").pop().trim();
+        return `<a href="#bean-${esc(ch.id)}" data-film="${n}">
+          <img src="${esc(ch.image)}" alt="" width="320" height="180" />
+          <span><b>${n}</b>${esc(label)}</span>
+        </a>`;
+      })
       .join("");
     const sources = (origin.sources || [])
       .map((src) => `<li><a href="${esc(src.url)}" rel="noopener noreferrer">${esc(src.label)}</a></li>`)
@@ -1582,33 +1590,33 @@
           <p class="kicker">${kn ? "ಬಾಬಾ ಬುದನ್ · ಬೀನ್ ಟು ಕಪ್" : "Baba Budan · Bean to cup"}</p>
           <h1>${kn ? "ಏಳು ಬೀಜದಿಂದ, ಜೀವಂತ ಕಪ್." : "From seven seeds, a living cup."}</h1>
           <p class="section-lead">${kn
-            ? "ಎರಡು ಅಂಕ, ಒಂದು ನಡಿಗೆ. ಮೊದಲು ಚಂದ್ರ ದ್ರೋಣದ ಸಂತ. ನಂತರ ನೆರಳು, ಹಣ್ಣು, ಬೀಜ, ಡ್ರಮ್, ಫಿಲ್ಟರ್, ಡವರ. ಅಂಗಡಿ ಅಲ್ಲ. ಬುಕಿಂಗ್ ಅಲ್ಲ. ಕಥೆಯನ್ನು ಕಥೆ ಎಂದು ಗುರುತಿಸಲಾಗಿದೆ."
-            : "Two acts, one walk. First the saint on Chandra Drona. Then shade, cherry, seed, drum, filter, davara. Not a shop. Not a booking. Lore is labelled lore."}</p>
+            ? "ಹದಿನೈದು ಬೀಟ್, ಒಂದು ಸರಣಿ. ಮೊದಲು ಸಂತ. ನಂತರ ಬೆಳೆ. ಪ್ರತಿ ಬೀಟ್‌ಗೆ ಒಂದು ಚಿತ್ರ. ಅಂಗಡಿ ಅಲ್ಲ. ಕಥೆಯನ್ನು ಕಥೆ ಎಂದು ಗುರುತಿಸಲಾಗಿದೆ."
+            : "Fifteen beats, one sequence. First the saint. Then the crop. One still per beat — coffee country, not a Kyoto hall. Not a shop. Lore is labelled lore."}</p>
           <nav class="story-act-nav" aria-label="${kn ? "ಅಂಕಗಳು" : "Acts"}">
-            <a href="#act-origin"><span>I</span>${kn ? "ಸಂತ" : "The saint"}</a>
-            <a href="#act-crop"><span>II</span>${kn ? "ಬೆಳೆ" : "The crop"}</a>
+            <a href="#act-origin"><span>I</span>${kn ? "ಸಂತ · ೦೦–೦೮" : "Saint · 00–08"}</a>
+            <a href="#act-crop"><span>II</span>${kn ? "ಬೆಳೆ · ೦೯–೧೪" : "Crop · 09–14"}</a>
           </nav>
-          <nav class="story-index" aria-label="${kn ? "ಅಧ್ಯಾಯಗಳು" : "Chapters"}">${jump}</nav>
         </div>
       </section>
+      <nav class="story-film wrap" aria-label="${kn ? "ಕ್ರಮ" : "Sequence"}">${film}</nav>
       <section class="story-longread coffee-longread bean-longread">
         <div class="wrap">
           <header class="story-act-head" id="act-origin">
-            <p class="kicker">${kn ? "ಅಂಕ ಒಂದು" : "Act I"}</p>
+            <p class="kicker">${kn ? "ಅಂಕ ಒಂದು · ೦೦–೦೮" : "Act I · 00–08"}</p>
             <h2>${kn ? "ಸಂತ, ಬಂದರು, ಬೆಟ್ಟ" : "The saint, the harbour, the ridge"}</h2>
             <p>${kn
               ? "ಏಳು ಮೋಚಾ ಬೀಜ ಈ ಬೆಟ್ಟಕ್ಕೆ ಹೇಗೆ ಬಂತು ಎಂಬುದು ಜಿಲ್ಲೆ ಹೇಳುವ ಕಥೆ. ದಿನಾಂಕಗಳು ಭಿನ್ನ. ಬೆಟ್ಟ ಒಂದೇ."
               : "How seven Mocha seeds reached this ridge is the story the district keeps. The dates disagree. The slope does not."}</p>
           </header>
-          <div class="origin-scenes">${originCh.map((ch, i) => sceneHtml(ch, i)).join("")}</div>
+          <div class="story-steps">${originCh.map((ch, i) => sceneHtml(ch, i)).join("")}</div>
           <header class="story-act-head" id="act-crop">
-            <p class="kicker">${kn ? "ಅಂಕ ಎರಡು" : "Act II"}</p>
+            <p class="kicker">${kn ? "ಅಂಕ ಎರಡು · ೦೯–೧೪" : "Act II · 09–14"}</p>
             <h2>${kn ? "ನೆರಳಿನಿಂದ ಡವರದವರೆಗೆ" : "From shade to the davara"}</h2>
             <p>${kn
               ? "ಈಗ ಬೆಳೆ. ಆರು ನಿಜ ಚಿತ್ರಗಳು — ಹಾದಿ, ಹಣ್ಣು, ಬೀಜ, ಹುರಿತ, ಫಿಲ್ಟರ್, ಕಪ್. ಮೆನು ಅಲ್ಲ."
-              : "Now the crop. Six stills from working hills — path, cherry, seed, roast, filter, cup. Not a tasting menu."}</p>
+              : "Now the crop. Six working stills, in order: path, cherry, seed, roast, filter, cup. Not a tasting menu."}</p>
           </header>
-          <div class="origin-scenes">${cropCh.map((ch, i) => sceneHtml(ch, originCh.length + i)).join("")}</div>
+          <div class="story-steps">${cropCh.map((ch, i) => sceneHtml(ch, originCh.length + i)).join("")}</div>
           <div class="origin-sources">
             <p class="kicker">${kn ? "ಆಕರಗಳು" : "Sources"}</p>
             <ul>${sources}</ul>

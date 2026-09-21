@@ -1267,6 +1267,28 @@
     });
   }
 
+  function wireBeanStory() {
+    if (PAGE !== "beantocup") return;
+    const steps = Array.from(document.querySelectorAll("[data-story-step]"));
+    const links = Array.from(document.querySelectorAll(".story-film a"));
+    if (!steps.length || !links.length) return;
+    const setOn = (n) => {
+      links.forEach((a) => a.classList.toggle("is-on", a.getAttribute("data-film") === n));
+    };
+    setOn(steps[0].getAttribute("data-story-step"));
+    if (!("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        const vis = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (vis) setOn(vis.target.getAttribute("data-story-step"));
+      },
+      { rootMargin: "-32% 0px -48% 0px", threshold: [0.2, 0.45, 0.7] }
+    );
+    steps.forEach((el) => io.observe(el));
+  }
+
   function paint() {
     const main = document.getElementById("main");
     main.innerHTML = CKMSections.renderPage(PAGE, state.lang);
@@ -1292,6 +1314,7 @@
     placeCoffeeBeforeClose();
     initExploreAccordion();
     initNumbers();
+    wireBeanStory();
     filterPopular();
     if (PAGE === "taluk" && state.selectedTaluk) {
       const taluk = CKMMap.talukById(state.selectedTaluk);

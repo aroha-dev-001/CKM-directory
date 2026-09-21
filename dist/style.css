@@ -927,12 +927,120 @@ a.food-card-link:hover {
 body[data-page="beantocup"] .page-hero h1 {
   max-width: 18ch;
 }
-body[data-page="beantocup"] .story-index {
-  max-width: 54rem;
+body[data-page="beantocup"] {
+  background: var(--paper);
 }
-body[data-page="beantocup"] .origin-scene-media img {
-  object-fit: cover;
+body[data-page="beantocup"] .bean-hero {
+  background: var(--paper);
+}
+.story-film {
+  display: grid;
+  grid-template-columns: repeat(15, minmax(4.4rem, 1fr));
+  gap: 0.4rem;
+  padding-top: 0.2rem;
+  padding-bottom: 1.2rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.story-film a {
+  display: grid;
+  gap: 0.28rem;
+  min-width: 4.4rem;
+  text-decoration: none;
+  color: inherit;
+}
+.story-film img {
+  width: 100%;
   aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 0.45rem;
+  display: block;
+  background: #efe6d4;
+  outline: 1px solid transparent;
+}
+.story-film a.is-on img,
+.story-film a:hover img,
+.story-film a:focus-visible img {
+  outline: 2px solid var(--gold);
+  outline-offset: 1px;
+}
+.story-film span {
+  font-size: 0.62rem;
+  line-height: 1.25;
+  color: var(--muted);
+}
+.story-film b {
+  display: block;
+  color: var(--gold-dim);
+  letter-spacing: 0.12em;
+  font-weight: 600;
+}
+.story-steps {
+  display: grid;
+  gap: 0;
+}
+.story-step {
+  display: grid;
+  grid-template-columns: 3.2rem minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: clamp(0.8rem, 2.4vw, 1.8rem);
+  align-items: start;
+  padding: clamp(1.6rem, 4vw, 2.6rem) 0;
+  border-top: 1px solid var(--line);
+  scroll-margin-top: calc(var(--header) + 5.4rem);
+}
+.story-step-num {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  color: var(--gold-dim);
+}
+.story-step-media {
+  margin: 0;
+}
+.story-step-media img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 1rem;
+  display: block;
+  background: #efe6d4;
+  box-shadow: 0 18px 40px rgba(12, 31, 19, 0.08);
+}
+.story-step-media figcaption {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 0.5rem;
+  line-height: 1.45;
+}
+.story-step-copy h3 {
+  font-size: 1.35rem;
+  margin: 0.15rem 0 0.5rem;
+}
+.story-step-copy p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--ink);
+}
+.story-step-copy p + p {
+  margin-top: 0.8rem;
+}
+@media (max-width: 960px) {
+  .story-film {
+    grid-template-columns: repeat(15, minmax(4.8rem, 1fr));
+  }
+  .story-step {
+    grid-template-columns: 2.4rem 1fr;
+    gap: 0.55rem 0.85rem;
+  }
+  .story-step-media {
+    grid-column: 1 / -1;
+  }
+  .story-step-copy {
+    grid-column: 1 / -1;
+  }
 }
 
 .coffee-origin--home .story-entry-card {
