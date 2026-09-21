@@ -37,7 +37,7 @@ TEMPLATE = """<!DOCTYPE html>
       href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;700&family=Outfit:wght@400&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css?v=sage28" />
+    <link rel="stylesheet" href="style.css?v=sage29" />
     <link rel="stylesheet" href="carousel.css?v=sage6" />
     <link rel="stylesheet" href="drift-wall.css?v=sage6" />
     <link rel="stylesheet" href="accordion-gallery.css?v=sage1" />
@@ -102,6 +102,7 @@ TEMPLATE = """<!DOCTYPE html>
     <script src="drift-wall.js?v=sage6"></script>
     <script src="accordion-gallery.js?v=sage1"></script>
     <script src="app.js?v=sage25"></script>
+    <script src="bean-cursor.js?v=bean1"></script>
   </body>
 </html>
 """

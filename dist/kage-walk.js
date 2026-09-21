@@ -1218,7 +1218,7 @@
   else start();
 
   function start() {
-    var url = "bean-to-cup.walk.json?v=cup9";
+    var url = "bean-to-cup.walk.json?v=cup10";
     fetch(url)
       .then(function (r) { return r.ok ? r.json() : {}; })
       .then(function (j) {

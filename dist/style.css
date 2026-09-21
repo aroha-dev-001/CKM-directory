@@ -4879,3 +4879,30 @@ body[data-page="coffee"] .origin-chapter p {
   .num-card { min-height: 0; }
 }
 
+html.has-bean-cursor,
+html.has-bean-cursor * {
+  cursor: none !important;
+}
+html.has-bean-cursor input,
+html.has-bean-cursor textarea,
+html.has-bean-cursor select,
+html.has-bean-cursor [contenteditable="true"] {
+  cursor: text !important;
+}
+.bean-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  z-index: 400;
+  pointer-events: none;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
+  will-change: transform;
+}
+html.bean-cursor-static,
+html.bean-cursor-static * {
+  cursor: url("assets/cursor-roast-bean.svg") 16 16, auto;
+}
+

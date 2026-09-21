@@ -65,7 +65,7 @@
     "rotY": -0.38
   },
   "particles": {
-    "enabled": true,
+    "enabled": false,
     "count": 36,
     "minX": 1.8,
     "spreadX": 5.5,
