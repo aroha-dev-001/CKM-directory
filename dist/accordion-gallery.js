@@ -44,8 +44,6 @@
     let firstRun = true;
     let mediaSize = 320;
     let tl = null;
-    let stackLock = false;
-    let stackLockTimer = 0;
     const stackQuery = global.matchMedia ? global.matchMedia("(max-width: 720px)") : { matches: false, addEventListener() {}, removeEventListener() {} };
 
     function isStack() {
@@ -193,13 +191,6 @@
       if (next === active && !firstRun) return;
       active = next;
       applyLayout(!firstRun);
-      if (isStack() && !firstRun && !prefersReduced) {
-        stackLock = true;
-        window.clearTimeout(stackLockTimer);
-        stackLockTimer = window.setTimeout(() => {
-          stackLock = false;
-        }, duration * 1000 + 50);
-      }
       options.onChange?.(active, items[active]);
     }
 
@@ -237,26 +228,13 @@
     }
 
     function syncFromScroll() {
-      if (!isStack() || stackLock) return;
-      const mid = window.innerHeight * 0.42;
-      let best = active;
-      let bestDist = Infinity;
+      if (!isStack()) return;
+      const line = window.innerHeight * 0.36;
+      let best = 0;
       panels.forEach((panel, i) => {
         const r = panel.getBoundingClientRect();
-        if (r.bottom < 48 || r.top > window.innerHeight - 48) return;
-        const center = (r.top + r.bottom) / 2;
-        const dist = Math.abs(center - mid);
-        if (dist < bestDist) {
-          bestDist = dist;
-          best = i;
-        }
+        if (r.top <= line) best = i;
       });
-      if (best === active) return;
-      const cur = panels[active]?.getBoundingClientRect();
-      if (cur) {
-        const curDist = Math.abs((cur.top + cur.bottom) / 2 - mid);
-        if (curDist - bestDist < 56) return;
-      }
       setActive(best);
     }
 
@@ -298,6 +276,8 @@
       });
     }
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("touchmove", onScroll, { passive: true });
+    if (window.visualViewport) window.visualViewport.addEventListener("scroll", onScroll, { passive: true });
     syncFromScroll();
 
     const onStackChange = () => measure();
@@ -314,9 +294,10 @@
       },
       destroy() {
         tl?.kill();
-        window.clearTimeout(stackLockTimer);
         ro.disconnect();
         window.removeEventListener("scroll", onScroll);
+        window.removeEventListener("touchmove", onScroll);
+        if (window.visualViewport) window.visualViewport.removeEventListener("scroll", onScroll);
         const wrap = pinWrap();
         if (wrap) {
           wrap.style.minHeight = "";
