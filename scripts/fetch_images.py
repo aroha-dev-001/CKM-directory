@@ -65,6 +65,11 @@ JOBS = [
         "center",
     ),
     (
+        "explore-stay.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/8/87/Picture_shot_during_sunset_%40_Kemmangundi_which_depicts_amazing_beauty_of_nature.jpg",
+        "upper",
+    ),
+    (
         "food-akki-rotti.jpg",
         "https://upload.wikimedia.org/wikipedia/commons/c/c3/Akki_roti.jpg",
         "center",

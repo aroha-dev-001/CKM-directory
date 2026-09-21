@@ -3189,6 +3189,14 @@ window.CKM = {
       "url": "https://commons.wikimedia.org/wiki/File:Kemmanagundi_Hill_Station_-_panoramio.jpg"
     },
     {
+      "local": "explore-stay.jpg",
+      "place": "Kemmangundi sunset",
+      "file": "Picture shot during sunset @ Kemmangundi which depicts amazing beauty of nature.jpg",
+      "artist": "RakeshRaju M",
+      "license": "CC BY-SA 4.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Picture_shot_during_sunset_@_Kemmangundi_which_depicts_amazing_beauty_of_nature.jpg"
+    },
+    {
       "local": "hebbe-falls.jpg",
       "place": "Hebbe Falls",
       "file": "Hebbe Falls (8322309846).jpg",
@@ -3874,7 +3882,7 @@ window.CKM = {
     {
       "id": "stay",
       "href": "stay.html",
-      "image": "assets/kemmanagundi.jpg",
+      "image": "assets/explore-stay.jpg",
       "label": "Stays",
       "labelKn": "ಗಿರಿಧಾಮ",
       "title": "Hill air, not a room list",
