@@ -458,6 +458,36 @@
   var scrollT = 0;
   var pointer = { x: 0, y: 0 };
   var running = true;
+  var allowSnap = false;
+  var pinTopUntil = 0;
+
+  function resetToTop() {
+    try {
+      if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    } catch (err) {}
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    scrollT = 0;
+  }
+
+  function holdTop(ms) {
+    pinTopUntil = Date.now() + (ms || 800);
+    allowSnap = false;
+    document.documentElement.classList.remove("walk-snap");
+    resetToTop();
+    function tick() {
+      resetToTop();
+      if (Date.now() < pinTopUntil) {
+        requestAnimationFrame(tick);
+      } else {
+        allowSnap = !reducedNow();
+        document.documentElement.classList.toggle("walk-snap", allowSnap);
+        resetToTop();
+      }
+    }
+    requestAnimationFrame(tick);
+  }
 
   function clone(o) {
     return JSON.parse(JSON.stringify(o));
@@ -545,7 +575,7 @@
     var chips = $(".chips");
     if (chips) chips.style.display = rail.chipsVisible ? "" : "none";
     document.body.classList.toggle("is-2d", !!CFG.debug.force2d || reducedNow());
-    document.documentElement.classList.toggle("walk-snap", !reducedNow());
+    document.documentElement.classList.toggle("walk-snap", allowSnap && !reducedNow());
   }
 
   function layoutSnaps() {
@@ -783,7 +813,7 @@
   }
 
   function snapNearest() {
-    if (snapLock || reducedNow() || !reelPlaying()) return;
+    if (!allowSnap || Date.now() < pinTopUntil || snapLock || reducedNow() || !reelPlaying()) return;
     var t = scrollProgress();
     if (t >= 0.992) return;
     var i = beatFromT(t);
@@ -1245,6 +1275,7 @@
   }
 
   function unlock() {
+    holdTop(900);
     document.body.classList.remove("is-locked");
     var pre = $("#pre");
     if (pre) pre.classList.add("done");
@@ -1268,6 +1299,7 @@
       }
     }
     paintCopy(0);
+    resetToTop();
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     wireSnap();
@@ -1325,8 +1357,10 @@
 
   function start() {
     CFG = clone(WALK_DEFAULTS);
+    resetToTop();
+    holdTop(400);
     boot();
-    var url = "bean-to-cup.walk.json?v=cup17";
+    var url = "bean-to-cup.walk.json?v=cup18";
     var ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
     var timed = setTimeout(function () {
       if (ctrl) ctrl.abort();
