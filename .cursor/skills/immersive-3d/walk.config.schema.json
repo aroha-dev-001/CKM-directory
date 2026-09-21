@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "walk.config.schema.json",
+  "title": "Immersive 3D walk config",
+  "type": "object",
+  "required": ["world", "camera", "plates", "copyRail", "motion", "theme", "beats", "a11y", "debug"],
+  "properties": {
+    "world": {
+      "type": "object",
+      "required": ["background", "fog", "ambient", "scrollHeightVh", "pixelRatioCap"],
+      "properties": {
+        "background": { "type": "string" },
+        "fog": {
+          "type": "object",
+          "required": ["color", "density"],
+          "properties": {
+            "color": { "type": "string" },
+            "density": { "type": "number", "minimum": 0 }
+          }
+        },
+        "ambient": { "type": "number" },
+        "scrollHeightVh": { "type": "number", "minimum": 100 },
+        "pixelRatioCap": { "type": "number", "minimum": 1 }
+      }
+    },
+    "camera": {
+      "type": "object",
+      "required": ["start", "lookTarget", "rightBias", "rightBiasMobile", "fov", "near", "far", "dolly"],
+      "properties": {
+        "start": {
+          "type": "object",
+          "properties": {
+            "x": { "type": "number" },
+            "y": { "type": "number" },
+            "z": { "type": "number" }
+          }
+        },
+        "lookTarget": {
+          "type": "object",
+          "properties": {
+            "x": { "type": "number" },
+            "y": { "type": "number" },
+            "z": { "type": "number" }
+          }
+        },
+        "rightBias": { "type": "number" },
+        "rightBiasMobile": { "type": "number" },
+        "fov": { "type": "number" },
+        "near": { "type": "number" },
+        "far": { "type": "number" },
+        "dolly": {
+          "type": "object",
+          "required": ["z0", "z1"],
+          "properties": {
+            "z0": { "type": "number" },
+            "z1": { "type": "number" }
+          }
+        }
+      }
+    },
+    "plates": {
+      "type": "object",
+      "required": [
+        "baseX",
+        "baseXMobile",
+        "width",
+        "height",
+        "focusPullX",
+        "idleDriftX",
+        "zSpacing",
+        "focusSharpness",
+        "opacityIdle",
+        "opacityFocus"
+      ],
+      "properties": {
+        "baseX": { "type": "number" },
+        "baseXMobile": { "type": "number" },
+        "width": { "type": "number" },
+        "height": { "type": "number" },
+        "focusPullX": { "type": "number" },
+        "idleDriftX": { "type": "number" },
+        "zSpacing": { "type": "number" },
+        "focusSharpness": { "type": "number" },
+        "opacityIdle": { "type": "number" },
+        "opacityFocus": { "type": "number" }
+      }
+    },
+    "shards": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "x": { "type": "number" },
+        "scale": { "type": "number" },
+        "opacity": { "type": "number" },
+        "countPerBeat": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "copyRail": {
+      "type": "object",
+      "required": ["side", "maxWidth", "overlayGradient", "stageIndexVisible"],
+      "properties": {
+        "side": { "enum": ["left", "right"] },
+        "maxWidth": { "type": "string" },
+        "overlayGradient": { "type": "string" },
+        "kickerSize": { "type": "string" },
+        "titleSize": { "type": "string" },
+        "bodySize": { "type": "string" },
+        "loreSize": { "type": "string" },
+        "stageIndexVisible": { "type": "boolean" }
+      }
+    },
+    "motion": {
+      "type": "object",
+      "required": ["easing", "focusWidth", "parallax"],
+      "properties": {
+        "easing": { "enum": ["linear", "smoothstep", "easeInOutCubic"] },
+        "focusWidth": { "type": "number" },
+        "parallax": { "type": "number" },
+        "particles": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "count": { "type": "integer" },
+            "minX": { "type": "number" }
+          }
+        }
+      }
+    },
+    "theme": {
+      "type": "object",
+      "required": ["fontFamily", "accent", "railBg", "cardBg", "cardBorder", "radius"],
+      "properties": {
+        "fontFamily": { "type": "string" },
+        "accent": { "type": "string" },
+        "railBg": { "type": "string" },
+        "cardBg": { "type": "string" },
+        "cardBorder": { "type": "string" },
+        "radius": { "type": "string" }
+      }
+    },
+    "beats": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "still", "title", "kicker", "body", "z"],
+        "properties": {
+          "id": { "type": "string" },
+          "still": { "type": "string" },
+          "title": { "type": "string" },
+          "kicker": { "type": "string" },
+          "body": { "type": "string" },
+          "lore": { "type": "string" },
+          "z": { "type": "number" },
+          "hold": { "type": "number" }
+        }
+      }
+    },
+    "a11y": {
+      "type": "object",
+      "required": ["reducedMotion", "lang"],
+      "properties": {
+        "reducedMotion": { "enum": ["auto", "force", "off"] },
+        "lang": { "type": "string" },
+        "altMode": { "type": "boolean" }
+      }
+    },
+    "debug": {
+      "type": "object",
+      "properties": {
+        "hudDefaultOpen": { "type": "boolean" },
+        "showBeatIndex": { "type": "boolean" },
+        "showFrustum": { "type": "boolean" }
+      }
+    }
+  }
+}

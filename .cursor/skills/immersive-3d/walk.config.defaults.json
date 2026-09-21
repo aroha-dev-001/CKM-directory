@@ -1,0 +1,73 @@
+{
+  "world": {
+    "background": "#07080a",
+    "fog": { "color": "#07080a", "density": 0.045 },
+    "ambient": 0.22,
+    "scrollHeightVh": 560,
+    "pixelRatioCap": 2
+  },
+  "camera": {
+    "start": { "x": -0.55, "y": 0, "z": 8 },
+    "lookTarget": { "x": 0, "y": 0, "z": 0 },
+    "rightBias": 2.35,
+    "rightBiasMobile": 1.05,
+    "fov": 42,
+    "near": 0.1,
+    "far": 80,
+    "dolly": { "z0": 8, "z1": -22 }
+  },
+  "plates": {
+    "baseX": 2.45,
+    "baseXMobile": 1.35,
+    "width": 2.4,
+    "height": 1.5,
+    "focusPullX": 0,
+    "idleDriftX": 0.28,
+    "zSpacing": 2.1,
+    "focusSharpness": 2.4,
+    "opacityIdle": 0.22,
+    "opacityFocus": 1
+  },
+  "shards": {
+    "enabled": true,
+    "x": 4.55,
+    "scale": 0.35,
+    "opacity": 0.35,
+    "countPerBeat": 2
+  },
+  "copyRail": {
+    "side": "left",
+    "maxWidth": "min(40vw, 28.5rem)",
+    "overlayGradient": "linear-gradient(90deg, rgba(7,8,10,0.92) 0%, rgba(7,8,10,0.55) 62%, rgba(7,8,10,0) 100%)",
+    "kickerSize": "0.72rem",
+    "titleSize": "1.85rem",
+    "bodySize": "1.02rem",
+    "loreSize": "0.88rem",
+    "stageIndexVisible": true
+  },
+  "motion": {
+    "easing": "smoothstep",
+    "focusWidth": 0.08,
+    "parallax": 0.12,
+    "particles": { "enabled": false, "count": 0, "minX": 1.8 }
+  },
+  "theme": {
+    "fontFamily": "ui-sans-serif, system-ui, sans-serif",
+    "accent": "#e0231c",
+    "railBg": "transparent",
+    "cardBg": "rgba(12,12,14,0.55)",
+    "cardBorder": "rgba(255,255,255,0.12)",
+    "radius": "0.75rem"
+  },
+  "beats": [],
+  "a11y": {
+    "reducedMotion": "auto",
+    "lang": "en",
+    "altMode": true
+  },
+  "debug": {
+    "hudDefaultOpen": true,
+    "showBeatIndex": true,
+    "showFrustum": false
+  }
+}
