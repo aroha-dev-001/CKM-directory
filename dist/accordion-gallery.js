@@ -44,7 +44,6 @@
     let firstRun = true;
     let mediaSize = 320;
     let tl = null;
-    let io = null;
     const stackQuery = global.matchMedia ? global.matchMedia("(max-width: 720px)") : { matches: false, addEventListener() {}, removeEventListener() {} };
 
     function isStack() {
@@ -118,12 +117,24 @@
         const drift = Math.max(-1.5, Math.min(1.5, active - i));
         const shift = stack ? 0 : drift * parallax * mediaSize * 0.06;
         const gray = grayscale ? (isActive ? 0 : 1) : 0;
-        const dim = stack ? (isActive ? 0.18 : 0.32) : isActive ? 0.12 : 0.42;
+        const dim = isActive ? 0.12 : 0.42;
+        const stackGrow = count > 1 ? (0.7 * (count - 1)) / 0.3 : 1;
+        const panelGrow = stack ? (isActive ? stackGrow : 1) : isActive ? grow : 1;
 
         if (gsap && tl) {
-          if (stack) {
-            tl.to(panel, { flexGrow: 0, rotateX: 0, rotateY: 0, "--ag-dim": dim, duration: dur, ease }, 0);
-            if (media) {
+          tl.to(
+            panel,
+            {
+              flexGrow: panelGrow,
+              ...(stack ? { rotateX: 0, rotateY: 0 } : rotProp),
+              "--ag-dim": dim,
+              duration: dur,
+              ease,
+            },
+            0
+          );
+          if (media) {
+            if (stack) {
               tl.to(
                 media,
                 {
@@ -131,20 +142,14 @@
                   yPercent: 0,
                   x: 0,
                   y: 0,
-                  scale: isActive ? 1.06 : 1,
+                  scale: 1,
                   "--ag-gray": gray,
                   duration: dur,
                   ease,
                 },
                 0
               );
-            }
-            if (showLabels && copy) {
-              tl.to(copy, { opacity: 1, y: 0, duration: dur, ease }, 0);
-            }
-          } else {
-            tl.to(panel, { flexGrow: isActive ? grow : 1, ...rotProp, "--ag-dim": dim, duration: dur, ease }, 0);
-            if (media) {
+            } else {
               tl.to(
                 media,
                 {
@@ -160,21 +165,21 @@
                 0
               );
             }
-            if (showLabels && copy) {
-              if (isActive) {
-                tl.to(copy, { opacity: 1, y: 0, duration: dur, ease, stagger: prefersReduced ? 0 : stagger }, 0);
-              } else {
-                tl.to(copy, { opacity: 0, y: 10, duration: dur * 0.55, ease }, 0);
-              }
+          }
+          if (showLabels && copy) {
+            if (isActive) {
+              tl.to(copy, { opacity: 1, y: 0, duration: dur, ease }, 0);
+            } else {
+              tl.to(copy, { opacity: 0, y: 12, duration: dur * 0.45, ease }, 0);
             }
           }
         } else {
-          panel.style.flexGrow = stack ? "0" : String(isActive ? grow : 1);
+          panel.style.flexGrow = String(panelGrow);
           panel.style.setProperty("--ag-dim", String(dim));
           if (media) media.style.setProperty("--ag-gray", String(gray));
           if (copy) {
-            copy.style.opacity = stack || isActive ? "1" : "0";
-            copy.style.transform = stack || isActive ? "none" : "translateY(10px)";
+            copy.style.opacity = isActive ? "1" : "0";
+            copy.style.transform = isActive ? "none" : "translateY(12px)";
           }
         }
       });
@@ -188,15 +193,24 @@
       options.onChange?.(active, items[active]);
     }
 
+    function pinWrap() {
+      return root.closest(".explore-accordion-wrap") || root.parentElement;
+    }
+
     function measure() {
       const stack = isStack();
+      const wrap = pinWrap();
       root.classList.toggle("accordion-gallery--stack", stack);
+      if (wrap) wrap.classList.toggle("explore-accordion-wrap--pin", stack);
       if (stack) {
-        root.style.height = "auto";
+        const h = Math.round(Math.min(window.innerHeight * 0.78, 640));
+        root.style.height = `${h}px`;
         root.style.setProperty("--ag-media-size", "100%");
+        if (wrap) wrap.style.minHeight = `${Math.round(count * h * 0.92)}px`;
         applyLayout(!firstRun);
         return;
       }
+      if (wrap) wrap.style.minHeight = "";
       const rect = root.getBoundingClientRect();
       const total = vertical ? rect.height : rect.width;
       const usable = Math.max(total - gap * (count - 1), 120);
@@ -207,13 +221,25 @@
       applyLayout(!firstRun);
     }
 
+    function syncFromScroll() {
+      if (!isStack()) return;
+      const wrap = pinWrap();
+      if (!wrap) return;
+      const stickyTop = 72;
+      const traveled = stickyTop - wrap.getBoundingClientRect().top;
+      const maxTravel = Math.max(wrap.offsetHeight - root.offsetHeight, 1);
+      const t = Math.min(1, Math.max(0, traveled / maxTravel));
+      const i = Math.min(count - 1, Math.round(t * (count - 1)));
+      setActive(i);
+    }
+
     panels.forEach((panel, i) => {
       panel.addEventListener("mouseenter", () => {
         if (trigger === "hover") setActive(i);
       });
       panel.addEventListener("focus", () => setActive(i));
       panel.addEventListener("click", (e) => {
-        if (!isStack() && i !== active) {
+        if (i !== active) {
           e.preventDefault();
           setActive(i);
         }
@@ -235,28 +261,17 @@
     firstRun = false;
     options.onChange?.(active, items[active]);
 
-    if (typeof IntersectionObserver !== "undefined") {
-      const ratios = new Map();
-      io = new IntersectionObserver(
-        (entries) => {
-          if (!isStack()) return;
-          entries.forEach((entry) => {
-            ratios.set(entry.target, entry.intersectionRatio);
-          });
-          let best = active;
-          let bestRatio = 0;
-          ratios.forEach((ratio, el) => {
-            if (ratio > bestRatio) {
-              bestRatio = ratio;
-              best = Number(el.getAttribute("data-ag-index"));
-            }
-          });
-          if (bestRatio >= 0.45 && !Number.isNaN(best)) setActive(best);
-        },
-        { threshold: [0.35, 0.5, 0.65, 0.8], rootMargin: "-12% 0px -12% 0px" }
-      );
-      panels.forEach((panel) => io.observe(panel));
+    let ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        syncFromScroll();
+      });
     }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    syncFromScroll();
 
     const onStackChange = () => measure();
     if (stackQuery.addEventListener) stackQuery.addEventListener("change", onStackChange);
@@ -273,7 +288,12 @@
       destroy() {
         tl?.kill();
         ro.disconnect();
-        if (io) io.disconnect();
+        window.removeEventListener("scroll", onScroll);
+        const wrap = pinWrap();
+        if (wrap) {
+          wrap.style.minHeight = "";
+          wrap.classList.remove("explore-accordion-wrap--pin");
+        }
         if (stackQuery.removeEventListener) stackQuery.removeEventListener("change", onStackChange);
         else if (stackQuery.removeListener) stackQuery.removeListener(onStackChange);
       },
