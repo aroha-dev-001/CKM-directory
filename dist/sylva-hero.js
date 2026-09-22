@@ -1,8 +1,8 @@
 (function () {
   "use strict";
 
-  var LABEL = "Interactive procedural moss root world with ferns, flowers, pollen, and a butterfly";
-  var SRC = "sylva-living-world/living-green.html?v=sylva1";
+  var LABEL = "Pollen and a butterfly over the Kudremukh hills";
+  var SRC = "sylva-living-world/living-green.html?v=sylva2";
 
   function mount() {
     var host = document.getElementById("sylva-hero");

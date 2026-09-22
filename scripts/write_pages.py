@@ -93,13 +93,13 @@ TEMPLATE = """<!DOCTYPE html>
     <script src="data.js?v=sage27"></script>
     <script src="statistics.js?v=sage2"></script>
     <script src="numbers.js?v=sage5"></script>
-    <script src="sections.js?v=sage46"></script>
+    <script src="sections.js?v=sage47"></script>
     <script src="map.js?v=sage8"></script>
     <script src="carousel.js?v=sage6"></script>
     <script src="drift-wall.js?v=sage9"></script>
     <script src="accordion-gallery.js?v=sage9"></script>
     <script src="app.js?v=sage32"></script>
-    <script src="sylva-hero.js?v=sylva1"></script>
+    <script src="sylva-hero.js?v=sylva2"></script>
     <script src="chikku.js?v=chikku7"></script>
   </body>
 </html>

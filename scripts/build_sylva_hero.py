@@ -55,6 +55,69 @@ body {
 }
 </style>"""
 
+# Atmosphere-only: keep pollen + butterfly, hide the giant moss root.
+CKM_ATMOSPHERE = [
+    (
+        "var BLADES_NEAR = small ? 70000 : 190000;\n    var BLADES_FAR  = small ? 20000 :  60000;",
+        "var BLADES_NEAR = 0;\n    var BLADES_FAR  = 0;",
+    ),
+    (
+        "blades: BLADES_NEAR, ferns: small ? 26 : 46, flowers: small ? 120 : 260,\n      fernSize: [0.22, 0.50], flowerSize: [0.055, 0.118], mainLimbs: mainCount, wire: true,",
+        "blades: 0, ferns: 0, flowers: 0,\n      fernSize: [0.22, 0.50], flowerSize: [0.055, 0.118], mainLimbs: mainCount, wire: false,",
+    ),
+    (
+        "blades: BLADES_FAR, ferns: small ? 8 : 16, flowers: small ? 40 : 90,\n      fernSize: [0.26, 0.56], flowerSize: [0.034, 0.062],\n      mask: [0.4, 3.4, 0.0, 0.42], wire: true,",
+        "blades: 0, ferns: 0, flowers: 0,\n      fernSize: [0.26, 0.56], flowerSize: [0.034, 0.062],\n      mask: [0.4, 3.4, 0.0, 0.42], wire: false,",
+    ),
+    (
+        "    scene.add(nearGroup);\n    if (!small) bf = buildButterfly(nearGroup, nearLimbs, nearGroup.userData.uni);",
+        "    scene.add(nearGroup);\n    hideRootBody(nearGroup);\n    if (!small) bf = buildButterfly(nearGroup, nearLimbs, nearGroup.userData.uni);",
+    ),
+    (
+        "    scene.add(farGroup);",
+        "    scene.add(farGroup);\n    hideRootBody(farGroup);",
+    ),
+    (
+        "    scene.add(shadowMesh);",
+        "    shadowMesh.visible = false;\n    scene.add(shadowMesh);",
+    ),
+    (
+        "    scene.add(glowMesh);",
+        "    glowMesh.visible = false;\n    scene.add(glowMesh);",
+    ),
+    (
+        "if (!REDUCED && !document.hidden) { uScanOn.value = 1; uScanR.value = 0; scanning = true; }",
+        "/* CKM atmosphere: no root scan cage over the mountains */",
+    ),
+    (
+        "var COUNT = (NARROW.matches || (window.innerWidth * window.innerHeight) < 620000) ? 1500 : 4200;",
+        "var COUNT = (NARROW.matches || (window.innerWidth * window.innerHeight) < 620000) ? 2200 : 5600;",
+    ),
+    (
+        "transparent: true, depthWrite: false, depthTest: true,\n      blending: THREE.AdditiveBlending,",
+        "transparent: true, depthWrite: false, depthTest: false,\n      blending: THREE.AdditiveBlending,",
+    ),
+    (
+        "      nearGroup.rotation.y = smooth.x * 0.055;\n      nearGroup.rotation.x = smooth.y * 0.026;\n      nearGroup.rotation.z = Math.sin(uTime.value * 0.22) * 0.0022;\n      farGroup.rotation.y  = smooth.x * 0.030;",
+        "      nearGroup.rotation.y = smooth.x * 0.018;\n      nearGroup.rotation.x = smooth.y * 0.010;\n      farGroup.rotation.y  = 0;",
+    ),
+    (
+        "  /* ================================================================== *\n   * build\n   * ================================================================== */\n  function build() {",
+        """  function hideRootBody(group) {
+    if (!group) return;
+    group.children.forEach(function (ch) {
+      if (ch.type === 'Group') return;
+      ch.visible = false;
+    });
+  }
+
+  /* ================================================================== *
+   * build
+   * ================================================================== */
+  function build() {""",
+    ),
+]
+
 
 def main() -> None:
     inner = INNER.read_text(encoding="utf-8")
@@ -74,6 +137,10 @@ def main() -> None:
     if needle not in document_source:
         raise SystemExit("Sylva loop adapter no longer matches the canonical scene.")
     document_source = document_source.replace(needle, repl)
+    for old, new in CKM_ATMOSPHERE:
+        if old not in document_source:
+            raise SystemExit("CKM atmosphere adapter no longer matches:\n" + old[:120])
+        document_source = document_source.replace(old, new)
     OUT.write_text(document_source, encoding="utf-8")
     print("wrote", OUT, OUT.stat().st_size)
 

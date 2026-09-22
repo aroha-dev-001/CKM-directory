@@ -3253,14 +3253,22 @@ window.__seek   = v => { clock = v; drawn = null; };
     return t;
   }
 
+  function hideRootBody(group) {
+    if (!group) return;
+    group.children.forEach(function (ch) {
+      if (ch.type === 'Group') return;
+      ch.visible = false;
+    });
+  }
+
   /* ================================================================== *
    * build
    * ================================================================== */
   function build() {
     var narrow = NARROW.matches;
     var small = narrow || (window.innerWidth * window.innerHeight) < 620000;
-    var BLADES_NEAR = small ? 70000 : 190000;
-    var BLADES_FAR  = small ? 20000 :  60000;
+    var BLADES_NEAR = 0;
+    var BLADES_FAR  = 0;
 
     var q = /[?&]blades=(\d+)/.exec(location.search);
     if (q) { BLADES_NEAR = +q[1]; BLADES_FAR = Math.round(+q[1] * 0.21); }
@@ -3299,11 +3307,12 @@ window.__seek   = v => { clock = v; drawn = null; };
 
     nearGroup = assembleRoot(nearLimbs, {
       aspect: ARCH.aspect, haze: 0.15, fog: 0.0, alpha: 1.0, order: 2,
-      blades: BLADES_NEAR, ferns: small ? 26 : 46, flowers: small ? 120 : 260,
-      fernSize: [0.22, 0.50], flowerSize: [0.055, 0.118], mainLimbs: mainCount, wire: true,
+      blades: 0, ferns: 0, flowers: 0,
+      fernSize: [0.22, 0.50], flowerSize: [0.055, 0.118], mainLimbs: mainCount, wire: false,
       mouse: uMouseNear, mouseR: 1.20
     });
     scene.add(nearGroup);
+    hideRootBody(nearGroup);
     if (!small) bf = buildButterfly(nearGroup, nearLimbs, nearGroup.userData.uni);
 
     /* ---- far ridge: same builder, pushed back and washed into the air.
@@ -3315,12 +3324,13 @@ window.__seek   = v => { clock = v; drawn = null; };
       /* dimmer air than the near root's: at 0.46 of the pale tone the ridge
          lost its silhouette entirely and read as a smudge on the background */
       hazeCol: [0.150, 0.164, 0.120], hazeLift: 0.92,
-      blades: BLADES_FAR, ferns: small ? 8 : 16, flowers: small ? 40 : 90,
+      blades: 0, ferns: 0, flowers: 0,
       fernSize: [0.26, 0.56], flowerSize: [0.034, 0.062],
-      mask: [0.4, 3.4, 0.0, 0.42], wire: true,
+      mask: [0.4, 3.4, 0.0, 0.42], wire: false,
       mouse: uMouseFar, mouseR: 1.4
     });
     scene.add(farGroup);
+    hideRootBody(farGroup);
 
     buildAmbient();
     layout();
@@ -3330,7 +3340,7 @@ window.__seek   = v => { clock = v; drawn = null; };
     /* Hold the pulse for a page nobody is looking at: a background tab gets
        no rAF, so the scan would never advance and the hero would still be
        empty when it was finally opened. */
-    if (!REDUCED && !document.hidden) { uScanOn.value = 1; uScanR.value = 0; scanning = true; }
+    /* CKM atmosphere: no root scan cage over the mountains */
 
     /* Paint once here rather than waiting on the loop. A tab that is opened
        in the background never gets a rAF, so the hero would sit empty until
@@ -3350,6 +3360,7 @@ window.__seek   = v => { clock = v; drawn = null; };
     }));
     shadowMesh.renderOrder = 1;
     shadowMesh.position.z = -70;
+    shadowMesh.visible = false;
     scene.add(shadowMesh);
 
     glowMesh = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({
@@ -3359,6 +3370,7 @@ window.__seek   = v => { clock = v; drawn = null; };
     }));
     glowMesh.renderOrder = -1;
     glowMesh.position.z = -320;
+    glowMesh.visible = false;
     scene.add(glowMesh);
 
     /* ---- drifting pollen --------------------------------------------
@@ -3368,7 +3380,7 @@ window.__seek   = v => { clock = v; drawn = null; };
        no matter how many there are. Sizes follow a power law — a few big
        soft ones near the lens, a great many specks behind them — and they
        depth-test against the moss so the ones behind the root are hidden. */
-    var COUNT = (NARROW.matches || (window.innerWidth * window.innerHeight) < 620000) ? 1500 : 4200;
+    var COUNT = (NARROW.matches || (window.innerWidth * window.innerHeight) < 620000) ? 2200 : 5600;
     var pos = new Float32Array(COUNT * 3);
     var seed = new Float32Array(COUNT * 4);
     for (var i = 0; i < COUNT; i++) {
@@ -3392,7 +3404,7 @@ window.__seek   = v => { clock = v; drawn = null; };
         uSize: { value: 9 },
         uScale: { value: 440 }
       },
-      transparent: true, depthWrite: false, depthTest: true,
+      transparent: true, depthWrite: false, depthTest: false,
       blending: THREE.AdditiveBlending,
       vertexShader: [
         'attribute vec4 seed;',
@@ -4134,10 +4146,9 @@ window.__seek   = v => { clock = v; drawn = null; };
     camera.lookAt(camera.position.x * 0.42, camera.position.y * 0.42, 0);
 
     if (!REDUCED) {
-      nearGroup.rotation.y = smooth.x * 0.055;
-      nearGroup.rotation.x = smooth.y * 0.026;
-      nearGroup.rotation.z = Math.sin(uTime.value * 0.22) * 0.0022;
-      farGroup.rotation.y  = smooth.x * 0.030;
+      nearGroup.rotation.y = smooth.x * 0.018;
+      nearGroup.rotation.x = smooth.y * 0.010;
+      farGroup.rotation.y  = 0;
     }
 
     if (scanning) {

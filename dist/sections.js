@@ -671,7 +671,7 @@
             class="threeui-background sylva-living-world-scene shader-frame"
             id="sylva-hero"
             role="img"
-            aria-label="Interactive procedural moss root world with ferns, flowers, pollen, and a butterfly"
+            aria-label="Pollen and a butterfly over the Kudremukh hills"
             data-variant="living-green"
             data-state="loading"
           ></div>
