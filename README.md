@@ -14,7 +14,7 @@ python3 -m http.server 43173 --bind 0.0.0.0 --directory dist
 
 Then open [http://127.0.0.1:43173](http://127.0.0.1:43173).
 
-The homepage hero uses the chosen Kudremukh still plus ThreeUI **Sylva** living effects (pollen and butterfly) from the exact `inner-green-3d.html` source — the giant moss root is left off so the mountains stay the picture. Rebuild that iframe with `python3 scripts/build_sylva_hero.py`.
+The homepage hero is a still Kudremukh photograph with editorial display type (Cormorant Garamond). There is no overlay animation on the hero.
 
 ## Host on Vercel
 
