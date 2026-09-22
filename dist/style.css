@@ -529,7 +529,7 @@ p {
   z-index: 1;
   background:
     radial-gradient(1200px 70% at 78% 8%, rgba(200, 174, 110, 0.18), transparent 58%),
-    linear-gradient(180deg, rgba(12, 28, 20, 0.28) 0%, rgba(12, 28, 20, 0.2) 34%, rgba(12, 28, 20, 0.82) 100%),
+    linear-gradient(180deg, rgba(12, 28, 20, 0.22) 0%, rgba(12, 28, 20, 0.12) 42%, rgba(12, 28, 20, 0.42) 100%),
     linear-gradient(90deg, rgba(12, 28, 20, 0.55), transparent 58%);
 }
 

@@ -661,7 +661,6 @@
           <img class="hero-fallback" src="assets/hero.jpg?v=hero4" alt="" width="2400" height="1350" fetchpriority="high" />
         </div>
         <div class="hero-scrim"></div>
-        <p class="hero-ghost" aria-hidden="true">LAND OF COFFEE</p>
         <div class="hero-bottom">
           <div class="hero-copy">
             <p class="eyebrow shimmer">Chikkamagaluru · Karnataka</p>
@@ -670,28 +669,6 @@
               <span><i>Land of Coffee</i></span>
             </h1>
             <p class="hero-kn" lang="kn">ಕಾಫಿ ನಾಡು</p>
-            <p class="lede">Good coffee, quieter journeys. A district companion for peaks, temples, forests and the working shade of Malnad, not a booking desk.</p>
-            <div class="hero-actions">
-              <a class="btn btn-light shine t-learn" href="places.html" data-magnetic>${learn("Explore all places")}</a>
-              <a class="btn btn-ghost" href="map.html">Open the district map</a>
-              <a class="btn btn-ghost" href="popular.html">Popular places</a>
-              <a class="btn btn-ghost" href="#explore-chikmagaluru">Explore Chikkamagaluru</a>
-            </div>
-            <dl class="hero-stats">
-              <div>
-                <dt>Places mapped</dt>
-                <dd><span data-count="${f.d.destinations.length}">${f.d.destinations.length}</span></dd>
-              </div>
-              <div>
-                <dt>Taluks</dt>
-                <dd><span data-count="9">9</span></dd>
-              </div>
-              <div>
-                <dt>Highest peak</dt>
-                <dd>1,930 m</dd>
-              </div>
-            </dl>
-            <a class="hero-scroll" href="#explore-district">Scroll into the district</a>
           </div>
         </div>
       </section>
