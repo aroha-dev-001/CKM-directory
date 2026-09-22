@@ -2494,7 +2494,7 @@ window.CKM = {
     },
     {
       "id": "kalasa",
-      "featured": true,
+      "featured": false,
       "group": "temples",
       "kicker": "Kalaseshwara",
       "hours": "Temple daylight",
@@ -2505,6 +2505,23 @@ window.CKM = {
         "url": "https://chikkamagaluru.nic.in/en/tourism/"
       },
       "listed": [
+        "travel-chikmagalur"
+      ]
+    },
+    {
+      "id": "deviramma-temple",
+      "featured": true,
+      "group": "temples",
+      "kicker": "Deviramma, Mallenahalli",
+      "hours": "Temple daylight",
+      "hoursDetail": "The foothill shrine of Goddess Deviramma on Bindiga estate road at Mallenahalli, north of Chikkamagaluru town. Living temple rules apply. The peak shrine is described locally as festival-time only.",
+      "why": "The everyday Deviramma temple people actually stop at, not the Deepavali climb on the hill above.",
+      "hoursSource": {
+        "label": "District tourism",
+        "url": "https://chikkamagaluru.nic.in/en/tourism/"
+      },
+      "listed": [
+        "tripadvisor",
         "travel-chikmagalur"
       ]
     },
