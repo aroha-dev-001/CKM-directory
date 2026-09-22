@@ -471,7 +471,34 @@ p {
   height: 100%;
   object-fit: cover;
   object-position: center 42%;
+  opacity: 0;
+  transform: scale(1.055);
+  filter: none;
+  pointer-events: none;
+  transition:
+    opacity 1.15s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 1.15s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
+
+.hero-media img.is-active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 1;
+  transition:
+    opacity 1.2s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 7.2s cubic-bezier(0.15, 0.72, 0.22, 1);
+}
+
+.hero-media img.is-leaving {
+  opacity: 0;
+  transform: scale(1.03);
+  z-index: 0;
+}
+
+.hero-media img[data-slide="h2"] { object-position: center 30%; }
+.hero-media img[data-slide="h8"] { object-position: 70% 38%; }
+.hero-media img[data-slide="h14"] { object-position: center 48%; }
+.hero-media img[data-slide="h6"] { object-position: 62% 38%; }
 
 .modal-panel {
   animation: rise 0.38s var(--ease);
@@ -4481,6 +4508,15 @@ body[data-page="coffee"] .origin-chapter p {
   .reveal-stagger > * {
     transition: none !important;
     animation: none !important;
+  }
+
+  .hero-media img {
+    transform: none !important;
+    opacity: 0;
+  }
+
+  .hero-media img.is-active {
+    opacity: 1;
   }
 
   .reveal-on-scroll,

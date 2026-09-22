@@ -645,15 +645,12 @@
     const f = fragments(lang);
     return `
       <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-media">
-          <img
-            class="hero-still"
-            src="assets/hero.jpg?v=hero7"
-            alt="Green Kudremukh mountains in Chikkamagaluru"
-            width="3024"
-            height="2154"
-            fetchpriority="high"
-          />
+        <div class="hero-media" data-hero-slides aria-hidden="true">
+          <img class="hero-still is-active" data-slide="h1" src="assets/hero-slides/h1.jpg?v=s1" alt="" width="2400" height="1600" fetchpriority="high" />
+          <img class="hero-still" data-slide="h2" src="assets/hero-slides/h2.jpg?v=s1" alt="" width="2400" height="1600" decoding="async" />
+          <img class="hero-still" data-slide="h8" src="assets/hero-slides/h8.jpg?v=s1" alt="" width="2400" height="1600" decoding="async" />
+          <img class="hero-still" data-slide="h14" src="assets/hero-slides/h14.jpg?v=s1" alt="" width="2400" height="1600" decoding="async" />
+          <img class="hero-still" data-slide="h6" src="assets/hero-slides/h6.jpg?v=s1" alt="" width="2400" height="1600" decoding="async" />
         </div>
         <div class="hero-scrim"></div>
         <div class="hero-stage">

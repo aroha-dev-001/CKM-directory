@@ -316,6 +316,42 @@
     }
   }
 
+  function initHeroSlides() {
+    if (PAGE !== "home") return;
+    const root = document.querySelector("[data-hero-slides]");
+    const slides = root ? Array.from(root.querySelectorAll("img")) : [];
+    if (!root || slides.length < 2) return;
+    if (prefersReduced()) return;
+    let index = 0;
+    let timer = 0;
+    const HOLD = 2200;
+    const FADE = 1200;
+    const go = (next) => {
+      const cur = slides[index];
+      const nxt = slides[next];
+      nxt.classList.remove("is-leaving", "is-active");
+      void nxt.offsetWidth;
+      nxt.classList.add("is-active");
+      if (cur !== nxt) {
+        cur.classList.remove("is-active");
+        cur.classList.add("is-leaving");
+        window.setTimeout(() => cur.classList.remove("is-leaving"), FADE);
+      }
+      index = next;
+    };
+    const tick = () => go((index + 1) % slides.length);
+    const play = () => {
+      window.clearInterval(timer);
+      timer = window.setInterval(tick, HOLD);
+    };
+    const pause = () => window.clearInterval(timer);
+    play();
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) pause();
+      else if (!prefersReduced()) play();
+    });
+  }
+
   function initHeroVideo() {
     if (PAGE !== "home") return;
     const hero = document.querySelector(".hero--video");
@@ -1149,6 +1185,7 @@
     renderPlaces();
     initDistrictMap();
     bindUi();
+    initHeroSlides();
     initHeroVideo();
     initMotion();
     initPopularGallery();

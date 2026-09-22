@@ -14,7 +14,7 @@ python3 -m http.server 43173 --bind 0.0.0.0 --directory dist
 
 Then open [http://127.0.0.1:43173](http://127.0.0.1:43173).
 
-The homepage hero is a still Kudremukh photograph with editorial display type (Cormorant Garamond). There is no overlay animation on the hero.
+The homepage hero is a five-still rotation (Kudremukh, Mullayanagiri, Ayyanakere, Kemmanagundi sunset, Hebbe Falls) with a slow crossfade every two seconds. Editorial type is Cormorant Garamond. Reduced-motion visitors see the first still only. Rebuild the graded slides with `python3 scripts/process_hero_slides.py`.
 
 ## Host on Vercel
 
