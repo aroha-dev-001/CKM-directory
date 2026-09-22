@@ -30,7 +30,7 @@
     ajjampura: "Ajjampura",
   };
   const LABEL_SIZE = {
-    chikkamagaluru: 14,
+    chikkamagaluru: 18,
     tarikere: 18,
     kadur: 18,
     mudigere: 18,

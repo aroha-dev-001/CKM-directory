@@ -93,7 +93,7 @@ TEMPLATE = """<!DOCTYPE html>
     <script src="statistics.js?v=sage2"></script>
     <script src="numbers.js?v=sage5"></script>
     <script src="sections.js?v=sage51"></script>
-    <script src="map.js?v=sage8"></script>
+    <script src="map.js?v=sage9"></script>
     <script src="carousel.js?v=sage6"></script>
     <script src="drift-wall.js?v=sage9"></script>
     <script src="accordion-gallery.js?v=sage9"></script>
