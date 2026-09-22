@@ -657,8 +657,8 @@
     const line1 = letterLine("Visit Chikkamagaluru", 4);
     const line2 = letterLine("Land of Coffee", line1.next + 3);
     return `
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-media">
+      <section class="hero hero--sylva" aria-labelledby="hero-title">
+        <div class="hero-media shader-frame">
           <img
             class="hero-still"
             src="assets/hero.jpg?v=hero7"
@@ -667,6 +667,14 @@
             height="2154"
             fetchpriority="high"
           />
+          <div
+            class="threeui-background sylva-living-world-scene shader-frame"
+            id="sylva-hero"
+            role="img"
+            aria-label="Interactive procedural moss root world with ferns, flowers, pollen, and a butterfly"
+            data-variant="living-green"
+            data-state="loading"
+          ></div>
         </div>
         <div class="hero-scrim"></div>
         <div class="hero-stage">
