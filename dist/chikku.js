@@ -9,13 +9,15 @@
   const HYSTERESIS = 0.12;
   const DEAD_ZONE = 32;
   const PAYOFFS = ["heart", "sparkle", "delighted"];
-  const CHIPS = ["Mullayanagiri", "Bengaluru distance", "Hebbe Falls", "Coffee", "Best months", "Sringeri"];
+  const CHIPS = ["Mullayanagiri", "Bengaluru distance", "2-day sketch", "Hebbe Falls", "Coffee", "Best months", "Sringeri"];
 
   const DISTRICT = /\b(chikk?a?ma[gk]alur[ua]?|chikmagalur|chikkamagaluru|chikku)\b/i;
   const FROM_CITY = /\b(bangalore|bengaluru|bangla|bengalooru|mysuru|mysore|mangaluru|mangalore|hubballi|hubli|hassan|kadur)\b/i;
   const REACH = /\b(distance|how far|how long|hours?|km|kilometre|kilometer|drive|reach|route|from|to get there)\b/i;
+  const PLAN =
+    /\b(itinerary|itinary|itenary|weekend|trip sketch|plan (a |my |our )?trip|\d+\s*[- ]?days?|one[- ]day|two[- ]day|three[- ]day|2[- ]day|3[- ]day)\b/i;
   const ON_TOPIC =
-    /\b(chikk?a?ma[gk]alur[ua]?|chikmagalur|chikku|malnad|malanadu|karnataka coffee|baba budan|mullayanagiri|kemman|hebbe|sringeri|horanadu|kudremukh|bhadra|datta peetha|jhari|z[\s-]?point|charmadi|ayyanakere|hirekolale|kalasa|koppa|mudigere|kadur|tarikere|nr[\s.]?pura|ajjampura|western ghats|ghat|waterfall|temple|peak|trek|hill station|coffee|davara|filter coffee|permit|forest|shola|hoysala|taluk|monsoon|when to (go|visit)|how to (reach|go)|best time|food|neer dosa|akki|pathrode|bangalore|bengaluru|bangla|distance)\b/i;
+    /\b(chikk?a?ma[gk]alur[ua]?|chikmagalur|chikku|malnad|malanadu|karnataka coffee|baba budan|mullayanagiri|kemman|hebbe|sringeri|horanadu|kudremukh|bhadra|datta peetha|jhari|z[\s-]?point|charmadi|ayyanakere|hirekolale|kalasa|koppa|mudigere|kadur|tarikere|nr[\s.]?pura|ajjampura|western ghats|ghat|waterfall|temple|peak|trek|hill station|coffee|davara|filter coffee|permit|forest|shola|hoysala|taluk|monsoon|when to (go|visit)|how to (reach|go)|best time|food|neer dosa|akki|pathrode|bangalore|bengaluru|bangla|distance|itinerary|itinary|weekend|trip sketch)\b/i;
   const OFF_TOPIC =
     /\b(python|javascript|react|bitcoin|crypto|stock market|ipl|premier league|netflix|iphone|android|recipe for pasta|capital of france|who is messi|taylor swift|chatgpt prompt|write (me )?code|homework)\b/i;
 
@@ -102,7 +104,7 @@
 
   function inDistrict(q, qTokens, ckm) {
     if (OFF_TOPIC.test(q) && !DISTRICT.test(q) && !FROM_CITY.test(q)) return false;
-    if (GREET.test(q) || ON_TOPIC.test(q) || DISTRICT.test(q)) return true;
+    if (GREET.test(q) || ON_TOPIC.test(q) || DISTRICT.test(q) || PLAN.test(q)) return true;
     if (FROM_CITY.test(q) && REACH.test(q)) return true;
     if ((ckm.destinations || []).some((p) => scorePlace(p, qTokens, fold(q)) >= 4)) return true;
     if ((ckm.malnadFoods || []).some((d) => fold((d.name || "") + " " + (d.id || "")).split(/\s+/).some((t) => qTokens.includes(t)))) return true;
@@ -129,6 +131,74 @@
     };
   }
 
+  function itineraryDays(q) {
+    if (/\bweekend\b/i.test(q)) return 2;
+    const named = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7 };
+    const match = String(q).match(/\b(one|two|three|four|five|six|seven|\d+)\s*[- ]?days?\b/i);
+    if (match) {
+      const n = named[match[1].toLowerCase()] || parseInt(match[1], 10);
+      if (n >= 1 && n <= 7) return n;
+    }
+    if (/\b(2[- ]day|two[- ]day)\b/i.test(q)) return 2;
+    if (/\b(3[- ]day|three[- ]day)\b/i.test(q)) return 3;
+    if (PLAN.test(q)) return 2;
+    return null;
+  }
+
+  function circuitText(ckm, id) {
+    const row = (ckm.circuits || []).find((c) => c.id === id);
+    return row && row.text ? row.text : "";
+  }
+
+  function itineraryAnswer(q, ckm) {
+    if (!PLAN.test(q)) return null;
+    const days = itineraryDays(q) || 2;
+    const wantsTemple = /\b(temple|sringeri|horanadu|pilgrim|matha)\b/i.test(q);
+    const wantsForest = /\b(trek|forest|kudremukh|hebbe|waterfall|kemman)\b/i.test(q);
+    const hills = circuitText(ckm, "coffee-hills");
+    const temples = circuitText(ckm, "temple-terrace");
+    const forest = circuitText(ckm, "forest-edge");
+    const bits = [
+      `<p>I do not sell a booked trip. Here is a <strong>${days}-day sketch</strong> from this companion’s circuits. Weather, jeeps and forest gates rewrite it.</p>`,
+    ];
+    if (days === 1) {
+      bits.push(
+        "<p><strong>One day.</strong> Give the peaks a morning. <a href=\"places.html?id=mullayanagiri\">Mullayanagiri</a> at first light, then Hirekolale or town coffee before dusk. Do not stack Hebbe, Jhari and Sirimane into the same tired drive.</p>"
+      );
+    } else {
+      bits.push(
+        `<p><strong>Day 1 · Coffee hills.</strong> ${esc(hills) || "Mullayanagiri at first light, Baba Budangiri and Jhari only if the jeep track is open."}</p>`
+      );
+      if (wantsTemple && !wantsForest) {
+        bits.push(
+          `<p><strong>Day 2 · Temple terrace.</strong> ${esc(temples) || "Sringeri, Horanadu and Kalasa as pilgrimages with dress codes, not selfie stops bolted onto a trek."}</p>`
+        );
+      } else {
+        bits.push(
+          "<p><strong>Day 2 · Gardens or one fall, not every corner.</strong> <a href=\"places.html?id=kemmanagundi\">Kemmanagundi</a>, Z Point, and <a href=\"places.html?id=hebbe-falls\">Hebbe</a> if the estate road allows. Hebbe, Jhari and Sirimane sit in different corners of the district. Pick one waterfall day.</p>"
+        );
+      }
+      if (days >= 3) {
+        bits.push(
+          `<p><strong>Day 3 · ${wantsTemple ? "Forest edge" : "Temple terrace"}.</strong> ${esc(wantsTemple ? forest : temples)}</p>`
+        );
+      }
+      if (days >= 4) {
+        bits.push(
+          `<p><strong>Day 4 · Forest edge.</strong> ${esc(forest)} Kudremukh and Bhadra need forest-department permission. This is a reminder, not a ticket.</p>`
+        );
+      }
+      if (days >= 5) {
+        bits.push(
+          "<p><strong>Later days.</strong> Keep them slow: town coffee, a second matha, or weather. Extra days are not for stacking more waterfalls into dusk.</p>"
+        );
+      }
+    }
+    bits.push("<p>This companion does not list rooms. For a bed, use official or on-the-ground sources.</p>");
+    bits.push('<p><a href="plan.html">Open trip sketches</a> · <a href="visit.html">Visitor notes</a></p>');
+    return { html: bits.join("") };
+  }
+
   function answer(raw, ckm) {
     const q = String(raw || "").trim();
     const qTokens = tokens(q);
@@ -137,7 +207,7 @@
 
     if (GREET.test(q) && qTokens.length < 3) {
       return {
-        html: "<p>Namaskara. I am <strong>Chikku</strong>, the companion tiger for this district. Ask about Mullayanagiri, coffee, Hebbe, Sringeri, seasons, or how to reach Chikkamagaluru. I stay on this map.</p>",
+        html: "<p>Namaskara. I am <strong>Chikku</strong>, the companion tiger for this district. Ask about Mullayanagiri, coffee, Hebbe, Sringeri, a 2-day sketch, seasons, or how to reach Chikkamagaluru. I stay on this map.</p>",
       };
     }
 
@@ -158,6 +228,9 @@
         html: "<p>I do not quote fees. Permits, jeeps and garden tickets change. Check the district tourism page or the forest counter that day.</p><p><a href=\"visit.html\">Visitor notes</a></p>",
       };
     }
+
+    const plan = itineraryAnswer(q, ckm);
+    if (plan) return plan;
 
     const reach = reachAnswer(q, ckm);
     if (reach && (REACH.test(q) || FROM_CITY.test(q))) return reach;
@@ -203,7 +276,7 @@
     if (scored[0]) return { html: placeAnswer(scored[0].p) };
 
     return {
-      html: "<p>That still sounds like this district, but I need a place or a topic I hold: a peak, a fall, a temple, coffee, food, a season, or how to reach Chikkamagaluru.</p>",
+      html: "<p>That still sounds like this district, but I need a place or a topic I hold: a peak, a fall, a temple, coffee, food, a season, a 2-day sketch, or how to reach Chikkamagaluru.</p>",
     };
   }
 
