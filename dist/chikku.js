@@ -213,21 +213,29 @@
     root.id = "chikku";
     root.className = "chikku";
     root.innerHTML = `
-      <div class="chikku-panel" id="chikku-panel" role="dialog" aria-labelledby="chikku-title" hidden>
+      <button class="chikku-scrim" type="button" data-chikku-close aria-label="Close Ask Chikku"></button>
+      <div class="chikku-panel" id="chikku-panel" role="dialog" aria-modal="true" aria-labelledby="chikku-title" hidden>
         <div class="chikku-head">
-          <div>
-            <h2 id="chikku-title">Ask Chikku</h2>
-            <p>Chikkamagaluru only</p>
+          <div class="chikku-head-copy">
+            <span class="chikku-head-face" aria-hidden="true">
+              <span class="chikku-sheet is-dir"></span>
+            </span>
+            <div>
+              <h2 id="chikku-title">Ask Chikku</h2>
+              <p>Chikkamagaluru only</p>
+            </div>
           </div>
           <button class="chikku-x" type="button" data-chikku-close aria-label="Close Ask Chikku">×</button>
         </div>
         <div class="chikku-log" id="chikku-log" aria-live="polite"></div>
-        <div class="chikku-chips" id="chikku-chips"></div>
-        <form class="chikku-form" id="chikku-form">
-          <label class="sr-only" for="chikku-q">Ask Chikku</label>
-          <input id="chikku-q" name="q" type="text" maxlength="240" autocomplete="off" placeholder="Ask about this district…" />
-          <button type="submit">Ask</button>
-        </form>
+        <div class="chikku-composer">
+          <div class="chikku-chips" id="chikku-chips"></div>
+          <form class="chikku-form" id="chikku-form">
+            <label class="sr-only" for="chikku-q">Ask Chikku</label>
+            <input id="chikku-q" name="q" type="text" inputmode="search" enterkeyhint="send" maxlength="240" autocomplete="off" autocorrect="off" autocapitalize="sentences" placeholder="Ask about this district…" />
+            <button type="submit">Ask</button>
+          </form>
+        </div>
       </div>
       <div class="chikku-dock">
         <button class="chikku-mascot" type="button" id="chikku-mascot" aria-expanded="false" aria-controls="chikku-panel" aria-label="Boop Chikku, open Ask Chikku">
@@ -258,6 +266,7 @@
     let sector = -1;
     let pointer = null;
     let open = false;
+    let focusTimer = 0;
     const timers = [];
     const boops = { count: 0, at: 0 };
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -400,11 +409,37 @@
       log.scrollTop = log.scrollHeight;
     }
 
+    function pinToViewport() {
+      if (!open || !mobile) {
+        root.style.top = "";
+        root.style.left = "";
+        root.style.width = "";
+        root.style.height = "";
+        root.style.right = "";
+        root.style.bottom = "";
+        return;
+      }
+      const vv = window.visualViewport;
+      const top = vv ? Math.round(vv.offsetTop) : 0;
+      const left = vv ? Math.round(vv.offsetLeft) : 0;
+      const height = vv ? Math.round(vv.height) : window.innerHeight;
+      const width = vv ? Math.round(vv.width) : window.innerWidth;
+      root.style.top = `${top}px`;
+      root.style.left = `${left}px`;
+      root.style.width = `${width}px`;
+      root.style.height = `${height}px`;
+      root.style.right = "auto";
+      root.style.bottom = "auto";
+    }
+
     function setOpen(next) {
       open = next;
       root.classList.toggle("is-open", open);
       panel.hidden = !open;
+      document.documentElement.classList.toggle("chikku-sheet-open", open && mobile);
       mascot.setAttribute("aria-expanded", open ? "true" : "false");
+      window.clearTimeout(focusTimer);
+      pinToViewport();
       if (open) {
         if (!log.children.length) {
           push(
@@ -412,9 +447,19 @@
             "<p>Namaskara. I am <strong>Chikku</strong>. I answer questions about Chikkamagaluru, peaks, coffee, temples, falls, food and how to reach. Nothing else.</p>"
           );
         }
-        input.focus();
+        log.scrollTop = log.scrollHeight;
+        focusTimer = window.setTimeout(() => {
+          pinToViewport();
+          input.focus({ preventScroll: true });
+        }, mobile ? 320 : 0);
       }
     }
+
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", pinToViewport);
+      window.visualViewport.addEventListener("scroll", pinToViewport);
+    }
+    window.addEventListener("resize", pinToViewport);
 
     async function ask(text) {
       const q = String(text || "").trim();
@@ -436,7 +481,13 @@
       boop();
       setOpen(!open);
     });
-    root.querySelector("[data-chikku-close]").addEventListener("click", () => setOpen(false));
+    root.querySelector("#chikku-tag").addEventListener("click", () => {
+      boop();
+      setOpen(true);
+    });
+    root.querySelectorAll("[data-chikku-close]").forEach((el) => {
+      el.addEventListener("click", () => setOpen(false));
+    });
     form.addEventListener("submit", (event) => {
       event.preventDefault();
       ask(input.value);
