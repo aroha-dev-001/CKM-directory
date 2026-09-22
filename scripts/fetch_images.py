@@ -60,8 +60,13 @@ JOBS = [
         "center",
     ),
     (
+        "mullayanagiri.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/1/12/Mullayanagiri_-_panoramio.jpg",
+        "peak",
+    ),
+    (
         "kemmanagundi.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/8/85/Kemmanagundi_Hill_Station_-_panoramio.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/f/f3/Kemmangundi_Landscape.jpg",
         "center",
     ),
     (
@@ -124,6 +129,9 @@ def cover_crop(im: Image.Image, tw: int, th: int, focus: str = "center") -> Imag
         top = int(leftover_y * 0.22)
     elif focus == "lower":
         top = int(leftover_y * 0.72)
+    elif focus == "peak":
+        left = int(leftover_x * 0.38)
+        top = int(leftover_y * 0.28)
     else:
         top = leftover_y // 2
         left = leftover_x // 2

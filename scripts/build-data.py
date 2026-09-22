@@ -17,11 +17,11 @@ OFFICIAL = {
 
 credits = [
     {"local": "hero.jpg", "place": "Kudremukh, Chikkamagaluru", "file": "Kudremukh views.jpg", "artist": "solarisgirl", "license": "CC BY-SA 2.0", "url": "https://commons.wikimedia.org/wiki/File:Kudremukh_views.jpg"},
-    {"local": "mullayanagiri.jpg", "place": "Mullayanagiri", "file": "Mullayanagiri Peak.jpg", "artist": "రవిచంద్ర", "license": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Mullayanagiri_Peak.jpg"},
+    {"local": "mullayanagiri.jpg", "place": "Mullayanagiri", "file": "Mullayanagiri - panoramio.jpg", "artist": "Likhith N.P", "license": "CC BY-SA 3.0", "url": "https://commons.wikimedia.org/wiki/File:Mullayanagiri_-_panoramio.jpg"},
     {"local": "gallery-mist.jpg", "place": "Mullayanagiri ridge", "file": "Mullayanagiri Peak1.jpg", "artist": "రవిచంద్ర", "license": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Mullayanagiri_Peak1.jpg"},
     {"local": "baba-budangiri.jpg", "place": "Baba Budangiri", "file": "Baba Budangiri, Chikmagalur (2024) 44.jpg", "artist": "Gpkp", "license": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Baba_Budangiri,_Chikmagalur_(2024)_44.jpg"},
     {"local": "kudremukh.jpg", "place": "Kudremukh", "file": "Kudremukh 1.jpg", "artist": "Dhruvaraj S", "license": "CC BY 2.0", "url": "https://commons.wikimedia.org/wiki/File:Kudremukh_1.jpg"},
-    {"local": "kemmanagundi.jpg", "place": "Kemmanagundi", "file": "Kemmanagundi Hill Station - panoramio.jpg", "artist": "Likhith N.P", "license": "CC BY-SA 3.0", "url": "https://commons.wikimedia.org/wiki/File:Kemmanagundi_Hill_Station_-_panoramio.jpg"},
+    {"local": "kemmanagundi.jpg", "place": "Kemmanagundi", "file": "Kemmangundi Landscape.jpg", "artist": "Srinivasa83", "license": "CC BY-SA 3.0", "url": "https://commons.wikimedia.org/wiki/File:Kemmangundi_Landscape.jpg"},
     {"local": "hebbe-falls.jpg", "place": "Hebbe Falls", "file": "Hebbe Falls.JPG", "artist": "Man On Mission", "license": "Public domain", "url": "https://commons.wikimedia.org/wiki/File:Hebbe_Falls.JPG"},
     {"local": "jhari-falls.jpg", "place": "Jhari Falls", "file": "Jhari - Sagir Ahmed Water falls - panoramio.jpg", "artist": "Likhith N.P", "license": "CC BY-SA 3.0", "url": "https://commons.wikimedia.org/wiki/File:Jhari_-_Sagir_Ahmed_Water_falls_-_panoramio.jpg"},
     {"local": "hanuman-gundi.jpg", "place": "Hanuman Gundi Falls", "file": "Hanumangundi Falls.jpg", "artist": "Jesjose", "license": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Hanumangundi_Falls.jpg"},
@@ -59,7 +59,7 @@ destinations = [
         "lat": 13.3908,
         "lng": 75.7214,
         "elevation": "1,930 m",
-        "image": "assets/mullayanagiri.jpg",
+        "image": "assets/mullayanagiri.jpg?v=peaks1",
         "blurb": "Karnataka’s highest peak, a grass-and-shola ridge in the Baba Budan Giri range.",
         "summary": "Mullayanagiri stands 1,930 metres above sea level in the Chandra Drona / Baba Budan Giri range. The Chikkamagaluru district administration notes a temple on the summit, a narrow hill road, and a final walk from the road head. On clear days the Arabian Sea is sometimes visible from the top.",
         "visit": "The approach road is narrow with steep drops. Driving all the way to the temple is not always possible; the last stretch is typically walked. Road conditions, weather and any temporary closures should be checked locally before you go.",
@@ -97,7 +97,7 @@ destinations = [
         "lat": 13.547,
         "lng": 75.758,
         "elevation": "1,434 m",
-        "image": "assets/kemmanagundi.jpg",
+        "image": "assets/kemmanagundi.jpg?v=peaks1",
         "blurb": "A garden hill station on the Baba Budan Giri range, once a Wodeyar summer camp.",
         "summary": "About 55 kilometres north of Chikkamagaluru town, Kemmanagundi (also K.R. Hills) sits at 1,434 metres. Krishnaraja Wodeyar IV used it as a summer retreat. The district describes ornamental gardens, shola grassland views and mountain streams.",
         "visit": "Lingadahalli is a common junction on the way. Garden hours, jeep tracks to nearby falls and any horticulture-department notices should be checked close to travel.",
@@ -775,7 +775,7 @@ i18n = {
 }
 
 highlights = [
-    {"season": "Winter light", "text": "Mullayanagiri and Z Point before the afternoon cloud.", "image": "assets/mullayanagiri.jpg"},
+    {"season": "Winter light", "text": "Mullayanagiri and Z Point before the afternoon cloud.", "image": "assets/mullayanagiri.jpg?v=peaks1"},
     {"season": "Monsoon thunder", "text": "Hebbe and Jhari when the ghats decide to pour.", "image": "assets/hebbe-falls.jpg"},
     {"season": "Temple stone", "text": "Amruthapura and Belavadi for Hoysala quiet.", "image": "assets/belavadi.jpg"},
     {"season": "Forest line", "text": "Kudremukh and Bhadra only with a permit in your pocket.", "image": "assets/kudremukh-np.jpg"},

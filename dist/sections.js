@@ -83,7 +83,7 @@
   function seasonImage(id) {
     const map = {
       winter: "assets/hero.jpg",
-      summer: "assets/mullayanagiri.jpg",
+      summer: "assets/mullayanagiri.jpg?v=peaks1",
       monsoon: "assets/jhari-falls.jpg",
       "post-monsoon": "assets/kudremukh.jpg",
     };
@@ -1085,7 +1085,7 @@
           <p class="section-lead">Clear ridges in winter, thinner falls by summer, a monsoon that turns the ghats to water, and an October still dripping green.</p>
           <div class="season-layout">
             <div class="season-media">
-              <img id="season-image" src="assets/mullayanagiri.jpg" alt="Seasonal landscape" width="1800" height="1200" />
+              <img id="season-image" src="assets/mullayanagiri.jpg?v=peaks1" alt="Seasonal landscape" width="1800" height="1200" />
             </div>
             <div class="season-copy" id="season-copy">
               <p class="kicker">${esc(f.season.months)}</p>

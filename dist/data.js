@@ -68,7 +68,7 @@ window.CKM = {
       "label": "Hill stations",
       "kn": "ಗಿರಿಧಾಮಗಳು",
       "count": 1,
-      "image": "assets/kemmanagundi.jpg",
+      "image": "assets/kemmanagundi.jpg?v=peaks1",
       "lead": "Garden hills and Wodeyar summer air at Kemmanagundi.",
       "leadKn": "ಕೆಮ್ಮಣ್ಣುಗುಂಡಿ ಗಿರಿಧಾಮ."
     },
@@ -77,7 +77,7 @@ window.CKM = {
       "label": "Peaks & viewpoints",
       "kn": "ಶಿಖರಗಳು",
       "count": 7,
-      "image": "assets/mullayanagiri.jpg",
+      "image": "assets/mullayanagiri.jpg?v=peaks1",
       "lead": "Grass-and-shola ridges, from Karnataka’s roof to the horse-face mountain.",
       "leadKn": "ಶೋಲಾ-ಹುಲ್ಲುಗಾವಲು ಶಿಖರಗಳು."
     },
@@ -446,7 +446,7 @@ window.CKM = {
       "lat": 13.5486,
       "lng": 75.7519,
       "elevation": "1,434 m",
-      "image": "assets/kemmanagundi.jpg",
+      "image": "assets/kemmanagundi.jpg?v=peaks1",
       "blurb": "A garden hill station on the Baba Budan Giri range, once a Wodeyar summer camp.",
       "summary": "About 55 kilometres north of Chikkamagaluru town, Kemmanagundi (also K.R. Hills) sits at 1,434 metres. Krishnaraja Wodeyar IV used it as a summer retreat. The district describes ornamental gardens, shola grassland views and mountain streams.",
       "visit": "Lingadahalli is a common junction on the way. Garden hours, jeep tracks to nearby falls and any horticulture-department notices should be checked close to travel.",
@@ -812,7 +812,7 @@ window.CKM = {
       "lat": 13.3909,
       "lng": 75.7214,
       "elevation": "1,930 m",
-      "image": "assets/mullayanagiri.jpg",
+      "image": "assets/mullayanagiri.jpg?v=peaks1",
       "blurb": "Karnataka’s highest peak, a grass-and-shola ridge in the Baba Budan Giri range.",
       "summary": "Mullayanagiri stands 1,930 metres above sea level in the Chandra Drona / Baba Budan Giri range. The Chikkamagaluru district administration notes a temple on the summit, a narrow hill road, and a final walk from the road head. On clear days the Arabian Sea is sometimes visible from the top.",
       "visit": "The approach road is narrow with steep drops. Driving all the way to the temple is not always possible; the last stretch is typically walked. Road conditions, weather and any temporary closures should be checked locally before you go.",
@@ -2951,7 +2951,7 @@ window.CKM = {
     {
       "season": "Winter light",
       "text": "Mullayanagiri and Z Point before the afternoon cloud.",
-      "image": "assets/mullayanagiri.jpg"
+      "image": "assets/mullayanagiri.jpg?v=peaks1"
     },
     {
       "season": "Monsoon thunder",
@@ -3023,10 +3023,10 @@ window.CKM = {
     {
       "local": "mullayanagiri.jpg",
       "place": "Mullayanagiri",
-      "file": "Mullayanagiri Peak.jpg",
-      "artist": "రవిచంద్ర",
-      "license": "CC BY-SA 4.0",
-      "url": "https://commons.wikimedia.org/wiki/File:Mullayanagiri_Peak.jpg"
+      "file": "Mullayanagiri - panoramio.jpg",
+      "artist": "Likhith N.P",
+      "license": "CC BY-SA 3.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Mullayanagiri_-_panoramio.jpg"
     },
     {
       "local": "gallery-mist.jpg",
@@ -3183,10 +3183,10 @@ window.CKM = {
     {
       "local": "kemmanagundi.jpg",
       "place": "Kemmanagundi",
-      "file": "Kemmanagundi Hill Station - panoramio.jpg",
-      "artist": "Likhith N.P",
+      "file": "Kemmangundi Landscape.jpg",
+      "artist": "Srinivasa83",
       "license": "CC BY-SA 3.0",
-      "url": "https://commons.wikimedia.org/wiki/File:Kemmanagundi_Hill_Station_-_panoramio.jpg"
+      "url": "https://commons.wikimedia.org/wiki/File:Kemmangundi_Landscape.jpg"
     },
     {
       "local": "explore-nature.jpg",
@@ -3738,7 +3738,7 @@ window.CKM = {
       "id": "coffee-hills",
       "title": "Coffee hills",
       "kicker": "Three slow days",
-      "image": "assets/mullayanagiri.jpg",
+      "image": "assets/mullayanagiri.jpg?v=peaks1",
       "places": [
         "mullayanagiri",
         "hirekolale",
