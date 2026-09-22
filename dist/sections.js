@@ -648,10 +648,10 @@
         <div class="hero-media">
           <img
             class="hero-still"
-            src="assets/hero.jpg?v=hero6"
-            alt="Layered Chikkamagaluru hills in the Western Ghats"
-            width="3840"
-            height="2160"
+            src="assets/hero.jpg?v=hero7"
+            alt="Green Kudremukh mountains in Chikkamagaluru"
+            width="3024"
+            height="2154"
             fetchpriority="high"
           />
         </div>

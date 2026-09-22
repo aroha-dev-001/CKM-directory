@@ -2972,8 +2972,8 @@ window.CKM = {
   "gallery": [
     {
       "image": "assets/hero.jpg",
-      "caption": "Hills in Chikkamagaluru",
-      "credit": "Pramodv1993"
+      "caption": "Kudremukh, Chikkamagaluru",
+      "credit": "solarisgirl"
     },
     {
       "image": "assets/coffee-hills.jpg",
@@ -3014,11 +3014,11 @@ window.CKM = {
   "credits": [
     {
       "local": "hero.jpg",
-      "place": "Hills in Chikkamagaluru",
-      "file": "Hills in Chikmagalur.jpg",
-      "artist": "Pramodv1993",
-      "license": "CC BY-SA 4.0",
-      "url": "https://commons.wikimedia.org/wiki/File:Hills_in_Chikmagalur.jpg"
+      "place": "Kudremukh, Chikkamagaluru",
+      "file": "Kudremukh views.jpg",
+      "artist": "solarisgirl",
+      "license": "CC BY-SA 2.0",
+      "url": "https://commons.wikimedia.org/wiki/File:Kudremukh_views.jpg"
     },
     {
       "local": "mullayanagiri.jpg",
