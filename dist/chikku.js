@@ -401,11 +401,70 @@
       }, { passive: true });
     }
 
+    function wrapStreamWords(block) {
+      const walker = document.createTreeWalker(block, NodeFilter.SHOW_TEXT);
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      const spans = [];
+      nodes.forEach((node) => {
+        const value = node.nodeValue;
+        if (!value || !value.trim()) return;
+        const parts = value.split(/(\s+)/);
+        const frag = document.createDocumentFragment();
+        parts.forEach((part) => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) {
+            frag.appendChild(document.createTextNode(part));
+            return;
+          }
+          const s = document.createElement("span");
+          s.className = "t-stream-w";
+          s.textContent = part;
+          frag.appendChild(s);
+          spans.push(s);
+        });
+        node.parentNode.replaceChild(frag, node);
+      });
+      return spans;
+    }
+
+    function streamWords(block, spans) {
+      if (!spans.length) return;
+      if (reduced) {
+        spans.forEach((s) => s.classList.add("is-in"));
+        return;
+      }
+      const gap = parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue("--stream-gap")
+      ) || 60;
+      spans.forEach((s) => {
+        s.style.transition = "none";
+        s.classList.remove("is-in");
+      });
+      void block.offsetWidth;
+      spans.forEach((s) => {
+        s.style.transition = "";
+      });
+      (function next(n) {
+        if (n >= spans.length) return;
+        spans[n].classList.add("is-in");
+        log.scrollTop = log.scrollHeight;
+        window.setTimeout(() => next(n + 1), gap);
+      })(0);
+    }
+
     function push(role, html, extra) {
       const div = document.createElement("div");
       div.className = `chikku-msg is-${role}${extra ? ` ${extra}` : ""}`;
       div.innerHTML = html;
-      log.appendChild(div);
+      if (role === "bot") {
+        div.classList.add("t-stream");
+        const spans = wrapStreamWords(div);
+        log.appendChild(div);
+        streamWords(div, spans);
+      } else {
+        log.appendChild(div);
+      }
       log.scrollTop = log.scrollHeight;
     }
 
