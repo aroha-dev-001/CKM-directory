@@ -34,6 +34,17 @@
     return `${esc(label)}${learnChevron()}`;
   }
 
+  function letterLine(text, start) {
+    let i = start;
+    const inner = Array.from(String(text)).map((ch) => {
+      if (ch === " ") return `<span class="hero-space"> </span>`;
+      const html = `<span class="hero-letter" style="--i:${i}">${esc(ch)}</span>`;
+      i += 1;
+      return html;
+    }).join("");
+    return { html: `<span class="hero-line">${inner}</span>`, next: i };
+  }
+
   function coffeeOriginCard(f) {
     const origin = f.origin || {};
     return `
@@ -643,6 +654,8 @@
 
   function renderHome(lang) {
     const f = fragments(lang);
+    const line1 = letterLine("Visit Chikkamagaluru", 4);
+    const line2 = letterLine("Land of Coffee", line1.next + 3);
     return `
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-media">
@@ -656,14 +669,17 @@
           />
         </div>
         <div class="hero-scrim"></div>
-        <div class="hero-bottom">
+        <div class="hero-stage">
           <div class="hero-copy">
-            <p class="eyebrow shimmer">Chikkamagaluru · Karnataka</p>
-            <h1 id="hero-title" class="reveal-lines">
-              <span><i>Visit Chikkamagaluru</i></span>
-              <span><i>Land of Coffee</i></span>
+            <p class="eyebrow shimmer hero-fade" style="--i:0">Chikkamagaluru · Karnataka</p>
+            <h1 id="hero-title">
+              <span class="sr-only">Visit Chikkamagaluru. Land of Coffee.</span>
+              <span aria-hidden="true">
+                ${line1.html}
+                ${line2.html}
+              </span>
             </h1>
-            <p class="hero-kn" lang="kn">ಕಾಫಿ ನಾಡು</p>
+            <p class="hero-kn hero-fade" lang="kn" style="--i:${line2.next + 4}">ಕಾಫಿ ನಾಡು</p>
           </div>
         </div>
       </section>
