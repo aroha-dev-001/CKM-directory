@@ -7,7 +7,7 @@
   const CLOCKWISE = ["right", "down-right", "down", "down-left", "left", "up-left", "up", "up-right"];
   const SECTOR = (Math.PI * 2) / CLOCKWISE.length;
   const HYSTERESIS = 0.12;
-  const DEAD_ZONE = 70;
+  const DEAD_ZONE = 32;
   const PAYOFFS = ["heart", "sparkle", "delighted"];
   const CHIPS = ["Mullayanagiri", "How to reach", "Hebbe Falls", "Coffee", "Best months", "Sringeri"];
 
@@ -236,7 +236,9 @@
     const timers = [];
     const boops = { count: 0, at: 0 };
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const LOOK = ["left", "up-left", "up", "up-right", "right", "center", "down-right", "down", "center"];
+    let lookI = 0;
+    let lastAim = 0;
 
     function setDir(name) {
       direction = name;
@@ -288,6 +290,7 @@
 
     function aim() {
       if (!pointer) return;
+      lastAim = Date.now();
       const box = mascot.getBoundingClientRect();
       const dx = pointer.x - (box.left + box.width / 2);
       const dy = pointer.y - (box.top + box.height / 2);
@@ -302,12 +305,28 @@
       setDir(CLOCKWISE[sector]);
     }
 
-    if (fine && !reduced) {
-      window.addEventListener("pointermove", (event) => {
-        pointer = { x: event.clientX, y: event.clientY };
-        aim();
+    function onPoint(x, y) {
+      pointer = { x, y };
+      aim();
+    }
+
+    if (!reduced) {
+      window.addEventListener("pointermove", (event) => onPoint(event.clientX, event.clientY), { passive: true });
+      window.addEventListener("touchmove", (event) => {
+        const t = event.touches[0];
+        if (t) onPoint(t.clientX, t.clientY);
       }, { passive: true });
       window.addEventListener("scroll", aim, { passive: true });
+      window.setInterval(() => {
+        if (reaction || Date.now() - lastAim < 1600) return;
+        lookI = (lookI + 1) % LOOK.length;
+        setDir(LOOK[lookI]);
+      }, 1800);
+      window.setInterval(() => {
+        if (reaction || Date.now() - lastAim < 1200) return;
+        setReact("blink");
+        later(200, () => setReact(null));
+      }, 4200);
     }
 
     function push(role, html, extra) {

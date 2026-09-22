@@ -41,7 +41,7 @@ TEMPLATE = """<!DOCTYPE html>
     <link rel="stylesheet" href="carousel.css?v=sage6" />
     <link rel="stylesheet" href="drift-wall.css?v=sage9" />
     <link rel="stylesheet" href="accordion-gallery.css?v=sage9" />
-    <link rel="stylesheet" href="chikku.css?v=chikku1" />
+    <link rel="stylesheet" href="chikku.css?v=chikku2" />
   </head>
   <body data-page="{page}">
     <a class="skip" href="#main">Skip to content</a>
@@ -98,7 +98,7 @@ TEMPLATE = """<!DOCTYPE html>
     <script src="drift-wall.js?v=sage9"></script>
     <script src="accordion-gallery.js?v=sage9"></script>
     <script src="app.js?v=sage32"></script>
-    <script src="chikku.js?v=chikku1"></script>
+    <script src="chikku.js?v=chikku2"></script>
   </body>
 </html>
 """
