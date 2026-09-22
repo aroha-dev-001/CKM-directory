@@ -644,21 +644,16 @@
   function renderHome(lang) {
     const f = fragments(lang);
     return `
-      <section class="hero hero--video" aria-labelledby="hero-title">
-        <div class="hero-media" aria-hidden="true">
-          <video
-            class="hero-video"
-            poster="assets/hero.jpg?v=hero5"
-            muted
-            loop
-            playsinline
-            preload="metadata"
-            disablepictureinpicture
-            autoplay
-          >
-            <source src="assets/hero.mp4?v=hero5" type="video/mp4" />
-          </video>
-          <img class="hero-fallback" src="assets/hero.jpg?v=hero5" alt="" width="2400" height="1350" fetchpriority="high" />
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-media">
+          <img
+            class="hero-still"
+            src="assets/hero.jpg?v=hero6"
+            alt="Layered Chikkamagaluru hills in the Western Ghats"
+            width="3840"
+            height="2160"
+            fetchpriority="high"
+          />
         </div>
         <div class="hero-scrim"></div>
         <div class="hero-bottom">

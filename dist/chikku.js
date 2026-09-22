@@ -58,7 +58,7 @@
     if (window.CKM) return Promise.resolve(window.CKM);
     return new Promise((resolve, reject) => {
       const s = document.createElement("script");
-      s.src = "data.js?v=sage24";
+      s.src = "data.js?v=sage25";
       s.onload = () => resolve(window.CKM);
       s.onerror = reject;
       document.head.appendChild(s);

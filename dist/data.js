@@ -2972,8 +2972,8 @@ window.CKM = {
   "gallery": [
     {
       "image": "assets/hero.jpg",
-      "caption": "Western Ghats from Mullayanagiri",
-      "credit": "iMahesh"
+      "caption": "Hills in Chikkamagaluru",
+      "credit": "Pramodv1993"
     },
     {
       "image": "assets/coffee-hills.jpg",
@@ -3014,11 +3014,11 @@ window.CKM = {
   "credits": [
     {
       "local": "hero.jpg",
-      "place": "Western Ghats from Mullayanagiri",
-      "file": "Landscapes of Western Ghats from Mullayyanagiri Betta.jpg",
-      "artist": "iMahesh",
+      "place": "Hills in Chikkamagaluru",
+      "file": "Hills in Chikmagalur.jpg",
+      "artist": "Pramodv1993",
       "license": "CC BY-SA 4.0",
-      "url": "https://commons.wikimedia.org/wiki/File:Landscapes_of_Western_Ghats_from_Mullayyanagiri_Betta.jpg"
+      "url": "https://commons.wikimedia.org/wiki/File:Hills_in_Chikmagalur.jpg"
     },
     {
       "local": "mullayanagiri.jpg",

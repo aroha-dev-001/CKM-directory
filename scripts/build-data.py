@@ -16,7 +16,7 @@ OFFICIAL = {
 }
 
 credits = [
-    {"local": "hero.jpg", "place": "Western Ghats from Mullayanagiri", "file": "Landscapes of Western Ghats from Mullayyanagiri Betta.jpg", "artist": "iMahesh", "license": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Landscapes_of_Western_Ghats_from_Mullayyanagiri_Betta.jpg"},
+    {"local": "hero.jpg", "place": "Hills in Chikkamagaluru", "file": "Hills in Chikmagalur.jpg", "artist": "Pramodv1993", "license": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Hills_in_Chikmagalur.jpg"},
     {"local": "mullayanagiri.jpg", "place": "Mullayanagiri", "file": "Mullayanagiri Peak.jpg", "artist": "రవిచంద్ర", "license": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Mullayanagiri_Peak.jpg"},
     {"local": "gallery-mist.jpg", "place": "Mullayanagiri ridge", "file": "Mullayanagiri Peak1.jpg", "artist": "రవిచంద్ర", "license": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Mullayanagiri_Peak1.jpg"},
     {"local": "baba-budangiri.jpg", "place": "Baba Budangiri", "file": "Baba Budangiri, Chikmagalur (2024) 44.jpg", "artist": "Gpkp", "license": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Baba_Budangiri,_Chikmagalur_(2024)_44.jpg"},
@@ -782,7 +782,7 @@ highlights = [
 ]
 
 gallery = [
-    {"image": "assets/hero.jpg", "caption": "Western Ghats from Mullayanagiri", "credit": "iMahesh"},
+    {"image": "assets/hero.jpg", "caption": "Hills in Chikkamagaluru", "credit": "Pramodv1993"},
     {"image": "assets/coffee-hills.jpg", "caption": "Traditional shade coffee", "credit": "Anand Osuri"},
     {"image": "assets/kudremukh.jpg", "caption": "Kudremukh", "credit": "Dhruvaraj S"},
     {"image": "assets/hebbe-falls.jpg", "caption": "Hebbe Falls", "credit": "Man On Mission"},

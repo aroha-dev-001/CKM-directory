@@ -37,7 +37,7 @@ TEMPLATE = """<!DOCTYPE html>
       href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;700&family=Outfit:wght@400&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css?v=sage34" />
+    <link rel="stylesheet" href="style.css?v=sage35" />
     <link rel="stylesheet" href="carousel.css?v=sage6" />
     <link rel="stylesheet" href="drift-wall.css?v=sage9" />
     <link rel="stylesheet" href="accordion-gallery.css?v=sage9" />
@@ -89,10 +89,10 @@ TEMPLATE = """<!DOCTYPE html>
       <p class="wrap noscript">This companion needs JavaScript for the map and search.</p>
     </noscript>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-    <script src="data.js?v=sage24"></script>
+    <script src="data.js?v=sage25"></script>
     <script src="statistics.js?v=sage2"></script>
     <script src="numbers.js?v=sage5"></script>
-    <script src="sections.js?v=sage41"></script>
+    <script src="sections.js?v=sage42"></script>
     <script src="map.js?v=sage8"></script>
     <script src="carousel.js?v=sage6"></script>
     <script src="drift-wall.js?v=sage9"></script>
