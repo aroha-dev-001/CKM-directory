@@ -3253,29 +3253,21 @@ window.__seek   = v => { clock = v; drawn = null; };
     return t;
   }
 
-  function hideRootBody(group) {
-    if (!group) return;
-    group.children.forEach(function (ch) {
-      if (ch.type === 'Group') return;
-      ch.visible = false;
-    });
-  }
-
   /* ================================================================== *
    * build
    * ================================================================== */
   function build() {
     var narrow = NARROW.matches;
     var small = narrow || (window.innerWidth * window.innerHeight) < 620000;
-    var BLADES_NEAR = 0;
-    var BLADES_FAR  = 0;
+    var BLADES_NEAR = small ? 70000 : 190000;
+    var BLADES_FAR  = small ? 20000 :  60000;
 
     var q = /[?&]blades=(\d+)/.exec(location.search);
     if (q) { BLADES_NEAR = +q[1]; BLADES_FAR = Math.round(+q[1] * 0.21); }
 
     renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: !small });
     renderer.setClearColor(0x000000, 0);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, small ? 1.6 : 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, small ? 1.25 : 1.75));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.30;
     if ('sRGBEncoding' in THREE) renderer.outputEncoding = THREE.sRGBEncoding;
@@ -3284,53 +3276,19 @@ window.__seek   = v => { clock = v; drawn = null; };
     camera = new THREE.PerspectiveCamera(40, 1, 10, 8000);
     camera.position.set(0, 0, DIST);
 
-    /* ---- near root ---- */
+    /* CKM: empty hosts — pollen + butterfly only, no tessellated moss root */
     var nearLimbs = buildNearRoot();
-    var mainCount = nearLimbs.length;
-    /* a scatter of stubby offshoots, so the tubes never read as hoses */
-    var hp = new THREE.Vector3(), hn = new THREE.Vector3();
-    var extra = [];
-    for (var i = 0; i < 14; i++) {
-      var r = rng();
-      var src = nearLimbs[r < 0.62 ? 0 : (r < 0.82 ? 1 : 2)];
-      var t = rand(0.04, 0.96), th = rng() * TAU;
-      limbSurface(src, t, th, hp, hn);
-      if (hn.y < -0.35) continue;
-      limbFrame(src, t);
-      var dir = hn.clone().multiplyScalar(rand(0.5, 1.2))
-        .addScaledVector(_ft, rand(-0.6, 1.5))
-        .addScaledVector(UP, rand(-0.5, 0.55)).normalize();
-      hp.addScaledVector(hn, -src.rw(t) * 0.55);
-      growOffshoot(extra, hp.clone(), dir, rand(0.28, 0.72), src.rw(t) * rand(0.22, 0.40), 0);
-    }
-    nearLimbs = nearLimbs.concat(extra);
-
-    nearGroup = assembleRoot(nearLimbs, {
-      aspect: ARCH.aspect, haze: 0.15, fog: 0.0, alpha: 1.0, order: 2,
-      blades: 0, ferns: 0, flowers: 0,
-      fernSize: [0.22, 0.50], flowerSize: [0.055, 0.118], mainLimbs: mainCount, wire: false,
-      mouse: uMouseNear, mouseR: 1.20
-    });
+    nearGroup = new THREE.Group();
+    nearGroup.userData = { uni: lightUniforms({
+      uBoxH: { value: BOXW / ARCH.aspect },
+      uMouse: { value: uMouseNear.value },
+      uMouseR: { value: 1.20 }
+    }) };
     scene.add(nearGroup);
-    hideRootBody(nearGroup);
-    if (!small) bf = buildButterfly(nearGroup, nearLimbs, nearGroup.userData.uni);
-
-    /* ---- far ridge: same builder, pushed back and washed into the air.
-            It dissolves before it reaches the cards (local x 0.5 → 4.0) and
-            into the floor light below it (lower 0/42% of its box) — the same
-            two masks the artwork build carried in its own shader. ---- */
-    farGroup = assembleRoot(buildFarRoot(), {
-      aspect: FAR.aspect, haze: 0.16, fog: 0.26, alpha: 1.0, order: 0,
-      /* dimmer air than the near root's: at 0.46 of the pale tone the ridge
-         lost its silhouette entirely and read as a smudge on the background */
-      hazeCol: [0.150, 0.164, 0.120], hazeLift: 0.92,
-      blades: 0, ferns: 0, flowers: 0,
-      fernSize: [0.26, 0.56], flowerSize: [0.034, 0.062],
-      mask: [0.4, 3.4, 0.0, 0.42], wire: false,
-      mouse: uMouseFar, mouseR: 1.4
-    });
+    try { bf = buildButterfly(nearGroup, nearLimbs, nearGroup.userData.uni); }
+    catch (err) { console.warn(err); bf = null; }
+    farGroup = new THREE.Group();
     scene.add(farGroup);
-    hideRootBody(farGroup);
 
     buildAmbient();
     layout();
@@ -3380,7 +3338,7 @@ window.__seek   = v => { clock = v; drawn = null; };
        no matter how many there are. Sizes follow a power law — a few big
        soft ones near the lens, a great many specks behind them — and they
        depth-test against the moss so the ones behind the root are hidden. */
-    var COUNT = (NARROW.matches || (window.innerWidth * window.innerHeight) < 620000) ? 2200 : 5600;
+    var COUNT = (NARROW.matches || (window.innerWidth * window.innerHeight) < 620000) ? 3200 : 5600;
     var pos = new Float32Array(COUNT * 3);
     var seed = new Float32Array(COUNT * 4);
     for (var i = 0; i < COUNT; i++) {
@@ -4102,7 +4060,7 @@ window.__seek   = v => { clock = v; drawn = null; };
     nearGroup.localToWorld(uScanO.value);
     scanMax = Math.hypot(W, H) * 1.3 + 900;
 
-    motes.material.uniforms.uSize.value = Math.max(5, 9 * u);
+    motes.material.uniforms.uSize.value = Math.max(12, 0.028 * H);
     var half = renderer.getDrawingBufferSize(new THREE.Vector2()).y * 0.5;
     motes.material.uniforms.uScale.value = half;
     if (spray) {

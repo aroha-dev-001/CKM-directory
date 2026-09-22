@@ -609,7 +609,7 @@ p {
 
 .hero-copy {
   position: relative;
-  max-width: 46rem;
+  max-width: min(46rem, 100%);
   min-width: 0;
 }
 
@@ -623,15 +623,49 @@ p {
 }
 
 .hero h1 {
-  font-size: clamp(2.35rem, 6.4vw, 5.4rem);
+  font-size: clamp(1.9rem, 6.4vw, 5.4rem);
   font-style: italic;
   font-weight: 500;
-  line-height: 0.96;
-  max-width: 16ch;
+  line-height: 1.05;
+  max-width: none;
 }
 
 .hero-line {
   display: block;
+}
+
+.hero-word {
+  display: inline-block;
+  white-space: nowrap;
+  word-break: keep-all;
+}
+
+.hero-line--lead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.32em;
+  row-gap: 0;
+}
+
+.hero-line--lead .hero-space {
+  display: none;
+}
+
+.hero-word--place {
+  display: inline-block;
+  white-space: nowrap;
+  flex: 0 1 auto;
+}
+
+.hero-pollen {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
 .hero-letter {
@@ -4404,7 +4438,31 @@ body[data-page="coffee"] .origin-chapter p {
   }
 
   .hero h1 {
-    font-size: 2.55rem;
+    font-size: clamp(1.7rem, 7.6vw, 2.05rem);
+    line-height: 1.12;
+  }
+
+  .hero-line--lead {
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 0.02em;
+  }
+
+  .hero-word--place {
+    display: block;
+    margin-left: 0;
+    max-width: 100%;
+  }
+
+  .hero--sylva {
+    min-height: 100svh;
+  }
+
+  .hero--sylva .sylva-living-world-scene,
+  .hero--sylva .sylva-living-world-frame {
+    min-height: 100%;
+    height: 100%;
+    transform: translateZ(0);
   }
 
   .modal-panel {

@@ -34,15 +34,29 @@
     return `${esc(label)}${learnChevron()}`;
   }
 
-  function letterLine(text, start) {
+  function letterWord(text, start, extraClass) {
     let i = start;
-    const inner = Array.from(String(text)).map((ch) => {
-      if (ch === " ") return `<span class="hero-space"> </span>`;
+    const letters = Array.from(String(text)).map((ch) => {
       const html = `<span class="hero-letter" style="--i:${i}">${esc(ch)}</span>`;
       i += 1;
       return html;
     }).join("");
-    return { html: `<span class="hero-line">${inner}</span>`, next: i };
+    const cls = extraClass ? `hero-word ${extraClass}` : "hero-word";
+    return { html: `<span class="${cls}">${letters}</span>`, next: i };
+  }
+
+  function letterLine(text, start, extraClass) {
+    let i = start;
+    const words = String(text).split(" ").filter(Boolean);
+    const inner = words
+      .map((word, w) => {
+        const piece = letterWord(word, i);
+        i = piece.next;
+        return (w ? `<span class="hero-space"> </span>` : "") + piece.html;
+      })
+      .join("");
+    const cls = extraClass ? `hero-line ${extraClass}` : "hero-line";
+    return { html: `<span class="${cls}">${inner}</span>`, next: i };
   }
 
   function coffeeOriginCard(f) {
@@ -654,8 +668,9 @@
 
   function renderHome(lang) {
     const f = fragments(lang);
-    const line1 = letterLine("Visit Chikkamagaluru", 4);
-    const line2 = letterLine("Land of Coffee", line1.next + 3);
+    const visit = letterWord("Visit", 4);
+    const place = letterWord("Chikkamagaluru", visit.next, "hero-word--place");
+    const line2 = letterLine("Land of Coffee", place.next + 3);
     return `
       <section class="hero hero--sylva" aria-labelledby="hero-title">
         <div class="hero-media shader-frame">
@@ -683,7 +698,7 @@
             <h1 id="hero-title">
               <span class="sr-only">Visit Chikkamagaluru. Land of Coffee.</span>
               <span aria-hidden="true">
-                ${line1.html}
+                <span class="hero-line hero-line--lead">${visit.html}<span class="hero-space"> </span>${place.html}</span>
                 ${line2.html}
               </span>
             </h1>
