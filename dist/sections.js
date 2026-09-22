@@ -42,7 +42,7 @@
           <div class="section-head">
             <p class="kicker">Bean to cup</p>
             <h2 id="bean-to-cup-title">Baba Budan, then the cup.</h2>
-            <p class="section-lead">Two acts on one walk: the saint who brought seven Mocha seeds, then shade, cherry, roast, filter, davara. Not a shop. Not a booking. Lore is labelled lore.</p>
+            <p class="section-lead">Two acts on one walk: the saint who brought seven Mocha seeds, then shade, cherry, roast, filter coffee. Not a shop. Not a booking. Lore is labelled lore.</p>
           </div>
           <a class="story-entry-card tilt-card shine-card" href="bean-to-cup.html" data-tilt>
             <span class="media">
@@ -1491,19 +1491,19 @@
         act: "crop",
         id: "cup",
         lore: false,
-        kicker: kn ? "೧೪ · ಕಪ್" : "14 · Cup",
-        title: kn ? "ಡವರದಲ್ಲಿ ಬೆಳಗು" : "The davara, and the hill still there",
+        kicker: kn ? "೧೪ · ಫಿಲ್ಟರ್ ಕಾಫಿ" : "14 · Filter coffee",
+        title: kn ? "ಫಿಲ್ಟರ್ ಕಾಫಿ, ಬೆಟ್ಟ ಇನ್ನೂ ಅಲ್ಲೇ" : "Filter coffee, and the hill still there",
         image: "assets/bean-to-cup/06-cup.webp",
         caption: kn
-          ? "ಉಗಿ ಬರುವ ಡವರ, ಹಿಂದೆ ಕಾಫಿ ಬೆಟ್ಟ."
-          : "Decoction in a steel davara, the estate still in the frame, first light on the shrubs.",
+          ? "ಉಗಿ ಬರುವ ಫಿಲ್ಟರ್ ಕಾಫಿ, ಹಿಂದೆ ಕಾಫಿ ಬೆಟ್ಟ."
+          : "Filter coffee in steel, the estate still in the frame, first light on the shrubs.",
         paras: kn
           ? [
-              "ಕಪ್ ಎಂದರೆ ಇಲ್ಲಿ ಡವರ. ಹಾಲು ಬೇಕಾದರೆ ಮನೆಯ ನಿಯಮ. ಬೆಟ್ಟ ಇನ್ನೂ ಕಿಟಕಿಯಲ್ಲಿದೆ.",
+              "ಇಲ್ಲಿ ಕಪ್ ಎಂದರೆ ಫಿಲ್ಟರ್ ಕಾಫಿ. ಹಾಲು ಬೇಕಾದರೆ ಮನೆಯ ನಿಯಮ. ಬೆಟ್ಟ ಇನ್ನೂ ಕಿಟಕಿಯಲ್ಲಿದೆ.",
               "ಏಳು ಬೀಜದಿಂದ ಈ ಲೋಹದ ಕಪ್‌ವರೆಗೆ ಒಂದೇ ನಡಿಗೆ. ಅಂಗಡಿ ಅಲ್ಲ. ಕಥೆ, ನಂತರ ಬೆಳೆ.",
             ]
           : [
-              "Here the cup is a davara. Milk is a household choice. The hill is still in the window.",
+              "Here the cup is filter coffee. Milk is a household choice. The hill is still in the window.",
               "From seven Mocha seeds to this metal is one walk. Not a shop. The saint first. Then the crop.",
             ],
       },
@@ -1568,7 +1568,7 @@
           <div class="story-steps">${originCh.map((ch, i) => sceneHtml(ch, i)).join("")}</div>
           <header class="story-act-head" id="act-crop">
             <p class="kicker">${kn ? "ಅಂಕ ಎರಡು · ೦೯–೧೪" : "Act II · 09–14"}</p>
-            <h2>${kn ? "ನೆರಳಿನಿಂದ ಡವರದವರೆಗೆ" : "From shade to the davara"}</h2>
+            <h2>${kn ? "ನೆರಳಿನಿಂದ ಫಿಲ್ಟರ್ ಕಾಫಿಯವರೆಗೆ" : "From shade to filter coffee"}</h2>
             <p>${kn
               ? "ಈಗ ಬೆಳೆ. ಆರು ನಿಜ ಚಿತ್ರಗಳು, ಹಾದಿ, ಹಣ್ಣು, ಬೀಜ, ಹುರಿತ, ಫಿಲ್ಟರ್, ಕಪ್. ಮೆನು ಅಲ್ಲ."
               : "Now the crop. Six working stills, in order: path, cherry, seed, roast, filter, cup. Not a tasting menu."}</p>

@@ -2696,7 +2696,7 @@ window.CKM = {
       "kannada": "ಫಿಲ್ಟರ್ ಕಾಫಿ",
       "kicker": "Kaapi",
       "image": "assets/food-filter-coffee.jpg",
-      "story": "South Indian filter coffee is decoction from a metal percolator, mixed with boiled milk and often a little sugar, hot, strong, and poured until it froths. Chikkamagaluru is where the Indian crop’s origin story is planted; the cup in town is that shade-grown bean made drinkable. The davara-tumbler ritual is cafe craft from the south, not a brand.",
+      "story": "South Indian filter coffee is decoction from a metal percolator, mixed with boiled milk and often a little sugar, hot, strong, and poured until it froths. Chikkamagaluru is where the Indian crop’s origin story is planted; the cup in town is that shade-grown bean made drinkable. The steel pour is cafe craft from the south, not a brand.",
       "source": {
         "label": "Wikipedia, Indian filter coffee",
         "url": "https://en.wikipedia.org/wiki/Indian_filter_coffee"

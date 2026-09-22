@@ -245,7 +245,7 @@
 
     if (/\b(coffee|mocha|baba budan|davara|bean to cup|arabica)\b/i.test(q)) {
       return {
-        html: "<p>Coffee did not arrive here as a cup. Lore says Baba Budan brought seven Mocha seeds to this ridge. Shade, cherry, roast, filter, davara is the walk this companion tells. Not a shop.</p><p><a href=\"bean-to-cup.html\">Bean to cup</a> · <a href=\"coffee.html\">Coffee chapter</a></p>",
+        html: "<p>Coffee did not arrive here as a cup. Lore says Baba Budan brought seven Mocha seeds to this ridge. Shade, cherry, roast, filter coffee is the walk this companion tells. Not a shop.</p><p><a href=\"bean-to-cup.html\">Bean to cup</a> · <a href=\"coffee.html\">Coffee chapter</a></p>",
       };
     }
 
