@@ -31,7 +31,7 @@
       en: {
         k: "01 · The plant",
         h: "A shrub that liked mist",
-        p1: "Before it was a cup on the Hassan bus, coffee was a red cherry in highland weather, a shrub that preferred cloud to open sun.",
+        p1: "Before it was a cup on the Chikkamagaluru bus, coffee was a red cherry in highland weather, a shrub that preferred cloud to open sun.",
         p2: "What took root on Chandra Drona is still that same highland thing: shade-hungry, slow, and particular about rain.",
         cap: "Companion still, wild arabica in highland mist. Imagined landscape, not a field survey of Ethiopia.",
       },

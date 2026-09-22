@@ -2579,7 +2579,7 @@ window.CKM = {
         ],
         "kicker": "The plant",
         "title": "A shrub that liked mist",
-        "text": "Before it was a cup on the Hassan bus, coffee was a red cherry in highland weather, a shrub that preferred cloud to open sun. That plant walked a long way from Ethiopian slopes before it ever saw these ghats.\n\nWhat took root on Chandra Drona is still that same highland thing: shade-hungry, slow, and particular about rain.",
+        "text": "Before it was a cup on the Chikkamagaluru bus, coffee was a red cherry in highland weather, a shrub that preferred cloud to open sun. That plant walked a long way from Ethiopian slopes before it ever saw these ghats.\n\nWhat took root on Chandra Drona is still that same highland thing: shade-hungry, slow, and particular about rain.",
         "image": "assets/bean-to-cup/story-01-plant.webp",
         "caption": "Companion still, wild arabica in highland mist. Imagined landscape, not a field survey of Ethiopia."
       },
