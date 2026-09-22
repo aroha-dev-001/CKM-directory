@@ -418,7 +418,7 @@
             return;
           }
           const s = document.createElement("span");
-          s.className = "t-stream-w";
+          s.className = "t-stream-w is-wait";
           s.textContent = part;
           frag.appendChild(s);
           spans.push(s);
@@ -428,26 +428,29 @@
       return spans;
     }
 
+    function openStreamWord(span) {
+      span.classList.remove("is-wait");
+      let parent = span.parentElement;
+      while (parent && !parent.classList.contains("chikku-msg")) {
+        if (parent.tagName === "P") parent.classList.add("is-live");
+        parent = parent.parentElement;
+      }
+      void span.offsetWidth;
+      span.classList.add("is-in");
+    }
+
     function streamWords(block, spans) {
       if (!spans.length) return;
       if (reduced) {
-        spans.forEach((s) => s.classList.add("is-in"));
+        spans.forEach((s) => openStreamWord(s));
         return;
       }
       const gap = parseFloat(
         getComputedStyle(document.documentElement).getPropertyValue("--stream-gap")
       ) || 60;
-      spans.forEach((s) => {
-        s.style.transition = "none";
-        s.classList.remove("is-in");
-      });
-      void block.offsetWidth;
-      spans.forEach((s) => {
-        s.style.transition = "";
-      });
       (function next(n) {
         if (n >= spans.length) return;
-        spans[n].classList.add("is-in");
+        openStreamWord(spans[n]);
         log.scrollTop = log.scrollHeight;
         window.setTimeout(() => next(n + 1), gap);
       })(0);
