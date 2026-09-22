@@ -648,7 +648,7 @@
         <div class="hero-media" aria-hidden="true">
           <video
             class="hero-video"
-            poster="assets/hero.jpg?v=hero4"
+            poster="assets/hero.jpg?v=hero5"
             muted
             loop
             playsinline
@@ -656,9 +656,9 @@
             disablepictureinpicture
             autoplay
           >
-            <source src="assets/hero.mp4?v=hero4" type="video/mp4" />
+            <source src="assets/hero.mp4?v=hero5" type="video/mp4" />
           </video>
-          <img class="hero-fallback" src="assets/hero.jpg?v=hero4" alt="" width="2400" height="1350" fetchpriority="high" />
+          <img class="hero-fallback" src="assets/hero.jpg?v=hero5" alt="" width="2400" height="1350" fetchpriority="high" />
         </div>
         <div class="hero-scrim"></div>
         <div class="hero-bottom">
