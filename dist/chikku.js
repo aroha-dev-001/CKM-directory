@@ -9,10 +9,13 @@
   const HYSTERESIS = 0.12;
   const DEAD_ZONE = 32;
   const PAYOFFS = ["heart", "sparkle", "delighted"];
-  const CHIPS = ["Mullayanagiri", "How to reach", "Hebbe Falls", "Coffee", "Best months", "Sringeri"];
+  const CHIPS = ["Mullayanagiri", "Bengaluru distance", "Hebbe Falls", "Coffee", "Best months", "Sringeri"];
 
+  const DISTRICT = /\b(chikk?a?ma[gk]alur[ua]?|chikmagalur|chikkamagaluru|chikku)\b/i;
+  const FROM_CITY = /\b(bangalore|bengaluru|bangla|bengalooru|mysuru|mysore|mangaluru|mangalore|hubballi|hubli|hassan|kadur)\b/i;
+  const REACH = /\b(distance|how far|how long|hours?|km|kilometre|kilometer|drive|reach|route|from|to get there)\b/i;
   const ON_TOPIC =
-    /\b(chikka?magalur[ua]?|chikku|malnad|malanadu|karnataka coffee|baba budan|mullayanagiri|kemman|hebbe|sringeri|horanadu|kudremukh|bhadra|datta peetha|jhari|z[\s-]?point|charmadi|ayyanakere|hirekolale|kalasa|koppa|mudigere|kadur|tarikere|nr[\s.]?pura|ajjampura|western ghats|ghat|waterfall|temple|peak|trek|hill station|coffee|davara|filter coffee|permit|forest|shola|hoysala|taluk|monsoon|when to (go|visit)|how to (reach|go)|best time|food|neer dosa|akki|pathrode)\b/i;
+    /\b(chikk?a?ma[gk]alur[ua]?|chikmagalur|chikku|malnad|malanadu|karnataka coffee|baba budan|mullayanagiri|kemman|hebbe|sringeri|horanadu|kudremukh|bhadra|datta peetha|jhari|z[\s-]?point|charmadi|ayyanakere|hirekolale|kalasa|koppa|mudigere|kadur|tarikere|nr[\s.]?pura|ajjampura|western ghats|ghat|waterfall|temple|peak|trek|hill station|coffee|davara|filter coffee|permit|forest|shola|hoysala|taluk|monsoon|when to (go|visit)|how to (reach|go)|best time|food|neer dosa|akki|pathrode|bangalore|bengaluru|bangla|distance)\b/i;
   const OFF_TOPIC =
     /\b(python|javascript|react|bitcoin|crypto|stock market|ipl|premier league|netflix|iphone|android|recipe for pasta|capital of france|who is messi|taylor swift|chatgpt prompt|write (me )?code|homework)\b/i;
 
@@ -38,7 +41,7 @@
   function tokens(value) {
     return fold(value)
       .split(/\s+/)
-      .filter((w) => w && w.length > 2 && !/^(the|and|for|from|with|what|where|when|how|best|tell|about)$/.test(w));
+      .filter((w) => w && w.length > 2 && !/^(the|and|for|from|with|what|whats|where|when|how|best|tell|about|between)$/.test(w));
   }
 
   function esc(value) {
@@ -98,12 +101,32 @@
   }
 
   function inDistrict(q, qTokens, ckm) {
-    if (OFF_TOPIC.test(q) && !ON_TOPIC.test(q)) return false;
-    if (GREET.test(q) || ON_TOPIC.test(q)) return true;
+    if (OFF_TOPIC.test(q) && !DISTRICT.test(q) && !FROM_CITY.test(q)) return false;
+    if (GREET.test(q) || ON_TOPIC.test(q) || DISTRICT.test(q)) return true;
+    if (FROM_CITY.test(q) && REACH.test(q)) return true;
     if ((ckm.destinations || []).some((p) => scorePlace(p, qTokens, fold(q)) >= 4)) return true;
-    if ((ckm.malnadFoods || []).some((d) => fold(d.name + " " + d.id).split(/\s+/).some((t) => qTokens.includes(t)))) return true;
+    if ((ckm.malnadFoods || []).some((d) => fold((d.name || "") + " " + (d.id || "")).split(/\s+/).some((t) => qTokens.includes(t)))) return true;
     if (qTokens.length <= 2 && /^(help|hi|hello)$/.test(fold(q))) return true;
-    return ON_TOPIC.test(q);
+    return false;
+  }
+
+  function reachAnswer(q, ckm) {
+    const access = ckm.essentials && ckm.essentials.access;
+    const byRoad = (access && access.items || []).find((item) => /road/i.test(item.title));
+    const byRail = (access && access.items || []).find((item) => /rail/i.test(item.title));
+    const byAir = (access && access.items || []).find((item) => /air/i.test(item.title));
+    const fromBlr = FROM_CITY.test(q) || /\b(distance|how far|bangla|drive)\b/i.test(q);
+    if (!fromBlr && !REACH.test(q)) return null;
+    return {
+      html: [
+        "<p>From <strong>Bengaluru</strong> (Bangalore, often said Bangla) to Chikkamagaluru town is about <strong>240 km by road</strong>. This companion quotes around <strong>five and a half hours</strong> via Hassan or Kadur. Ghats, mist and Sunday traffic stretch that. Treat any hour-count as weather-dependent.</p>",
+        byRoad ? `<p>${esc(byRoad.text)}</p>` : "",
+        byRail ? `<p>${esc(byRail.text)}</p>` : "",
+        byAir ? `<p>${esc(byAir.text)}</p>` : "",
+        "<p>Mysuru and Mangaluru also have regular buses. There is no airport in the district.</p>",
+        '<p><a href="visit.html">Visitor information</a></p>',
+      ].join(""),
+    };
   }
 
   function answer(raw, ckm) {
@@ -130,11 +153,14 @@
       };
     }
 
-    if (/\b(fee|ticket price|how much)\b/i.test(q)) {
+    if (/\b(entry fee|ticket price|permit fee)\b/i.test(q)) {
       return {
         html: "<p>I do not quote fees. Permits, jeeps and garden tickets change. Check the district tourism page or the forest counter that day.</p><p><a href=\"visit.html\">Visitor notes</a></p>",
       };
     }
+
+    const reach = reachAnswer(q, ckm);
+    if (reach && (REACH.test(q) || FROM_CITY.test(q))) return reach;
 
     const scored = (ckm.destinations || [])
       .map((p) => ({ p, s: scorePlace(p, qTokens, fold(q)) }))
@@ -159,9 +185,8 @@
       return { html: html || "<p>Winter ridges are the classic window. Confirm weather on the day.</p>" };
     }
 
-    if (/\b(how to (reach|go)|get there|from bangalore|from bengaluru|train|airport|ksrtc)\b/i.test(q)) {
-      const access = ckm.essentials && ckm.essentials.access;
-      return { html: blockAnswer(access ? access.title : "How to arrive", access ? access.items : []) + '<p><a href="visit.html">Visitor information</a></p>' };
+    if (/\b(how to (reach|go)|get there|from bangalore|from bengaluru|from bangla|train|airport|ksrtc)\b/i.test(q)) {
+      return reachAnswer(q, ckm) || { html: '<p><a href="visit.html">Visitor information</a></p>' };
     }
 
     if (/\b(permit|safari|kudremukh|bhadra tiger|forest)\b/i.test(q)) {
@@ -205,13 +230,13 @@
         </form>
       </div>
       <div class="chikku-dock">
-        <p class="chikku-tag">Ask Chikku</p>
         <button class="chikku-mascot" type="button" id="chikku-mascot" aria-expanded="false" aria-controls="chikku-panel" aria-label="Boop Chikku, open Ask Chikku">
           <span class="chikku-squash" id="chikku-squash">
             <span class="chikku-sheet is-dir" id="chikku-dir"></span>
             <span class="chikku-sheet is-react" id="chikku-react"></span>
           </span>
         </button>
+        <p class="chikku-tag" id="chikku-tag">Chikku</p>
       </div>
     `;
     document.body.appendChild(root);
@@ -236,9 +261,8 @@
     const timers = [];
     const boops = { count: 0, at: 0 };
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const LOOK = ["left", "up-left", "up", "up-right", "right", "center", "down-right", "down", "center"];
-    let lookI = 0;
-    let lastAim = 0;
+    const mobile = window.matchMedia("(max-width: 820px), (hover: none), (pointer: coarse)").matches;
+    let lifeTimer = 0;
 
     function setDir(name) {
       direction = name;
@@ -290,7 +314,6 @@
 
     function aim() {
       if (!pointer) return;
-      lastAim = Date.now();
       const box = mascot.getBoundingClientRect();
       const dx = pointer.x - (box.left + box.width / 2);
       const dy = pointer.y - (box.top + box.height / 2);
@@ -305,28 +328,68 @@
       setDir(CLOCKWISE[sector]);
     }
 
-    function onPoint(x, y) {
-      pointer = { x, y };
-      aim();
+    function clearTilt() {
+      squash.classList.remove("is-tilt-left", "is-tilt-right");
     }
 
-    if (!reduced) {
-      window.addEventListener("pointermove", (event) => onPoint(event.clientX, event.clientY), { passive: true });
-      window.addEventListener("touchmove", (event) => {
-        const t = event.touches[0];
-        if (t) onPoint(t.clientX, t.clientY);
+    function scheduleLife(ms, fn) {
+      window.clearTimeout(lifeTimer);
+      lifeTimer = window.setTimeout(fn, ms);
+    }
+
+    function playMobileLife() {
+      const acts = [
+        () => {
+          setReact("blink");
+          later(220, () => setReact(null));
+        },
+        () => setDir("left"),
+        () => setDir("center"),
+        () => {
+          squash.classList.add("is-tilt-left");
+          later(640, clearTilt);
+        },
+        () => setDir("right"),
+        () => {
+          setReact("wink");
+          later(280, () => setReact(null));
+        },
+        () => setDir("up-left"),
+        () => setDir("up-right"),
+        () => {
+          squash.classList.add("is-tilt-right");
+          later(640, clearTilt);
+        },
+        () => setDir("center"),
+        () => {
+          setReact("sleepy");
+          later(480, () => setReact(null));
+        },
+        () => setDir("down-left"),
+        () => setDir("down-right"),
+        () => setDir("center"),
+      ];
+      let i = 0;
+      const tick = () => {
+        if (document.hidden) {
+          scheduleLife(1800, tick);
+          return;
+        }
+        clearTilt();
+        acts[i % acts.length]();
+        i += 1;
+        scheduleLife(1500 + Math.floor(Math.random() * 1400), tick);
+      };
+      scheduleLife(500, tick);
+    }
+
+    if (!reduced && mobile) {
+      playMobileLife();
+    } else if (!reduced) {
+      window.addEventListener("pointermove", (event) => {
+        pointer = { x: event.clientX, y: event.clientY };
+        aim();
       }, { passive: true });
-      window.addEventListener("scroll", aim, { passive: true });
-      window.setInterval(() => {
-        if (reaction || Date.now() - lastAim < 1600) return;
-        lookI = (lookI + 1) % LOOK.length;
-        setDir(LOOK[lookI]);
-      }, 1800);
-      window.setInterval(() => {
-        if (reaction || Date.now() - lastAim < 1200) return;
-        setReact("blink");
-        later(200, () => setReact(null));
-      }, 4200);
     }
 
     function push(role, html, extra) {
