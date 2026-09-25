@@ -3,3 +3,4 @@ agent-tools/
 .vercel
 .env*
 studio/dist-site/
+.wrangler/

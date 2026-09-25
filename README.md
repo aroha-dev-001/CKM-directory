@@ -16,6 +16,23 @@ Then open [http://127.0.0.1:43173](http://127.0.0.1:43173).
 
 The homepage hero is a five-still rotation (Kudremukh, Mullayanagiri, Ayyanakere, Kemmanagundi sunset, Hebbe Falls) with a slow crossfade every two seconds. Editorial type is Cormorant Garamond. Reduced-motion visitors see the first still only. Rebuild the graded slides with `python3 scripts/process_hero_slides.py`.
 
+## Host on Cloudflare Pages (live)
+
+Live at [chikkamagaluru-companion.pages.dev](https://chikkamagaluru-companion.pages.dev). It's a Pages project in the same Cloudflare account as `bloom-biotech-media`. The whole `dist/` folder goes up, photos included. That's about 62 MB in 182 files, well under Pages' 25 MB per-file limit, so the media doesn't need its own project. Static bandwidth on Pages is free and unmetered.
+
+Redeploy after any change to `dist/`:
+
+```bash
+npx wrangler@3 pages deploy dist --project-name chikkamagaluru-companion --branch main --commit-dirty=true
+```
+
+Only changed files upload. If wrangler isn't logged in on this machine, run `npx wrangler@3 login` first.
+
+- `dist/_headers` sets the caching on Cloudflare. The `headers` block in `vercel.json` does not apply there. Photos are cached for a week, and HTML, JS and CSS revalidate on every visit.
+- Pages serves `food.html` at `/food` (the same as `cleanUrls`) and keeps `?id=` query strings.
+- There's no `404.html`, so an unknown path shows the homepage.
+- Custom domain: open the project, then **Custom domains → Set up a domain**, and add the CNAME it gives you at your DNS host.
+
 ## Host on Vercel
 
 The site is static files in `dist/`. `vercel.json` tells Vercel to publish that folder with no build.

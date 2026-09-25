@@ -1,0 +1,6 @@
+# Cloudflare Pages headers (vercel.json's "headers" block does not apply here).
+# Photos keep their names when re-graded, so cache for a week, not forever.
+# HTML, JS and CSS use the Pages default: revalidate on every visit.
+/assets/*
+  Cache-Control: public, max-age=604800
+  X-Content-Type-Options: nosniff
