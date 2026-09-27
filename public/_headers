@@ -1,0 +1,9 @@
+# Cloudflare Pages headers (vercel.json's "headers" block does not apply here).
+# Photos keep their names when re-graded, so cache for a week, not forever.
+/assets/*
+  Cache-Control: public, max-age=604800
+  X-Content-Type-Options: nosniff
+
+# Next.js build output is content-hashed, so it never changes under the same name.
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable

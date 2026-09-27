@@ -175,7 +175,7 @@
       '<div class="hud-actions">' +
       '<button type="button" id="hud-reset">Reset</button>' +
       '<button type="button" id="hud-export">Export JSON</button>' +
-      '<button type="button" id="hud-publish">Write to dist</button>' +
+      '<button type="button" id="hud-publish">Save config</button>' +
       '<label>Import<input type="file" id="hud-import" accept="application/json" hidden></label>' +
       "</div>" +
       '<div id="hud-body"></div>' +
@@ -278,10 +278,10 @@
       })
         .then(function (r) {
           if (!r.ok) throw new Error("publish failed");
-          alert("Wrote dist/bean-to-cup.walk.json. Deploy dist/ to ship it.");
+          alert("Wrote studio/bean-to-cup.walk.json.");
         })
         .catch(function () {
-          alert("Could not write dist. Export JSON and run python3 scripts/apply_walk_json.py on the file.");
+          alert("Could not write the config. Export JSON and run python3 scripts/apply_walk_json.py on the file.");
         });
     });
     document.getElementById("hud-import").addEventListener("change", function (e) {

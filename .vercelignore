@@ -1,6 +1,12 @@
+# Not needed to build the site; keeps CLI uploads small.
 scripts/__pycache__/
 agent-tools/
 .github/
 sandbox/
 studio/
-studio/dist-site/
+pitch/
+_to_delete/
+Claude outputs/
+*.mp4
+out/
+.next/

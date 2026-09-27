@@ -2,19 +2,9 @@
 
 This is the **admin config panel** for a 3D immersive walk. It is **not** the public site.
 
-The public player reads `dist/bean-to-cup.walk.json` and has no HUD.
+The saved config is `studio/bean-to-cup.walk.json`. The live `/bean-to-cup` page does **not** read it: that page is the scroll-driven flight in `components/walk/` (scrollcraft engine), not this 3D walk. Treat the studio as a design tool for a future 3D player.
 
-## Apply an exported JSON to production
-
-1. Replace `dist/bean-to-cup.walk.json` with your export (`bean-to-cup.walk.json`).
-2. Deploy only `dist/` (the companion Vercel project).
-
-```bash
-cp ~/Downloads/bean-to-cup.walk.json dist/bean-to-cup.walk.json
-# then commit + deploy dist
-```
-
-Or:
+## Save an exported JSON
 
 ```bash
 python3 scripts/apply_walk_json.py ~/Downloads/bean-to-cup.walk.json
@@ -26,7 +16,7 @@ python3 scripts/apply_walk_json.py ~/Downloads/bean-to-cup.walk.json
 python3 studio/serve.py
 ```
 
-Open `http://127.0.0.1:43192/studio/bean-to-cup/`. Press **H**. Export JSON, then apply as above.
+Open `http://127.0.0.1:43192/studio/bean-to-cup/`. Press **H**. **Save config** writes `studio/bean-to-cup.walk.json`; **Export JSON** downloads it.
 
 ## Dedicated admin URL for a client (permanent, not trycloudflare)
 
@@ -38,7 +28,7 @@ python3 studio/build_static.py
 #   cd studio/dist-site && npx vercel --prod --yes
 ```
 
-Do not merge this folder into the public companion `outputDirectory`.
+Do not merge this folder into the public companion build (`out/`).
 
 ## New client walks
 

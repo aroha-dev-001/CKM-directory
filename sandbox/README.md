@@ -1,6 +1,6 @@
 # Bean to Cup sandbox
 
-Admin HUD for the immersive walk. **Not on the live website.** Vercel still ships only `dist/`.
+Admin HUD for the immersive walk. **Not on the live website.** The Next.js build (`out/`) never includes `sandbox/`.
 
 ## Run
 

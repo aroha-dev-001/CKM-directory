@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Serve the Bean to Cup sandbox (admin HUD) plus dist assets. Not for Vercel."""
+"""Serve the Bean to Cup sandbox (admin HUD) plus the site assets in public/ and styles/walk/. Not for Vercel."""
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 import os
 
