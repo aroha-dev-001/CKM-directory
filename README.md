@@ -16,6 +16,19 @@ npm run start      # serve out/ locally
 npm run lint && npm run typecheck
 ```
 
+### Google Maps key (trip planner)
+
+The route planner on `/plan` draws each day with the Google Maps JavaScript API. Put a browser key in `.env.local` (git-ignored):
+
+```bash
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your-key
+```
+
+- Enable **Maps JavaScript API** and **Routes API** on the key's Google Cloud project. The legacy **Directions API** also works as a fallback for keys that only have that one.
+- Restrict the key to HTTP referrers (`localhost`, the `pages.dev` domain, the Vercel domain, any custom domain) and to those APIs. It ships in the page by design.
+- It is read at **build** time (`NEXT_PUBLIC_*` is inlined), so set it wherever `next build` runs: `.env.local` for a local build and Cloudflare deploy, and the Vercel project's environment variables for the GitHub Actions deploy.
+- Without a key the planner still works: each day falls back to a drawn route sketch, and the "Open in Google Maps" links need no key.
+
 The homepage hero is a five-still rotation (Kudremukh, Mullayanagiri, Ayyanakere, Kemmanagundi sunset, Hebbe Falls) with a slow crossfade every two seconds. Editorial type is Cormorant Garamond. Reduced-motion visitors see the first still only. Rebuild the graded slides with `python3 scripts/process_hero_slides.py`.
 
 ## Host on Cloudflare Pages (live)
@@ -55,7 +68,7 @@ Only changed files upload. If wrangler isn't logged in on this machine, run `npx
 | `taluk.html` | Dedicated taluk page (`?id=`) with a closer map, every listed sight, and public visitor notes |
 | `stories.html` | Separate chapters: seasons, coffee, culture, food, Malnad kitchen dishes, responsible travel, photographs |
 | `coffee.html` | Full coffee-origin story: eight illustrated scenes from Mocha to shade canopy |
-| `plan.html` | Three read-only trip sketches. No itinerary builder, no downloads |
+| `plan.html` | Trip planner: days, group, interests, base town and season in; a day-by-day route out, with clock times, Google Maps road routes and a tourist card per stop. Places only, no rooms or bookings. The three written sketches sit below and open as planned routes. State lives in the URL (`?days=2&who=couple&love=peaks,waterfalls&from=chikkamagaluru`), so a plan is a shareable link. No downloads |
 | `visit.html` | Access, packing, conduct, official links, credits |
 
 ## What is in the companion
@@ -69,6 +82,7 @@ Only changed files upload. If wrangler isn't logged in on this machine, run `npx
 - Homepage popular places use a React Bits **Carousel** (ported to vanilla JS + GSAP): eight featured stops, autoplay with pause on hover, swipe and dots. Hours sit beside the card on desktop and under it on phones.
 - Explore Chikkamagaluru uses a React Bits **AccordionGallery** (vanilla JS + GSAP): five theme panels expand on hover, keyboard and tap. The open panel keeps the Food / Nature-style caption and **View more** link; side arrows step through the row.
 - Under Welcome / Explore Chikkamagaluru, a React Bits **DriftWall** (vanilla port) packs destination stills flush and keeps them scrolling. Themes cycle falls, mountains, heritage, food, water, wildlife. Click a tile to pause and flip a two-to-three-line note.
+- **Trip planner** (`/plan`): a deterministic engine in `lib/planner/plan.ts` over the place catalogue, not an LLM, so every stop is a real listing and the same answers always give the same route. It ranks places by the visitor's interests (first pick weighs most), drops walks too hard for the group and places too long for a day, builds each day around the best place near the start with the least extra driving, then tries every visiting order and keeps the shortest. Each day loops from one base town, or moves on and sleeps in the town nearest the last stop. The day map (`components/plan/RouteMap.tsx`) loads only when scrolled near, asks Google once per day for the road route, and replaces the estimates in the timeline with real drive times.
 - **Tourism** is an Explore Chikkamagaluru card (`tourism.html`) with published 2024–2025 destination visits from Kannada Prabha, a month-by-month seasonal planner, catalogue counts per taluk, and an empty accommodation-data shell. Visit figures stay in `lib/statistics.ts`, separate from the place catalogue.
 - Coffee origin on `coffee.html` is eight sequential illustrated chapters (landscape 3:2), stacked as a long read on phones so each picture stays in proportion and the story sits under it.
 - **Bean to Cup** (`bean-to-cup.html`) is a Kage-register scroll sequence (Onest, vermilion, grain): a sticky full-viewport canvas, one coffee still at a time, copy in a single left column. Scroll maps to frames 00–14 (saint → Mocha → courtyard → shade → cherry → roast → filter coffee). No overlapping plates. Reduced-motion readers get the same stills stacked as a longread. The homepage band is one still plus a CTA into this walk. Not a shop.
@@ -82,8 +96,8 @@ Photographs are Wikimedia Commons and Creative Commons Flickr stills, cover-crop
 | `app/(site)/` | Root layout + routes for the companion: `/`, `/places`, `/popular`, `/map`, `/taluk/[id]`, `/stories`, `/coffee`, `/food`, `/food/[id]`, `/nature`, `/heritage`, `/stay`, `/tourism`, `/plan`, `/visit` |
 | `app/(walk)/` | Separate root layout for `/bean-to-cup` (its own design system; navigating there is a full page load) |
 | `app/global-not-found.tsx` | 404 page |
-| `components/` | React components: `site/` (header, footer, modal, language), `home/` (hero, accordion, drift wall, carousel), `map/`, `places/`, `numbers/`, `chikku/`, `walk/` |
-| `lib/` | Typed data access, search, statistics, build-time map geometry, Chikku's answer engine, and the vendored `scrollcraft.js` engine |
+| `components/` | React components: `site/` (header, footer, modal, language), `home/` (hero, accordion, drift wall, carousel), `map/`, `places/`, `plan/` (trip planner), `numbers/`, `chikku/`, `walk/` |
+| `lib/` | Typed data access, search, statistics, build-time map geometry, Chikku's answer engine, the trip planner (`lib/planner/`), and the vendored `scrollcraft.js` engine |
 | `data/ckm.json` | Place catalogue and copy (was `dist/data.js`); `data/bean-flight.json` for the walk; `data/taluks.geo.json` for the map |
 | `styles/` | The original stylesheets, imported as global CSS per layout |
 | `public/assets/` | Photographs, mascot sheets, favicon |
