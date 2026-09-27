@@ -173,7 +173,13 @@ function itineraryAnswer(q: string): Answer | null {
     }
   }
   paras.push(["This companion does not list rooms. For a bed, use official or on-the-ground sources."]);
-  paras.push([{ a: "Open trip sketches", href: "/plan" }, " · ", { a: "Visitor notes", href: "/visit" }]);
+  // The planner plans up to five days; a longer ask starts from five.
+  const planDays = Math.min(days, 5);
+  paras.push([
+    { a: `Plan a ${planDays}-day route`, href: `/plan?days=${planDays}` },
+    " · ",
+    { a: "Visitor notes", href: "/visit" },
+  ]);
   return { paras };
 }
 

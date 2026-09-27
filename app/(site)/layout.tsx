@@ -9,6 +9,7 @@ import "@/styles/site/style.css";
 import "@/styles/site/carousel.css";
 import "@/styles/site/drift-wall.css";
 import "@/styles/site/accordion-gallery.css";
+import "@/styles/site/planner.css";
 import "@/styles/chikku.css";
 
 export const metadata: Metadata = {
