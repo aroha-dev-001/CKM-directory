@@ -45,7 +45,7 @@ export function HeroSlides() {
           key={slide}
           className={`hero-still${i === active ? " is-active" : ""}${i === leaving ? " is-leaving" : ""}`}
           data-slide={slide}
-          src={`/assets/hero-slides/${slide}.jpg?v=s1`}
+          src={`/assets/hero-slides/${slide}.webp`}
           alt=""
           width={2400}
           height={1600}

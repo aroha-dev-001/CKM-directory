@@ -92,6 +92,8 @@ Legacy URLs keep working: `taluk.html?id=kadur` and `food.html?id=neer-dosa` for
 
 The Python helpers in `scripts/` predate the migration and target a `/workspace/dist` layout; the data now lives in `data/ckm.json`.
 
+The site serves WebP photos. Each `.jpg` in `public/assets/` is the master for the `.webp` beside it. After adding or re-grading a JPG, run `python3 scripts/encode_webp.py` and reference the `.webp` path.
+
 ## Scope
 
 Accommodation booking belongs to the tourism department and is out of scope here. Use the district tourism links on the page for current official information.

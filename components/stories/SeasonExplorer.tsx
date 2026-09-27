@@ -24,7 +24,7 @@ export function SeasonExplorer() {
       <div className="season-media">
         <img
           id="season-image"
-          src={picked ? seasonImage(season.id) : "/assets/mullayanagiri.jpg?v=peaks1"}
+          src={picked ? seasonImage(season.id) : "/assets/mullayanagiri.webp"}
           alt={picked ? season.title : "Seasonal landscape"}
           width={1800}
           height={1200}

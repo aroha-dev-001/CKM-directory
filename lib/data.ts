@@ -75,14 +75,14 @@ export function t(lang: Lang, key: string): string {
 }
 
 export const SEASON_IMAGE: Record<string, string> = {
-  winter: "/assets/hero.jpg",
-  summer: "/assets/mullayanagiri.jpg?v=peaks1",
-  monsoon: "/assets/jhari-falls.jpg",
-  "post-monsoon": "/assets/kudremukh.jpg",
+  winter: "/assets/hero.webp",
+  summer: "/assets/mullayanagiri.webp",
+  monsoon: "/assets/jhari-falls.webp",
+  "post-monsoon": "/assets/kudremukh.webp",
 };
 
 export function seasonImage(id: string): string {
-  return SEASON_IMAGE[id] || "/assets/hero.jpg";
+  return SEASON_IMAGE[id] || "/assets/hero.webp";
 }
 
 /** "01", "02"… used for chapter and beat numbers. */
