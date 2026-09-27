@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Copy an exported walk JSON onto the production player config."""
+"""Copy an exported walk JSON into studio/bean-to-cup.walk.json (the studio's saved config)."""
 import json
 import shutil
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-DEST = ROOT / "dist" / "bean-to-cup.walk.json"
+DEST = ROOT / "studio" / "bean-to-cup.walk.json"
 
 
 def main():

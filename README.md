@@ -6,53 +6,38 @@ This is **not** a government website and **not** a booking service. Homestays, h
 
 ## Run locally
 
-No package manager or build step.
+A Next.js 16 (App Router, React 19, TypeScript) project, exported as static files.
 
 ```bash
-python3 -m http.server 43173 --bind 0.0.0.0 --directory dist
+npm install
+npm run dev        # http://localhost:3000
+npm run build      # static export to out/
+npm run start      # serve out/ locally
+npm run lint && npm run typecheck
 ```
-
-Then open [http://127.0.0.1:43173](http://127.0.0.1:43173).
 
 The homepage hero is a five-still rotation (Kudremukh, Mullayanagiri, Ayyanakere, Kemmanagundi sunset, Hebbe Falls) with a slow crossfade every two seconds. Editorial type is Cormorant Garamond. Reduced-motion visitors see the first still only. Rebuild the graded slides with `python3 scripts/process_hero_slides.py`.
 
 ## Host on Cloudflare Pages (live)
 
-Live at [chikkamagaluru-companion.pages.dev](https://chikkamagaluru-companion.pages.dev). It's a Pages project in the same Cloudflare account as `bloom-biotech-media`. The whole `dist/` folder goes up, photos included. That's about 62 MB in 182 files, well under Pages' 25 MB per-file limit, so the media doesn't need its own project. Static bandwidth on Pages is free and unmetered.
+Live at [chikkamagaluru-companion.pages.dev](https://chikkamagaluru-companion.pages.dev). It's a Pages project in the same Cloudflare account as `bloom-biotech-media`. The whole `out/` folder goes up, photos included. That's about 62 MB in 182 files, well under Pages' 25 MB per-file limit, so the media doesn't need its own project. Static bandwidth on Pages is free and unmetered.
 
-Redeploy after any change to `dist/`:
+Redeploy after any change:
 
 ```bash
-npx wrangler@3 pages deploy dist --project-name chikkamagaluru-companion --branch main --commit-dirty=true
+npm run build && npx wrangler@3 pages deploy out --project-name chikkamagaluru-companion --branch main --commit-dirty=true
 ```
 
 Only changed files upload. If wrangler isn't logged in on this machine, run `npx wrangler@3 login` first.
 
-- `dist/_headers` sets the caching on Cloudflare. The `headers` block in `vercel.json` does not apply there. Photos are cached for a week, and HTML, JS and CSS revalidate on every visit.
+- `public/_headers` (copied into `out/`) sets the caching on Cloudflare. The `headers` block in `vercel.json` does not apply there. Photos are cached for a week, and HTML, JS and CSS revalidate on every visit.
 - Pages serves `food.html` at `/food` (the same as `cleanUrls`) and keeps `?id=` query strings.
-- There's no `404.html`, so an unknown path shows the homepage.
+- `out/404.html` is served for unknown paths.
 - Custom domain: open the project, then **Custom domains → Set up a domain**, and add the CNAME it gives you at your DNS host.
 
 ## Host on Vercel
 
-The site is static files in `dist/`. `vercel.json` tells Vercel to publish that folder with no build.
-
-**From the Vercel dashboard (once this project is on GitHub):**
-
-1. Click **Create repo** in Cursor so the project has a GitHub repository.
-2. Open [vercel.com/new](https://vercel.com/new) and import that repository.
-3. Leave the framework preset as **Other**.
-4. Set **Output Directory** to `dist` (already in `vercel.json`).
-5. Deploy. You get a lasting `*.vercel.app` URL.
-
-**From the CLI (your machine):**
-
-```bash
-npx vercel login
-npx vercel --yes --prod
-```
-
-**GitHub Actions:** after the first dashboard deploy, add repository secrets `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID`. Pushes to `main` then ship to production.
+`vercel.json` sets the framework to Next.js; Vercel runs `next build` and serves the static export. Import the repository at [vercel.com/new](https://vercel.com/new) (framework preset **Next.js**), or run `npx vercel --prod`. The GitHub Actions workflow lints, typechecks, builds and deploys on pushes to `main` once `VERCEL_TOKEN`, `VERCEL_ORG_ID` and `VERCEL_PROJECT_ID` are set as repository secrets.
 
 ## Pages
 
@@ -84,7 +69,7 @@ npx vercel --yes --prod
 - Homepage popular places use a React Bits **Carousel** (ported to vanilla JS + GSAP): eight featured stops, autoplay with pause on hover, swipe and dots. Hours sit beside the card on desktop and under it on phones.
 - Explore Chikkamagaluru uses a React Bits **AccordionGallery** (vanilla JS + GSAP): five theme panels expand on hover, keyboard and tap. The open panel keeps the Food / Nature-style caption and **View more** link; side arrows step through the row.
 - Under Welcome / Explore Chikkamagaluru, a React Bits **DriftWall** (vanilla port) packs destination stills flush and keeps them scrolling. Themes cycle falls, mountains, heritage, food, water, wildlife. Click a tile to pause and flip a two-to-three-line note.
-- **Tourism** is an Explore Chikkamagaluru card (`tourism.html`) with published 2024–2025 destination visits from Kannada Prabha, a month-by-month seasonal planner, catalogue counts per taluk, and an empty accommodation-data shell. Visit figures stay in `dist/statistics.js`, separate from the place catalogue.
+- **Tourism** is an Explore Chikkamagaluru card (`tourism.html`) with published 2024–2025 destination visits from Kannada Prabha, a month-by-month seasonal planner, catalogue counts per taluk, and an empty accommodation-data shell. Visit figures stay in `lib/statistics.ts`, separate from the place catalogue.
 - Coffee origin on `coffee.html` is eight sequential illustrated chapters (landscape 3:2), stacked as a long read on phones so each picture stays in proportion and the story sits under it.
 - **Bean to Cup** (`bean-to-cup.html`) is a Kage-register scroll sequence (Onest, vermilion, grain): a sticky full-viewport canvas, one coffee still at a time, copy in a single left column. Scroll maps to frames 00–14 (saint → Mocha → courtyard → shade → cherry → roast → filter coffee). No overlapping plates. Reduced-motion readers get the same stills stacked as a longread. The homepage band is one still plus a CTA into this walk. Not a shop.
 
@@ -92,46 +77,25 @@ Photographs are Wikimedia Commons and Creative Commons Flickr stills, cover-crop
 
 ## Architecture
 
-| File | Role |
+| Path | Role |
 | --- | --- |
-| `dist/*.html` | Multi-page shells |
-| `dist/style.css` | Layout and visual system |
-| `dist/statistics.js` | External visit statistics, formatters, seasonal plan model |
-| `dist/numbers.js` | Homepage “in numbers” charts, season explorer, taluk metrics |
-| `dist/sections.js` | HTML rendering |
-| `dist/map.js` | SVG nine-taluk choropleth; place pins only on a taluk page |
-| `dist/app.js` | Search, modal, Explore accordion, WebMCP |
-| `dist/chikku.js` / `dist/chikku.css` | Ask Chikku tiger mascot + district-only Q&A |
-| `dist/assets/mascots/` | Tiger direction and reaction sprite sheets (page-mascot) |
-| `dist/carousel.js` | Homepage popular carousel (React Bits port) |
-| `dist/drift-wall.js` | Homepage DriftWall (React Bits port) |
-| `dist/accordion-gallery.js` | Explore AccordionGallery (React Bits port) |
-| `dist/assets/` | Photographs and `taluks.geojson` |
+| `app/(site)/` | Root layout + routes for the companion: `/`, `/places`, `/popular`, `/map`, `/taluk/[id]`, `/stories`, `/coffee`, `/food`, `/food/[id]`, `/nature`, `/heritage`, `/stay`, `/tourism`, `/plan`, `/visit` |
+| `app/(walk)/` | Separate root layout for `/bean-to-cup` (its own design system; navigating there is a full page load) |
+| `app/global-not-found.tsx` | 404 page |
+| `components/` | React components: `site/` (header, footer, modal, language), `home/` (hero, accordion, drift wall, carousel), `map/`, `places/`, `numbers/`, `chikku/`, `walk/` |
+| `lib/` | Typed data access, search, statistics, build-time map geometry, Chikku's answer engine, and the vendored `scrollcraft.js` engine |
+| `data/ckm.json` | Place catalogue and copy (was `dist/data.js`); `data/bean-flight.json` for the walk; `data/taluks.geo.json` for the map |
+| `styles/` | The original stylesheets, imported as global CSS per layout |
+| `public/assets/` | Photographs, mascot sheets, favicon |
 
-`scripts/write_pages.py` regenerates the HTML shells. `scripts/fetch_images.py` re-downloads selected Commons originals. `scripts/build-data.py` can rebuild `data.js` from Python records, the live site reads `dist/data.js` directly.
+Legacy URLs keep working: `taluk.html?id=kadur` and `food.html?id=neer-dosa` forward to `/taluk/kadur` and `/food/neer-dosa`. The language choice is stored in `localStorage` (`ckm-lang`) and shared by both layouts.
 
-Motion and polish are copied from tools in the Cyatra Stash (`https://stash-cyatra.vercel.app/`): **Transitions.dev** (tabs, toast, modal, accordion, badge, number pop, tooltips, learn-more chevrons), **Kinetics** (spring overshoot, magnetic buttons, shine sweep), **UIverse** (copy-paste CSS controls), and **Sylva** (forest-and-gold editorial direction). React-only libraries from the stash were skipped so the site stays static HTML.
-
-Destination notes are reference text: live fees, permits, event dates and closures must be checked on official pages. Map boundaries are OSM (ODbL), for orientation only.
+The Python helpers in `scripts/` predate the migration and target a `/workspace/dist` layout; the data now lives in `data/ckm.json`.
 
 ## Scope
 
 Accommodation booking belongs to the tourism department and is out of scope here. Use the district tourism links on the page for current official information.
 
-## Walk config and studio (not on the public HUD)
+## Walk studio (local tool)
 
-The public Bean to cup page has **no** admin panel. It loads `dist/bean-to-cup.walk.json`. To ship settings you tuned in the studio:
-
-```bash
-python3 scripts/apply_walk_json.py ~/Downloads/bean-to-cup.walk.json
-```
-
-Then deploy `dist/` only.
-
-Dedicated admin (local, no Cloudflare):
-
-```bash
-python3 studio/serve.py
-```
-
-`http://127.0.0.1:43192/studio/bean-to-cup/`, see `studio/README.md`. For a permanent client admin URL, run `python3 studio/build_static.py` and deploy `studio/dist-site` as a **separate** password-protected site.
+`studio/` and `sandbox/` are local admin tools for a 3D walk config (`studio/bean-to-cup.walk.json`). The live `/bean-to-cup` page does not read it. See `studio/README.md`.

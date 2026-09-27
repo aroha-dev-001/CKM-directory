@@ -1,8 +1,8 @@
-/* Sandbox stills + copy, production dist assets, not a live admin page */
+/* Sandbox stills + copy, site assets from public/, not a live admin page */
 window.BTC_BEATS = [
     {
       id: "saint",
-      src: "/dist/assets/bean-to-cup/story-00-baba-budan.webp",
+      src: "/public/assets/bean-to-cup/story-00-baba-budan.webp",
       act: "I",
       lore: false,
       en: {
@@ -22,7 +22,7 @@ window.BTC_BEATS = [
     },
     {
       id: "plant",
-      src: "/dist/assets/bean-to-cup/story-01-plant.webp",
+      src: "/public/assets/bean-to-cup/story-01-plant.webp",
       act: "I",
       lore: false,
       en: {
@@ -42,7 +42,7 @@ window.BTC_BEATS = [
     },
     {
       id: "mocha",
-      src: "/dist/assets/bean-to-cup/story-02-mocha.webp",
+      src: "/public/assets/bean-to-cup/story-02-mocha.webp",
       act: "I",
       lore: false,
       en: {
@@ -62,7 +62,7 @@ window.BTC_BEATS = [
     },
     {
       id: "seeds",
-      src: "/dist/assets/bean-to-cup/story-03-seeds.webp",
+      src: "/public/assets/bean-to-cup/story-03-seeds.webp",
       act: "I",
       lore: false,
       en: {
@@ -82,7 +82,7 @@ window.BTC_BEATS = [
     },
     {
       id: "voyage",
-      src: "/dist/assets/bean-to-cup/story-04-voyage.webp",
+      src: "/public/assets/bean-to-cup/story-04-voyage.webp",
       act: "I",
       lore: true,
       en: {
@@ -102,7 +102,7 @@ window.BTC_BEATS = [
     },
     {
       id: "hermitage",
-      src: "/dist/assets/bean-to-cup/story-05-hermitage.webp",
+      src: "/public/assets/bean-to-cup/story-05-hermitage.webp",
       act: "I",
       lore: false,
       en: {
@@ -122,7 +122,7 @@ window.BTC_BEATS = [
     },
     {
       id: "estate",
-      src: "/dist/assets/bean-to-cup/story-06-estate.webp",
+      src: "/public/assets/bean-to-cup/story-06-estate.webp",
       act: "I",
       lore: false,
       en: {
@@ -142,7 +142,7 @@ window.BTC_BEATS = [
     },
     {
       id: "shade-work",
-      src: "/dist/assets/bean-to-cup/story-07-shade-work.webp",
+      src: "/public/assets/bean-to-cup/story-07-shade-work.webp",
       act: "I",
       lore: false,
       en: {
@@ -162,7 +162,7 @@ window.BTC_BEATS = [
     },
     {
       id: "guest",
-      src: "/dist/assets/bean-to-cup/story-08-guest.webp",
+      src: "/public/assets/bean-to-cup/story-08-guest.webp",
       act: "I",
       lore: false,
       en: {
@@ -182,7 +182,7 @@ window.BTC_BEATS = [
     },
     {
       id: "shade",
-      src: "/dist/assets/bean-to-cup/01-shade.webp",
+      src: "/public/assets/bean-to-cup/01-shade.webp",
       act: "II",
       lore: false,
       en: {
@@ -202,7 +202,7 @@ window.BTC_BEATS = [
     },
     {
       id: "cherry",
-      src: "/dist/assets/bean-to-cup/02-cherry.webp",
+      src: "/public/assets/bean-to-cup/02-cherry.webp",
       act: "II",
       lore: false,
       en: {
@@ -222,7 +222,7 @@ window.BTC_BEATS = [
     },
     {
       id: "seed",
-      src: "/dist/assets/bean-to-cup/03-seed.webp",
+      src: "/public/assets/bean-to-cup/03-seed.webp",
       act: "II",
       lore: false,
       en: {
@@ -242,7 +242,7 @@ window.BTC_BEATS = [
     },
     {
       id: "roast",
-      src: "/dist/assets/bean-to-cup/04-roast.webp",
+      src: "/public/assets/bean-to-cup/04-roast.webp",
       act: "II",
       lore: false,
       en: {
@@ -262,7 +262,7 @@ window.BTC_BEATS = [
     },
     {
       id: "brew",
-      src: "/dist/assets/bean-to-cup/05-brew.webp",
+      src: "/public/assets/bean-to-cup/05-brew.webp",
       act: "II",
       lore: false,
       en: {
@@ -282,7 +282,7 @@ window.BTC_BEATS = [
     },
     {
       id: "cup",
-      src: "/dist/assets/bean-to-cup/06-cup.webp",
+      src: "/public/assets/bean-to-cup/06-cup.webp",
       act: "II",
       lore: false,
       en: {

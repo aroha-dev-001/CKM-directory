@@ -5,7 +5,6 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "studio" / "bean-to-cup"
-DIST = ROOT / "dist"
 OUT = ROOT / "studio" / "dist-site"
 
 
@@ -14,19 +13,21 @@ def main():
         shutil.rmtree(OUT)
     OUT.mkdir(parents=True)
     shutil.copytree(SRC, OUT, dirs_exist_ok=True)
-    vendor = OUT / "dist"
-    vendor.mkdir()
-    for name in ("seq-walk.css", "bean-to-cup.walk.json"):
-        shutil.copy2(DIST / name, vendor / name)
-    shutil.copytree(DIST / "secret-pathways-assets", vendor / "secret-pathways-assets")
-    shutil.copytree(DIST / "assets" / "bean-to-cup", vendor / "assets" / "bean-to-cup")
-    if (DIST / "assets" / "favicon.svg").exists():
-        (vendor / "assets").mkdir(exist_ok=True)
-        shutil.copy2(DIST / "assets" / "favicon.svg", vendor / "assets" / "favicon.svg")
+    # Mirror the repo-root paths the studio references (/styles/walk/, /public/).
+    walk = OUT / "styles" / "walk"
+    walk.mkdir(parents=True)
+    for name in ("seq-walk.css", "fonts.css"):
+        shutil.copy2(ROOT / "styles" / "walk" / name, walk / name)
+    shutil.copy2(ROOT / "studio" / "bean-to-cup.walk.json", OUT / "bean-to-cup.walk.json")
+    public = OUT / "public"
+    shutil.copytree(ROOT / "public" / "secret-pathways-assets", public / "secret-pathways-assets")
+    shutil.copytree(ROOT / "public" / "assets" / "bean-to-cup", public / "assets" / "bean-to-cup")
+    shutil.copy2(ROOT / "public" / "assets" / "favicon.svg", public / "assets" / "favicon.svg")
     html = (OUT / "index.html").read_text()
-    html = html.replace('href="/dist/', 'href="./dist/').replace('src="/dist/', 'src="./dist/')
+    for prefix in ("/public/", "/styles/"):
+        html = html.replace(f'href="{prefix}', f'href=".{prefix}').replace(f'src="{prefix}', f'src=".{prefix}')
     (OUT / "index.html").write_text(html)
-    beats = (OUT / "beats.js").read_text().replace('src: "/dist/', 'src: "./dist/')
+    beats = (OUT / "beats.js").read_text().replace('src: "/public/', 'src: "./public/')
     (OUT / "beats.js").write_text(beats)
     print("Static studio at", OUT)
     print("Deploy this folder as its own Vercel/Netlify site (password-protect it).")

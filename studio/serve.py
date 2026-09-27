@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 PORT = int(os.environ.get("STUDIO_PORT", "43192"))
-WALK = Path(ROOT) / "dist" / "bean-to-cup.walk.json"
+WALK = Path(ROOT) / "studio" / "bean-to-cup.walk.json"
 
 
 class Handler(SimpleHTTPRequestHandler):
