@@ -6,12 +6,11 @@ import { PopularSection } from "@/components/home/PopularSection";
 import { DistrictExplorer } from "@/components/map/DistrictExplorer";
 import { PageShell } from "@/components/site/PageShell";
 import { Learn } from "@/components/ui/chevrons";
-import { CountUp, MagneticLink, Reveal, TiltLink } from "@/components/ui/motion";
+import { CountUp, MagneticLink, Reveal } from "@/components/ui/motion";
 import { CKM } from "@/lib/data";
 import { buildMapModel } from "@/lib/map-model";
 
 export default function HomePage() {
-  const origin = CKM.coffeeOrigin;
   const ticker = CKM.destinations.map((p) => (
     <span key={p.id}>
       {p.name} <i>{p.kannada}</i>
@@ -68,38 +67,6 @@ export default function HomePage() {
 
       <ExploreSection />
       <DriftWallSection />
-
-      <section className="coffee-origin coffee-origin--home" id="bean-to-cup" aria-labelledby="bean-to-cup-title">
-        <div className="wrap">
-          <div className="section-head">
-            <p className="kicker">Bean to cup</p>
-            <h2 id="bean-to-cup-title">Baba Budan, then the cup.</h2>
-            <p className="section-lead">
-              Two acts on one walk: the saint who brought seven Mocha seeds, then shade, cherry, roast, filter coffee. Not a
-              shop. Not a booking. Lore is labelled lore.
-            </p>
-          </div>
-          <TiltLink className="story-entry-card tilt-card shine-card" href="/bean-to-cup">
-            <span className="media">
-              <img
-                src={origin.saint?.image || origin.image}
-                alt={origin.saint?.caption || origin.title}
-                width={1800}
-                height={1200}
-              />
-            </span>
-            <span className="story-entry-copy">
-              <span className="kicker">{origin.kicker}</span>
-              <h2 id="origin-title">{origin.title}</h2>
-              <p>{origin.lede}</p>
-              <span className="text-link t-learn">
-                <Learn>Open the full story</Learn>
-              </span>
-            </span>
-          </TiltLink>
-        </div>
-      </section>
-
       <PopularSection />
 
       <Reveal className="section close-band">

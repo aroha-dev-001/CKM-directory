@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
   // already cover-cropped to 1800×1200 by scripts/, so they are served as-is.
   images: { unoptimized: true },
   experimental: {
-    // Two root layouts ((site) and (walk)) need a standalone 404 page.
+    // The only root layout lives in the (site) group, so 404s need a standalone page.
     globalNotFound: true,
   },
 };

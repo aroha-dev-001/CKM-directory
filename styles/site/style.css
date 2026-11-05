@@ -987,12 +987,6 @@ a.food-card-link:hover {
   scroll-margin-top: calc(var(--header) + 1rem);
 }
 
-.coffee-origin--home .section-head {
-  margin-bottom: 1.4rem;
-}
-
-.bean-stills { display: none; }
-
 .story-act-nav {
   display: flex;
   flex-wrap: wrap;
@@ -1028,9 +1022,6 @@ a.food-card-link:hover {
   border-bottom: 1px solid var(--line);
   scroll-margin-top: calc(var(--header) + 1rem);
 }
-.bean-longread .story-act-head:first-of-type {
-  margin-top: 0.4rem;
-}
 .story-act-head h2 {
   margin: 0.15rem 0 0.45rem;
   font-size: clamp(1.65rem, 3.2vw, 2.35rem);
@@ -1053,15 +1044,6 @@ a.food-card-link:hover {
   color: var(--gold-dim);
   vertical-align: 0.08em;
   font-family: var(--sans, inherit);
-}
-main[data-page="beantocup"] .page-hero h1 {
-  max-width: 18ch;
-}
-main[data-page="beantocup"] {
-  background: var(--paper);
-}
-main[data-page="beantocup"] .bean-hero {
-  background: var(--paper);
 }
 .story-film {
   display: grid;
@@ -2504,34 +2486,292 @@ main[data-page="coffee"] .origin-chapter p {
   paint-order: stroke fill;
 }
 
-.choropleth-svg .taluk-g.is-selected .taluk-name {
+.choropleth-svg .taluk-name.is-selected {
   font-weight: 700;
   fill: #f4f7f2;
   stroke: #2c5a38;
   stroke-width: 3px;
 }
 
-/* Taluk page: the viewBox zooms to one taluk, so its neighbours run far past
-   the frame. Clip them to the stage and fade the edges instead of letting them
-   spill over the copy column and the sections around it. */
-.choropleth[data-map-mode="taluk"] {
-  min-height: 0;
+/* The hovered or selected taluk's outline, redrawn over the neighbours that
+   would otherwise paint across its edges. */
+.choropleth-svg .taluk-ring {
+  fill: none;
+  stroke: #3f6f4a;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
 }
 
-.choropleth[data-map-mode="taluk"] .choropleth-svg {
+.choropleth-svg .taluk-ring.is-selected {
+  stroke: #14361f;
+  stroke-width: 2;
+}
+
+/* Taluk page map ---------------------------------------------------------
+   The viewBox frames one taluk, so its neighbours run far past the frame:
+   they are clipped to the canvas and faded at the edges. Pins and names are
+   HTML over the SVG, so they keep a readable size however the map scales. */
+.taluk-map {
+  width: 100%;
+}
+
+.taluk-map-canvas {
+  position: relative;
   height: min(76vh, 44rem);
-  max-height: none;
+  container-type: size;
+}
+
+.taluk-map-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent),
-    linear-gradient(to bottom, transparent, #000 9%, #000 91%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent),
+    linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
   -webkit-mask-composite: source-in;
-  mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent),
-    linear-gradient(to bottom, transparent, #000 9%, #000 91%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent),
+    linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
   mask-composite: intersect;
 }
 
-.choropleth[data-map-mode="taluk"] .taluk-name {
-  opacity: 0.55;
+.taluk-map-zoom {
+  transform-origin: 0 0;
+}
+
+.taluk-map-neighbour {
+  fill: #eaf0e8;
+  stroke: #c3cfc0;
+  stroke-width: 1;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.taluk-map-focus {
+  fill: #2c5a38;
+  stroke: #14361f;
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.taluk-map[data-phase="done"] .taluk-map-focus {
+  filter: url(#taluk-lift);
+}
+
+/* A warm line traced around the taluk once the camera lands. pathLength is 1,
+   so the dash maths is the same for every taluk. --map-k is the SVG's scale,
+   set by <TalukMap>, so the line is ~2px on screen at any size. */
+.taluk-map-trace {
+  fill: none;
+  stroke: #f2e3b8;
+  stroke-width: calc(2px / var(--map-k, 1));
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: 0;
+  opacity: 0.9;
+}
+
+.taluk-map-overlay {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(100cqw, 100cqh * var(--map-ar));
+  height: min(100cqh, 100cqw / var(--map-ar));
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* A dark pill keeps the name legible even where it runs past the taluk's edge. */
+.taluk-map-name {
+  position: absolute;
+  z-index: 2;
+  margin: 0;
+  padding: 0.38rem 0.5rem 0.38rem 0.72rem;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background: rgba(14, 38, 22, 0.5);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #f6f0dc;
+  text-shadow: 0 1px 2px rgba(8, 22, 13, 0.5);
+  pointer-events: none;
+}
+
+.tpin {
+  position: absolute;
+  z-index: 1;
+  width: 0;
+  height: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.tpin:hover,
+.tpin:focus-visible {
+  z-index: 4;
+  outline: none;
+}
+
+.tpin-dot {
+  position: absolute;
+  left: -6.5px;
+  top: -6.5px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--pin);
+  border: 2px solid #fbfaf5;
+  box-shadow: 0 1px 3px rgba(12, 31, 19, 0.4), 0 0 0 1px rgba(12, 31, 19, 0.14);
+  transition: transform 0.2s var(--ease-out);
+}
+
+.tpin:hover .tpin-dot,
+.tpin:focus-visible .tpin-dot {
+  transform: scale(1.3);
+}
+
+.tpin:focus-visible .tpin-dot {
+  outline: 2px solid #b4592f;
+  outline-offset: 2px;
+}
+
+.tpin-label {
+  position: absolute;
+  width: max-content;
+  max-width: 17rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0.24rem 0.6rem 0.26rem;
+  border-radius: 999px;
+  background: rgba(251, 250, 245, 0.95);
+  color: #14361f;
+  font-family: var(--sans);
+  font-size: 0.76rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  box-shadow: 0 1px 2px rgba(12, 31, 19, 0.18), 0 6px 16px -6px rgba(12, 31, 19, 0.4);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+/* Placed chips get their left/top from layout() in TalukMap.tsx. A chip with
+   no room beside its pin waits for hover or focus, just right of the dot. */
+.tpin:not([data-placed]) .tpin-label {
+  left: 10px;
+  top: 0;
+  transform: translateY(-50%);
+  visibility: hidden;
+}
+
+.tpin[data-measured]:not([data-placed]):hover .tpin-label,
+.tpin[data-measured]:not([data-placed]):focus-visible .tpin-label {
+  visibility: visible;
+}
+
+.tpin-leader {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* A dark hairline under a cream one reads on the taluk and on its pale neighbours. */
+.tpin-leader line {
+  stroke: rgba(12, 31, 19, 0.35);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.tpin-leader line + line {
+  stroke: #f6f0dc;
+  stroke-width: 1.25;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .taluk-map-canvas {
+    transition: opacity 0.8s var(--ease-out);
+  }
+
+  .taluk-map[data-phase="idle"] .taluk-map-canvas {
+    opacity: 0;
+  }
+
+  /* The taluk starts in its district shade and deepens as the camera flies in. */
+  .taluk-map[data-phase="idle"] .taluk-map-focus {
+    fill: #9dbb98;
+  }
+
+  .taluk-map[data-phase="zoom"] .taluk-map-focus {
+    transition: fill 1.1s var(--ease) 0.5s;
+  }
+
+  .taluk-map[data-phase="idle"] .taluk-map-trace,
+  .taluk-map[data-phase="zoom"] .taluk-map-trace {
+    stroke-dashoffset: 1;
+  }
+
+  .taluk-map[data-phase="done"] .taluk-map-trace {
+    transition: stroke-dashoffset 1.6s var(--ease-out);
+  }
+
+  .taluk-map:not([data-phase="done"]) .taluk-map-name,
+  .taluk-map:not([data-phase="done"]) .tpin {
+    visibility: hidden;
+  }
+
+  .taluk-map[data-phase="done"] .taluk-map-name {
+    animation: taluk-map-in 0.7s var(--ease-out) 0.35s backwards;
+  }
+
+  .taluk-map[data-phase="done"] .tpin-dot {
+    animation: tpin-pop 0.5s var(--ease-spring) backwards;
+    animation-delay: calc(0.25s + var(--i) * 55ms);
+  }
+
+  .taluk-map[data-phase="done"] .tpin[data-placed] .tpin-label,
+  .taluk-map[data-phase="done"] .tpin-leader {
+    animation: tpin-fade 0.45s var(--ease-out) backwards;
+    animation-delay: calc(0.5s + var(--i) * 55ms);
+  }
+}
+
+@keyframes taluk-map-in {
+  from {
+    opacity: 0;
+    letter-spacing: 0.34em;
+  }
+}
+
+@keyframes tpin-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+}
+
+@keyframes tpin-fade {
+  from {
+    opacity: 0;
+  }
 }
 
 .map-tooltip {
@@ -2745,36 +2985,15 @@ main[data-page="coffee"] .origin-chapter p {
   color: var(--coffee);
 }
 
-.taluk-g.is-dim path {
-  cursor: default;
-  stroke-opacity: 0.55;
-}
-
-.place-pin {
-  cursor: pointer;
-}
-
-.place-pin circle {
-  stroke: #f3f6f1;
-}
-
-.place-pin text {
-  font-family: var(--sans);
-  font-size: 11px;
-  font-weight: 500;
-  fill: #14361f;
-  stroke: #f3f1e8;
-  stroke-width: 3px;
-  stroke-linejoin: round;
-  paint-order: stroke fill;
-  pointer-events: none;
-}
-
 .taluk-focus-grid {
   display: grid;
   grid-template-columns: minmax(0, 16rem) minmax(0, 1fr);
   gap: 2rem 1.4rem;
   align-items: center;
+}
+
+.taluk-focus-grid > * {
+  min-width: 0;
 }
 
 .taluk-chips {
@@ -4393,8 +4612,32 @@ main[data-page="coffee"] .origin-chapter p {
     max-height: none;
   }
 
-  .choropleth[data-map-mode="taluk"] .choropleth-svg {
-    height: min(62vh, 28rem);
+  /* Phones: the canvas takes the taluk's own shape, so wide taluks are not lost in a tall box. */
+  .taluk-map-canvas {
+    width: 100%;
+    /* Without this, min-height transfers through the aspect ratio into a min-width wider than the phone. */
+    min-width: 0;
+    height: auto;
+    aspect-ratio: var(--map-ar);
+    min-height: 19rem;
+    max-height: min(72vh, 34rem);
+  }
+
+  .taluk-map-name {
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+  }
+
+  .tpin-label {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem 0.22rem;
+  }
+
+  .tpin-dot {
+    left: -5.5px;
+    top: -5.5px;
+    width: 11px;
+    height: 11px;
   }
 
   .district-copy h1,

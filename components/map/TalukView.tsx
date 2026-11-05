@@ -9,7 +9,7 @@ import { catLabel, placeCategories, placesInTaluk, popularFor, talukById, talukL
 import { useLang } from "@/lib/lang";
 import type { MapModel } from "@/lib/map-model";
 import type { Destination, Lang, SourceLink } from "@/lib/types";
-import { DistrictMap } from "./DistrictMap";
+import { TalukMap } from "./TalukMap";
 
 function TalukPlace({ place, lang }: { place: Destination; lang: Lang }) {
   const extra = popularFor(place.id);
@@ -109,22 +109,14 @@ export function TalukView({ id, model }: { id: string; model: MapModel }) {
               <p className="kicker">This taluk</p>
               <h2>Places on the map.</h2>
               <p className="section-lead">
-                The district overview hid every pin. Here the listed sights sit on {label}’s OSM polygon. Click a marker to
-                jump to its notes below.
+                Every listed sight in {label}, pinned on its OSM boundary. Click a marker to jump to its notes below.
               </p>
               <Link className="btn btn-line" href="/map">
                 <Learn>Back to nine taluks</Learn>
               </Link>
             </div>
             <div className="district-map-stage">
-              <DistrictMap
-                model={model}
-                mode="taluk"
-                className="choropleth choropleth-lg"
-                role="img"
-                label={`Places in ${label}`}
-                onPlace={onPin}
-              />
+              <TalukMap model={model} label={label} onPlace={onPin} />
             </div>
           </div>
         </div>
