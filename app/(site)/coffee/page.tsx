@@ -18,9 +18,6 @@ export default function CoffeePage() {
           <h1>{origin.title || "Seven seeds from Mocha"}</h1>
           <p className="section-lead">{origin.lede || ""}</p>
           <p>
-            <Link className="text-link t-learn" href="/bean-to-cup">
-              <Learn>Open Baba Budan, then the cup</Learn>
-            </Link>{" "}
             <Link className="text-link t-learn" href="/heritage">
               <Learn>Back to heritage</Learn>
             </Link>

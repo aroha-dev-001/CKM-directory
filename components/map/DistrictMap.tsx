@@ -17,14 +17,13 @@ interface Tip {
 
 export interface DistrictMapProps {
   model: MapModel;
-  mode: "home" | "page" | "taluk";
+  mode: "home" | "page";
   selected?: string;
   /** A taluk hovered elsewhere (the index list) lights up here too. */
   hovered?: string;
   onHover?: (id: string) => void;
   /** `activate` is true for a click or Enter on a shape: open that taluk. */
   onChoose?: (id: string, activate: boolean) => void;
-  onPlace?: (id: string) => void;
   className?: string;
   role?: string;
   label?: string;
@@ -33,16 +32,14 @@ export interface DistrictMapProps {
 export function DistrictMap({
   model,
   mode,
-  selected = model.focus,
+  selected = "",
   hovered = "",
   onHover,
   onChoose,
-  onPlace,
   className = "choropleth",
   role,
   label,
 }: DistrictMapProps) {
-  const interactive = !model.focus;
   const canvasRef = useRef<HTMLDivElement>(null);
   const tipRef = useRef<HTMLDivElement>(null);
   const [tip, setTip] = useState<Tip | null>(null);
@@ -68,97 +65,83 @@ export function DistrictMap({
     ? [...model.shapes.filter((s) => s.id !== selected), ...model.shapes.filter((s) => s.id === selected)]
     : model.shapes;
   const tipTaluk = tip ? talukById(tip.shape.id) : undefined;
+  // Neighbours paint over each other's edges, so the active taluk's outline is redrawn on top of all of them.
+  const ringed = [...new Set([selected, hovered].filter(Boolean))]
+    .map((id) => model.shapes.find((s) => s.id === id))
+    .filter((s): s is MapShape => Boolean(s));
 
   return (
-    <div
-      className={className}
-      id="district-svg"
-      data-map-mode={mode}
-      data-focus-taluk={model.focus || undefined}
-      role={role}
-      aria-label={label}
-    >
+    <div className={className} id="district-svg" data-map-mode={mode} role={role} aria-label={label}>
       <div className="map-canvas" ref={canvasRef}>
         <svg
           className="choropleth-svg"
           viewBox={`0 0 ${model.width} ${model.height}`}
-          aria-label={model.focus ? "Places in this taluk" : "Chikkamagaluru district, nine taluks"}
+          aria-label="Chikkamagaluru district, nine taluks"
         >
           {shapes.map((shape) => {
             const on = shape.id === selected;
-            const fill = on ? SELECTED : interactive && shape.id === hovered ? HOVER : shape.fill;
-            const events = interactive
-              ? {
-                  tabIndex: 0,
-                  role: "button",
-                  onClick: () => onChoose?.(shape.id, true),
-                  onMouseEnter: (event: MouseEvent) => {
-                    onHover?.(shape.id);
-                    showTip(shape, event);
-                  },
-                  onMouseMove: (event: MouseEvent) => showTip(shape, event),
-                  onMouseLeave: () => {
-                    onHover?.("");
-                    setTip(null);
-                  },
-                  onKeyDown: (event: KeyboardEvent) => {
-                    if (event.key === "Enter" || event.key === " ") {
-                      event.preventDefault();
-                      onChoose?.(shape.id, true);
-                    }
-                  },
-                }
-              : { tabIndex: -1 };
+            const fill = on ? SELECTED : shape.id === hovered ? HOVER : shape.fill;
             return (
-              <g
-                key={shape.id}
-                className={`taluk-g${shape.focused ? "" : " is-dim"}${on ? " is-selected" : ""}`}
-                data-taluk-shape={shape.id}
-              >
+              <g key={shape.id} className={`taluk-g${on ? " is-selected" : ""}`} data-taluk-shape={shape.id}>
                 <path
                   d={shape.d}
                   fill={fill}
                   data-fill={shape.fill}
+                  tabIndex={0}
+                  role="button"
                   aria-pressed={on}
                   aria-label={`${shape.name} taluk, ${shape.placeCount} places`}
-                  {...events}
+                  onClick={() => onChoose?.(shape.id, true)}
+                  onMouseEnter={(event: MouseEvent) => {
+                    onHover?.(shape.id);
+                    showTip(shape, event);
+                  }}
+                  onMouseMove={(event: MouseEvent) => showTip(shape, event)}
+                  onMouseLeave={() => {
+                    onHover?.("");
+                    setTip(null);
+                  }}
+                  onKeyDown={(event: KeyboardEvent) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      onChoose?.(shape.id, true);
+                    }
+                  }}
                 />
-                {shape.label && (
-                  <text
-                    className="taluk-name"
-                    x={shape.label.x}
-                    y={shape.label.y}
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                    fontSize={shape.label.size}
-                    fill={on ? LABEL_ON : LABEL_IDLE}
-                  >
-                    {shape.label.lines.map((line, i) => (
-                      <tspan key={line} x={shape.label!.x} dy={i === 0 ? 0 : shape.label!.lineH}>
-                        {line}
-                      </tspan>
-                    ))}
-                  </text>
-                )}
               </g>
             );
           })}
-          {model.pins.map((pin) => (
-            <g
-              key={pin.id}
-              className="place-pin"
-              data-place-pin={pin.id}
-              onClick={(event) => {
-                event.stopPropagation();
-                onPlace?.(pin.id);
-              }}
-            >
-              <circle cx={pin.x} cy={pin.y} r="5.2" fill={pin.fill} stroke="#fbfaf5" strokeWidth="1.4" />
-              <text x={pin.tx} y={pin.ty} textAnchor={pin.anchor} fontSize="11">
-                {pin.name}
-              </text>
-            </g>
+          {ringed.map((shape) => (
+            <path
+              key={`ring-${shape.id}`}
+              className={`taluk-ring${shape.id === selected ? " is-selected" : ""}`}
+              d={shape.d}
+              aria-hidden="true"
+            />
           ))}
+          {/* Names go last so no neighbouring shape or outline ever covers one. */}
+          {model.shapes.map(
+            (shape) =>
+              shape.label && (
+                <text
+                  key={`name-${shape.id}`}
+                  className={`taluk-name${shape.id === selected ? " is-selected" : ""}`}
+                  x={shape.label.x}
+                  y={shape.label.y}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  fontSize={shape.label.size}
+                  fill={shape.id === selected ? LABEL_ON : LABEL_IDLE}
+                  aria-hidden="true"
+                >
+                  {shape.label.lines.map((line, i) => (
+                    <tspan key={line} x={shape.label!.x} dy={i === 0 ? 0 : shape.label!.lineH}>
+                      {line}
+                    </tspan>
+                  ))}
+                </text>
+              )
+          )}
         </svg>
         <div className="map-tooltip" data-map-tooltip ref={tipRef} hidden={!tip}>
           {tip && (

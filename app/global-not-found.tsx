@@ -6,7 +6,7 @@ import { Learn } from "@/components/ui/chevrons";
 import { siteFontVariables } from "@/lib/fonts";
 import "@/styles/site/style.css";
 
-// The app has two root layouts ((site) and (walk)), so unmatched URLs are
+// The root layout lives in the (site) route group, so unmatched URLs are
 // served this standalone page, which brings its own <html>, styles and fonts.
 export const metadata: Metadata = {
   title: "Page not found · Chikkamagaluru",

@@ -245,9 +245,9 @@ export function answer(raw: string): Answer {
   if (/\b(coffee|mocha|baba budan|davara|bean to cup|arabica)\b/i.test(q)) {
     return say(
       [
-        "Coffee did not arrive here as a cup. Lore says Baba Budan brought seven Mocha seeds to this ridge. Shade, cherry, roast, filter coffee is the walk this companion tells. Not a shop.",
+        "Coffee did not arrive here as a cup. Lore says Baba Budan brought seven Mocha seeds to this ridge. Shade, cherry, roast, filter coffee is the story this companion tells. Not a shop.",
       ],
-      [{ a: "Bean to cup", href: "/bean-to-cup" }, " · ", { a: "Coffee chapter", href: "/coffee" }]
+      [{ a: "Coffee chapter", href: "/coffee" }]
     );
   }
 

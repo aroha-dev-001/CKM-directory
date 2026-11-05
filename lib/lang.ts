@@ -3,8 +3,8 @@
 import { useSyncExternalStore } from "react";
 import type { Lang } from "./types";
 
-/* The reader's language lives in localStorage under the same key the
-   Bean to cup walk reads, so a choice made on one page follows to the other. */
+/* The reader's language lives in localStorage, so a choice made on one page
+   follows to the next. */
 const KEY = "ckm-lang";
 const listeners = new Set<() => void>();
 // Fallback for browsers that refuse storage, so the toggle still works on this page.

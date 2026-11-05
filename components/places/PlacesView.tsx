@@ -118,7 +118,11 @@ export function PlacesView() {
             </nav>
             <div className="t-tabs taluk-tabs" role="tablist" aria-label="Taluks" ref={tabsRef}>
               <span className="t-tabs-pill" aria-hidden="true" />
-              {[{ id: "all", label: "All taluks" }, ...CKM.taluks.map((tk) => ({ id: tk.id, label: `${tk.name} · ${tk.count}` }))].map(
+              {[
+                { id: "all", label: "All taluks" },
+                // A taluk with nothing listed yet (Ajjampura) would only be a dead-end filter.
+                ...CKM.taluks.filter((tk) => tk.count > 0).map((tk) => ({ id: tk.id, label: `${tk.name} · ${tk.count}` })),
+              ].map(
                 (tab) => (
                   <button
                     key={tab.id}

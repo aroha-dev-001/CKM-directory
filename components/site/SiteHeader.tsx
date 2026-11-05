@@ -13,7 +13,6 @@ const NAV = [
   { key: "popular", href: "/popular", label: "nav_popular" },
   { key: "map", href: "/map", label: "nav_map" },
   { key: "stories", href: "/stories", label: "nav_stories" },
-  { key: "beantocup", href: "/bean-to-cup", label: null },
   { key: "plan", href: "/plan", label: "nav_plan" },
   { key: "visit", href: "/visit", label: "nav_visit" },
 ] as const;
@@ -126,7 +125,7 @@ export function SiteHeader() {
                 aria-current={on ? "page" : undefined}
                 onClick={() => setOpen(false)}
               >
-                {item.label ? t(lang, item.label) : "Bean to cup"}
+                {t(lang, item.label)}
               </Link>
             );
           })}
