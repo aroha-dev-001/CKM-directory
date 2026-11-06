@@ -13,7 +13,6 @@ const NAV = [
   { key: "popular", href: "/popular", label: "nav_popular" },
   { key: "map", href: "/map", label: "nav_map" },
   { key: "stories", href: "/stories", label: "nav_stories" },
-  { key: "plan", href: "/plan", label: "nav_plan" },
   { key: "visit", href: "/visit", label: "nav_visit" },
 ] as const;
 
@@ -129,8 +128,28 @@ export function SiteHeader() {
               </Link>
             );
           })}
+          {/* Narrow phones: the plan button takes the bar's room, so the language switch moves in here. */}
+          <button className="nav-lang" type="button" onClick={() => setLang(lang === "en" ? "kn" : "en")}>
+            {t(lang, "lang")}
+          </button>
         </nav>
         <div className="header-tools">
+          {/* The planner sits apart from the reading links, as the one thing to do. */}
+          <Link
+            className={`header-plan${active === "plan" ? " is-active" : ""}`}
+            href="/plan"
+            data-nav="plan"
+            aria-current={active === "plan" ? "page" : undefined}
+            onClick={() => setOpen(false)}
+          >
+            <span className="header-plan-text">
+              <span className="header-plan-hint">{t(lang, "plan_cta_hint")}</span>{" "}
+              <span className="header-plan-label">{t(lang, "plan_cta")}</span>
+            </span>
+            <span className="header-plan-arrow" aria-hidden="true">
+              →
+            </span>
+          </Link>
           <button className="lang-toggle" type="button" onClick={() => setLang(lang === "en" ? "kn" : "en")}>
             {t(lang, "lang")}
           </button>

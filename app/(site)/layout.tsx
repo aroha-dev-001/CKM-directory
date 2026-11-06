@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { Chikku } from "@/components/chikku/Chikku";
 import { PlaceModalProvider } from "@/components/site/PlaceModal";
+import { PlanNudge } from "@/components/site/PlanNudge";
 import { SiteEffects } from "@/components/site/SiteEffects";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { siteFontVariables } from "@/lib/fonts";
@@ -10,6 +11,7 @@ import "@/styles/site/carousel.css";
 import "@/styles/site/drift-wall.css";
 import "@/styles/site/accordion-gallery.css";
 import "@/styles/site/planner.css";
+import "@/styles/site/plan-nudge.css";
 import "@/styles/chikku.css";
 
 export const metadata: Metadata = {
@@ -41,6 +43,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
           {children}
         </PlaceModalProvider>
         <SiteEffects />
+        <PlanNudge />
         <Chikku />
       </body>
     </html>

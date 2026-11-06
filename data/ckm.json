@@ -3714,7 +3714,13 @@
       "nav_home": "Home",
       "nav_visit": "Visit",
       "nav_popular": "Popular",
-      "nav_explore": "Explore"
+      "nav_explore": "Explore",
+      "plan_cta": "Plan my trip",
+      "plan_cta_hint": "Don't know where to go?",
+      "nudge_text": "Pick your days and what you love. We'll choose the places and map the drive.",
+      "nudge_days": "How many days?",
+      "nudge_love": "What do you love?",
+      "dismiss": "Dismiss"
     },
     "kn": {
       "skip": "ಮುಖ್ಯ ವಿಷಯಕ್ಕೆ ಹೋಗಿ",
@@ -3761,7 +3767,13 @@
       "nav_home": "ಮುಖಪುಟ",
       "nav_visit": "ಭೇಟಿ",
       "nav_popular": "ಜನಪ್ರಿಯ",
-      "nav_explore": "ಅನ್ವೇಷಿಸಿ"
+      "nav_explore": "ಅನ್ವೇಷಿಸಿ",
+      "plan_cta": "ಪ್ರವಾಸ ಯೋಜಿಸಿ",
+      "plan_cta_hint": "ಎಲ್ಲಿಗೆ ಹೋಗಬೇಕು ಗೊತ್ತಿಲ್ಲವೇ?",
+      "nudge_text": "ದಿನಗಳನ್ನು ಮತ್ತು ನಿಮಗೆ ಇಷ್ಟವಾದುದನ್ನು ಆರಿಸಿ. ಸ್ಥಳಗಳನ್ನು ಆರಿಸಿ, ಪ್ರಯಾಣದ ಮಾರ್ಗವನ್ನು ನಕ್ಷೆಯಲ್ಲಿ ತೋರಿಸುತ್ತೇವೆ.",
+      "nudge_days": "ಎಷ್ಟು ದಿನ?",
+      "nudge_love": "ನಿಮಗೆ ಏನು ಇಷ್ಟ?",
+      "dismiss": "ಬೇಡ"
     }
   },
   "highlights": [

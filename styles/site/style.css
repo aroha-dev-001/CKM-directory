@@ -21,7 +21,7 @@
   --pad: clamp(1.1rem, 3vw, 2rem);
   --radius: 4px;
   --shadow: 0 30px 70px rgba(12, 31, 19, 0.2);
-  --header: 4.25rem;
+  --header: 3.85rem;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-smooth-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -291,7 +291,7 @@ p {
   position: fixed;
   inset: 0 0 auto;
   z-index: 40;
-  padding: 0.55rem var(--pad) 0;
+  padding: 0.45rem var(--pad) 0;
   color: var(--ivory);
   pointer-events: none;
   transition: color var(--duration-slow) var(--ease);
@@ -311,11 +311,11 @@ p {
   z-index: 0;
   width: min(calc(var(--wrap) + 1.6rem), 100%);
   margin-inline: auto;
-  min-height: calc(var(--header) - 0.95rem);
-  padding: 0 0.4rem 0 1.35rem;
+  min-height: calc(var(--header) - 0.85rem);
+  padding: 0 0.3rem 0 1.15rem;
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: 1rem;
   border-radius: 999px;
   pointer-events: auto;
 }
@@ -401,23 +401,23 @@ p {
   text-decoration: none;
   display: grid;
   line-height: 1.05;
-  min-width: 9rem;
+  min-width: 8rem;
 }
 
 .wordmark-en {
   font-family: var(--serif);
-  font-size: 1.22rem;
+  font-size: 1.1rem;
 }
 
 .wordmark-kn {
-  font-size: 0.72rem;
+  font-size: 0.66rem;
   opacity: 0.7;
   letter-spacing: 0.04em;
 }
 
 .site-nav {
   display: flex;
-  gap: 0.85rem;
+  gap: 0.8rem;
   margin-left: auto;
   flex-wrap: wrap;
   justify-content: flex-end;
@@ -425,9 +425,9 @@ p {
 
 .site-nav a {
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.84rem;
   opacity: 0.82;
-  padding: 0.35rem 0;
+  padding: 0.25rem 0;
   border-bottom: 1px solid transparent;
 }
 
@@ -451,14 +451,102 @@ p {
   background: color-mix(in srgb, currentColor 7%, transparent);
   color: inherit;
   border-radius: 999px;
-  min-height: 2.5rem;
-  padding: 0 0.9rem;
+  min-height: 2.25rem;
+  padding: 0 0.8rem;
   cursor: pointer;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
+}
+
+/* Plan my trip: the one filled control in the bar, set apart from the
+   reading links. Gold reads on both the dark and the cream glass. */
+.header-plan {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 2.3rem;
+  padding: 0.2rem 0.24rem 0.2rem 0.95rem;
+  border-radius: 999px;
+  background: var(--gold);
+  color: var(--deep);
+  text-decoration: none;
+  text-shadow: none;
+  white-space: nowrap;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    0 8px 20px -10px rgba(4, 14, 8, 0.6);
+  transition:
+    background var(--duration-fast) var(--ease),
+    box-shadow var(--duration-fast) var(--ease),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.header-plan-text {
+  display: grid;
+  line-height: 1.08;
+}
+
+.header-plan-hint {
+  font-size: 0.6rem;
+  letter-spacing: 0.02em;
+  opacity: 0.74;
+}
+
+.header-plan-label {
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.header-plan-arrow {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--deep);
+  color: var(--gold);
+  font-size: 0.8rem;
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.header-plan:hover,
+.header-plan:focus-visible {
+  background: #d8c189;
+}
+
+.header-plan:hover .header-plan-arrow,
+.header-plan:focus-visible .header-plan-arrow {
+  transform: translateX(2px);
+}
+
+.header-plan:active {
+  transform: scale(0.97);
+}
+
+.header-plan:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.header-plan.is-active {
+  box-shadow:
+    inset 0 0 0 1.5px var(--deep),
+    0 8px 20px -10px rgba(4, 14, 8, 0.6);
+}
+
+/* The menu's copy of the language switch, for narrow phones only. */
+.nav-lang {
+  display: none;
+}
+
+/* Between the full bar and the menu button there is no room for the hint. */
+@media (max-width: 1100px) {
+  .header-plan-hint {
+    display: none;
+  }
 }
 
 .header-trip {
@@ -4695,7 +4783,17 @@ main[data-page="coffee"] .origin-chapter p {
 
   .nav-toggle {
     display: inline-flex;
+    order: 3;
+  }
+
+  /* Menu collapsed: the plan button stays out on the bar, before the toggle. */
+  .header-tools {
     margin-left: auto;
+    gap: 0.45rem;
+  }
+
+  .header-inner {
+    gap: 0.45rem;
   }
 
   .site-nav {
@@ -4728,7 +4826,7 @@ main[data-page="coffee"] .origin-chapter p {
     border-bottom: 1px solid color-mix(in srgb, currentColor 10%, transparent);
   }
 
-  .site-nav a:last-child {
+  .site-nav a:last-of-type {
     border-bottom: 0;
   }
 
@@ -4753,6 +4851,61 @@ main[data-page="coffee"] .origin-chapter p {
 
   .stamp-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Narrow phones: wordmark, plan button and menu share one row; the language
+   switch moves into the menu. */
+@media (max-width: 480px) {
+  .header-inner {
+    padding-left: 0.9rem;
+  }
+
+  .wordmark {
+    min-width: 0;
+    flex: none;
+  }
+
+  .wordmark-en {
+    font-size: 0.95rem;
+  }
+
+  .header-tools .lang-toggle,
+  .header-plan-arrow {
+    display: none;
+  }
+
+  .header-plan {
+    min-height: 2.15rem;
+    padding: 0 0.8rem;
+  }
+
+  .header-plan-label {
+    font-size: 0.78rem;
+  }
+
+  .nav-toggle {
+    min-height: 2.15rem;
+    width: 2.15rem;
+  }
+
+  .site-nav .nav-lang {
+    appearance: none;
+    display: flex;
+    align-items: center;
+    min-height: 2.7rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-size: 0.84rem;
+    opacity: 0.82;
+    cursor: pointer;
+  }
+
+  .site-nav a:last-of-type {
+    border-bottom: 1px solid color-mix(in srgb, currentColor 10%, transparent);
   }
 }
 
